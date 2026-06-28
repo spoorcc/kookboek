@@ -8,10 +8,7 @@ contents (*Inhoud*) and an alphabetical *Register* (index).
 ## Requirements
 
 - **XeLaTeX** or **LuaLaTeX** (the style uses `fontspec` — plain pdfLaTeX won't work).
-- Fonts (install system-wide, or drop the `.ttf` files in a `fonts/` folder and
-  uncomment the `Path=` options in `kookboek.sty`):
-  - **EB Garamond** — https://fonts.google.com/specimen/EB+Garamond
-  - **Nothing You Could Do** — https://fonts.google.com/specimen/Nothing+You+Could+Do
+- Fonts are vendored in `fonts/` — no system installation needed.
   - *(optional)* **Juliana** (Sem Hartz) for the family name on the cover — a
     licensed face; falls back to EB Garamond until you add it.
 

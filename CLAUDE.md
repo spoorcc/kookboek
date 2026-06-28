@@ -6,13 +6,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A vintage, two-color family cookbook (*Kookboek — Familie Spoor*) typeset in LaTeX. Output is `main.pdf` at 19 × 24 cm trim.
 
+## Development environment
+
+Open the repo in VS Code and choose **Reopen in Container**. The devcontainer (`.devcontainer/devcontainer.json` + `Dockerfile`) provides:
+
+- **texlive/texlive** (full TeX Live) with XeLaTeX and `latexmk`
+- **EB Garamond** and **Nothing You Could Do** vendored as TTF files in `fonts/`
+- **LaTeX Workshop** VS Code extension (auto-builds on save)
+- **Claude Code** VS Code extension
+
 ## Build
 
 ```sh
-latexmk -xelatex main.tex
+./build.sh
 ```
 
-Requires **XeLaTeX** (not pdfLaTeX) and two fonts installed system-wide: **EB Garamond** and **Nothing You Could Do** (both on Google Fonts). Alternatively, drop the `.ttf` files in `fonts/` and uncomment the `Path=` lines in `kookboek.sty`.
+This runs `latexmk -xelatex main.tex` and writes `main.pdf`. Fonts are vendored in `fonts/` so no system-level font installation is needed.
 
 For a manual build (needed when `latexmk` is unavailable):
 ```sh

@@ -37,13 +37,20 @@
 % ----------------------------------------------------------------------------
 \RequirePackage{fontspec}
 \setmainfont{EB Garamond}[
-  % Path = fonts/ , Extension = .ttf ,
-  % UprightFont = *-Regular, ItalicFont = *-Italic, BoldFont = *-SemiBold,
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = EBGaramond-Regular, ItalicFont = EBGaramond-Italic, BoldFont = EBGaramond-SemiBold,
   Ligatures = TeX, Numbers = OldStyle ]
-\newfontfamily\handfont{Nothing You Could Do}[Ligatures=TeX]
+\newfontfamily\handfont{Nothing You Could Do}[
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = NothingYouCouldDo-Regular,
+  Ligatures = TeX]
 % Family name on the cover. Swap "EB Garamond" for "Juliana" if you license it.
-\newfontfamily\julianafont{EB Garamond}[Numbers=Lining]
+\newfontfamily\julianafont{EB Garamond}[
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = EBGaramond-Regular,
+  Numbers = Lining]
 
+\RequirePackage{amssymb}
 \RequirePackage{microtype}
 
 % ----------------------------------------------------------------------------
