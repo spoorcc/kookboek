@@ -1,0 +1,45 @@
+name: Build PDF
+
+on:
+  push:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-fonts-extra \
+            texlive-pictures \
+            latexmk
+
+      - name: Install fonts
+        run: |
+          sudo apt-get install -y fonts-ebgaramond
+          # Nothing You Could Do is not in Ubuntu packages — fetch TTF from Google Fonts
+          # (old Firefox UA forces TTF response instead of WOFF2)
+          NYCD_URL=$(curl -s \
+            -A "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0" \
+            "https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" \
+            | grep -oP 'url\(\K[^)]+')
+          curl -sL "$NYCD_URL" -o /tmp/NothingYouCouldDo.ttf
+          sudo install -Dm644 /tmp/NothingYouCouldDo.ttf \
+            /usr/local/share/fonts/NothingYouCouldDo.ttf
+          sudo fc-cache -f
+
+      - name: Build PDF
+        run: latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: kookboek
+          path: main.pdf
+          retention-days: 30
