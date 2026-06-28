@@ -32,55 +32,6 @@ xelatex main.tex
 
 Output: `main.pdf` at 19 × 24 cm trim.
 
-## Layout of the repo
-
-```
-main.tex                 cover, front matter, chapter order, prints Inhoud + Register
-kookboek.sty             all styling + recipe macros (\recipe, \ing, \tip, etc.)
-frontmatter/voorwoord.tex
-recipes/
-  risotto.tex            Tomaten-pestorisotto
-  venkelworstpasta.tex   Pasta met venkelworst & kool
-  shakshuka.tex
-  jambalaya.tex          ingredients + cajun blend; method left blank to fill in
-  bloemkoolpasta.tex
-  pita.tex               Puffy pita
-```
-
-## Adding a recipe
-
-1. Create `recipes/yourdish.tex`:
-
-   ```latex
-   \begin{recipe}{Naam van het gerecht}
-   \kicker{Hoofdgerecht · vegetarisch}
-   \index[register]{Naam van het gerecht}
-
-   \heroplaceholder{handgetekende illustratie}
-   \meta{30 minuten \dvd Voor 4 personen \dvd Italiaans}
-
-   \lettrine{E}{erste} woord van de inleiding ...
-
-   \blockrule{Ingrediënten}
-   \begin{ingredients}
-     \ing{200 g}{een ingrediënt}\index[register]{Een ingrediënt}
-     \ingb{iets op gevoel}        % bullet, no amount
-   \end{ingredients}
-
-   \blockrule{Bereiding}
-   \tip{Een tip van Ben.}
-   \ingredientsketch{schets in de kantlijn}
-   \begin{steps}
-     \item Eerste stap.
-   \end{steps}
-   \end{recipe}
-   ```
-
-2. `\input{recipes/yourdish}` under the right `\chapter{...}` (category) in `main.tex`.
-
-The *Inhoud* (chapters = categories, sections = recipes) and the *Register*
-(`\index[register]{...}` entries) update automatically on the next build.
-
 ## Swapping placeholders for real drawings
 
 Replace `\heroplaceholder{caption}` with `\heroimage{path/to/drawing.png}{caption}`,
