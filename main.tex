@@ -1,0 +1,93 @@
+% =============================================================================
+%  Kookboek — Familie Spoor
+%  Build:  latexmk -xelatex main.tex      (or run xelatex twice + makeindex)
+%  Needs:  XeLaTeX, fonts EB Garamond + Nothing You Could Do (see kookboek.sty)
+% =============================================================================
+\documentclass[11pt, twoside, openany]{book}
+\usepackage{kookboek}
+
+\renewcommand{\contentsname}{Inhoud}
+
+\begin{document}
+
+% ---------------------------------------------------------------- COVER -------
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[ink, line width=1.2pt]
+    ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
+    ([shift={(-1.6cm,-1.6cm)}]current page.north east);
+  \draw[terracotta, line width=0.5pt]
+    ([shift={(2.0cm,2.0cm)}]current page.south west) rectangle
+    ([shift={(-2.0cm,-2.0cm)}]current page.north east);
+\end{tikzpicture}
+
+\vspace*{2.2cm}
+{\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=24.0}Familierecepten · bijeengebracht met zorg}\par
+\vspace{2.4cm}
+{\handfont\fontsize{52}{52}\selectfont\color{terracotta}Ons}\par
+\vspace{2pt}
+{\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
+\vspace{0.7cm}
+{\color{terracotta}\rule{2.2cm}{0.4pt}\;\raisebox{-0.2ex}{$\blacklozenge$}\;\rule{2.2cm}{0.4pt}}\par
+\vspace{0.5cm}
+{\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Recepten van de familie}\par
+\vspace{4pt}
+{\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
+
+\vfill
+% --- Cover illustration placeholder -----------------------------------------
+\begin{tikzpicture}
+  \node[draw=terracotta, line width=0.4pt, minimum width=7cm, minimum height=7cm,
+        inner sep=0, text=terracotta, font=\itshape, align=center]
+        {stilleven —\\ keuken \& oogst};
+\end{tikzpicture}\par
+\vspace{4pt}
+{\footnotesize\itshape\color{terracotta}handgetekend stilleven voor de omslag}\par
+\vfill
+
+{\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Bereid met liefde · Anno MMXXVI}\par
+\vspace*{1.4cm}
+\end{titlepage}
+
+% ------------------------------------------------------------- FRONT MATTER ---
+\frontmatter
+\pagestyle{plain}
+\input{frontmatter/voorwoord}
+
+\cleardoublepage
+\renewcommand{\contentsname}{Inhoud}
+{\par\vspace*{0.4cm}\handfont\fontsize{60}{60}\selectfont\color{terracotta}Inhoud\par
+ \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+ \vspace{6pt}\itshape\small\color{inkfaint}Onze gerechten, geordend per categorie.\par\vspace{1.2em}}
+% The table of contents is the category lookup: chapters = categories,
+% sections = recipes. (\tableofcontents reads the .toc from the previous run.)
+\begingroup
+  \renewcommand{\contentsname}{}
+  \tableofcontents
+\endgroup
+
+% ----------------------------------------------------------------- RECIPES ----
+\mainmatter
+\pagestyle{fancy}
+
+\chapter{Hoofdgerechten}
+\input{recipes/risotto}
+\input{recipes/venkelworstpasta}
+\input{recipes/shakshuka}
+\input{recipes/jambalaya}
+\input{recipes/bloemkoolpasta}
+
+\chapter{Brood \& basis}
+\input{recipes/pita}
+
+% ----------------------------------------------------------------- REGISTER ---
+\backmatter
+\cleardoublepage
+{\par\vspace*{0.4cm}\handfont\fontsize{60}{60}\selectfont\color{terracotta}Register\par
+ \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+ \vspace{6pt}\itshape\small\color{inkfaint}Alfabetisch op gerecht en hoofdingrediënt.\par\vspace{1.0em}}
+\printindex[register]
+
+\end{document}
