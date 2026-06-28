@@ -10,25 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          load: true
-          tags: kookboek-latex:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
       - name: Build PDF
-        run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/work" \
-            -w /work \
-            kookboek-latex:latest \
-            bash build.sh
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
