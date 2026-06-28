@@ -19,6 +19,7 @@ jobs:
             texlive-fonts-extra \
             texlive-pictures \
             latexmk
+          sudo tlmgr install lettrine
 
       - name: Install fonts
         run: |
