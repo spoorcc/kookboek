@@ -8,20 +8,20 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 - [ ] Aardappelen / groente / vlees
 - [x] Aubergine met tahini dip
-- [ ] Bobotie
+- [x] Bobotie
 - [ ] Boerenomelet
 - [ ] Burritos
 - [ ] Chili con carne
 - [x] Fajitas
 - [ ] Falafel
-- [ ] Flammkuchen
+- [x] Flammkuchen
 - [ ] Gnocchi
 - [ ] Hamburgers
 - [x] Jambalaya
-- [ ] Kofta
+- [x] Kofta
 - [ ] Kokos vis
 - [ ] Lasagne
-- [ ] Lasagne asperge
+- [x] Lasagne asperge
 - [ ] Lekkerbekjes, aardappelkroketjes, sla
 - [ ] Mac 'n cheese
 - [ ] Moussaka
@@ -47,11 +47,11 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 ## Pasta
 
-- [ ] Pasta alla norma
+- [x] Pasta alla norma
 - [ ] Pasta alla scarapiello
 - [ ] Pasta amatriciana
-- [ ] Pasta blauwe kaas
-- [ ] Pasta bloemkool, spekjes, erwtjes, room
+- [x] Pasta blauwe kaas
+- [x] Pasta bloemkool, spekjes, erwtjes, room
 - [ ] Pasta carbonara
 - [ ] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
 - [ ] Pasta pesto met gegrilde kip
@@ -69,18 +69,18 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Quiche — Gemengde groente
 - [ ] Quiche — Ham kaas
 - [ ] Quiche — Prei
-- [ ] Quiche — Spinazie
-- [ ] Quiche taartjes met aardappelkorst
+- [x] Quiche — Spinazie
+- [x] Quiche taartjes met aardappelkorst
 
 ## Salade & bijgerecht
 
 - [ ] Asperges
 - [ ] Bonensalade (lima / reuzen) met peterselie
-- [ ] Couscous
+- [x] Couscous
 - [ ] Ovenfriet
 - [ ] Quesadillas
 - [ ] Witlofsalade
 
 ## Soep
 
-- [ ] Tomatensoep
+- [x] Tomatensoep
