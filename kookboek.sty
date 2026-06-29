@@ -1,5 +1,5 @@
 % kookboek.sty — Familie Spoor kookboek style
-% Vintage two-color cookbook: cream paper, EB Garamond + handwriting accent.
+% Printed black-ink on sepia paper — all colours are greyscale.
 % Engine: XeLaTeX or LuaLaTeX (needs fontspec). Build with: latexmk -xelatex main.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{kookboek}[2026/06/28 Familie Spoor kookboek]
@@ -15,17 +15,16 @@
 ]{geometry}
 
 % ----------------------------------------------------------------------------
-% Colours — two-color print: ink + terracotta spot, olive as occasional accent.
+% Colours — greyscale for black-ink print on sepia paper.
+% No background set: the physical paper provides the warm tone.
 % ----------------------------------------------------------------------------
 \RequirePackage{xcolor}
-\definecolor{paper}{HTML}{F4ECD8}
-\definecolor{ink}{HTML}{2E2A22}
-\definecolor{terracotta}{HTML}{8A5A3A}
-\definecolor{olive}{HTML}{6B6F4A}
-\definecolor{inkfaint}{HTML}{5B4A32}
+\definecolor{paper}{HTML}{FFFFFF}   % used only for fcolorbox fills
+\definecolor{ink}{HTML}{000000}
+\definecolor{terracotta}{HTML}{555555}  % mid-grey accent (was terracotta)
+\definecolor{olive}{HTML}{888888}
+\definecolor{inkfaint}{HTML}{888888}
 
-\RequirePackage{pagecolor}
-\pagecolor{paper}
 \color{ink}
 
 % ----------------------------------------------------------------------------

@@ -15,6 +15,18 @@
 \thispagestyle{empty}
 \centering
 \begin{tikzpicture}[remember picture, overlay]
+  % Full-bleed image — scaled to page width, crops ~2 cm symmetrically top/bottom
+  \node[inner sep=0, outer sep=0] at (current page.center) {%
+    \includegraphics[width=\paperwidth]{images/pasta}};
+  % Translucent paper-coloured band behind the title block
+  \fill[paper, fill opacity=0.88]
+    ([shift={(1.6cm,15.5cm)}]current page.south west) rectangle
+    ([shift={(-1.6cm,-1.6cm)}]current page.north east);
+  % Translucent strip behind the footer line
+  \fill[paper, fill opacity=0.88]
+    ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
+    ([shift={(-1.6cm,3.0cm)}]current page.south west);
+  % Decorative border
   \draw[ink, line width=1.2pt]
     ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
     ([shift={(-1.6cm,-1.6cm)}]current page.north east);
@@ -23,32 +35,21 @@
     ([shift={(-2.0cm,-2.0cm)}]current page.north east);
 \end{tikzpicture}
 
-\vspace*{2.2cm}
+\vspace*{0.2cm}
 {\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=24.0}Familierecepten · bijeengebracht met zorg}\par
-\vspace{2.4cm}
-{\handfont\fontsize{52}{52}\selectfont\color{terracotta}Ons}\par
-\vspace{2pt}
+\vspace{0.2cm}
 {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-\vspace{0.7cm}
+\vspace{0.3cm}
 {\color{terracotta}\rule{2.2cm}{0.4pt}\;\raisebox{-0.2ex}{$\blacklozenge$}\;\rule{2.2cm}{0.4pt}}\par
-\vspace{0.5cm}
+\vspace{0.2cm}
 {\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Recepten van de familie}\par
 \vspace{4pt}
 {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
 
 \vfill
-% --- Cover illustration placeholder -----------------------------------------
-\begin{tikzpicture}
-  \node[draw=terracotta, line width=0.4pt, minimum width=7cm, minimum height=7cm,
-        inner sep=0, text=terracotta, font=\itshape, align=center]
-        {stilleven —\\ keuken \& oogst};
-\end{tikzpicture}\par
-\vspace{4pt}
-{\footnotesize\itshape\color{terracotta}handgetekend stilleven voor de omslag}\par
-\vfill
 
-{\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Bereid met liefde · Anno MMXXVI}\par
-\vspace*{1.4cm}
+{\footnotesize\scshape\color{ink}\addfontfeatures{LetterSpace=18.0}Bereid met liefde · Anno MMXXVI}\par
+\vspace*{0.4cm}
 \end{titlepage}
 
 % ------------------------------------------------------------- FRONT MATTER ---
