@@ -7,9 +7,9 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
 1. **Parse the pasted recipe.** Extract:
    - Dish name (Dutch if the source is Dutch, otherwise translate)
    - Category (Hoofdgerecht / Bijgerecht / Soep / Salade / Brood & basis / Dessert / etc.)
-   - Estimated cooking time and number of servings — adjust servings to **2 adults + 3 children** if not already
+   - Estimated cooking time and number of servings — use the original; do **not** scale to a target headcount
    - Cuisine or style tag (optional)
-   - Ingredients with amounts
+   - Ingredients with amounts — use the original amounts exactly; do **not** scale or adjust them
    - Preparation steps
    - Any tip worth calling out in a `\tip{}`
 
@@ -23,7 +23,7 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
 \index[register]{Naam van het gerecht}
 \index[register]{Hoofdingredient}     % add 2-4 index entries for key ingredients
 
-\meta{XX minuten \dvd Voor 5 personen \dvd Keuken}
+\meta{XX minuten \dvd Voor N personen \dvd Keuken}
 
 \lettrine{E}{erste} woord van een korte, neutrale inleiding van 2-3 zinnen.
 % Plain language, no em-dashes, no emoticons, no superlatives.
@@ -36,7 +36,6 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
 
 \blockrule{Bereiding}
 \tip{Een praktische kooktip.}          % only if a genuine tip exists
-\ingredientsketch{hoofdingredient}     % label for the margin sketch placeholder
 \begin{steps}
   \item Eerste stap.
 \end{steps}
