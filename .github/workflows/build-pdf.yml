@@ -15,12 +15,14 @@ jobs:
         with:
           root_file: main.tex
           latexmk_use_xelatex: true
+          extra_system_packages: ""
+          args: -xelatex -jobname=KookboekFamilieSpoor
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: kookboek
-          path: main.pdf
+          path: KookboekFamilieSpoor.pdf
           retention-days: 30
 
   release:
@@ -42,5 +44,5 @@ jobs:
           tag_name: latest
           name: Latest
           draft: true
-          files: main.pdf
+          files: KookboekFamilieSpoor.pdf
           body: "Built from `${{ github.sha }}`"
