@@ -23,7 +23,6 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
 \index[register]{Naam van het gerecht}
 \index[register]{Hoofdingredient}     % add 2-4 index entries for key ingredients
 
-\heroplaceholder{handgetekende illustratie van het opgemaakte bord}
 \meta{XX minuten \dvd Voor 5 personen \dvd Keuken}
 
 \lettrine{E}{erste} woord van een korte, neutrale inleiding van 2-3 zinnen.
