@@ -24,7 +24,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Lasagne asperge
 - [ ] Lekkerbekjes, aardappelkroketjes, sla
 - [ ] Mac 'n cheese
-- [ ] Moussaka
+- [x] Moussaka
 - [x] Nasi
 - [ ] Paella
 - [x] Pannenkoeken
@@ -66,9 +66,9 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 ## Quiche
 
-- [ ] Quiche — Gemengde groente
-- [ ] Quiche — Ham kaas
-- [ ] Quiche — Prei
+- [x] Quiche — Gemengde groente
+- [x] Quiche — Ham kaas
+- [x] Quiche — Prei
 - [x] Quiche — Spinazie
 - [x] Quiche taartjes met aardappelkorst
 
