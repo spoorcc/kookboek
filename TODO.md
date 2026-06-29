@@ -39,7 +39,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Stamppot — Andijvie
 - [ ] Stamppot — Boerenkool
 - [ ] Stamppot — Pompoen
-- [ ] Stamppot — Spruiten
+- [x] Stamppot — Spruiten
 - [ ] Stamppot — Wortel/ui
 - [ ] Tortellini al forno
 - [ ] Wokgerecht noodles
