@@ -48,11 +48,11 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 ## Pasta
 
 - [x] Pasta alla norma
-- [ ] Pasta alla scarapiello
+- [x] Pasta alla scarapiello
 - [ ] Pasta amatriciana
 - [x] Pasta blauwe kaas
 - [x] Pasta bloemkool, spekjes, erwtjes, room
-- [ ] Pasta carbonara
+- [x] Pasta carbonara
 - [ ] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
 - [ ] Pasta pesto met gegrilde kip
 - [ ] Pasta prei, hamblokjes, zwarte olijven
