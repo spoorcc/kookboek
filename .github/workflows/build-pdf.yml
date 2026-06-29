@@ -16,9 +16,31 @@ jobs:
           root_file: main.tex
           latexmk_use_xelatex: true
 
-      - name: Upload PDF
+      - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: kookboek
           path: main.pdf
           retention-days: 30
+
+  release:
+    needs: build-pdf
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download PDF
+        uses: actions/download-artifact@v4
+        with:
+          name: kookboek
+
+      - name: Update latest draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest
+          draft: true
+          files: main.pdf
+          body: "Built from `${{ github.sha }}`"
