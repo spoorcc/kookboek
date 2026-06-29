@@ -12,7 +12,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Boerenomelet
 - [ ] Burritos
 - [ ] Chili con carne
-- [ ] Fajitas
+- [x] Fajitas
 - [ ] Falafel
 - [ ] Flammkuchen
 - [ ] Gnocchi
@@ -31,7 +31,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Pizza il centro (harde korst)
 - [ ] Pizza zachte korst
 - [ ] Roerbak
-- [ ] Rode rijst
+- [x] Rode rijst
 - [ ] Rosti
 - [ ] Roti
 - [x] Shakshuka
