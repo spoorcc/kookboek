@@ -62,7 +62,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 - [ ] Risotto spinazie
 - [x] Risotto tomaat-pesto
-- [ ] Risotto venkel / citroen
+- [x] Risotto venkel / citroen
 
 ## Quiche
 
