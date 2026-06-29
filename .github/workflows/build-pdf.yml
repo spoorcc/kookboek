@@ -37,14 +37,10 @@ jobs:
           name: kookboek
 
       - name: Update latest draft release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.sha }}
-        run: |
-          gh release delete latest --yes --cleanup-tag --repo "$REPO" 2>/dev/null || true
-          gh release create latest main.pdf \
-            --draft \
-            --title "Latest" \
-            --notes "Built from ${SHA::7} on $(date -u '+%Y-%m-%d %H:%M UTC')" \
-            --repo "$REPO"
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest
+          draft: true
+          files: main.pdf
+          body: "Built from `${{ github.sha }}`"
