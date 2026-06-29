@@ -25,7 +25,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Lekkerbekjes, aardappelkroketjes, sla
 - [ ] Mac 'n cheese
 - [ ] Moussaka
-- [ ] Nasi
+- [x] Nasi
 - [ ] Paella
 - [x] Pannenkoeken
 - [ ] Pizza il centro (harde korst)
