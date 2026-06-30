@@ -16,13 +16,13 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Falafel
 - [x] Flammkuchen
 - [ ] Gnocchi
-- [ ] Hamburgers
+- [x] Hamburgers
 - [x] Jambalaya
 - [x] Kofta
 - [ ] Kokos vis
 - [ ] Lasagne
 - [x] Lasagne asperge
-- [ ] Lekkerbekjes, aardappelkroketjes, sla
+- [x] Lekkerbekjes, aardappelkroketjes, sla
 - [ ] Mac 'n cheese
 - [x] Moussaka
 - [x] Nasi
