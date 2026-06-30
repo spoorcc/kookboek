@@ -28,8 +28,6 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Nasi
 - [ ] Paella
 - [x] Pannenkoeken
-- [ ] Pizza il centro (harde korst)
-- [ ] Pizza zachte korst
 - [ ] Roerbak
 - [x] Rode rijst
 - [ ] Rosti
@@ -78,7 +76,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Bonensalade (lima / reuzen) met peterselie
 - [x] Couscous
 - [ ] Ovenfriet
-- [ ] Quesadillas
+- [x] Quesadillas
 - [ ] Witlofsalade
 
 ## Soep
