@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""Generate docs/recipes.json from PDF bookmarks (requires: pip install pypdf)."""
+import json
+import sys
+from pathlib import Path
+
+# Chapter-level bookmark titles that should not appear as recipe groups
+SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
+
+
+def extract(pdf_path: Path) -> list[dict]:
+    from pypdf import PdfReader
+
+    reader = PdfReader(str(pdf_path))
+    recipes: list[dict] = []
+    chapter: str | None = None
+
+    def walk(items, depth: int = 0) -> None:
+        nonlocal chapter
+        for item in items:
+            if isinstance(item, list):
+                walk(item, depth + 1)
+                continue
+            title = item.title.strip()
+            try:
+                page = reader.get_destination_page_number(item) + 1  # 1-indexed
+            except Exception:
+                page = None
+            if depth == 0:
+                if title not in SKIP:
+                    chapter = title
+            elif depth == 1 and chapter and page:
+                recipes.append({"title": title, "chapter": chapter, "page": page})
+
+    walk(reader.outline)
+    return recipes
+
+
+if __name__ == "__main__":
+    pdf = Path("KookboekFamilieSpoor.pdf")
+    if not pdf.exists():
+        sys.exit(f"ERROR: {pdf} not found — run the LaTeX build first")
+
+    data = extract(pdf)
+    if not data:
+        sys.exit(
+            "ERROR: no recipes found in PDF outline.\n"
+            "Check that hyperref is loaded and the PDF has bookmarks."
+        )
+
+    out = Path("docs/recipes.json")
+    out.parent.mkdir(exist_ok=True)
+    out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"Wrote {len(data)} recipes to {out}")
+    for r in data:
+        print(f"  p.{r['page']:3d}  [{r['chapter']}]  {r['title']}")

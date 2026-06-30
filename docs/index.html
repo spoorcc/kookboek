@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kookboek · Familie Spoor</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #f4efe4;
+      --sidebar-bg: #ede5d4;
+      --viewer-bg:  #d8cfc0;
+      --text:       #2b1d0d;
+      --muted:      #8a7362;
+      --accent:     #7a3b1e;
+      --accent2:    #b86a3a;
+      --border:     #cfc3ae;
+      --sidebar-w:  290px;
+      --header-h:   54px;
+      --footer-h:   46px;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ── Header ───────────────────────────────── */
+    header {
+      height: var(--header-h);
+      flex-shrink: 0;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .header-title h1 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      letter-spacing: 0.08em;
+    }
+
+    .header-title .sep { opacity: 0.45; font-size: 0.75rem; }
+
+    .header-title .sub {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      font-variant: small-caps;
+      opacity: 0.88;
+    }
+
+    #dl-btn {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.42);
+      padding: 5px 14px;
+      font-family: Georgia, serif;
+      font-size: 0.8rem;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      transition: background 0.18s;
+      white-space: nowrap;
+    }
+    #dl-btn:hover { background: rgba(255,255,255,0.16); }
+
+    /* ── Two-column layout ────────────────────── */
+    .layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ──────────────────────────────── */
+    aside {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.26s ease;
+    }
+
+    .search-wrap {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    #search {
+      width: 100%;
+      padding: 7px 11px;
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--muted); font-style: italic; }
+
+    #recipe-list {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 16px;
+    }
+    #recipe-list::-webkit-scrollbar { width: 5px; }
+    #recipe-list::-webkit-scrollbar-track { background: transparent; }
+    #recipe-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .ch-label {
+      padding: 13px 14px 4px;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: bold;
+    }
+    .ch-label:not(:first-child) {
+      margin-top: 6px;
+      border-top: 1px solid var(--border);
+    }
+
+    .recipe-row {
+      padding: 7px 14px 7px 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text);
+      border-left: 3px solid transparent;
+      transition: background 0.12s;
+      user-select: none;
+    }
+    .recipe-row:hover { background: rgba(0,0,0,0.06); }
+    .recipe-row.active {
+      background: var(--accent);
+      color: #fff;
+      border-left-color: var(--accent2);
+    }
+    .recipe-row.hidden { display: none; }
+
+    /* ── Viewer ───────────────────────────────── */
+    main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--viewer-bg);
+      overflow: hidden;
+    }
+
+    #canvas-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px;
+      overflow: auto;
+      position: relative;
+    }
+
+    .pdf-page {
+      display: none;
+      box-shadow: 0 4px 22px rgba(0,0,0,0.38);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    #welcome {
+      text-align: center;
+      color: var(--muted);
+      max-width: 340px;
+      padding: 20px;
+    }
+    #welcome h2 {
+      font-weight: normal;
+      font-size: 1.55rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    #welcome .orn { color: var(--accent2); margin: 12px 0; font-size: 1rem; }
+    #welcome p { font-style: italic; line-height: 1.65; font-size: 0.92rem; }
+
+    #loading-msg {
+      display: none;
+      position: absolute;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    /* ── Viewer footer ────────────────────────── */
+    #viewer-bar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: var(--footer-h);
+      border-top: 1px solid var(--border);
+      background: var(--sidebar-bg);
+      flex-shrink: 0;
+      padding: 0 14px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 5px 15px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-size: 0.82rem;
+      color: var(--text);
+      border-radius: 2px;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    #page-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    /* ── Mobile ───────────────────────────────── */
+    #back-mobile { display: none; }
+
+    @media (max-width: 680px) {
+      :root { --sidebar-w: 100%; }
+
+      aside {
+        position: absolute;
+        inset: var(--header-h) 0 0 0;
+        z-index: 30;
+        width: 100%;
+      }
+      aside.slide-out { transform: translateX(-100%); }
+
+      #back-mobile { display: block; }
+      #viewer-bar { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">
+    <h1>Kookboek</h1>
+    <span class="sep">♦</span>
+    <span class="sub">Familie Spoor</span>
+  </div>
+  <a id="dl-btn" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Downloaden</a>
+</header>
+
+<div class="layout">
+
+  <aside id="sidebar">
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Zoek een recept…" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="recipe-list">
+      <div style="padding:20px 14px;color:var(--muted);font-style:italic;font-size:0.9rem">Recepten laden…</div>
+    </div>
+  </aside>
+
+  <main>
+    <div id="canvas-area">
+      <div id="welcome">
+        <h2>Recepten van de familie</h2>
+        <div class="orn">♦</div>
+        <p>Kies een recept uit de lijst om het te lezen. Gebruik het zoekvak bovenin om snel te vinden wat je zoekt.</p>
+      </div>
+      <div id="loading-msg">Laden…</div>
+      <canvas id="canvas-l" class="pdf-page"></canvas>
+      <canvas id="canvas-r" class="pdf-page"></canvas>
+    </div>
+
+    <div id="viewer-bar">
+      <button class="nav-btn" id="back-mobile" onclick="showSidebar()">← Lijst</button>
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Vorige</button>
+      <span id="page-label"></span>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Volgende →</button>
+    </div>
+  </main>
+
+</div>
+
+<!-- PDF.js 3.11.174 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+'use strict';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let pdf     = null;   // PdfDocumentProxy
+let recipes = [];     // [{title, chapter, page}, ...]
+let curPage = 1;      // left page currently shown
+
+// ── Init ──────────────────────────────────────────────────────────────────
+
+async function init() {
+  // Load recipe index
+  try {
+    const res = await fetch('recipes.json');
+    if (!res.ok) throw new Error(res.statusText);
+    recipes = await res.json();
+    buildSidebar(recipes);
+  } catch (err) {
+    document.getElementById('recipe-list').innerHTML =
+      '<div style="padding:16px;color:var(--accent);font-size:.88rem">' +
+      'Receptenlijst niet beschikbaar.</div>';
+    return;
+  }
+
+  // Load PDF in background — viewer stays on welcome screen until first click
+  pdfjsLib.getDocument('KookboekFamilieSpoor.pdf').promise
+    .then(doc => { pdf = doc; })
+    .catch(err => console.warn('PDF laden mislukt:', err));
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────
+
+function buildSidebar(list) {
+  const container = document.getElementById('recipe-list');
+  container.innerHTML = '';
+  let chapter = null;
+
+  list.forEach((r, i) => {
+    if (r.chapter !== chapter) {
+      chapter = r.chapter;
+      const h = document.createElement('div');
+      h.className = 'ch-label';
+      h.textContent = r.chapter;
+      h.dataset.chapter = r.chapter;
+      container.appendChild(h);
+    }
+    const row = document.createElement('div');
+    row.className = 'recipe-row';
+    row.textContent = r.title;
+    row.dataset.idx = i;
+    row.addEventListener('click', () => openRecipe(i, row));
+    container.appendChild(row);
+  });
+}
+
+// ── Open recipe ───────────────────────────────────────────────────────────
+
+function openRecipe(idx, rowEl) {
+  document.querySelectorAll('.recipe-row.active').forEach(e => e.classList.remove('active'));
+  rowEl.classList.add('active');
+  curPage = recipes[idx].page;
+  renderSpread(curPage);
+
+  if (window.innerWidth <= 680) {
+    document.getElementById('sidebar').classList.add('slide-out');
+  }
+}
+
+function showSidebar() {
+  document.getElementById('sidebar').classList.remove('slide-out');
+}
+
+// ── PDF rendering ─────────────────────────────────────────────────────────
+
+async function renderSpread(leftPage) {
+  if (!pdf) {
+    // PDF may still be loading — retry shortly
+    setTimeout(() => renderSpread(leftPage), 300);
+    return;
+  }
+
+  const area   = document.getElementById('canvas-area');
+  const cl     = document.getElementById('canvas-l');
+  const cr     = document.getElementById('canvas-r');
+  const bar    = document.getElementById('viewer-bar');
+  const lmsg   = document.getElementById('loading-msg');
+  const welcome = document.getElementById('welcome');
+
+  welcome.style.display = 'none';
+  lmsg.style.display    = 'block';
+  cl.style.display      = 'none';
+  cr.style.display      = 'none';
+  bar.style.display     = 'flex';
+
+  const total     = pdf.numPages;
+  const wide      = area.clientWidth > 620;   // show 2 pages on wide screens
+  const showRight = wide && leftPage + 1 <= total;
+
+  const hPad = 36 * (showRight ? 2 : 1) + (showRight ? 10 : 0);
+  const vPad = 36;
+  const availW = (area.clientWidth  - hPad)  / (showRight ? 2 : 1);
+  const availH =  area.clientHeight - vPad;
+
+  try {
+    await renderPage(leftPage, cl, availW, availH);
+    cl.style.display = 'block';
+
+    if (showRight) {
+      await renderPage(leftPage + 1, cr, availW, availH);
+      cr.style.display = 'block';
+    }
+  } catch (err) {
+    console.error('Render error:', err);
+  }
+
+  lmsg.style.display = 'none';
+
+  // Footer
+  const lo = leftPage, hi = showRight ? leftPage + 1 : leftPage;
+  document.getElementById('page-label').textContent =
+    lo === hi ? `pagina ${lo}` : `pagina ${lo} – ${hi}`;
+  document.getElementById('prev-btn').disabled = leftPage <= 1;
+  document.getElementById('next-btn').disabled = hi >= total;
+}
+
+async function renderPage(pageNum, canvas, maxW, maxH) {
+  const page = await pdf.getPage(pageNum);
+  const base = page.getViewport({ scale: 1 });
+  const scale = Math.min(maxW / base.width, maxH / base.height, 3.0);
+  const vp    = page.getViewport({ scale });
+  const dpr   = window.devicePixelRatio || 1;
+
+  canvas.style.width  = vp.width  + 'px';
+  canvas.style.height = vp.height + 'px';
+  canvas.width        = Math.round(vp.width  * dpr);
+  canvas.height       = Math.round(vp.height * dpr);
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────
+
+function navigate(dir) {
+  if (!pdf) return;
+  const area  = document.getElementById('canvas-area');
+  const step  = area.clientWidth > 620 ? 2 : 1;
+  const total = pdf.numPages;
+  curPage = Math.max(1, Math.min(total, curPage + dir * step));
+  renderSpread(curPage);
+}
+
+// ── Search ────────────────────────────────────────────────────────────────
+
+document.getElementById('search').addEventListener('input', function () {
+  const q = this.value.toLowerCase().trim();
+
+  const rows   = document.querySelectorAll('.recipe-row');
+  const labels = document.querySelectorAll('.ch-label');
+
+  if (!q) {
+    rows.forEach(r => r.classList.remove('hidden'));
+    labels.forEach(l => l.style.display = '');
+    return;
+  }
+
+  const visible = new Set();
+  rows.forEach(r => {
+    const match = r.textContent.toLowerCase().includes(q);
+    r.classList.toggle('hidden', !match);
+    if (match) visible.add(recipes[+r.dataset.idx].chapter);
+  });
+  labels.forEach(l => {
+    l.style.display = visible.has(l.dataset.chapter) ? '' : 'none';
+  });
+});
+
+init();
+</script>
+</body>
+</html>
