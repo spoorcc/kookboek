@@ -47,7 +47,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 - [x] Pasta alla norma
 - [x] Pasta alla scarapiello
-- [ ] Pasta amatriciana
+- [x] Pasta amatriciana
 - [x] Pasta blauwe kaas
 - [x] Pasta bloemkool, spekjes, erwtjes, room
 - [x] Pasta carbonara
