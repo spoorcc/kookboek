@@ -9,7 +9,6 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Aardappelen / groente / vlees
 - [x] Aubergine met tahini dip
 - [x] Bobotie
-- [ ] Boerenomelet
 - [ ] Burritos
 - [ ] Chili con carne
 - [x] Fajitas
@@ -23,14 +22,13 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Lasagne
 - [x] Lasagne asperge
 - [x] Lekkerbekjes, aardappelkroketjes, sla
-- [ ] Mac 'n cheese
+- [x] Mac 'n cheese
 - [x] Moussaka
 - [x] Nasi
 - [ ] Paella
 - [x] Pannenkoeken
 - [ ] Roerbak
 - [x] Rode rijst
-- [ ] Rosti
 - [x] Roti
 - [x] Shakshuka
 - [x] Shoarma
