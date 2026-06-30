@@ -49,7 +49,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Pasta blauwe kaas
 - [x] Pasta bloemkool, spekjes, erwtjes, room
 - [x] Pasta carbonara
-- [ ] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
+- [x] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
 - [ ] Pasta pesto met gegrilde kip
 - [ ] Pasta prei, hamblokjes, zwarte olijven
 - [ ] Pasta tomaat / verse basilicum
