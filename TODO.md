@@ -6,7 +6,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 ## Hoofdgerechten
 
-- [ ] Aardappelen / groente / vlees
+- [x] Aardappelen / groente / vlees
 - [x] Aubergine met tahini dip
 - [x] Bobotie
 - [ ] Boerenomelet
