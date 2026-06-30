@@ -64,7 +64,7 @@
       opacity: 0.88;
     }
 
-    #dl-btn {
+    #dl-full {
       color: #fff;
       text-decoration: none;
       border: 1px solid rgba(255,255,255,0.42);
@@ -76,7 +76,7 @@
       transition: background 0.18s;
       white-space: nowrap;
     }
-    #dl-btn:hover { background: rgba(255,255,255,0.16); }
+    #dl-full:hover { background: rgba(255,255,255,0.16); }
 
     /* ── Two-column layout ────────────────────── */
     .layout {
@@ -240,6 +240,16 @@
     }
     .nav-btn:disabled { opacity: 0.3; cursor: default; }
 
+    #dl-recipe-btn {
+      display: none;
+      margin-left: 6px;
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    #dl-recipe-btn:hover:not(:disabled) { background: var(--accent2); border-color: var(--accent2); }
+    #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
+
     #page-label {
       font-size: 0.8rem;
       color: var(--muted);
@@ -275,7 +285,7 @@
     <span class="sep">♦</span>
     <span class="sub">Familie Spoor</span>
   </div>
-  <a id="dl-btn" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Downloaden</a>
+  <a id="dl-full" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Volledig boek</a>
 </header>
 
 <div class="layout">
@@ -306,6 +316,7 @@
       <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Vorige</button>
       <span id="page-label"></span>
       <button class="nav-btn" id="next-btn" onclick="navigate(1)">Volgende →</button>
+      <button class="nav-btn" id="dl-recipe-btn" onclick="downloadRecipe()">↓ Recept</button>
     </div>
   </main>
 
@@ -313,15 +324,19 @@
 
 <!-- PDF.js 3.11.174 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- pdf-lib 1.17.1 — used to extract recipe pages for download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script>
 'use strict';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-let pdf     = null;   // PdfDocumentProxy
-let recipes = [];     // [{title, chapter, page}, ...]
-let curPage = 1;      // left page currently shown
+let pdf              = null;   // pdfjsLib PdfDocumentProxy
+let pdfBytes         = null;   // ArrayBuffer — shared source for both pdf.js and pdf-lib
+let recipes          = [];     // [{title, chapter, page, endPage}, ...]
+let curPage          = 1;      // left page currently shown
+let currentRecipeIdx = null;   // index into recipes[], or null
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
@@ -332,17 +347,21 @@ async function init() {
     if (!res.ok) throw new Error(res.statusText);
     recipes = await res.json();
     buildSidebar(recipes);
-  } catch (err) {
+  } catch {
     document.getElementById('recipe-list').innerHTML =
-      '<div style="padding:16px;color:var(--accent);font-size:.88rem">' +
-      'Receptenlijst niet beschikbaar.</div>';
+      '<div style="padding:16px;color:var(--accent);font-size:.88rem">Receptenlijst niet beschikbaar.</div>';
     return;
   }
 
-  // Load PDF in background — viewer stays on welcome screen until first click
-  pdfjsLib.getDocument('KookboekFamilieSpoor.pdf').promise
-    .then(doc => { pdf = doc; })
-    .catch(err => console.warn('PDF laden mislukt:', err));
+  // Fetch PDF once; share bytes with pdf.js (via slice) and keep original for pdf-lib
+  try {
+    const response = await fetch('KookboekFamilieSpoor.pdf');
+    pdfBytes = await response.arrayBuffer();
+    // pdf.js gets its own copy so it can transfer/detach if it wants
+    pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice() }).promise;
+  } catch (e) {
+    console.warn('PDF laden mislukt:', e);
+  }
 }
 
 // ── Sidebar ───────────────────────────────────────────────────────────────
@@ -375,8 +394,11 @@ function buildSidebar(list) {
 function openRecipe(idx, rowEl) {
   document.querySelectorAll('.recipe-row.active').forEach(e => e.classList.remove('active'));
   rowEl.classList.add('active');
+  currentRecipeIdx = idx;
   curPage = recipes[idx].page;
   renderSpread(curPage);
+
+  document.getElementById('dl-recipe-btn').style.display = '';
 
   if (window.innerWidth <= 680) {
     document.getElementById('sidebar').classList.add('slide-out');
@@ -391,16 +413,15 @@ function showSidebar() {
 
 async function renderSpread(leftPage) {
   if (!pdf) {
-    // PDF may still be loading — retry shortly
     setTimeout(() => renderSpread(leftPage), 300);
     return;
   }
 
-  const area   = document.getElementById('canvas-area');
-  const cl     = document.getElementById('canvas-l');
-  const cr     = document.getElementById('canvas-r');
-  const bar    = document.getElementById('viewer-bar');
-  const lmsg   = document.getElementById('loading-msg');
+  const area    = document.getElementById('canvas-area');
+  const cl      = document.getElementById('canvas-l');
+  const cr      = document.getElementById('canvas-r');
+  const bar     = document.getElementById('viewer-bar');
+  const lmsg    = document.getElementById('loading-msg');
   const welcome = document.getElementById('welcome');
 
   welcome.style.display = 'none';
@@ -410,18 +431,16 @@ async function renderSpread(leftPage) {
   bar.style.display     = 'flex';
 
   const total     = pdf.numPages;
-  const wide      = area.clientWidth > 620;   // show 2 pages on wide screens
+  const wide      = area.clientWidth > 620;
   const showRight = wide && leftPage + 1 <= total;
 
   const hPad = 36 * (showRight ? 2 : 1) + (showRight ? 10 : 0);
-  const vPad = 36;
   const availW = (area.clientWidth  - hPad)  / (showRight ? 2 : 1);
-  const availH =  area.clientHeight - vPad;
+  const availH =  area.clientHeight - 36;
 
   try {
     await renderPage(leftPage, cl, availW, availH);
     cl.style.display = 'block';
-
     if (showRight) {
       await renderPage(leftPage + 1, cr, availW, availH);
       cr.style.display = 'block';
@@ -432,10 +451,9 @@ async function renderSpread(leftPage) {
 
   lmsg.style.display = 'none';
 
-  // Footer
-  const lo = leftPage, hi = showRight ? leftPage + 1 : leftPage;
+  const hi = showRight ? leftPage + 1 : leftPage;
   document.getElementById('page-label').textContent =
-    lo === hi ? `pagina ${lo}` : `pagina ${lo} – ${hi}`;
+    leftPage === hi ? `pagina ${leftPage}` : `pagina ${leftPage} – ${hi}`;
   document.getElementById('prev-btn').disabled = leftPage <= 1;
   document.getElementById('next-btn').disabled = hi >= total;
 }
@@ -461,11 +479,54 @@ async function renderPage(pageNum, canvas, maxW, maxH) {
 
 function navigate(dir) {
   if (!pdf) return;
-  const area  = document.getElementById('canvas-area');
-  const step  = area.clientWidth > 620 ? 2 : 1;
+  const step  = document.getElementById('canvas-area').clientWidth > 620 ? 2 : 1;
   const total = pdf.numPages;
   curPage = Math.max(1, Math.min(total, curPage + dir * step));
   renderSpread(curPage);
+}
+
+// ── Recipe download ───────────────────────────────────────────────────────
+
+async function downloadRecipe() {
+  if (currentRecipeIdx === null || !pdfBytes) return;
+
+  const btn    = document.getElementById('dl-recipe-btn');
+  const recipe = recipes[currentRecipeIdx];
+
+  btn.classList.add('busy');
+  btn.disabled = true;
+
+  try {
+    const { PDFDocument } = PDFLib;
+    const srcDoc = await PDFDocument.load(pdfBytes);
+    const newDoc = await PDFDocument.create();
+
+    // 0-indexed page range for pdf-lib
+    const from = recipe.page - 1;
+    const to   = recipe.endPage - 1;
+    const indices = Array.from({ length: to - from + 1 }, (_, i) => from + i);
+
+    const copied = await newDoc.copyPagesFrom(srcDoc, indices);
+    copied.forEach(p => newDoc.addPage(p));
+
+    const bytes = await newDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    const url   = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href     = url;
+    a.download = recipe.title + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  } catch (err) {
+    console.error('Download mislukt:', err);
+    alert('Downloaden mislukt. Gebruik "Volledig boek" als alternatief.');
+  } finally {
+    btn.classList.remove('busy');
+    btn.disabled = false;
+  }
 }
 
 // ── Search ────────────────────────────────────────────────────────────────
