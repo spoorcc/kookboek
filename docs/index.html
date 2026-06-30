@@ -8,15 +8,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:         #f4efe4;
-      --sidebar-bg: #ede5d4;
-      --viewer-bg:  #d8cfc0;
-      --text:       #2b1d0d;
-      --muted:      #8a7362;
-      --accent:     #7a3b1e;
-      --accent2:    #b86a3a;
-      --border:     #cfc3ae;
-      --sidebar-w:  290px;
+      --bg:         #ffffff;
+      --sidebar-bg: #f5f5f5;
+      --viewer-bg:  #e8e8e8;
+      --text:       #111111;
+      --muted:      #666666;
+      --accent:     #111111;
+      --accent2:    #444444;
+      --border:     #d0d0d0;
+      --sidebar-w:  300px;
       --header-h:   54px;
       --footer-h:   46px;
     }
@@ -55,19 +55,19 @@
       letter-spacing: 0.08em;
     }
 
-    .header-title .sep { opacity: 0.45; font-size: 0.75rem; }
+    .header-title .sep { opacity: 0.4; font-size: 0.75rem; }
 
     .header-title .sub {
       font-size: 0.78rem;
       letter-spacing: 0.14em;
       font-variant: small-caps;
-      opacity: 0.88;
+      opacity: 0.75;
     }
 
     #dl-full {
       color: #fff;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.42);
+      border: 1px solid rgba(255,255,255,0.35);
       padding: 5px 14px;
       font-family: Georgia, serif;
       font-size: 0.8rem;
@@ -76,7 +76,7 @@
       transition: background 0.18s;
       white-space: nowrap;
     }
-    #dl-full:hover { background: rgba(255,255,255,0.16); }
+    #dl-full:hover { background: rgba(255,255,255,0.14); }
 
     /* ── Two-column layout ────────────────────── */
     .layout {
@@ -97,10 +97,78 @@
       transition: transform 0.26s ease;
     }
 
+    /* ── Sidebar top: cover + title ───────────── */
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--accent);
+      color: #fff;
+      flex-shrink: 0;
+      border-bottom: 1px solid #000;
+    }
+
+    #cover-thumb {
+      display: none;
+      height: 72px;
+      width: auto;
+      flex-shrink: 0;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .sidebar-brand { flex: 1; min-width: 0; }
+    .sidebar-brand-main {
+      font-size: 1.05rem;
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+    }
+    .sidebar-brand-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      font-variant: small-caps;
+      opacity: 0.65;
+      margin-top: 3px;
+    }
+
+    /* ── Tabs ─────────────────────────────────── */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 9px 6px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .tab:hover:not(.active) {
+      color: var(--text);
+      background: rgba(0,0,0,0.04);
+    }
+
+    /* ── Search ───────────────────────────────── */
     .search-wrap {
-      padding: 11px 12px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
+      background: var(--bg);
     }
 
     #search {
@@ -109,7 +177,7 @@
       font-family: Georgia, serif;
       font-size: 0.88rem;
       border: 1px solid var(--border);
-      border-radius: 3px;
+      border-radius: 2px;
       background: #fff;
       color: var(--text);
       outline: none;
@@ -118,24 +186,28 @@
     #search:focus { border-color: var(--accent); }
     #search::placeholder { color: var(--muted); font-style: italic; }
 
-    #recipe-list {
+    /* ── Recipe list ──────────────────────────── */
+    #recipe-list, #register-list {
       flex: 1;
       overflow-y: auto;
       padding-bottom: 16px;
     }
-    #recipe-list::-webkit-scrollbar { width: 5px; }
-    #recipe-list::-webkit-scrollbar-track { background: transparent; }
-    #recipe-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    #recipe-list::-webkit-scrollbar,
+    #register-list::-webkit-scrollbar { width: 5px; }
+    #recipe-list::-webkit-scrollbar-track,
+    #register-list::-webkit-scrollbar-track { background: transparent; }
+    #recipe-list::-webkit-scrollbar-thumb,
+    #register-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    .ch-label {
-      padding: 13px 14px 4px;
+    .ch-label, .alpha-label {
+      padding: 12px 14px 4px;
       font-size: 0.6rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent2);
       font-weight: bold;
     }
-    .ch-label:not(:first-child) {
+    .ch-label:not(:first-child), .alpha-label:not(:first-child) {
       margin-top: 6px;
       border-top: 1px solid var(--border);
     }
@@ -156,6 +228,37 @@
       border-left-color: var(--accent2);
     }
     .recipe-row.hidden { display: none; }
+
+    /* ── Register list rows ───────────────────── */
+    .reg-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 14px 6px 18px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      color: var(--text);
+      border-left: 3px solid transparent;
+      transition: background 0.12s;
+      user-select: none;
+    }
+    .reg-row:hover { background: rgba(0,0,0,0.06); }
+    .reg-row.active {
+      background: var(--accent);
+      color: #fff;
+      border-left-color: var(--accent2);
+    }
+    .reg-row.hidden { display: none; }
+
+    .reg-pages {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-left: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .reg-row.active .reg-pages { color: rgba(255,255,255,0.55); }
 
     /* ── Viewer ───────────────────────────────── */
     main {
@@ -180,7 +283,7 @@
 
     .pdf-page {
       display: none;
-      box-shadow: 0 4px 22px rgba(0,0,0,0.38);
+      box-shadow: 0 4px 22px rgba(0,0,0,0.28);
       background: #fff;
       flex-shrink: 0;
     }
@@ -216,7 +319,7 @@
       gap: 10px;
       height: var(--footer-h);
       border-top: 1px solid var(--border);
-      background: var(--sidebar-bg);
+      background: var(--bg);
       flex-shrink: 0;
       padding: 0 14px;
     }
@@ -291,12 +394,37 @@
 <div class="layout">
 
   <aside id="sidebar">
+
+    <!-- Cover thumbnail + brand -->
+    <div class="sidebar-top">
+      <canvas id="cover-thumb" title="Voorkant — klik om te openen"></canvas>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-main">Kookboek</div>
+        <div class="sidebar-brand-sub">Familie Spoor</div>
+      </div>
+    </div>
+
+    <!-- Recepten / Register tabs -->
+    <div class="tab-bar">
+      <button class="tab active" id="tab-recepten" onclick="switchTab('recepten')">Recepten</button>
+      <button class="tab" id="tab-register" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- Search -->
     <div class="search-wrap">
       <input id="search" type="search" placeholder="Zoek een recept…" autocomplete="off" spellcheck="false">
     </div>
+
+    <!-- Recipe list -->
     <div id="recipe-list">
       <div style="padding:20px 14px;color:var(--muted);font-style:italic;font-size:0.9rem">Recepten laden…</div>
     </div>
+
+    <!-- Register list -->
+    <div id="register-list" style="display:none">
+      <div style="padding:20px 14px;color:var(--muted);font-style:italic;font-size:0.9rem">Register laden…</div>
+    </div>
+
   </aside>
 
   <main>
@@ -304,7 +432,7 @@
       <div id="welcome">
         <h2>Recepten van de familie</h2>
         <div class="orn">♦</div>
-        <p>Kies een recept uit de lijst om het te lezen. Gebruik het zoekvak bovenin om snel te vinden wat je zoekt.</p>
+        <p>Kies een recept uit de lijst om het te lezen. Gebruik het zoekvak om snel te vinden wat je zoekt.</p>
       </div>
       <div id="loading-msg">Laden…</div>
       <canvas id="canvas-l" class="pdf-page"></canvas>
@@ -332,11 +460,13 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-let pdf              = null;   // pdfjsLib PdfDocumentProxy
-let pdfBytes         = null;   // ArrayBuffer — shared source for both pdf.js and pdf-lib
-let recipes          = [];     // [{title, chapter, page, endPage}, ...]
-let curPage          = 1;      // left page currently shown
-let currentRecipeIdx = null;   // index into recipes[], or null
+let pdf              = null;
+let pdfBytes         = null;
+let recipes          = [];
+let registerData     = [];
+let curPage          = 1;
+let currentRecipeIdx = null;
+let activeTab        = 'recepten';
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
@@ -349,22 +479,78 @@ async function init() {
     buildSidebar(recipes);
   } catch {
     document.getElementById('recipe-list').innerHTML =
-      '<div style="padding:16px;color:var(--accent);font-size:.88rem">Receptenlijst niet beschikbaar.</div>';
-    return;
+      '<div style="padding:16px;color:var(--muted);font-size:.88rem">Receptenlijst niet beschikbaar.</div>';
   }
 
-  // Fetch PDF once; share bytes with pdf.js (via slice) and keep original for pdf-lib
+  // Load register index
+  try {
+    const res = await fetch('register.json');
+    if (res.ok) {
+      registerData = await res.json();
+      buildRegister(registerData);
+    } else {
+      document.getElementById('register-list').innerHTML =
+        '<div style="padding:16px;color:var(--muted);font-style:italic;font-size:.88rem">Register niet beschikbaar.</div>';
+    }
+  } catch {
+    document.getElementById('register-list').innerHTML =
+      '<div style="padding:16px;color:var(--muted);font-style:italic;font-size:.88rem">Register niet beschikbaar.</div>';
+  }
+
+  // Fetch PDF; share bytes with pdf.js and keep original for pdf-lib
   try {
     const response = await fetch('KookboekFamilieSpoor.pdf');
     pdfBytes = await response.arrayBuffer();
-    // pdf.js gets its own copy so it can transfer/detach if it wants
     pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice() }).promise;
+    renderCoverThumb();
   } catch (e) {
     console.warn('PDF laden mislukt:', e);
   }
 }
 
-// ── Sidebar ───────────────────────────────────────────────────────────────
+// ── Cover thumbnail ───────────────────────────────────────────────────────
+
+async function renderCoverThumb() {
+  if (!pdf) return;
+  const canvas = document.getElementById('cover-thumb');
+  try {
+    const page = await pdf.getPage(1);
+    const vp0   = page.getViewport({ scale: 1 });
+    const scale = 72 / vp0.height;
+    const vp    = page.getViewport({ scale });
+    const dpr   = window.devicePixelRatio || 1;
+
+    canvas.width  = Math.round(vp.width  * dpr);
+    canvas.height = Math.round(vp.height * dpr);
+    canvas.style.width  = vp.width  + 'px';
+    canvas.style.height = vp.height + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+    canvas.style.display = 'block';
+    canvas.onclick = () => { curPage = 1; renderSpread(1); };
+  } catch (e) {
+    console.warn('Cover thumbnail mislukt:', e);
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tab-recepten').classList.toggle('active', tab === 'recepten');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  document.getElementById('recipe-list').style.display   = tab === 'recepten' ? '' : 'none';
+  document.getElementById('register-list').style.display = tab === 'register'  ? '' : 'none';
+  document.getElementById('search').placeholder =
+    tab === 'recepten' ? 'Zoek een recept…' : 'Zoek in register…';
+  // Re-apply current query for the new tab
+  filterAll(document.getElementById('search').value.toLowerCase().trim());
+}
+
+// ── Sidebar — recipes ─────────────────────────────────────────────────────
 
 function buildSidebar(list) {
   const container = document.getElementById('recipe-list');
@@ -389,6 +575,50 @@ function buildSidebar(list) {
   });
 }
 
+// ── Sidebar — register ────────────────────────────────────────────────────
+
+function buildRegister(list) {
+  const container = document.getElementById('register-list');
+  container.innerHTML = '';
+
+  if (!list.length) {
+    container.innerHTML =
+      '<div style="padding:16px;color:var(--muted);font-style:italic;font-size:.88rem">Register leeg.</div>';
+    return;
+  }
+
+  let currentLetter = null;
+  list.forEach(entry => {
+    const letter = entry.entry.charAt(0).toUpperCase();
+    if (letter !== currentLetter) {
+      currentLetter = letter;
+      const h = document.createElement('div');
+      h.className = 'alpha-label';
+      h.textContent = letter;
+      h.dataset.letter = letter;
+      container.appendChild(h);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'reg-row';
+    row.dataset.entry  = entry.entry.toLowerCase();
+    row.dataset.letter = letter;
+    row.dataset.page   = entry.pages[0];
+
+    const name = document.createElement('span');
+    name.textContent = entry.entry;
+
+    const pg = document.createElement('span');
+    pg.className = 'reg-pages';
+    pg.textContent = entry.pages.join(', ');
+
+    row.appendChild(name);
+    row.appendChild(pg);
+    row.addEventListener('click', () => openRegisterEntry(entry.pages[0], row));
+    container.appendChild(row);
+  });
+}
+
 // ── Open recipe ───────────────────────────────────────────────────────────
 
 function openRecipe(idx, rowEl) {
@@ -397,12 +627,18 @@ function openRecipe(idx, rowEl) {
   currentRecipeIdx = idx;
   curPage = recipes[idx].page;
   renderSpread(curPage);
-
   document.getElementById('dl-recipe-btn').style.display = '';
+  if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
+}
 
-  if (window.innerWidth <= 680) {
-    document.getElementById('sidebar').classList.add('slide-out');
-  }
+function openRegisterEntry(page, rowEl) {
+  document.querySelectorAll('.reg-row.active').forEach(e => e.classList.remove('active'));
+  rowEl.classList.add('active');
+  currentRecipeIdx = null;
+  document.getElementById('dl-recipe-btn').style.display = 'none';
+  curPage = page;
+  renderSpread(page);
+  if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
 }
 
 function showSidebar() {
@@ -435,7 +671,7 @@ async function renderSpread(leftPage) {
   const showRight = wide && leftPage + 1 <= total;
 
   const hPad = 36 * (showRight ? 2 : 1) + (showRight ? 10 : 0);
-  const availW = (area.clientWidth  - hPad)  / (showRight ? 2 : 1);
+  const availW = (area.clientWidth  - hPad) / (showRight ? 2 : 1);
   const availH =  area.clientHeight - 36;
 
   try {
@@ -501,9 +737,8 @@ async function downloadRecipe() {
     const srcDoc = await PDFDocument.load(pdfBytes);
     const newDoc = await PDFDocument.create();
 
-    // 0-indexed page range for pdf-lib
-    const from = recipe.page - 1;
-    const to   = recipe.endPage - 1;
+    const from    = recipe.page - 1;
+    const to      = recipe.endPage - 1;
     const indices = Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
     const copied = await newDoc.copyPagesFrom(srcDoc, indices);
@@ -532,8 +767,18 @@ async function downloadRecipe() {
 // ── Search ────────────────────────────────────────────────────────────────
 
 document.getElementById('search').addEventListener('input', function () {
-  const q = this.value.toLowerCase().trim();
+  filterAll(this.value.toLowerCase().trim());
+});
 
+function filterAll(q) {
+  if (activeTab === 'recepten') {
+    filterRecipes(q);
+  } else {
+    filterRegister(q);
+  }
+}
+
+function filterRecipes(q) {
   const rows   = document.querySelectorAll('.recipe-row');
   const labels = document.querySelectorAll('.ch-label');
 
@@ -552,7 +797,28 @@ document.getElementById('search').addEventListener('input', function () {
   labels.forEach(l => {
     l.style.display = visible.has(l.dataset.chapter) ? '' : 'none';
   });
-});
+}
+
+function filterRegister(q) {
+  const rows   = document.querySelectorAll('.reg-row');
+  const labels = document.querySelectorAll('.alpha-label');
+
+  if (!q) {
+    rows.forEach(r => r.classList.remove('hidden'));
+    labels.forEach(l => l.style.display = '');
+    return;
+  }
+
+  const visibleLetters = new Set();
+  rows.forEach(r => {
+    const match = r.dataset.entry.includes(q);
+    r.classList.toggle('hidden', !match);
+    if (match) visibleLetters.add(r.dataset.letter);
+  });
+  labels.forEach(l => {
+    l.style.display = visibleLetters.has(l.dataset.letter) ? '' : 'none';
+  });
+}
 
 init();
 </script>
