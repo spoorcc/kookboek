@@ -129,3 +129,92 @@ Tomatensoep, Riso freddo, Semifreddo en IJstaart met karamel) zijn nagelopen
 en intern consistent bevonden: ingrediënten en stappen sluiten op elkaar aan,
 oventemperaturen en -tijden zijn aanwezig waar nodig, en vage hoeveelheden
 zijn steeds bewuste `\ingb`-keuzes.
+
+## Kookgerei en oliesoort
+
+Tweede controleronde, gericht op twee specifieke punten: is duidelijk wat
+voor pan of pot je moet pakken, en is duidelijk wat voor olie er bedoeld
+wordt. Door het hele boek heen staat vaak simpelweg "een pan" of "de pan",
+wat meestal geen probleem is (de meeste stappen zijn gewoon een standaard
+koekenpan). Hieronder alleen de gevallen waar dat echt verwarrend kan zijn:
+bij recepten met meerdere pannen door elkaar, of waar het type pan (dikke
+bodem, deksel, diepte) voor het resultaat uitmaakt. Bij olie geldt hetzelfde:
+de meeste recepten noemen gewoon "olijfolie", hieronder de recepten waar het
+type nergens genoemd wordt.
+
+### recipes/broodje-hamburger.tex
+- **Kookgerei**: stap 1 karameliseert de ui in "een pan op laag vuur", stap 3
+  bakt de hamburgers in "een tweede pan". Geen van beide krijgt een type. Voor
+  langzaam karameliseren werkt een pannetje met dikke bodem beter dan een
+  brede koekenpan, en voor de burgers zelf is juist een hete koekenpan of
+  grillpan handig. Dat onderscheid mag hier best genoemd worden.
+
+### recipes/bloemkoolpasta.tex
+- **Kookgerei**: "Verhit een pan en bak de spekjes" (stap 5) noemt geen type,
+  terwijl er verderop een deksel op moet (stap 7). Een pan die toch al een
+  deksel nodig heeft, mag je gerust bij naam noemen (bijv. hapjespan).
+
+### recipes/aardappel-groente-vlees.tex
+- **Kookgerei**: "bak ze in wat boter" voor de krieltjes (stap 3) noemt geen
+  pantype. Niet dramatisch, maar een koekenpan vermelden kost weinig en
+  voorkomt twijfel.
+
+### recipes/jambalaya.tex
+- **Kookgerei**: de hoofdpan waarin chorizo en kip worden gebakken en het
+  gerecht later met deksel gaart, wordt door het hele recept alleen "een pan"
+  of "de pan" genoemd. Voor een gerecht dat moet sudderen met deksel en een
+  flinke hoeveelheid rijst en vocht bevat, zou een aanduiding als hapjespan
+  of braadpan met deksel schelen.
+
+### recipes/kofta.tex
+- **Kookgerei**: de worstjes worden bruin gebakken en daarna teruggelegd om
+  te sudderen in saus, maar er wordt nooit een pantype genoemd. Dat vraagt om
+  een pan met genoeg diepte en bij voorkeur een deksel.
+
+### recipes/risotto.tex
+- **Kookgerei**: nergens in het recept staat wat voor pan je moet gebruiken.
+  Risotto is juist gebaat bij een pan met een dikke bodem, zodat de rijst
+  tijdens het lange roeren niet aanbrandt. Dat mag hier genoemd worden, zeker
+  omdat de venkelrisotto elders in het boek dit wel doet.
+
+### recipes/moussaka.tex
+- **Kookgerei**: de gehaktsaus wordt met naam gemaakt in een "hapjespan" en de
+  bechamel in een "hoge pan", maar bij het bakken van de aardappelplakken
+  staat alleen "Verhit ruim olijfolie in een pan" (stap 7). Omdat het recept
+  al twee andere pannen noemt, is niet meteen duidelijk of dit een derde,
+  bredere pan moet zijn (nodig om plakken in porties te bakken).
+
+### recipes/quiche-chorizo-geitenkaas.tex
+- **Kookgerei**: "Bak de prei in een pan met een scheutje olie" (stap 2) en
+  "Bak de chorizo in een droge pan" (stap 3) noemen geen van beide een type,
+  terwijl het onduidelijk is of dit twee verschillende pannen zijn of niet.
+- **Olie**: bij de prei staat alleen "een scheutje olie" zonder soort, terwijl
+  de andere quiches in het boek steevast olijfolie gebruiken.
+
+### recipes/quesadillas.tex
+- **Kookgerei**: de ui en paprika worden gebakken in "olijfolie" zonder
+  pantype (stap 2), en pas later wordt gesproken van "een andere koekenpan"
+  voor de quesadilla's zelf (stap 4). Het woordje "andere" impliceert dat de
+  eerste pan een ander type was, maar dat is nooit gezegd.
+
+### recipes/shoarma.tex
+- **Kookgerei**: "Bak de kipshoarma in een pan" (stap 3) noemt geen type. Voor
+  vlees dat goed moet aanbruinen en waar straks ui en paprika bij gaan is een
+  brede koekenpan of wok wel relevant om te weten.
+
+### recipes/spinazie-quiche.tex
+- **Olie**: "Fruit de rode ui en knoflook in een scheutje olie" (stap 4) zegt
+  nergens welke olie. De meeste andere recepten in het boek zijn hier wel
+  specifiek (olijfolie), dus dat mag hier ook.
+
+### recipes/pasta-carbonara.tex
+- **Kookgerei**: "Bak het spek uit op middelhoog vuur" (stap 2) noemt geen
+  pan, en dat wordt in de rest van het recept ook niet ingehaald. Een koekenpan
+  vermelden zou hier geen kwaad kunnen.
+
+De overige recepten specificeren het pantype waar dat er echt toe doet
+(bijvoorbeeld "grote pan" bij hutspot, "hapjespan" bij bloemkoolquiche en
+diverse quiches) of het gaat om een stap waar het type pan weinig verschil
+maakt (koken van water, mengen van een dressing). Oliesoort is in bijna alle
+recepten wel benoemd (meestal olijfolie, soms zonnebloemolie); de twee
+hierboven zijn de enige gevallen waar dat ontbreekt.
