@@ -294,111 +294,117 @@
     "endPage": 88
   },
   {
-    "title": "Rode Rijst",
-    "chapter": "Bijgerechten",
-    "page": 90,
-    "endPage": 90
+    "title": "Gnocchi met broccoli en spek",
+    "chapter": "Hoofdgerechten",
+    "page": 89,
+    "endPage": 89
   },
   {
-    "title": "Tarte tatin met wortels",
+    "title": "Rode Rijst",
     "chapter": "Bijgerechten",
     "page": 91,
     "endPage": 91
   },
   {
-    "title": "Groene salade",
+    "title": "Tarte tatin met wortels",
     "chapter": "Bijgerechten",
     "page": 92,
     "endPage": 92
   },
   {
-    "title": "Bonensalade met bleekselderij en citrus",
+    "title": "Groene salade",
     "chapter": "Bijgerechten",
     "page": 93,
     "endPage": 93
   },
   {
+    "title": "Bonensalade met bleekselderij en citrus",
+    "chapter": "Bijgerechten",
+    "page": 94,
+    "endPage": 94
+  },
+  {
     "title": "Pretzels",
     "chapter": "Brood & basis",
-    "page": 95,
-    "endPage": 96
+    "page": 96,
+    "endPage": 97
   },
   {
     "title": "Puffy pita",
     "chapter": "Brood & basis",
-    "page": 97,
-    "endPage": 98
+    "page": 98,
+    "endPage": 99
   },
   {
     "title": "Shoarmabroodjes",
     "chapter": "Brood & basis",
-    "page": 99,
-    "endPage": 99
+    "page": 100,
+    "endPage": 100
   },
   {
     "title": "Basismuffins",
     "chapter": "Bakken",
-    "page": 101,
-    "endPage": 101
+    "page": 102,
+    "endPage": 102
   },
   {
     "title": "Saucijzenbroodjes",
     "chapter": "Bakken",
-    "page": 102,
-    "endPage": 103
-  },
-  {
-    "title": "Wafels",
-    "chapter": "Bakken",
-    "page": 104,
+    "page": 103,
     "endPage": 104
   },
   {
-    "title": "Eierkoeken",
+    "title": "Wafels",
     "chapter": "Bakken",
     "page": 105,
     "endPage": 105
   },
   {
-    "title": "Roze koeken",
+    "title": "Eierkoeken",
     "chapter": "Bakken",
     "page": 106,
-    "endPage": 107
+    "endPage": 106
   },
   {
-    "title": "Meringues",
+    "title": "Roze koeken",
     "chapter": "Bakken",
-    "page": 108,
+    "page": 107,
     "endPage": 108
   },
   {
-    "title": "Drollenkoekjes",
+    "title": "Meringues",
     "chapter": "Bakken",
     "page": 109,
     "endPage": 109
   },
   {
-    "title": "Basiskoekjes",
+    "title": "Drollenkoekjes",
     "chapter": "Bakken",
     "page": 110,
     "endPage": 110
   },
   {
-    "title": "Semifreddo met aardbeien",
-    "chapter": "Dessert",
-    "page": 112,
-    "endPage": 112
+    "title": "Basiskoekjes",
+    "chapter": "Bakken",
+    "page": 111,
+    "endPage": 111
   },
   {
-    "title": "Tiramisu met ricotta",
+    "title": "Semifreddo met aardbeien",
     "chapter": "Dessert",
     "page": 113,
     "endPage": 113
   },
   {
-    "title": "IJstaart met karamel en chocolade",
+    "title": "Tiramisu met ricotta",
     "chapter": "Dessert",
     "page": 114,
-    "endPage": 115
+    "endPage": 114
+  },
+  {
+    "title": "IJstaart met karamel en chocolade",
+    "chapter": "Dessert",
+    "page": 115,
+    "endPage": 117
   }
 ]
