@@ -53,9 +53,14 @@
 \RequirePackage{microtype}
 
 % ----------------------------------------------------------------------------
-% Headings — chapters are CATEGORIES (Hoofdgerechten ...), sections are RECIPES.
+% Headings — chapters are CATEGORIES (Hoofdgerechten ...), sections are
+% RECIPES, subsections are GROUPS of recipes within a chapter (Pasta \&
+% risotto ...). Numbers are suppressed throughout (empty titlesec label +
+% secnumdepth capped below subsections), so nothing but the Inhoud page
+% numbers ever shows a digit.
 % ----------------------------------------------------------------------------
 \RequirePackage{titlesec}
+\setcounter{secnumdepth}{1}
 \titleformat{\chapter}[display]
   {\normalfont}
   {}
@@ -70,6 +75,18 @@
   {0pt}
   {\handfont\color{ink}\fontsize{32}{34}\selectfont}
 \titlespacing*{\section}{0pt}{6pt}{2pt}
+
+\titleformat{\subsection}[display]
+  {\normalfont}
+  {}
+  {0pt}
+  {\scshape\color{terracotta}\fontsize{15}{18}\selectfont\addfontfeatures{LetterSpace=14.0}}
+\titlespacing*{\subsection}{0pt}{0pt}{28pt}
+
+% A group divider within a chapter: starts a fresh page (like \chapter does)
+% and adds an unnumbered entry to the Inhoud, indented under the chapter.
+% Usage: \subchapter{Pasta \& risotto}
+\newcommand{\subchapter}[1]{\clearpage\subsection{#1}}
 
 % ----------------------------------------------------------------------------
 % Running heads + folio.
