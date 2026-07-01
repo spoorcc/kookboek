@@ -71,13 +71,14 @@ Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` t
 | `frontmatter/voorwoord.tex` | Foreword |
 | `recipes/*.tex` | Individual recipes, one file each |
 
-**Chapters = categories** (e.g. `\chapter{Hoofdgerechten}`), **sections = recipes** (created by the `recipe` environment). The Inhoud and Register rebuild automatically on the next LaTeX run.
+**Chapters = categories** (e.g. `\chapter{Hoofdgerechten}`), **sections = recipes** (created by the `recipe` environment), **subsections = groups of recipes within a chapter** (created by `\subchapter{…}`, e.g. `\subchapter{Pasta \& risotto}`). The Inhoud and Register rebuild automatically on the next LaTeX run.
 
 ## Macros defined in `kookboek.sty`
 
 | Macro / env | Purpose |
 |---|---|
 | `\begin{recipe}{Titel}` | Opens a new page + `\section`; close with `\end{recipe}` |
+| `\subchapter{Naam}` | Opens a new page + `\subsection`; groups recipes within a chapter, listed in the Inhoud |
 | `\kicker{…}` | Small-caps category line above the title |
 | `\meta{… \dvd … \dvd …}` | Time / servings / cuisine meta line (`\dvd` = ♦ separator) |
 | `\blockrule{Ingrediënten}` / `\blockrule{Bereiding}` | Labelled terracotta rule |
