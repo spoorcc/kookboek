@@ -297,3 +297,96 @@ bij zout en kruiden ofwel een hoeveelheid ofwel het geaccepteerde
 `\ingb{...}` + "naar smaak"-patroon, en gebruikte vaktermen (vlindermethode,
 holy trinity, blancheren bij andere recepten) worden daar wel meteen kort
 toegelicht.
+
+## Het 'waarom' bij stappen
+
+Vierde controleronde: op veel plekken staat een techniek zonder de reden
+erachter, terwijl juist dat 'waarom' een recept persoonlijk en leerzaam
+maakt (zoals de `\tip{}`'s die er al zijn: "niet te lang stampen, want dat
+wordt papperig"). Let op: hieronder staat steeds alleen dat de reden
+ontbreekt, niet wat de reden is. Dat weet alleen jij. Op de meeste plekken
+gaat het om technische redenen (structuur, vocht, textuur), maar op een paar
+plekken lijkt een stap op iets wat je zelf in het voorbeeld noemde: een
+bewuste truc om iets in kleine, onopvallende stukjes te verwerken.
+
+### De twee sterkste kandidaten voor een 'verstopte groente'-verhaal
+- **recipes/lahmacun.tex**: paprika, tomaat, rode ui en rode peper worden in
+  de keukenmachine fijngemalen tot een pasta in plaats van in stukjes verwerkt
+  te blijven. Dat kan puur voor een gelijkmatig beleg zijn, maar het patroon
+  lijkt op je tomaten-voorbeeld: fijnmalen zodat structuur en schilletjes niet
+  meer opvallen.
+- **recipes/bloemkoolpasta.tex**: "Snijd de bloemkool in kleine roosjes" krijgt
+  geen reden. Als dat inderdaad is omdat kleine stukjes minder snel worden
+  geweigerd, is dat precies het soort context dat de moeite waard is om erbij
+  te zetten.
+
+### Terugkerend patroon: waarom het deeg moet rusten
+Bij zes recepten met (bijna) hetzelfde deeg staat de rusttijd erbij zonder
+reden (gluten die ontspant, boter die weer koud wordt, minder krimp bij het
+bakken): `bloemkoolquiche.tex`, `quiche-lorraine.tex`, `quiche-ham-prei.tex`,
+`quiche-groente-cirkel.tex`, `quiche-chorizo-geitenkaas.tex`,
+`quiche-groente-geitenkaas.tex`, plus `spinazie-quiche.tex`, `pita.tex` en
+`basiskoekjes.tex` met hun eigen deeg. Omdat het bijna steeds dezelfde reden
+is, kan die één keer goed worden opgeschreven (bijvoorbeeld in de tip bij het
+basisdeeg) in plaats van in elk bestand apart.
+
+### Terugkerend patroon: waarom je aubergine eerst zout
+`recipes/parmigiana-melanzane.tex` en `recipes/pasta-alla-norma.tex` zouten
+de aubergineplakken en laten ze 10 minuten staan voor het bakken, zonder te
+zeggen waarom (vocht en bitterheid eruit trekken, zodat de plakken bij het
+bakken niet soggy worden). `recipes/moussaka.tex` bakt de aubergine juist
+zonder dit zout-stapje, wat de vraag oproept of dat bewust anders is of een
+gemiste stap.
+
+### Terugkerend patroon: waarom niet te veel tegelijk in de pan
+`recipes/parmigiana-melanzane.tex` en `recipes/pasta-alla-norma.tex` zeggen
+"werk in porties/batches" zonder te zeggen waarom (te vol de pan betekent
+stomen in plaats van bruinen). `recipes/fajitas.tex` heeft hetzelfde punt bij
+het bakken van de kipblokjes, zonder het woord batches te gebruiken.
+
+### Terugkerend patroon: waarom een droge pan bij spek of chorizo
+`recipes/mini-aardappel-quiches.tex` en `recipes/quiche-chorizo-geitenkaas.tex`
+bakken spek of chorizo in een "droge pan" zonder te zeggen dat dit kan omdat
+het vlees genoeg eigen vet loslaat. `recipes/pasta-chorizo-andijvie.tex` legt
+dit wel uit in de tip, dat zou een mooi voorbeeld zijn om elders te hergebruiken.
+
+### Losse plekken die het vermelden waard zijn
+- **recipes/broodje-hamburger.tex**: uien op laag vuur met een scheutje water
+  langzaam karamelliseren, zonder te zeggen waarom laag vuur en water nodig
+  zijn (voorkomt verbranden voor de uien zoet en zacht zijn).
+- **recipes/pizza.tex**: "kneed minstens 10 minuten, dit is het belangrijkste
+  deel van het recept" zegt wel dát het belangrijk is, niet waarom
+  (glutenontwikkeling voor een luchtige korst). Ook het uitlekken van de
+  tomatensaus en de mozzarella krijgt geen reden (voorkomt een natte bodem).
+- **recipes/pasta-blauwe-kaas.tex**: champignons op hoog vuur bakken zonder te
+  zeggen dat dit is om ze te laten bruinen in plaats van vocht te laten lossen.
+- **recipes/risotto.tex** (tomaten-pesto): de tomaten in twee fasen toevoegen
+  en de risotto na de boter en kaas een paar minuten laten rusten (het
+  klassieke "mantecare"-moment) krijgen geen van beide een reden.
+- **recipes/tortellini-al-forno.tex**: kookvocht apart houden voor de saus
+  wordt wel genoemd, maar niet waarom dat helpt (het zetmeel bindt de saus).
+- **recipes/tompouce-geitenkaas.tex**: bladerdeeg inprikken met een vork
+  zonder te zeggen dat dit te sterk opbollen voorkomt.
+- **recipes/moussaka.tex**: het gehakt door een zeef gieten om vet af te
+  gieten, en de melk apart verwarmen "niet laten koken" voor de bechamel,
+  krijgen allebei geen reden (minder vet, geen klontjes).
+- **recipes/spruitenstamp.tex**: de aardappelen laten "droogstomen" zonder te
+  zeggen dat dit een romigere stamp geeft in plaats van een waterige.
+- **recipes/roti.tex**: krieltjes "bijna gaar" voorkoken en sperziebonen
+  bewust knapperig houden, allebei zonder reden (ze garen door in de saus,
+  blijven fris naast de zachte vulling).
+- **recipes/couscous.tex** en **recipes/bobotie.tex**: respectievelijk het
+  laten staan onder een deksel (couscous gaart door de hete, opgenomen
+  vloeistof) en het voorkoken van de sperziebonen krijgen geen toelichting.
+- **recipes/asperge-lasagne.tex**: het stukje onderkant van de asperge
+  afsnijden zonder te zeggen dat dat het houtige, taaie stuk is.
+- **recipes/kofta.tex**: de worstjes eerst apart bruin bakken en later
+  teruglengen in de saus, zonder te zeggen waarom (kleur en smaak zonder ze
+  meteen gaar te stoven).
+
+Veel andere recepten doen dit juist al goed: de tips bij onder andere
+pasta carbonara (kookvocht, restwarmte), pannenkoeken (rusttijd beslag),
+gevulde varkensrollade (rusten na braden), parmigiana-melanzane (geschilde
+aubergine voor kinderen) en nasi (rijst van een dag oud) leggen het waarom
+al helder uit. Dat is precies het niveau dat de rest van het boek ook zou
+kunnen halen.
