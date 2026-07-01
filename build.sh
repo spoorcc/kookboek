@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 latexmk -xelatex -jobname=KookboekFamilieSpoor main.tex
+latexmk -xelatex -output-directory=. -jobname=KookboekFamilieSpoor-cover cover/cover.tex
 
 if ! python3 -c "import fitz" >/dev/null 2>&1; then
   pip3 install --quiet pymupdf >/dev/null 2>&1 || \

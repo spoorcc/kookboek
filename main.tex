@@ -15,9 +15,11 @@
 \thispagestyle{empty}
 \centering
 \begin{tikzpicture}[remember picture, overlay]
-  % Full-bleed image — scaled to page width, crops ~2 cm symmetrically top/bottom
+  % Inset image — kept clear of the trim edge (this page is interior trim
+  % size with no bleed; see the separate wraparound cover in cover/ for the
+  % printed cover, which does add bleed).
   \node[inner sep=0, outer sep=0] at (current page.center) {%
-    \includegraphics[width=\paperwidth]{images/pasta}};
+    \includegraphics[width=\dimexpr\paperwidth-3.2cm\relax, height=\dimexpr\paperheight-3.2cm\relax, keepaspectratio]{images/pasta}};
   % Translucent paper-coloured band behind the title block
   \fill[paper, fill opacity=0.88]
     ([shift={(1.6cm,15.5cm)}]current page.south west) rectangle
