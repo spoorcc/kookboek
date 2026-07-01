@@ -1,6 +1,8 @@
 # Review — Kookboek Familie Spoor
 
-Doorloop van alle 60 recepten in `recipes/`, op zoek naar onduidelijke stappen,
+Doorloop van alle recepten in `recipes/` (61 bij de start van deze review,
+inmiddels 71 door latere toevoegingen, zie de update na de rebase verderop),
+op zoek naar onduidelijke stappen,
 ontbrekende of niet-gebruikte ingrediënten, en hoeveelheden die niet kloppen of
 ontbreken. Puur bewuste `\ingb`-items ("naar smaak", "op gevoel") zijn niet
 meegenomen, dat is een gekozen stijl in het boek. Hieronder alleen recepten
@@ -390,3 +392,151 @@ gevulde varkensrollade (rusten na braden), parmigiana-melanzane (geschilde
 aubergine voor kinderen) en nasi (rijst van een dag oud) leggen het waarom
 al helder uit. Dat is precies het niveau dat de rest van het boek ook zou
 kunnen halen.
+
+## Update na rebase: acht nieuwe recepten
+
+De branch is opnieuw op `main` gebaseerd. Daarbij kwamen 8 nieuwe recepten
+mee die nog niet eerder gecontroleerd waren: `roerbak-kip-cashewnoten.tex`,
+`kip-madras.tex`, `couscous-feta-rozijnen.tex`, `gnocchi-broccoli.tex`,
+`pastinaaksoep.tex`, `pide.tex`, `basismuffins.tex` en `pasta-bolognese.tex`.
+De overige recepten waren ongewijzigd, dus de bevindingen hierboven staan
+nog overeind. Deze acht zijn nu alsnog langs alle eerdere controles gehaald:
+
+### recipes/pide.tex
+- **Vage hoeveelheid**: de vulling gehakt-tomaat gebruikt 5 el olijfolie om
+  250 g gehakt te bakken, terwijl de vulling spinazie-feta voor een
+  vergelijkbare hoeveelheid groente maar 1 el gebruikt. Dat verschil is groot
+  genoeg om een tikfout te vermoeden.
+- **Zout/kruiden**: de vulling gehakt-tomaat heeft nergens zout of peper,
+  niet in de ingrediëntenlijst en niet in de stappen, terwijl de vulling
+  spinazie-feta dat wel expliciet heeft (`\ingb{zout en peper}`).
+- **Waarom**: het deeg moet 1 tot 1,5 uur rijzen zonder dat er een reden bij
+  staat (zelfde terugkerende patroon als bij de andere deegrecepten). De tip
+  over rusten na het bakken is wel weer een goed voorbeeld van een
+  toegelichte reden.
+
+### recipes/basismuffins.tex
+- **Voorverwarmen**: de oven wordt pas in de laatste stap genoemd ("Bak de
+  muffins 20 minuten op 200\,°C"), nadat het beslag al helemaal klaar is.
+  Het mengen kost weinig tijd, dus dit weegt lichter dan bijvoorbeeld
+  moussaka, maar het kost nog steeds een paar minuten onnodig wachten.
+- **Positief voorbeeld**: dit is het enige recept in het hele boek dat de
+  ovenstand vermeldt ("boven- en onderwarmte"). Dat is precies de aanvulling
+  die eerder als algemeen verbeterpunt is genoemd, hier al goed gedaan.
+
+### recipes/pasta-bolognese.tex
+- **Overig**: `\ingb{peper en zout}` staat in de ingrediëntenlijst, maar
+  wordt in geen enkele stap expliciet genoemd (het zout komt alleen impliciet
+  binnen via het bouillonblokje). Klein, geen echt probleem.
+- **Positief voorbeeld**: dit recept legt bijna overal het waarom uit (de rol
+  van de soffrito, waarom tomatenpuree eerst gebakken wordt, waarom de wijn
+  moet inkoken, waarom de saus in porties de vriezer in gaat) en specificeert
+  het pantype (hapjespan of hoge pan). Een van de sterkst geschreven
+  recepten van het boek op dit vlak.
+
+### recipes/pastinaaksoep.tex
+- **Olie**: "2 el olie" zonder soort, dat is de enige keer dat dit in dit
+  recept voorkomt en de rest van het boek noemt bijna altijd olijfolie of
+  zonnebloemolie.
+
+### recipes/gnocchi-broccoli.tex
+- **Waarom**: het spek wordt in een "droge koekenpan" gebakken zonder te
+  zeggen dat dit kan omdat het spek genoeg eigen vet heeft. Klein punt.
+
+### recipes/couscous-feta-rozijnen.tex
+- Geen problemen van betekenis. De inleiding legt zelfs al uit waarom de feta
+  apart gehouden kan worden voor kinderen die nog aan de smaak moeten wennen,
+  precies het soort 'waarom' dat elders in het boek gemist wordt.
+
+De overige twee nieuwe recepten (`roerbak-kip-cashewnoten.tex` en
+`kip-madras.tex`) hebben vooral bevindingen op het gebied van basis- versus
+boodschappen-ingrediënten, zie de sectie hieronder.
+
+## Basis-ingrediënten versus boodschappen
+
+Vijfde controleronde, over het hele boek (inclusief de acht nieuwe recepten):
+is `\ingb` (geen vaste hoeveelheid) alleen gebruikt voor dingen die je toch
+al in huis hebt (zout, peper, olie, boter, bloem, kruiden), en niet voor
+dingen die je voor dit recept gericht moet inslaan (vlees, vis, kaas, pasta,
+rijst, specifieke groente als hoofdbestanddeel)? Bij dat laatste helpt een
+hoeveelheid om te weten hoeveel je moet kopen, ook al is de precieze
+hoeveelheid in de pan daarna nog steeds op gevoel.
+
+### De duidelijkste gevallen: bijna het hele recept zonder hoeveelheid
+- **recipes/tortellini-al-forno.tex**: op peper en paneermeel na staat vrijwel
+  alles als `\ingb`, inclusief de tortellini zelf, de spekjes, de courgette,
+  de ricotta, de parmezaanse kaas en de mozzarella. Voor 5 personen weet je
+  hierdoor niet hoeveel pakken tortellini, hoeveel spek of hoeveel kaas je
+  moet kopen.
+- **recipes/mac-n-cheese.tex**: de macaroni (`\ingb{1 flink gevulde kop
+  macaroni}`), de varkenslapjes, de geraspte kaas en de melk voor de
+  bechamel staan allemaal zonder harde hoeveelheid, terwijl dit voor
+  5 personen toch de hoofdbestanddelen zijn.
+
+### Hoofdingrediënt van het gerecht zonder hoeveelheid
+- **recipes/pasta-carbonara.tex** (5 personen): `\ingb{spaghetti (geen verse
+  pasta)}`, `\ingb{guanciale (varkenswang) of ongerookt spek}` en
+  `\ingb{Parmezaanse kaas, geraspt}` zijn alledrie de kern van het gerecht,
+  niet iets wat toevallig in de kast ligt.
+- **recipes/pasta-scarapiello.tex** (3 personen): `\ingb{spaghetti of andere
+  pasta}` is de enige koolhydraatbron van het gerecht.
+- **recipes/pasta-bolognese.tex** (5 personen): `\ingb{pasta naar keuze}` en
+  `\ingb{Parmezaanse kaas, geraspt}` (die er "ruim" doorheen gaat) missen
+  allebei een richtgewicht.
+- **recipes/pizza.tex** (2 pizza's): `\ingb{prosciutto}` en `\ingb{mozzarella}`
+  zijn de hoofdtoppings, zonder hoeveelheid weet je niet hoeveel je bij de
+  toonbank moet vragen.
+- **recipes/quiche-ham-prei.tex** en **recipes/quiche-lorraine.tex**
+  (6 porties): `\ingb{hamblokjes}` en de kaas (`witte kaas`/`oude kaas`)
+  vormen samen de hele vulling van de quiche, en missen allebei een gewicht.
+- **recipes/spinazie-quiche.tex** (5 personen): `\ingb{cherrytomaatjes,
+  gehalveerd}` als zichtbare topping en `\ingb{handvol geraspte kaas}` missen
+  allebei een aantal/gewicht.
+- **recipes/roerbak-kip-cashewnoten.tex** (5 personen): `\ingb{eiernoodles}`
+  en `\ingb{kip, in reepjes}` zijn de twee hoofdbestanddelen van het gerecht
+  en missen allebei een hoeveelheid.
+- **recipes/aardappel-groente-vlees.tex** (5 personen): `\ingb{vlees naar
+  keuze: slavink, hamburger, ...}` mag qua soort naar keuze zijn, maar mist
+  een aantal (bijvoorbeeld "5 stuks") om te weten hoeveel je moet kopen.
+  Ook `\ingb{snackwortels}` is iets wat je gericht inslaat, geen kruidenkast.
+- **recipes/gevulde-varkensrollade.tex** (6 personen): `\ingb{spek of
+  prosciutto, gebakken en verkruimeld}` en `\ingb{bladspinazie}` zijn beide
+  vulling-ingrediënten voor de hele rollade, geen kruidenkastartikelen.
+- **recipes/lekkerbekjes-kroketjes-sla.tex** (5 personen):
+  `\ingb{aardappelkroketjes uit de oven}` is samen met de kibbeling het
+  hoofdgerecht, en mist een aantal of een zakmaat.
+- **recipes/broodje-hamburger.tex** (5 personen): `\ingb{sla}`, `\ingb{tomaat}`
+  en `\ingb{plakjes kaas}` zijn concrete boodschappen voor 5 broodjes, geen
+  kruidenkastartikelen.
+- **recipes/nasi.tex** (5 personen): `\ingb{pindasaus (pakje of
+  zelfgemaakt)}` is een gerichte aankoop, geen kruidenkastitem.
+- **recipes/kofta.tex** (5 personen): `\ingb{rijst, volgens verpakking}` mist
+  een richtgewicht (bijvoorbeeld "400 g") om te weten hoeveel je moet kopen.
+- **recipes/flammkuchen.tex** (5 personen): bij de topping honing-geitenkaas
+  missen `\ingb{geitenkaas, verkruimeld}` en `\ingb{walnoten, grof gehakt}`
+  een indicatie; dit lijkt op de bewust flexibele toppings bij pizza, dus
+  een lichte kanttekening in plaats van een harde fout.
+- **recipes/ijstaart-karamel.tex** (8-10 personen): `\ingb{karamelsaus
+  (zelfgemaakt of uit pot)}` wordt op meerdere momenten in het recept
+  gebruikt, een richthoeveelheid (bijvoorbeeld "1 potje, ± 200 g") zou
+  hier schelen.
+
+### Macro verkeerd gekozen, hoeveelheid staat er eigenlijk al
+- **recipes/kip-madras.tex**: `\ingb{1 kipfilet, in stukken}` heeft het
+  aantal al in de tekst staan, maar is toch als `\ingb` genoteerd in plaats
+  van `\ing{1}{kipfilet, in stukken}`. Zelfde slordigheidje als eerder bij
+  de tomaten in `kofta.tex`.
+
+### Grensgevallen, niet aangepast
+Een aantal `\ingb`-items lijkt op het eerste gezicht een boodschappenitem,
+maar is klein genoeg qua hoeveelheid of duidelijk genoeg "naar smaak" bedoeld
+dat het prima blijft staan: verse kruiden als garnering (peterselie,
+dille, basilicum), een enkele avocado of lente-ui "wat je in huis hebt"
+(fajitas), sauzen en dressings, en het decoratieve `\ingb{eetbare oogjes}`
+bij de drollenkoekjes. `recipes/bloemkoolpasta.tex` is met opzet volledig
+"op gevoel" (dat staat letterlijk in de meta-regel), dus de spekjes en pasta
+daar zijn een bewuste keuze en geen fout.
+
+Bestanden zonder enige `\ingb` (bijvoorbeeld `jambalaya.tex`,
+`sauzijcenbroodjes.tex`, `risotto.tex`, `rode-rijst.tex`) vallen automatisch
+buiten deze controle.
