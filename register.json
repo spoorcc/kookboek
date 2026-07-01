@@ -17,19 +17,19 @@
   {
     "entry": "Aardappelen, groente en vlees",
     "pages": [
-      80
+      81
     ]
   },
   {
     "entry": "Aardappelkroketjes",
     "pages": [
-      81
+      82
     ]
   },
   {
     "entry": "Aardbeien",
     "pages": [
-      107
+      108
     ]
   },
   {
@@ -68,7 +68,7 @@
   {
     "entry": "Balsamico",
     "pages": [
-      87
+      88
     ]
   },
   {
@@ -76,34 +76,34 @@
     "pages": [
       11,
       51,
-      83
+      84
     ]
   },
   {
     "entry": "Basiskoekjes",
     "pages": [
-      105
+      106
     ]
   },
   {
     "entry": "Basismuffins",
     "pages": [
-      96
+      97
     ]
   },
   {
     "entry": "Bechamelsaus",
     "pages": [
       65,
-      77
+      78
     ]
   },
   {
     "entry": "Bladerdeeg",
     "pages": [
       8,
-      86,
-      97
+      87,
+      98
     ]
   },
   {
@@ -116,7 +116,7 @@
     "entry": "Bleekselderij",
     "pages": [
       16,
-      88
+      89
     ]
   },
   {
@@ -124,15 +124,16 @@
     "pages": [
       19,
       20,
-      94,
-      96
+      95,
+      97
     ]
   },
   {
     "entry": "Bloemkool",
     "pages": [
       18,
-      28
+      28,
+      76
     ]
   },
   {
@@ -156,19 +157,19 @@
   {
     "entry": "Bonensalade",
     "pages": [
-      88
+      89
     ]
   },
   {
     "entry": "Boter",
     "pages": [
-      99
+      100
     ]
   },
   {
     "entry": "Bouillon",
     "pages": [
-      85
+      86
     ]
   },
   {
@@ -186,25 +187,25 @@
   {
     "entry": "Broccoli",
     "pages": [
-      83
+      84
     ]
   },
   {
     "entry": "Brood",
     "pages": [
-      90
+      91
     ]
   },
   {
     "entry": "Broodje hamburger",
     "pages": [
-      76
+      77
     ]
   },
   {
     "entry": "Cacao",
     "pages": [
-      104
+      105
     ]
   },
   {
@@ -216,7 +217,7 @@
   {
     "entry": "Cannellini bonen",
     "pages": [
-      88
+      89
     ]
   },
   {
@@ -235,7 +236,7 @@
   {
     "entry": "Chocolade",
     "pages": [
-      109
+      110
     ]
   },
   {
@@ -249,8 +250,8 @@
   {
     "entry": "Citroen",
     "pages": [
-      100,
-      101
+      101,
+      102
     ]
   },
   {
@@ -260,7 +261,7 @@
       37,
       59,
       64,
-      77
+      78
     ]
   },
   {
@@ -291,7 +292,7 @@
   {
     "entry": "Drollenkoekjes",
     "pages": [
-      104
+      105
     ]
   },
   {
@@ -300,22 +301,22 @@
       15,
       19,
       53,
-      96,
-      99,
+      97,
       100,
-      108
+      101,
+      109
     ]
   },
   {
     "entry": "Eierkoeken",
     "pages": [
-      100
+      101
     ]
   },
   {
     "entry": "Eiwit",
     "pages": [
-      103
+      104
     ]
   },
   {
@@ -327,7 +328,7 @@
   {
     "entry": "Espresso",
     "pages": [
-      108
+      109
     ]
   },
   {
@@ -354,7 +355,7 @@
   {
     "entry": "Frambozen",
     "pages": [
-      101
+      102
     ]
   },
   {
@@ -386,25 +387,25 @@
   {
     "entry": "Gevulde varkensrollade met pesto en roomkaas",
     "pages": [
-      79
+      80
     ]
   },
   {
     "entry": "Gnocchi",
     "pages": [
-      83
+      84
     ]
   },
   {
     "entry": "Gnocchi met broccoli en spek",
     "pages": [
-      83
+      84
     ]
   },
   {
     "entry": "Groene salade",
     "pages": [
-      87
+      88
     ]
   },
   {
@@ -417,7 +418,7 @@
   {
     "entry": "Half om half",
     "pages": [
-      97
+      98
     ]
   },
   {
@@ -431,7 +432,7 @@
   {
     "entry": "Hamburger",
     "pages": [
-      76
+      77
     ]
   },
   {
@@ -449,14 +450,14 @@
   {
     "entry": "IJsbergsla",
     "pages": [
-      81,
-      87
+      82,
+      88
     ]
   },
   {
     "entry": "IJstaart met karamel en chocolade",
     "pages": [
-      109
+      110
     ]
   },
   {
@@ -470,25 +471,25 @@
     "pages": [
       41,
       43,
-      77
+      78
     ]
   },
   {
     "entry": "Karamel",
     "pages": [
-      109
+      110
     ]
   },
   {
     "entry": "Kibbeling",
     "pages": [
-      81
+      82
     ]
   },
   {
     "entry": "Kidneybonen",
     "pages": [
-      88
+      89
     ]
   },
   {
@@ -496,7 +497,14 @@
     "pages": [
       41,
       45,
-      75
+      75,
+      76
+    ]
+  },
+  {
+    "entry": "Kip madras",
+    "pages": [
+      76
     ]
   },
   {
@@ -521,7 +529,7 @@
   {
     "entry": "Kipshoarma",
     "pages": [
-      82
+      83
     ]
   },
   {
@@ -533,8 +541,8 @@
       18,
       43,
       51,
-      83,
-      85
+      84,
+      86
     ]
   },
   {
@@ -544,10 +552,16 @@
     ]
   },
   {
+    "entry": "Kokosmelk",
+    "pages": [
+      76
+    ]
+  },
+  {
     "entry": "Komkommer",
     "pages": [
       41,
-      80
+      81
     ]
   },
   {
@@ -560,7 +574,7 @@
     "entry": "Krieltjes",
     "pages": [
       45,
-      80
+      81
     ]
   },
   {
@@ -579,13 +593,13 @@
   {
     "entry": "Lange vingers",
     "pages": [
-      108
+      109
     ]
   },
   {
     "entry": "Lekkerbekjes, aardappelkroketjes en sla",
     "pages": [
-      81
+      82
     ]
   },
   {
@@ -603,13 +617,13 @@
   {
     "entry": "Mac 'n cheese",
     "pages": [
-      77
+      78
     ]
   },
   {
     "entry": "Macaroni",
     "pages": [
-      77
+      78
     ]
   },
   {
@@ -634,7 +648,7 @@
   {
     "entry": "Meringues",
     "pages": [
-      103
+      104
     ]
   },
   {
@@ -696,10 +710,10 @@
       41,
       43,
       73,
-      77,
-      79,
+      78,
       80,
-      82
+      81,
+      83
     ]
   },
   {
@@ -723,7 +737,7 @@
       53,
       57,
       67,
-      83
+      84
     ]
   },
   {
@@ -816,7 +830,7 @@
   {
     "entry": "Pesto",
     "pages": [
-      79
+      80
     ]
   },
   {
@@ -842,7 +856,7 @@
   {
     "entry": "Porchetta",
     "pages": [
-      79
+      80
     ]
   },
   {
@@ -855,7 +869,7 @@
   {
     "entry": "Pretzels",
     "pages": [
-      90
+      91
     ]
   },
   {
@@ -868,7 +882,7 @@
   {
     "entry": "Puffy pita",
     "pages": [
-      92
+      93
     ]
   },
   {
@@ -910,7 +924,7 @@
   {
     "entry": "Reuzenbonen",
     "pages": [
-      88
+      89
     ]
   },
   {
@@ -918,7 +932,7 @@
     "pages": [
       49,
       59,
-      108
+      109
     ]
   },
   {
@@ -927,7 +941,7 @@
       2,
       16,
       75,
-      85
+      86
     ]
   },
   {
@@ -957,7 +971,7 @@
   {
     "entry": "Rode rijst",
     "pages": [
-      85
+      86
     ]
   },
   {
@@ -975,7 +989,7 @@
   {
     "entry": "Roomkaas",
     "pages": [
-      79
+      80
     ]
   },
   {
@@ -987,7 +1001,7 @@
   {
     "entry": "Roze koeken",
     "pages": [
-      101
+      102
     ]
   },
   {
@@ -1006,7 +1020,7 @@
   {
     "entry": "Saucijzenbroodjes",
     "pages": [
-      97
+      98
     ]
   },
   {
@@ -1018,7 +1032,7 @@
   {
     "entry": "Semifreddo met aardbeien",
     "pages": [
-      107
+      108
     ]
   },
   {
@@ -1030,21 +1044,21 @@
   {
     "entry": "Shoarma in broodjes",
     "pages": [
-      82
+      83
     ]
   },
   {
     "entry": "Shoarmabroodjes",
     "pages": [
-      82,
-      94
+      83,
+      95
     ]
   },
   {
     "entry": "Slagroom",
     "pages": [
-      107,
-      109
+      108,
+      110
     ]
   },
   {
@@ -1067,7 +1081,7 @@
       28,
       53,
       59,
-      83
+      84
     ]
   },
   {
@@ -1126,19 +1140,19 @@
   {
     "entry": "Tarte tatin met wortels",
     "pages": [
-      86
+      87
     ]
   },
   {
     "entry": "Tiramisu met ricotta",
     "pages": [
-      108
+      109
     ]
   },
   {
     "entry": "Tomaat",
     "pages": [
-      85
+      86
     ]
   },
   {
@@ -1152,7 +1166,7 @@
       54,
       57,
       71,
-      85
+      86
     ]
   },
   {
@@ -1206,20 +1220,20 @@
       16,
       18,
       73,
-      76,
-      85
+      77,
+      86
     ]
   },
   {
     "entry": "Varkenslapjes",
     "pages": [
-      77
+      78
     ]
   },
   {
     "entry": "Varkensvlees",
     "pages": [
-      79
+      80
     ]
   },
   {
@@ -1244,7 +1258,7 @@
   {
     "entry": "Wafels",
     "pages": [
-      99
+      100
     ]
   },
   {
@@ -1276,7 +1290,7 @@
     "pages": [
       35,
       63,
-      86
+      87
     ]
   },
   {
