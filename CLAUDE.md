@@ -31,7 +31,35 @@ xelatex main.tex
 xelatex main.tex   # third pass resolves all cross-references
 ```
 
-CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` command and uploads `main.pdf` as an artifact.
+`build.sh` also builds `cover/cover.tex` into `KookboekFamilieSpoor-cover.pdf` — the wraparound cover uploaded to Lulu separately from the interior file.
+
+CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` commands for both files, runs the Lulu print-readiness check on the interior, and uploads both PDFs as artifacts.
+
+## Lulu print-readiness check
+
+This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` checks the built PDF and LaTeX source against Lulu's print requirements:
+
+- Trim size matches 190×240mm on every page
+- All fonts are embedded
+- Full-bleed artwork doesn't touch the page edge unless the page includes Lulu's bleed margin
+- Image resolution is at least 300 DPI at printed size
+- Margins in `kookboek.sty`'s `geometry` settings meet Lulu's 12.7mm safety margin
+- Page count meets Lulu's binding minimums and is a multiple of 4
+- Recipes don't still contain placeholder macros (`\heroplaceholder`, `\ingredientsketch`, `\writelines`)
+
+`build.sh` runs it automatically after every build. Run it manually with:
+
+```sh
+python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
+```
+
+Trim-size, font-embedding, bleed, and margin problems are reported as errors and fail the build. Unfinished-recipe placeholders, low-resolution art, and odd page counts are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The checks target the interior file's trim size and don't apply to the wraparound cover (see below), which is sized to trim + bleed on purpose.
+
+## Wraparound cover (`cover/cover.tex`)
+
+`cover/cover.tex` is a standalone LaTeX document (not `\input` by `main.tex`) producing Lulu's wraparound cover: back cover, spine, and front cover as one page, sized to trim + Lulu's 3.18mm bleed on every outer edge. It reuses the same fonts and colours as `kookboek.sty` and the front cover's photo and title block from `main.tex`.
+
+Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` to match the built interior PDF's actual page count — the spine width is computed from it using Lulu's published rule-of-thumb formula (`pages/444 + 0.06in`). Always confirm the exact spine width against Lulu's own cover calculator for the paper stock you choose before submitting artwork.
 
 ## Architecture
 
@@ -39,6 +67,7 @@ CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` command and uploa
 |---|---|
 | `main.tex` | Document root: cover, front matter, chapter/recipe order, Inhoud (ToC), Register (index) |
 | `kookboek.sty` | All styling and every recipe macro |
+| `cover/cover.tex` | Lulu wraparound cover (back + spine + front), built and uploaded separately |
 | `frontmatter/voorwoord.tex` | Foreword |
 | `recipes/*.tex` | Individual recipes, one file each |
 

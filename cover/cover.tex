@@ -1,0 +1,124 @@
+% =============================================================================
+%  Kookboek — Familie Spoor — Lulu wraparound cover (back + spine + front)
+%  Build:  latexmk -xelatex -output-directory=. -jobname=KookboekFamilieSpoor-cover cover/cover.tex
+%          (build.sh does this for you)
+%
+%  This is uploaded to Lulu separately from the interior file (main.tex).
+%  It is a single page sized to trim + bleed on every outer edge, per
+%  Lulu's cover requirements: https://help.lulu.com
+%
+%  BEFORE ORDERING A REAL PROOF:
+%   - Set \interiorpagecount below to the actual page count of the built
+%     interior PDF (KookboekFamilieSpoor.pdf).
+%   - The spine-width formula used here (pages/444 + 0.06in) is Lulu's
+%     published rule-of-thumb for standard paper. Confirm the exact spine
+%     width against Lulu's own cover calculator/template for the chosen
+%     paper stock before submitting artwork.
+% =============================================================================
+\documentclass[10pt]{article}
+\usepackage{xfp}
+
+% ---- Trim, bleed, safety margin, spine ------------------------------------
+\newlength\trimw  \setlength\trimw{19cm}    % matches kookboek.sty paperwidth
+\newlength\trimh  \setlength\trimh{24cm}    % matches kookboek.sty paperheight
+\newlength\bleed  \setlength\bleed{3.18mm}  % Lulu bleed: 0.125in
+\newlength\safety \setlength\safety{12.7mm} % Lulu safety margin: 0.5in
+
+\newcommand{\interiorpagecount}{112} % <-- UPDATE to match the built interior PDF
+\newlength\spinew
+\setlength\spinew{\fpeval{(\interiorpagecount/444+0.06)}in}
+
+% Back and front cover panels are each trim width plus one outer bleed edge.
+\newlength\panelw \setlength\panelw{\dimexpr\bleed+\trimw\relax}
+% x-offset (from the spread's bottom-left corner) of the spine's and front
+% panel's left edge.
+\newlength\spinex \setlength\spinex{\panelw}
+\newlength\frontx \setlength\frontx{\dimexpr\panelw+\spinew\relax}
+
+\newlength\spreadw \setlength\spreadw{\dimexpr 2\panelw+\spinew\relax}
+\newlength\spreadh \setlength\spreadh{\dimexpr \trimh+2\bleed\relax}
+
+\usepackage[paperwidth=\spreadw, paperheight=\spreadh, margin=0pt]{geometry}
+\pagestyle{empty}
+
+% ---- Fonts (kept in sync with kookboek.sty) --------------------------------
+\usepackage{fontspec}
+\setmainfont{EB Garamond}[
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = EBGaramond-Regular, ItalicFont = EBGaramond-Italic, BoldFont = EBGaramond-SemiBold,
+  Ligatures = TeX, Numbers = OldStyle ]
+\newfontfamily\handfont{Nothing You Could Do}[
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = NothingYouCouldDo-Regular,
+  Ligatures = TeX]
+\newfontfamily\julianafont{EB Garamond}[
+  Path = fonts/ , Extension = .ttf ,
+  UprightFont = EBGaramond-Regular,
+  Numbers = Lining]
+
+% ---- Colours (kept in sync with kookboek.sty) ------------------------------
+\usepackage{xcolor}
+\definecolor{paper}{HTML}{FFFFFF}
+\definecolor{ink}{HTML}{000000}
+\definecolor{terracotta}{HTML}{555555}
+\definecolor{inkfaint}{HTML}{888888}
+
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\begin{document}
+\thispagestyle{empty}
+\noindent
+\begin{tikzpicture}[remember picture, overlay]
+  % Whole-spread background.
+  \fill[paper] (current page.south west) rectangle (current page.north east);
+
+  % ------------------------------------------------------------ FRONT ------
+  % Panel occupies x in [\frontx, \frontx+\panelw].
+  \node[inner sep=0, outer sep=0, anchor=south west] at
+      ([shift={(\frontx,0)}]current page.south west) {%
+    \includegraphics[width=\panelw, height=\spreadh]{images/pasta}};
+  \fill[paper, fill opacity=0.88]
+    ([shift={(\frontx+\safety,15.5cm)}]current page.south west) rectangle
+    ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
+  \fill[paper, fill opacity=0.88]
+    ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
+    ([shift={(\frontx+\panelw-\safety,3.0cm)}]current page.south west);
+  \draw[ink, line width=1.2pt]
+    ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
+    ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
+
+  \node[anchor=south, align=center, text width=\panelw-4\safety] at
+      ([shift={(\frontx+0.5\panelw,0.72\spreadh)}]current page.south west) {%
+    {\footnotesize\scshape\color{terracotta}Familierecepten \textperiodcentered{} bijeengebracht met zorg}\par
+    \vspace{2mm}
+    {\fontsize{40}{40}\selectfont\color{ink}KOOKBOEK}\par
+    \vspace{2mm}
+    {\footnotesize\scshape\color{inkfaint}Recepten van de familie}\par
+    \vspace{1mm}
+    {\julianafont\fontsize{26}{26}\selectfont\color{ink}Spoor}\par};
+  \node[anchor=south, align=center] at
+      ([shift={(\frontx+0.5\panelw,1.6\safety)}]current page.south west) {%
+    \footnotesize\scshape\color{ink}Bereid met liefde \textperiodcentered{} Anno MMXXVI};
+
+  % ------------------------------------------------------------- SPINE -----
+  % Panel occupies x in [\spinex, \spinex+\spinew].
+  \node[rotate=90, anchor=center, align=center] at
+      ([shift={(\spinex+0.5\spinew,0.5\spreadh)}]current page.south west) {%
+    {\scshape\color{ink}\addfontfeatures{LetterSpace=8.0}Kookboek}%
+    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
+    {\julianafont\color{ink}Spoor}};
+
+  % -------------------------------------------------------------- BACK -----
+  % Panel occupies x in [0, \panelw].
+  \draw[ink, line width=1.2pt]
+    ([shift={(\safety,\safety)}]current page.south west) rectangle
+    ([shift={(\panelw-\safety,\spreadh-\safety)}]current page.south west);
+  \node[anchor=center, align=center, text width=\panelw-4\safety] at
+      ([shift={(0.5\panelw,0.55\spreadh)}]current page.south west) {%
+    \itshape\color{inkfaint}Recepten die we jarenlang met de hand doorgaven,\\
+    nu eindelijk opgeschreven. Voor aan tafel, in de keuken,\\
+    en voor wie er straks nog eentje wil proberen.};
+\end{tikzpicture}
+\end{document}

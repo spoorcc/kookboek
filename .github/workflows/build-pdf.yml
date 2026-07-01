@@ -18,11 +18,31 @@ jobs:
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor
 
+      - name: Lulu print-readiness check
+        run: |
+          pip install --quiet pymupdf
+          python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
+
+      - name: Build cover PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: cover/cover.tex
+          latexmk_use_xelatex: true
+          extra_system_packages: ""
+          args: -xelatex -jobname=KookboekFamilieSpoor-cover -output-directory=.
+
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: kookboek
           path: KookboekFamilieSpoor.pdf
+          retention-days: 30
+
+      - name: Upload cover PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kookboek-cover
+          path: KookboekFamilieSpoor-cover.pdf
           retention-days: 30
 
   release:
@@ -38,11 +58,18 @@ jobs:
         with:
           name: kookboek
 
+      - name: Download cover PDF
+        uses: actions/download-artifact@v4
+        with:
+          name: kookboek-cover
+
       - name: Update latest draft release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: Latest
           draft: true
-          files: KookboekFamilieSpoor.pdf
+          files: |
+            KookboekFamilieSpoor.pdf
+            KookboekFamilieSpoor-cover.pdf
           body: "Built from `${{ github.sha }}`"
