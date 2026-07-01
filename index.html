@@ -40,28 +40,36 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
       padding: 0 20px;
+      overflow: hidden;
     }
 
     .header-title {
       display: flex;
       align-items: baseline;
       gap: 10px;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .header-title h1 {
       font-size: 1.2rem;
       font-weight: normal;
       letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
-    .header-title .sep { opacity: 0.4; font-size: 0.75rem; }
+    .header-title .sep { opacity: 0.4; font-size: 0.75rem; flex-shrink: 0; }
 
     .header-title .sub {
       font-size: 0.78rem;
       letter-spacing: 0.14em;
       font-variant: small-caps;
       opacity: 0.75;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     #dl-full {
@@ -75,6 +83,7 @@
       letter-spacing: 0.04em;
       transition: background 0.18s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     #dl-full:hover { background: rgba(255,255,255,0.14); }
 
@@ -388,7 +397,16 @@
     #back-mobile { display: none; }
 
     @media (max-width: 680px) {
-      :root { --sidebar-w: 100%; }
+      :root { --sidebar-w: 100%; --header-h: 50px; }
+
+      header { padding: 0 10px; gap: 6px; }
+
+      .header-title { gap: 6px; }
+      .header-title h1 { font-size: 1rem; }
+      .header-title .sep { display: none; }
+      .header-title .sub { display: none; }
+
+      #dl-full { padding: 5px 10px; font-size: 0.72rem; }
 
       aside {
         position: absolute;
@@ -399,7 +417,32 @@
       aside.slide-out { transform: translateX(-100%); }
 
       #back-mobile { display: block; }
-      #viewer-bar { justify-content: space-between; }
+
+      #viewer-bar {
+        justify-content: space-between;
+        gap: 4px;
+        padding: 0 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-btn {
+        padding: 6px 9px;
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
+        flex-shrink: 0;
+      }
+
+      #page-label {
+        min-width: 0;
+        flex-shrink: 1;
+        font-size: 0.72rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #dl-recipe-btn { margin-left: 0; }
     }
   </style>
 </head>
@@ -651,7 +694,7 @@ function openRecipe(idx, rowEl) {
   currentRecipeIdx = idx;
   curPage = recipes[idx].page;
   renderSpread(curPage);
-  document.getElementById('dl-recipe-btn').style.display = '';
+  document.getElementById('dl-recipe-btn').style.display = 'inline-block';
   if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
 }
 
