@@ -23,7 +23,7 @@
   {
     "entry": "Aardbeien",
     "pages": [
-      99
+      100
     ]
   },
   {
@@ -75,7 +75,13 @@
   {
     "entry": "Basiskoekjes",
     "pages": [
-      97
+      98
+    ]
+  },
+  {
+    "entry": "Basismuffins",
+    "pages": [
+      89
     ]
   },
   {
@@ -90,7 +96,7 @@
     "pages": [
       6,
       79,
-      89
+      90
     ]
   },
   {
@@ -111,7 +117,8 @@
     "pages": [
       17,
       18,
-      87
+      87,
+      89
     ]
   },
   {
@@ -148,7 +155,7 @@
   {
     "entry": "Boter",
     "pages": [
-      91
+      92
     ]
   },
   {
@@ -184,7 +191,7 @@
   {
     "entry": "Cacao",
     "pages": [
-      96
+      97
     ]
   },
   {
@@ -215,7 +222,7 @@
   {
     "entry": "Chocolade",
     "pages": [
-      101
+      102
     ]
   },
   {
@@ -229,8 +236,8 @@
   {
     "entry": "Citroen",
     "pages": [
-      92,
-      93
+      93,
+      94
     ]
   },
   {
@@ -264,7 +271,7 @@
   {
     "entry": "Drollenkoekjes",
     "pages": [
-      96
+      97
     ]
   },
   {
@@ -273,21 +280,22 @@
       13,
       17,
       49,
-      91,
+      89,
       92,
-      100
+      93,
+      101
     ]
   },
   {
     "entry": "Eierkoeken",
     "pages": [
-      92
+      93
     ]
   },
   {
     "entry": "Eiwit",
     "pages": [
-      95
+      96
     ]
   },
   {
@@ -299,7 +307,7 @@
   {
     "entry": "Espresso",
     "pages": [
-      100
+      101
     ]
   },
   {
@@ -324,7 +332,7 @@
   {
     "entry": "Frambozen",
     "pages": [
-      93
+      94
     ]
   },
   {
@@ -375,7 +383,7 @@
   {
     "entry": "Half om half",
     "pages": [
-      89
+      90
     ]
   },
   {
@@ -414,7 +422,7 @@
   {
     "entry": "IJstaart met karamel en chocolade",
     "pages": [
-      101
+      102
     ]
   },
   {
@@ -434,7 +442,7 @@
   {
     "entry": "Karamel",
     "pages": [
-      101
+      102
     ]
   },
   {
@@ -536,7 +544,7 @@
   {
     "entry": "Lange vingers",
     "pages": [
-      100
+      101
     ]
   },
   {
@@ -591,7 +599,7 @@
   {
     "entry": "Meringues",
     "pages": [
-      95
+      96
     ]
   },
   {
@@ -861,7 +869,7 @@
     "pages": [
       45,
       55,
-      100
+      101
     ]
   },
   {
@@ -930,7 +938,7 @@
   {
     "entry": "Roze koeken",
     "pages": [
-      93
+      94
     ]
   },
   {
@@ -942,7 +950,7 @@
   {
     "entry": "Saucijzenbroodjes",
     "pages": [
-      89
+      90
     ]
   },
   {
@@ -954,7 +962,7 @@
   {
     "entry": "Semifreddo met aardbeien",
     "pages": [
-      99
+      100
     ]
   },
   {
@@ -979,8 +987,8 @@
   {
     "entry": "Slagroom",
     "pages": [
-      99,
-      101
+      100,
+      102
     ]
   },
   {
@@ -1065,7 +1073,7 @@
   {
     "entry": "Tiramisu met ricotta",
     "pages": [
-      100
+      101
     ]
   },
   {
@@ -1170,7 +1178,7 @@
   {
     "entry": "Wafels",
     "pages": [
-      91
+      92
     ]
   },
   {
