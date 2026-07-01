@@ -69,11 +69,26 @@
   [\vspace{4pt}{\color{terracotta}\titlerule[0.5pt]}]
 \titlespacing*{\chapter}{0pt}{0pt}{28pt}
 
+% Recipe titles are set in a large handwriting font at a fixed size; long
+% titles don't reliably break onto a second line on their own and can run
+% past the text width. \fittitle measures the title and only switches to an
+% explicitly wrapping \parbox when it would overflow, leaving short titles
+% untouched.
+\newsavebox{\recipetitlebox}
+\newcommand{\fittitle}[1]{%
+  \sbox{\recipetitlebox}{\handfont\fontsize{32}{34}\selectfont#1}%
+  \ifdim\wd\recipetitlebox>\textwidth
+    \parbox[t]{\textwidth}{\raggedright\handfont\fontsize{32}{34}\selectfont#1}%
+  \else
+    \usebox{\recipetitlebox}%
+  \fi
+}
+
 \titleformat{\section}
   {\normalfont}
   {}
   {0pt}
-  {\handfont\color{ink}\fontsize{32}{34}\selectfont}
+  {\color{ink}}
 \titlespacing*{\section}{0pt}{6pt}{2pt}
 
 \titleformat{\subsection}[display]
@@ -181,7 +196,10 @@
 \newcommand{\writelines}[1]{\par\vspace{0.4em}%
   \foreach \i in {1,...,#1}{\noindent\textcolor{ink!40}{\dotfill}\par\vspace{0.9em}}}
 
-% Recipe environment: starts each recipe on a fresh page.
-\newenvironment{recipe}[1]{\clearpage\section{#1}}{}
+% Recipe environment: starts each recipe on a fresh page. The title is
+% passed as \section's optional (short-title) argument too, so the Inhoud,
+% running head, and PDF bookmark get the plain text even when \fittitle
+% wraps the on-page title in a \parbox.
+\newenvironment{recipe}[1]{\clearpage\section[#1]{\fittitle{#1}}}{}
 
 \endinput
