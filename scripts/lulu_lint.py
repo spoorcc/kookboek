@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+"""Check the built cookbook PDF (and its LaTeX source) against Lulu.com print
+requirements: trim size, embedded fonts, image resolution, full-bleed safety,
+margins, and page count.
+
+Usage:
+    python3 scripts/lulu_lint.py [PDF] [--repo-root DIR] [--strict]
+
+Errors are things that will actually break a Lulu print job (wrong trim
+size, unembedded fonts, full-bleed art without a bleed margin, margins
+below Lulu's minimum). Warnings are things worth knowing about but that
+are expected while the book is still a work in progress (unfinished
+recipes, low-resolution art, an odd page count). Pass --strict to also
+fail on warnings, e.g. right before uploading to Lulu.
+"""
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+try:
+    import fitz  # PyMuPDF
+except ImportError:
+    print("error: this script needs PyMuPDF (`pip install pymupdf`)", file=sys.stderr)
+    sys.exit(2)
+
+MM_PER_INCH = 25.4
+PT_PER_MM = 72 / MM_PER_INCH
+
+TRIM_WIDTH_MM = 190.0  # 19 cm, per CLAUDE.md / README
+TRIM_HEIGHT_MM = 240.0  # 24 cm
+SAFETY_MARGIN_MM = 12.7  # Lulu's 0.5 in minimum safety margin
+BLEED_MM = 3.18  # Lulu's 0.125 in bleed requirement
+MIN_PAGES_HARDCOVER = 24
+MIN_PAGES_PAPERBACK = 32
+MIN_DPI = 300
+EDGE_TOLERANCE_PT = 1.0
+
+PLACEHOLDER_MACROS = {
+    r"\heroplaceholder": "hero illustration not finished",
+    r"\ingredientsketch": "ingredient sketch not finished",
+    r"\writelines": "method not written yet",
+}
+
+
+def mm(pt):
+    return pt / PT_PER_MM
+
+
+class Report:
+    def __init__(self):
+        self.errors = []
+        self.warnings = []
+
+    def error(self, msg):
+        self.errors.append(msg)
+
+    def warn(self, msg):
+        self.warnings.append(msg)
+
+
+def check_pdf(pdf_path, report):
+    doc = fitz.open(pdf_path)
+    if doc.page_count == 0:
+        report.error(f"{pdf_path}: PDF has no pages")
+        return
+
+    expected_w = TRIM_WIDTH_MM * PT_PER_MM
+    expected_h = TRIM_HEIGHT_MM * PT_PER_MM
+    mismatched = [
+        (i, mm(page.rect.width), mm(page.rect.height))
+        for i, page in enumerate(doc, start=1)
+        if abs(page.rect.width - expected_w) > 1 or abs(page.rect.height - expected_h) > 1
+    ]
+    if mismatched:
+        sample = ", ".join(f"page {i} ({w:.1f}x{h:.1f}mm)" for i, w, h in mismatched[:5])
+        report.error(
+            f"{len(mismatched)} page(s) don't match the "
+            f"{TRIM_WIDTH_MM:.0f}x{TRIM_HEIGHT_MM:.0f}mm trim size: {sample}"
+        )
+
+    n = doc.page_count
+    if n < MIN_PAGES_HARDCOVER:
+        report.error(f"only {n} page(s) — below Lulu's {MIN_PAGES_HARDCOVER}-page hardcover minimum")
+    elif n < MIN_PAGES_PAPERBACK:
+        report.warn(
+            f"only {n} page(s) — below Lulu's {MIN_PAGES_PAPERBACK}-page paperback minimum "
+            f"(the {MIN_PAGES_HARDCOVER}-page hardcover minimum is met)"
+        )
+    elif n % 4 != 0:
+        report.warn(f"{n} pages is not a multiple of 4 — Lulu may pad with blank pages")
+
+    unembedded = set()
+    for page in doc:
+        for _xref, ext, _ftype, basefont, _name, _encoding in page.get_fonts(full=False):
+            if ext == "n/a":
+                unembedded.add(basefont)
+    if unembedded:
+        report.error("font(s) not embedded: " + ", ".join(sorted(unembedded)))
+
+    low_dpi = []
+    bleed_risk_pages = set()
+    for pno, page in enumerate(doc, start=1):
+        pw, ph = page.rect.width, page.rect.height
+        for info in page.get_image_info(xrefs=True):
+            bbox = fitz.Rect(info["bbox"])
+            iw, ih = info.get("width", 0), info.get("height", 0)
+            if iw and ih and bbox.width > 0 and bbox.height > 0:
+                dpi_x = iw / (bbox.width / 72)
+                dpi_y = ih / (bbox.height / 72)
+                effective_dpi = min(dpi_x, dpi_y)
+                if effective_dpi < MIN_DPI:
+                    low_dpi.append((pno, effective_dpi))
+
+            touches_left = bbox.x0 <= EDGE_TOLERANCE_PT
+            touches_right = bbox.x1 >= pw - EDGE_TOLERANCE_PT
+            touches_top = bbox.y0 <= EDGE_TOLERANCE_PT
+            touches_bottom = bbox.y1 >= ph - EDGE_TOLERANCE_PT
+            if (touches_left and touches_right) or (touches_top and touches_bottom):
+                bleed_risk_pages.add(pno)
+
+    if low_dpi:
+        worst = sorted(low_dpi, key=lambda t: t[1])[:5]
+        detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
+        report.warn(f"{len(low_dpi)} image placement(s) below {MIN_DPI} dpi at printed size: {detail}")
+
+    if bleed_risk_pages and not mismatched:
+        # Page size matches exact trim (no bleed margin) but art touches the edge.
+        pages = ", ".join(str(p) for p in sorted(bleed_risk_pages)[:5])
+        report.error(
+            f"full-bleed image(s) touch the page edge on page(s) {pages}, but pages are sized "
+            f"to exact trim ({TRIM_WIDTH_MM:.0f}x{TRIM_HEIGHT_MM:.0f}mm) with no "
+            f"{BLEED_MM:.2f}mm bleed margin — Lulu needs bleed added to the page size for "
+            "full-bleed artwork, or the image should be inset from the edge"
+        )
+
+    doc.close()
+
+
+def check_geometry(sty_path, report):
+    if not sty_path.exists():
+        report.warn(f"{sty_path}: not found, skipped margin check")
+        return
+    text = sty_path.read_text(encoding="utf-8")
+    match = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S)
+    if not match:
+        report.warn(f"{sty_path}: couldn't find a geometry configuration to check margins")
+        return
+    opts = dict(re.findall(r"(top|bottom|inner|outer)\s*=\s*([\d.]+)cm", match.group(1)))
+    for side in ("top", "bottom", "inner", "outer"):
+        if side not in opts:
+            continue
+        value_mm = float(opts[side]) * 10
+        if value_mm < SAFETY_MARGIN_MM:
+            report.error(
+                f"{sty_path}: {side} margin is {value_mm:.1f}mm, below Lulu's "
+                f"{SAFETY_MARGIN_MM:.1f}mm safety margin minimum"
+            )
+
+
+def check_placeholders(recipes_dir, report):
+    if not recipes_dir.exists():
+        return
+    todo = []
+    for path in sorted(recipes_dir.glob("*.tex")):
+        text = path.read_text(encoding="utf-8")
+        for macro, description in PLACEHOLDER_MACROS.items():
+            if macro in text:
+                todo.append(f"{path.name}: {description}")
+    if todo:
+        report.warn(
+            f"{len(todo)} recipe file(s) still contain print-readiness placeholders:\n    - "
+            + "\n    - ".join(todo)
+        )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("pdf", nargs="?", default="main.pdf", help="path to the built PDF (default: main.pdf)")
+    parser.add_argument("--repo-root", default=".", help="repository root (default: current directory)")
+    parser.add_argument(
+        "--strict", action="store_true", help="also fail on warnings (use before a real Lulu upload)"
+    )
+    args = parser.parse_args()
+
+    root = Path(args.repo_root)
+    pdf_path = Path(args.pdf)
+    if not pdf_path.exists():
+        print(f"error: {pdf_path} not found — build the book first (./build.sh)", file=sys.stderr)
+        return 2
+
+    report = Report()
+    check_pdf(pdf_path, report)
+    check_geometry(root / "kookboek.sty", report)
+    check_placeholders(root / "recipes", report)
+
+    if report.errors:
+        print(f"{len(report.errors)} error(s):")
+        for e in report.errors:
+            print(f"  ERROR: {e}")
+    if report.warnings:
+        print(f"{len(report.warnings)} warning(s):")
+        for w in report.warnings:
+            print(f"  WARNING: {w}")
+    if not report.errors and not report.warnings:
+        print("Lulu print check passed with no issues.")
+
+    if report.errors or (args.strict and report.warnings):
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

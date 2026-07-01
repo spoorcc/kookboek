@@ -18,6 +18,11 @@ jobs:
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor
 
+      - name: Lulu print-readiness check
+        run: |
+          pip install --quiet pymupdf
+          python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
+
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:

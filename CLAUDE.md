@@ -31,7 +31,27 @@ xelatex main.tex
 xelatex main.tex   # third pass resolves all cross-references
 ```
 
-CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` command and uploads `main.pdf` as an artifact.
+CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` command, runs the Lulu print-readiness check, and uploads `main.pdf` as an artifact.
+
+## Lulu print-readiness check
+
+This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` checks the built PDF and LaTeX source against Lulu's print requirements:
+
+- Trim size matches 190×240mm on every page
+- All fonts are embedded
+- Full-bleed artwork doesn't touch the page edge unless the page includes Lulu's bleed margin
+- Image resolution is at least 300 DPI at printed size
+- Margins in `kookboek.sty`'s `geometry` settings meet Lulu's 12.7mm safety margin
+- Page count meets Lulu's binding minimums and is a multiple of 4
+- Recipes don't still contain placeholder macros (`\heroplaceholder`, `\ingredientsketch`, `\writelines`)
+
+`build.sh` runs it automatically after every build. Run it manually with:
+
+```sh
+python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
+```
+
+Trim-size, font-embedding, bleed, and margin problems are reported as errors and fail the build. Unfinished-recipe placeholders, low-resolution art, and odd page counts are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu).
 
 ## Architecture
 
