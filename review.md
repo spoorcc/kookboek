@@ -218,3 +218,82 @@ diverse quiches) of het gaat om een stap waar het type pan weinig verschil
 maakt (koken van water, mengen van een dressing). Oliesoort is in bijna alle
 recepten wel benoemd (meestal olijfolie, soms zonnebloemolie); de twee
 hierboven zijn de enige gevallen waar dat ontbreekt.
+
+## Zelfstandig te volgen: voorverwarmen, zout en vaktermen
+
+Derde controleronde, met als uitgangspunt dat iemand zonder de gedeelde
+familiekennis (en zonder iemand om iets te vragen) het recept in één keer
+goed moet kunnen doen. Drie punten: verwarmt de oven op tijd voor, is er een
+richtlijn voor zout als iemand geen enkel gevoel daarvoor heeft, en wordt
+vakjargon gebruikt zonder uitleg terwijl het wel nodig is om te slagen.
+
+### Algemeen: oven­stand nooit vermeld
+Door het hele boek heen staat overal alleen een temperatuur in graden, nooit
+een stand (boven-onderwarmte, hetelucht, grill). Dat maakt best verschil: een
+hetelucht­oven staat vaak zo'n 20°C lager ingesteld dan een oven met
+boven-onderwarmte voor hetzelfde resultaat. Dit is geen fout in een los
+recept, maar geldt overal, dus misschien is één regel in het voorwoord of bij
+de opmaak van het boek (bijvoorbeeld "temperaturen in dit boek zijn voor
+boven-onderwarmte, hetelucht ca. 20°C lager") handiger dan het overal apart
+te noemen.
+
+### recipes/moussaka.tex
+- **Voorverwarmen**: "Verwarm de oven voor op 180\,°C" staat pas in de
+  voorlaatste stap, nadat de gehaktsaus, aardappelen, aubergines én
+  bechamelsaus al helemaal klaar zijn en de schaal is opgebouwd. Op dat moment
+  is er niets meer te doen dan 10 tot 15 minuten wachten tot de oven op
+  temperatuur is. Dat had prima eerder gekund, bijvoorbeeld tijdens het bakken
+  van de aardappelplakken of de aubergine.
+
+### recipes/risotto.tex
+- **Voorverwarmen**: de oven duikt pas op in stap 6, verstopt tussen haakjes:
+  "Rooster ondertussen de trostomaatjes in de oven (200\,°C)". Er is nergens
+  een eigen "Verwarm de oven voor op..."-instructie. Wie het recept voor het
+  eerst maakt, weet niet dat de oven al bij de start aan moet, en staat dan
+  alsnog te wachten.
+
+### recipes/pretzels.tex
+- **Voorverwarmen**: de oven gaat pas aan in stap 6, op het moment dat de
+  pretzels al gevormd zijn en het sodabad ook nog moet koken. Er zijn eerder
+  in het recept meerdere rusttijden (samen zo'n anderhalf uur) waarin de oven
+  had kunnen opwarmen. Niet dramatisch, maar een kleine tijdswinst die nu blijft
+  liggen.
+
+### recipes/lekkerbekjes-kroketjes-sla.tex
+- **Voorverwarmen**: er staat nergens een expliciete "verwarm de oven voor",
+  alleen "Bereid de aardappelkroketjes in de oven volgens de aanwijzingen op
+  de verpakking" (stap 2). Logisch omdat het per merk verschilt, maar iemand
+  die niet gewend is zelf te koken denkt er dan misschien niet aan om de oven
+  eerst op te laten warmen voor hij begint.
+
+### recipes/quiche-groente-geitenkaas.tex
+- **Zout/kruiden**: stap 4 zegt "Breng flink op smaak met zout", maar zout
+  staat nergens in het Ingrediënten-blok van de vulling (alleen in het deeg,
+  voor iets anders). Iemand zonder kookervaring weet hierdoor niet eens dat
+  hij zout in huis moet hebben voor de vulling, laat staan hoeveel.
+
+### recipes/bloemkoolquiche.tex, recipes/quiche-lorraine.tex, recipes/quiche-ham-prei.tex, recipes/quiche-groente-cirkel.tex
+- **Voorkennis**: bij het voorbakken van de bodem ("Voorbakken: bak de bodem
+  15 minuten") wordt nergens gezegd dat je de bodem moet inprikken met een
+  vork of met bakbonen/gewichtjes moet vullen. Zonder dat kan de bodem tijdens
+  het voorbakken opbollen. Dit geldt voor bijna alle quiches met hetzelfde
+  deeg, dus dit is één keer bij het basisrecept te verhelpen in plaats van in
+  elk bestand apart.
+
+### recipes/bloemkoolpasta.tex
+- **Voorkennis**: "Blancheer de bloemkool kort" (stap 3) gebruikt de term
+  blancheren zonder uitleg. Er staat wel een doel bij ("net zacht, maar nog
+  een beetje stevig"), dus het is te doen, maar voor iemand die de term niet
+  kent, zou een korte toevoeging ("kort koken in kokend water") schelen.
+
+### recipes/sauzijcenbroodjes.tex
+- **Voorkennis**: "Splits het ei" (stap 3) wordt niet uitgelegd. Een kleine
+  toevoeging over hoe je eiwit en eigeel scheidt, zou hier helpen voor wie dit
+  nog nooit gedaan heeft.
+
+De overige recepten verwarmen de oven ruim op tijd voor (vaak al in de eerste
+of tweede stap, terwijl er ondertussen nog gesneden of gemengd wordt), geven
+bij zout en kruiden ofwel een hoeveelheid ofwel het geaccepteerde
+`\ingb{...}` + "naar smaak"-patroon, en gebruikte vaktermen (vlindermethode,
+holy trinity, blancheren bij andere recepten) worden daar wel meteen kort
+toegelicht.
