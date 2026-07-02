@@ -427,6 +427,11 @@
       .header-title .sep { display: none; }
       .header-title .sub { display: none; }
 
+      /* "← Lijst" in the viewer bar already returns to the sidebar here,
+         so the header hamburger would just be a second button doing the
+         same thing. */
+      #sidebar-toggle { display: none; }
+
       #dl-full { padding: 5px 10px; font-size: 0.72rem; }
 
       aside {
