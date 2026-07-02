@@ -10,10 +10,13 @@ SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
 
 def extract_depth1_kinds(main_tex_path: Path) -> list[str]:
     """Read main.tex and return, in document order, 'subchapter' or 'recipe' for
-    each \\subchapter{...} and \\input{recipes/...} line — the same order the two
-    show up as sibling (depth-1) bookmarks under their chapter in the PDF outline
-    (hyperref nests a \\subsection's own bookmark as a chapter child, but doesn't
-    re-nest the \\section bookmarks that follow it inside that \\subsection)."""
+    each \\subchapter{...} and \\input{recipes/...} line. hyperref's bookmark tree
+    only nests a chapter's *first* \\subsection as the chapter's direct child;
+    every later \\subsection in the same chapter nests one level deeper, as a
+    child of the \\section (recipe) immediately before it. pypdf still visits
+    every one of these nodes in document order regardless of nesting depth, so
+    zipping this list against that visiting order (see extract_recipes) stays
+    correct without having to model the exact bookmark tree shape."""
     kinds: list[str] = []
     if not main_tex_path.exists():
         return kinds
@@ -57,7 +60,7 @@ def extract_recipes(pdf_path: Path, main_tex_path: Path) -> list[dict]:
                 subchapter = None
                 if title not in SKIP:
                     chapter = title
-            elif depth == 1 and chapter and page:
+            elif depth >= 1 and chapter and page:
                 kind = next(kinds, "recipe")
                 if kind == "subchapter":
                     subchapter = title
