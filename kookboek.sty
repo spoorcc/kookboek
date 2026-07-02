@@ -165,7 +165,12 @@
 
 % ---- Recipe building blocks -------------------------------------------------
 
-% Small-caps category line above the recipe title, e.g. \kicker{Hoofdgerecht}
+% Small-caps category line above the recipe title — properties of the dish
+% itself (what ends up on the table), in order: course (Hoofdgerecht/
+% Bijgerecht/Voorgerecht/Dessert/Bakken/Brood & basis), protein/diet (Vlees/
+% Vis/Vegetarisch/Vegan/Zoet), cuisine (Italiaans, Mexicaans, ...), and an
+% optional context tag (Doordeweeks, Kinderen, Kerst, Hartig, Pittig, ...).
+% e.g. \kicker[Hoofdgerecht,Vlees,Italiaans]{Hoofdgerecht · vlees · Italiaans}
 % Optional [Term1,Term2,...] arg registers those words in the Register, so a
 % recipe's category/dietary/cuisine tags can be looked up like ingredients.
 \newcommand{\kicker}[2][]{%
@@ -174,9 +179,13 @@
 
 % Diamond separator for the meta line.
 \newcommand{\dvd}{\,\textcolor{terracotta}{\raisebox{0.1ex}{$\scriptstyle\blacklozenge$}}\,}
-% Meta line: \meta{40 minuten \dvd Voor 5 personen \dvd Italiaans}
-% Optional [Term,...] arg registers those words in the Register — used for a
-% cuisine named only in the meta line, not already covered by \kicker's terms.
+% Meta line — properties of the cooking itself, not the dish: bereidingstijd,
+% dan optioneel portie-opbrengst, dan optioneel een bereidingswijze/moeite-tag
+% (Eén pan, Snel, Eenvoudig, oventemperatuur, ...). Cuisine lives in \kicker,
+% not here, so it isn't stated twice. e.g.:
+% \meta{40 minuten \dvd Voor 6 porties \dvd Eén pan}
+% Optional [Term,...] arg registers those words in the Register — for a
+% meta-only word that isn't already covered by \kicker's terms.
 \newcommand{\meta}[2][]{%
   \foreach \metaterm in {#1} {\index[register]{\metaterm}}%
   {\footnotesize\scshape\color{terracotta}#2}\par\vspace{1.2em}}

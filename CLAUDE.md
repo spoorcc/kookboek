@@ -80,8 +80,8 @@ Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` t
 |---|---|
 | `\begin{recipe}{Titel}` | Opens a new page + `\section`; close with `\end{recipe}` |
 | `\subchapter{Naam}` | Opens a new page + `\subsection`; groups recipes within a chapter, listed in the Inhoud |
-| `\kicker{…}` | Small-caps category line above the title |
-| `\meta{… \dvd … \dvd …}` | Time / servings / cuisine meta line (`\dvd` = ♦ separator) |
+| `\kicker{…}` | Small-caps category line above the title — properties of the dish itself: course · protein/diet · cuisine · optional context tag (see below) |
+| `\meta{… \dvd … \dvd …}` | Properties of the cooking itself: time · optional servings · optional effort/method tag (`\dvd` = ♦ separator). No cuisine here — that lives in `\kicker` |
 | `\blockrule{Ingrediënten}` / `\blockrule{Bereiding}` | Labelled terracotta rule |
 | `\begin{ingredients}` … `\end{ingredients}` | Two-column ingredient list |
 | `\ing{amount}{name}` | Ingredient with right-aligned amount |
@@ -93,6 +93,15 @@ Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` t
 | `\ingredientsketch{label}` | Dashed margin sketch placeholder |
 | `\writelines{n}` | Ruled lines for recipes whose method hasn't been written yet |
 | `\lettrine{X}{rest}` | Terracotta drop cap opening a paragraph |
+
+### Kicker vs. meta
+
+`\kicker` and `\meta` look alike (same small-caps terracotta style) but split different information — don't let a tag drift into the wrong one:
+
+- **`\kicker[Terms]{...}`** — what you get on the table. Up to four `·`-separated segments, in order: course (Hoofdgerecht/Bijgerecht/Voorgerecht/Dessert/Bakken/Brood & basis), protein/diet (Vlees/Vis/Vegetarisch/Vegan/Zoet), cuisine (Italiaans, Mexicaans, ...), and an optional context tag (Doordeweeks, Kinderen, Kerst, Hartig, Pittig, Basisrecept, Snack, ...). Example: `\kicker[Hoofdgerecht,Vlees,Italiaans,Doordeweeks]{Hoofdgerecht · vlees · Italiaans · doordeweeks}`.
+- **`\meta{...}`** — what cooking it takes. Up to three `\dvd`-separated segments, in order: bereidingstijd, optional portie-opbrengst (omit "Voor 5 personen" — that's the book's default), and an optional effort/method tag (Eén pan, Snel, Eenvoudig, an oven temperature). Example: `\meta{40 minuten \dvd Voor 6 porties \dvd Eén pan}`.
+- Cuisine belongs only in `\kicker`, never repeated in `\meta`.
+- Diet/allergen tags (glutenvrij, lactosevrij, notenvrij) are intentionally not part of this scheme — mislabeling those is a food-safety risk, not just a style slip.
 
 ## Writing style for recipe text
 
