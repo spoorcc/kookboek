@@ -166,12 +166,20 @@
 % ---- Recipe building blocks -------------------------------------------------
 
 % Small-caps category line above the recipe title, e.g. \kicker{Hoofdgerecht}
-\newcommand{\kicker}[1]{{\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=18.0}#1}\par\vspace{2pt}}
+% Optional [Term1,Term2,...] arg registers those words in the Register, so a
+% recipe's category/dietary/cuisine tags can be looked up like ingredients.
+\newcommand{\kicker}[2][]{%
+  \foreach \kickerterm in {#1} {\index[register]{\kickerterm}}%
+  {\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=18.0}#2}\par\vspace{2pt}}
 
 % Diamond separator for the meta line.
 \newcommand{\dvd}{\,\textcolor{terracotta}{\raisebox{0.1ex}{$\scriptstyle\blacklozenge$}}\,}
 % Meta line: \meta{40 minuten \dvd Voor 5 personen \dvd Italiaans}
-\newcommand{\meta}[1]{{\footnotesize\scshape\color{terracotta}#1}\par\vspace{1.2em}}
+% Optional [Term,...] arg registers those words in the Register — used for a
+% cuisine named only in the meta line, not already covered by \kicker's terms.
+\newcommand{\meta}[2][]{%
+  \foreach \metaterm in {#1} {\index[register]{\metaterm}}%
+  {\footnotesize\scshape\color{terracotta}#2}\par\vspace{1.2em}}
 
 % Labelled rule used before Ingrediënten / Bereiding.
 \newcommand{\blockrule}[1]{\par\vspace{1.0em}%
