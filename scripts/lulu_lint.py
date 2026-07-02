@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check the built cookbook PDF (and its LaTeX source) against Lulu.com print
 requirements: trim size, embedded fonts, image resolution, full-bleed safety,
-margins, and page count.
+margins, page count, and single-step widow pages.
 
 Usage:
     python3 scripts/lulu_lint.py [PDF] [--repo-root DIR] [--strict]
@@ -42,6 +42,15 @@ PLACEHOLDER_MACROS = {
     r"\ingredientsketch": "ingredient sketch not finished",
     r"\writelines": "method not written yet",
 }
+
+# Bookmark titles that mark front/back matter rather than a category chapter.
+NON_CHAPTER_TITLES = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
+
+BOILERPLATE_LINE_RE = re.compile(r"^(Kookboek van onze familie|—\s*\d+\s*—|\d+)$")
+# A rendered \begin{steps} item: "8 Zet de oven..." — digits, then a capital
+# letter starting the sentence. Deliberately excludes ingredient lines like
+# "397 ml gezoete..." (unit abbreviations are lowercase in this book).
+STEP_LINE_RE = re.compile(r"^\d{1,2}\s+[A-ZÀ-ÖØ-Þ]")
 
 
 def mm(pt):
@@ -159,6 +168,95 @@ def check_geometry(sty_path, report):
             )
 
 
+def _recipe_kinds(main_tex_path):
+    """Read main.tex and return, in document order, 'subchapter' or 'recipe'
+    for each \\subchapter{...} and \\input{recipes/...} line. Mirrors
+    scripts/extract_index.py's extract_depth1_kinds — needed because the PDF
+    bookmark tree doesn't itself distinguish a subchapter divider from a
+    recipe, both showing up as depth-1 (level-2) entries under a chapter."""
+    kinds = []
+    if not main_tex_path.exists():
+        return kinds
+    for line in main_tex_path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if stripped.startswith("%"):
+            continue
+        if re.search(r"\\subchapter\{", stripped):
+            kinds.append("subchapter")
+        elif re.search(r"\\input\{recipes/", stripped):
+            kinds.append("recipe")
+    return kinds
+
+
+def _recipe_page_ranges(doc, main_tex_path):
+    """Return [{"title", "page", "endPage"}, ...] for every recipe, using the
+    PDF's own bookmark outline (chapters = level 1, recipes/subchapters =
+    level 2). A lighter-weight reimplementation of extract_index.py's
+    extract_recipes that uses PyMuPDF instead of pypdf, so this script keeps
+    its single existing dependency."""
+    kinds = iter(_recipe_kinds(main_tex_path))
+    chapter = None
+    recipes = []
+    boundaries = []
+    for level, title, page in doc.get_toc(simple=True):
+        title = title.strip()
+        if level == 1:
+            if page:
+                boundaries.append(page)
+            if title not in NON_CHAPTER_TITLES:
+                chapter = title
+        elif level >= 2 and chapter and page:
+            kind = next(kinds, "recipe")
+            if kind == "subchapter":
+                boundaries.append(page)
+            else:
+                recipes.append({"title": title, "page": page})
+
+    total_pages = doc.page_count
+    for i, recipe in enumerate(recipes):
+        sp = recipe["page"]
+        candidates = [b for b in boundaries if b > sp]
+        if i + 1 < len(recipes):
+            candidates.append(recipes[i + 1]["page"])
+        recipe["endPage"] = (min(candidates) - 1) if candidates else total_pages
+    return recipes
+
+
+def check_orphan_pages(pdf_path, main_tex_path, report):
+    """Flag recipes whose text spills onto a next page that ends up holding
+    only a single leftover step — a typographic widow that reads as a
+    mistake (a near-blank page with one sentence on it) rather than a
+    deliberate two-page recipe."""
+    doc = fitz.open(pdf_path)
+    try:
+        recipes = _recipe_page_ranges(doc, main_tex_path)
+        if not recipes:
+            return
+        widows = []
+        for recipe in recipes:
+            if recipe["endPage"] <= recipe["page"]:
+                continue
+            page = doc[recipe["endPage"] - 1]
+            lines = [l.strip() for l in page.get_text().split("\n") if l.strip()]
+            content = [l for l in lines if not BOILERPLATE_LINE_RE.match(l)]
+            step_count = sum(1 for l in content if STEP_LINE_RE.match(l))
+            # Require at least one recognizable step line before trusting this
+            # page belongs to the recipe at all — guards against the page
+            # range spilling into the next chapter/Register's own opening
+            # page (a known quirk of the bookmark-derived page boundaries).
+            if step_count == 1:
+                widows.append((recipe["title"], recipe["page"], recipe["endPage"]))
+        if widows:
+            detail = "; ".join(f"{t!r} (p.{sp}–{ep})" for t, sp, ep in widows[:8])
+            report.warn(
+                f"{len(widows)} recipe(s) leave just one step behind on their last page "
+                f"— consider tightening the text so it fits on one page, or breaking the "
+                f"page differently: {detail}"
+            )
+    finally:
+        doc.close()
+
+
 def check_placeholders(recipes_dir, report):
     if not recipes_dir.exists():
         return
@@ -193,6 +291,7 @@ def main():
     report = Report()
     check_pdf(pdf_path, report)
     check_geometry(root / "kookboek.sty", report)
+    check_orphan_pages(pdf_path, root / "main.tex", report)
     check_placeholders(root / "recipes", report)
 
     if report.errors:

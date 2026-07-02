@@ -46,6 +46,7 @@ This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` ch
 - Margins in `kookboek.sty`'s `geometry` settings meet Lulu's 12.7mm safety margin
 - Page count meets Lulu's binding minimums and is a multiple of 4
 - Recipes don't still contain placeholder macros (`\heroplaceholder`, `\ingredientsketch`, `\writelines`)
+- No recipe leaves just one leftover step behind on its last page (a single-step widow page)
 
 `build.sh` runs it automatically after every build. Run it manually with:
 
@@ -53,7 +54,7 @@ This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` ch
 python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
 ```
 
-Trim-size, font-embedding, bleed, and margin problems are reported as errors and fail the build. Unfinished-recipe placeholders, low-resolution art, and odd page counts are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The checks target the interior file's trim size and don't apply to the wraparound cover (see below), which is sized to trim + bleed on purpose.
+Trim-size, font-embedding, bleed, and margin problems are reported as errors and fail the build. Unfinished-recipe placeholders, low-resolution art, odd page counts, and single-step widow pages are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The checks target the interior file's trim size and don't apply to the wraparound cover (see below), which is sized to trim + bleed on purpose.
 
 ## Wraparound cover (`cover/cover.tex`)
 

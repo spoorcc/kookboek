@@ -35,10 +35,15 @@
 %   - optional: Juliana (Sem Hartz) for the family name on the cover
 % ----------------------------------------------------------------------------
 \RequirePackage{fontspec}
+% The vendored EBGaramond-*.ttf builds only expose frac/liga/locl/pnum/tnum
+% in their GSUB table — no onum or lnum — so requesting Numbers=OldStyle or
+% Numbers=Lining is a silent no-op that only produces a fontspec warning per
+% occurrence (hundreds, across the whole book). Left unset here; swap in a
+% build of EB Garamond with old-style figures if that look is wanted later.
 \setmainfont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = EBGaramond-Regular, ItalicFont = EBGaramond-Italic, BoldFont = EBGaramond-SemiBold,
-  Ligatures = TeX, Numbers = OldStyle ]
+  Ligatures = TeX ]
 \newfontfamily\handfont{Nothing You Could Do}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = NothingYouCouldDo-Regular,
@@ -46,11 +51,33 @@
 % Family name on the cover. Swap "EB Garamond" for "Juliana" if you license it.
 \newfontfamily\julianafont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
-  UprightFont = EBGaramond-Regular,
-  Numbers = Lining]
+  UprightFont = EBGaramond-Regular]
+
+% Dutch hyphenation. Without this, TeX has no pattern set for Dutch and
+% can't break long compound words — deadly in the narrow \tip marginpar
+% column (marginparwidth=2.5cm), where an unhyphenated word simply
+% doesn't fit and overflows past the page's outer edge.
+\RequirePackage{polyglossia}
+\setmainlanguage{dutch}
 
 \RequirePackage{amssymb}
+% microtype's shipped mt-EBGaramond.cfg protrusion profile references
+% historical ligature/oldstyle-figure glyph slots (e.g. /f.long, /nine.tosf)
+% that the vendored EBGaramond-*.ttf builds don't contain, producing a
+% "Unknown slot number" warning for every such glyph microtype tries to look
+% up (hundreds, across the whole book). Harmless — microtype just skips
+% protrusion for those glyphs — so the warning is filtered rather than
+% disabling protrusion outright.
+\RequirePackage{silence}
+\WarningFilter{microtype}{Unknown slot number of character}
 \RequirePackage{microtype}
+
+% LaTeX's native \marginpar just drops its box at the vertical position
+% where it's called and never checks whether it still fits above the
+% bottom margin. A \tip{} anchored low on a page (e.g. after a long
+% ingredient list) can run its text straight past the bottom edge.
+% marginfix repositions margin notes so they stay within the text height.
+\RequirePackage{marginfix}
 
 % ----------------------------------------------------------------------------
 % Headings — chapters are CATEGORIES (Hoofdgerechten ...), sections are
@@ -139,12 +166,20 @@
 % ---- Recipe building blocks -------------------------------------------------
 
 % Small-caps category line above the recipe title, e.g. \kicker{Hoofdgerecht}
-\newcommand{\kicker}[1]{{\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=18.0}#1}\par\vspace{2pt}}
+% Optional [Term1,Term2,...] arg registers those words in the Register, so a
+% recipe's category/dietary/cuisine tags can be looked up like ingredients.
+\newcommand{\kicker}[2][]{%
+  \foreach \kickerterm in {#1} {\index[register]{\kickerterm}}%
+  {\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=18.0}#2}\par\vspace{2pt}}
 
 % Diamond separator for the meta line.
 \newcommand{\dvd}{\,\textcolor{terracotta}{\raisebox{0.1ex}{$\scriptstyle\blacklozenge$}}\,}
 % Meta line: \meta{40 minuten \dvd Voor 5 personen \dvd Italiaans}
-\newcommand{\meta}[1]{{\footnotesize\scshape\color{terracotta}#1}\par\vspace{1.2em}}
+% Optional [Term,...] arg registers those words in the Register — used for a
+% cuisine named only in the meta line, not already covered by \kicker's terms.
+\newcommand{\meta}[2][]{%
+  \foreach \metaterm in {#1} {\index[register]{\metaterm}}%
+  {\footnotesize\scshape\color{terracotta}#2}\par\vspace{1.2em}}
 
 % Labelled rule used before Ingrediënten / Bereiding.
 \newcommand{\blockrule}[1]{\par\vspace{1.0em}%
