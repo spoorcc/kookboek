@@ -35,10 +35,15 @@
 %   - optional: Juliana (Sem Hartz) for the family name on the cover
 % ----------------------------------------------------------------------------
 \RequirePackage{fontspec}
+% The vendored EBGaramond-*.ttf builds only expose frac/liga/locl/pnum/tnum
+% in their GSUB table — no onum or lnum — so requesting Numbers=OldStyle or
+% Numbers=Lining is a silent no-op that only produces a fontspec warning per
+% occurrence (hundreds, across the whole book). Left unset here; swap in a
+% build of EB Garamond with old-style figures if that look is wanted later.
 \setmainfont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = EBGaramond-Regular, ItalicFont = EBGaramond-Italic, BoldFont = EBGaramond-SemiBold,
-  Ligatures = TeX, Numbers = OldStyle ]
+  Ligatures = TeX ]
 \newfontfamily\handfont{Nothing You Could Do}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = NothingYouCouldDo-Regular,
@@ -46,8 +51,7 @@
 % Family name on the cover. Swap "EB Garamond" for "Juliana" if you license it.
 \newfontfamily\julianafont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
-  UprightFont = EBGaramond-Regular,
-  Numbers = Lining]
+  UprightFont = EBGaramond-Regular]
 
 % Dutch hyphenation. Without this, TeX has no pattern set for Dutch and
 % can't break long compound words — deadly in the narrow \tip marginpar
@@ -57,6 +61,15 @@
 \setmainlanguage{dutch}
 
 \RequirePackage{amssymb}
+% microtype's shipped mt-EBGaramond.cfg protrusion profile references
+% historical ligature/oldstyle-figure glyph slots (e.g. /f.long, /nine.tosf)
+% that the vendored EBGaramond-*.ttf builds don't contain, producing a
+% "Unknown slot number" warning for every such glyph microtype tries to look
+% up (hundreds, across the whole book). Harmless — microtype just skips
+% protrusion for those glyphs — so the warning is filtered rather than
+% disabling protrusion outright.
+\RequirePackage{silence}
+\WarningFilter{microtype}{Unknown slot number of character}
 \RequirePackage{microtype}
 
 % LaTeX's native \marginpar just drops its box at the vertical position
