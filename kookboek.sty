@@ -49,8 +49,22 @@
   UprightFont = EBGaramond-Regular,
   Numbers = Lining]
 
+% Dutch hyphenation. Without this, TeX has no pattern set for Dutch and
+% can't break long compound words — deadly in the narrow \tip marginpar
+% column (marginparwidth=2.5cm), where an unhyphenated word simply
+% doesn't fit and overflows past the page's outer edge.
+\RequirePackage{polyglossia}
+\setmainlanguage{dutch}
+
 \RequirePackage{amssymb}
 \RequirePackage{microtype}
+
+% LaTeX's native \marginpar just drops its box at the vertical position
+% where it's called and never checks whether it still fits above the
+% bottom margin. A \tip{} anchored low on a page (e.g. after a long
+% ingredient list) can run its text straight past the bottom edge.
+% marginfix repositions margin notes so they stay within the text height.
+\RequirePackage{marginfix}
 
 % ----------------------------------------------------------------------------
 % Headings — chapters are CATEGORIES (Hoofdgerechten ...), sections are
