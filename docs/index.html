@@ -244,6 +244,14 @@
       border-top: 1px solid var(--border);
     }
 
+    .subch-label {
+      padding: 8px 14px 2px 22px;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      font-style: italic;
+      color: var(--accent2);
+    }
+
     .recipe-row {
       padding: 7px 14px 7px 18px;
       cursor: pointer;
@@ -623,15 +631,28 @@ function buildSidebar(list) {
   const container = document.getElementById('recipe-list');
   container.innerHTML = '';
   let chapter = null;
+  let subchapter = null;
 
   list.forEach((r, i) => {
     if (r.chapter !== chapter) {
       chapter = r.chapter;
+      subchapter = null;
       const h = document.createElement('div');
       h.className = 'ch-label';
       h.textContent = r.chapter;
       h.dataset.chapter = r.chapter;
       container.appendChild(h);
+    }
+    if (r.subchapter !== subchapter) {
+      subchapter = r.subchapter;
+      if (subchapter) {
+        const sh = document.createElement('div');
+        sh.className = 'subch-label';
+        sh.textContent = subchapter;
+        sh.dataset.chapter = r.chapter;
+        sh.dataset.subchapter = subchapter;
+        container.appendChild(sh);
+      }
     }
     const row = document.createElement('div');
     row.className = 'recipe-row';
@@ -883,23 +904,34 @@ function filterAll(q) {
 }
 
 function filterRecipes(q) {
-  const rows   = document.querySelectorAll('.recipe-row');
-  const labels = document.querySelectorAll('.ch-label');
+  const rows      = document.querySelectorAll('.recipe-row');
+  const chLabels  = document.querySelectorAll('.ch-label');
+  const subLabels = document.querySelectorAll('.subch-label');
 
   if (!q) {
     rows.forEach(r => r.classList.remove('hidden'));
-    labels.forEach(l => l.style.display = '');
+    chLabels.forEach(l => l.style.display = '');
+    subLabels.forEach(l => l.style.display = '');
     return;
   }
 
-  const visible = new Set();
+  const visibleChapters    = new Set();
+  const visibleSubchapters = new Set();
   rows.forEach(r => {
     const match = r.textContent.toLowerCase().includes(q);
     r.classList.toggle('hidden', !match);
-    if (match) visible.add(recipes[+r.dataset.idx].chapter);
+    if (match) {
+      const rec = recipes[+r.dataset.idx];
+      visibleChapters.add(rec.chapter);
+      if (rec.subchapter) visibleSubchapters.add(rec.chapter + '␟' + rec.subchapter);
+    }
   });
-  labels.forEach(l => {
-    l.style.display = visible.has(l.dataset.chapter) ? '' : 'none';
+  chLabels.forEach(l => {
+    l.style.display = visibleChapters.has(l.dataset.chapter) ? '' : 'none';
+  });
+  subLabels.forEach(l => {
+    const key = l.dataset.chapter + '␟' + l.dataset.subchapter;
+    l.style.display = visibleSubchapters.has(key) ? '' : 'none';
   });
 }
 

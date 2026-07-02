@@ -8,18 +8,40 @@ from pathlib import Path
 SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
 
 
-def extract_recipes(pdf_path: Path) -> list[dict]:
+def extract_depth1_kinds(main_tex_path: Path) -> list[str]:
+    """Read main.tex and return, in document order, 'subchapter' or 'recipe' for
+    each \\subchapter{...} and \\input{recipes/...} line — the same order the two
+    show up as sibling (depth-1) bookmarks under their chapter in the PDF outline
+    (hyperref nests a \\subsection's own bookmark as a chapter child, but doesn't
+    re-nest the \\section bookmarks that follow it inside that \\subsection)."""
+    kinds: list[str] = []
+    if not main_tex_path.exists():
+        return kinds
+    for line in main_tex_path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if stripped.startswith("%"):
+            continue
+        if re.search(r"\\subchapter\{", stripped):
+            kinds.append("subchapter")
+        elif re.search(r"\\input\{recipes/", stripped):
+            kinds.append("recipe")
+    return kinds
+
+
+def extract_recipes(pdf_path: Path, main_tex_path: Path) -> list[dict]:
     from pypdf import PdfReader
 
     reader = PdfReader(str(pdf_path))
     total_pages = len(reader.pages)
+    kinds = iter(extract_depth1_kinds(main_tex_path))
 
     recipes: list[dict] = []
-    chapter_boundaries: list[int] = []
+    boundaries: list[int] = []
     chapter: str | None = None
+    subchapter: str | None = None
 
     def walk(items, depth: int = 0) -> None:
-        nonlocal chapter
+        nonlocal chapter, subchapter
         for item in items:
             if isinstance(item, list):
                 walk(item, depth + 1)
@@ -31,11 +53,19 @@ def extract_recipes(pdf_path: Path) -> list[dict]:
                 page = None
             if depth == 0:
                 if page:
-                    chapter_boundaries.append(page)
+                    boundaries.append(page)
+                subchapter = None
                 if title not in SKIP:
                     chapter = title
             elif depth == 1 and chapter and page:
-                recipes.append({"title": title, "chapter": chapter, "page": page})
+                kind = next(kinds, "recipe")
+                if kind == "subchapter":
+                    subchapter = title
+                    boundaries.append(page)
+                else:
+                    recipes.append(
+                        {"title": title, "chapter": chapter, "subchapter": subchapter, "page": page}
+                    )
 
     walk(reader.outline)
 
@@ -44,7 +74,7 @@ def extract_recipes(pdf_path: Path) -> list[dict]:
         candidates: list[int] = []
         if i + 1 < len(recipes):
             candidates.append(recipes[i + 1]["page"])
-        for b in chapter_boundaries:
+        for b in boundaries:
             if b > sp:
                 candidates.append(b)
         recipe["endPage"] = (min(candidates) - 1) if candidates else total_pages
@@ -97,7 +127,7 @@ if __name__ == "__main__":
     out_dir = Path("docs")
     out_dir.mkdir(exist_ok=True)
 
-    recipes = extract_recipes(pdf)
+    recipes = extract_recipes(pdf, Path("main.tex"))
     if not recipes:
         sys.exit(
             "ERROR: no recipes found in PDF outline.\n"
@@ -107,7 +137,8 @@ if __name__ == "__main__":
     recipes_out.write_text(json.dumps(recipes, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {len(recipes)} recipes to {recipes_out}")
     for r in recipes:
-        print(f"  p.{r['page']:3d}–{r['endPage']:3d}  [{r['chapter']}]  {r['title']}")
+        group = f"{r['chapter']} / {r['subchapter']}" if r["subchapter"] else r["chapter"]
+        print(f"  p.{r['page']:3d}–{r['endPage']:3d}  [{group}]  {r['title']}")
 
     register = extract_register(Path("register.idx"))
     register_out = out_dir / "register.json"
