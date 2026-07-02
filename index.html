@@ -891,7 +891,7 @@ async function downloadRecipe() {
     const to      = recipe.endPage - 1;
     const indices = Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
-    const copied = await newDoc.copyPagesFrom(srcDoc, indices);
+    const copied = await newDoc.copyPages(srcDoc, indices);
     copied.forEach(p => newDoc.addPage(p));
 
     const bytes = await newDoc.save();
