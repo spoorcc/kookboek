@@ -300,6 +300,19 @@
     }
     .reg-row.active .reg-pages { color: rgba(255,255,255,0.55); }
 
+    .reg-page-link {
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 2px;
+      transition: text-decoration-color 0.12s, color 0.12s;
+    }
+    .reg-page-link:hover {
+      text-decoration-color: currentColor;
+      color: var(--accent);
+    }
+    .reg-row.active .reg-page-link:hover { color: #fff; }
+
     /* ── Viewer ───────────────────────────────── */
     main {
       flex: 1;
@@ -691,18 +704,29 @@ function buildRegister(list) {
     row.className = 'reg-row';
     row.dataset.entry  = entry.entry.toLowerCase();
     row.dataset.letter = letter;
-    row.dataset.page   = entry.pages[0];
 
     const name = document.createElement('span');
+    name.className = 'reg-name';
     name.textContent = entry.entry;
 
     const pg = document.createElement('span');
     pg.className = 'reg-pages';
-    pg.textContent = entry.pages.join(', ');
+    entry.pages.forEach((p, i) => {
+      if (i > 0) pg.appendChild(document.createTextNode(', '));
+      const link = document.createElement('span');
+      link.className = 'reg-page-link';
+      link.textContent = p.label;
+      link.title = `Ga naar pagina ${p.label}`;
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openRegisterEntry(p.page, row);
+      });
+      pg.appendChild(link);
+    });
 
     row.appendChild(name);
     row.appendChild(pg);
-    row.addEventListener('click', () => openRegisterEntry(entry.pages[0], row));
+    row.addEventListener('click', () => openRegisterEntry(entry.pages[0].page, row));
     container.appendChild(row);
   });
 }

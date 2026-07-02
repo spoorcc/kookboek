@@ -10,10 +10,13 @@ SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
 
 def extract_depth1_kinds(main_tex_path: Path) -> list[str]:
     """Read main.tex and return, in document order, 'subchapter' or 'recipe' for
-    each \\subchapter{...} and \\input{recipes/...} line — the same order the two
-    show up as sibling (depth-1) bookmarks under their chapter in the PDF outline
-    (hyperref nests a \\subsection's own bookmark as a chapter child, but doesn't
-    re-nest the \\section bookmarks that follow it inside that \\subsection)."""
+    each \\subchapter{...} and \\input{recipes/...} line. hyperref's bookmark tree
+    only nests a chapter's *first* \\subsection as the chapter's direct child;
+    every later \\subsection in the same chapter nests one level deeper, as a
+    child of the \\section (recipe) immediately before it. pypdf still visits
+    every one of these nodes in document order regardless of nesting depth, so
+    zipping this list against that visiting order (see extract_recipes) stays
+    correct without having to model the exact bookmark tree shape."""
     kinds: list[str] = []
     if not main_tex_path.exists():
         return kinds
@@ -57,7 +60,7 @@ def extract_recipes(pdf_path: Path, main_tex_path: Path) -> list[dict]:
                 subchapter = None
                 if title not in SKIP:
                     chapter = title
-            elif depth == 1 and chapter and page:
+            elif depth >= 1 and chapter and page:
                 kind = next(kinds, "recipe")
                 if kind == "subchapter":
                     subchapter = title
@@ -82,22 +85,51 @@ def extract_recipes(pdf_path: Path, main_tex_path: Path) -> list[dict]:
     return recipes
 
 
-def extract_register(idx_path: Path) -> list[dict]:
-    """Parse LaTeX .idx file into a sorted list of {entry, pages} dicts."""
+def extract_register(idx_path: Path, pdf_path: Path) -> list[dict]:
+    """Parse LaTeX .idx file into a sorted list of {entry, pages} dicts.
+
+    \\index writes out \\thepage as it's printed in the book — roman numerals
+    in the front matter, arabic afterwards — and \\mainmatter resets the page
+    counter to 1, so that printed number is *not* the PDF's raw (1-based)
+    page index needed to navigate there; e.g. printed page "1" of the main
+    matter is several raw pages in, after the title page and front matter.
+    Each entry in `pages` therefore pairs the printed `label` (for display,
+    matching the book) with the resolved raw `page` (for navigation),
+    looked up via the PDF's embedded page-label table (hyperref writes one
+    automatically whenever \\pagenumbering changes). If a PDF has no page
+    labels, the printed number is used as the raw index directly.
+    """
     if not idx_path.exists():
         return []
 
-    entries: dict[str, set[int]] = {}
+    label_to_index: dict[str, int] = {}
+    try:
+        from pypdf import PdfReader
+
+        reader = PdfReader(str(pdf_path))
+        for i, label in enumerate(reader.page_labels, start=1):
+            label_to_index.setdefault(label, i)
+    except Exception:
+        pass
+
+    entries: dict[str, dict[str, int]] = {}
     display: dict[str, str] = {}
-    pattern = re.compile(r'\\indexentry\{([^}]+)\}\{(-?\d+)\}')
+    pattern = re.compile(r'\\indexentry\{([^}]+)\}\{([^}]+)\}')
 
     for line in idx_path.read_text(encoding='utf-8', errors='replace').splitlines():
         m = pattern.match(line.strip())
         if not m:
             continue
         raw_term = m.group(1)
-        page = int(m.group(2))
-        if page <= 0:
+        label = m.group(2)
+
+        raw_index = label_to_index.get(label)
+        if raw_index is None:
+            try:
+                raw_index = int(label)
+            except ValueError:
+                continue
+        if raw_index <= 0:
             continue
 
         term = raw_term.split('|')[0]
@@ -109,14 +141,18 @@ def extract_register(idx_path: Path) -> list[dict]:
 
         key = term.lower()
         if key not in entries:
-            entries[key] = set()
+            entries[key] = {}
             display[key] = term
-        entries[key].add(page)
+        entries[key][label] = raw_index
 
-    return [
-        {"entry": display[k], "pages": sorted(entries[k])}
-        for k in sorted(entries)
-    ]
+    result = []
+    for k in sorted(entries):
+        pairs = sorted(entries[k].items(), key=lambda kv: kv[1])
+        result.append({
+            "entry": display[k],
+            "pages": [{"label": label, "page": raw_index} for label, raw_index in pairs],
+        })
+    return result
 
 
 if __name__ == "__main__":
@@ -140,7 +176,10 @@ if __name__ == "__main__":
         group = f"{r['chapter']} / {r['subchapter']}" if r["subchapter"] else r["chapter"]
         print(f"  p.{r['page']:3d}–{r['endPage']:3d}  [{group}]  {r['title']}")
 
-    register = extract_register(Path("register.idx"))
+    register = extract_register(Path("register.idx"), pdf)
     register_out = out_dir / "register.json"
     register_out.write_text(json.dumps(register, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {len(register)} register entries to {register_out}")
+    for r in register:
+        pages = ", ".join(f"{p['label']} (p.{p['page']})" for p in r["pages"])
+        print(f"  {r['entry']}: {pages}")
