@@ -559,9 +559,14 @@ let activeTab        = 'recepten';
 // ── Init ──────────────────────────────────────────────────────────────────
 
 async function init() {
-  // Load recipe index
+  // Load recipe index. `cache: 'no-cache'` forces revalidation with the
+  // server on every load — recipes.json/register.json/the PDF are only
+  // ever meaningful together (page numbers in one must match the others),
+  // so a browser silently reusing a stale cached copy of just one of them
+  // after a deploy produces broken-looking output (e.g. blank register
+  // page numbers when the JS expects a newer JSON shape).
   try {
-    const res = await fetch('recipes.json');
+    const res = await fetch('recipes.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(res.statusText);
     recipes = await res.json();
     buildSidebar(recipes);
@@ -572,7 +577,7 @@ async function init() {
 
   // Load register index
   try {
-    const res = await fetch('register.json');
+    const res = await fetch('register.json', { cache: 'no-cache' });
     if (res.ok) {
       registerData = await res.json();
       buildRegister(registerData);
@@ -587,7 +592,7 @@ async function init() {
 
   // Fetch PDF; share bytes with pdf.js and keep original for pdf-lib
   try {
-    const response = await fetch('KookboekFamilieSpoor.pdf');
+    const response = await fetch('KookboekFamilieSpoor.pdf', { cache: 'no-cache' });
     pdfBytes = await response.arrayBuffer();
     pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice() }).promise;
     renderCoverThumb();
@@ -863,7 +868,23 @@ async function downloadRecipe() {
 
   try {
     const { PDFDocument } = PDFLib;
-    const srcDoc = await PDFDocument.load(pdfBytes);
+    let srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
+
+    // recipes.json and the in-memory PDF bytes must agree on page count. If
+    // the browser served a stale cached copy of one but not the other (e.g.
+    // right after a deploy), recipe.endPage can point past the end of this
+    // PDF. Re-fetch a guaranteed-fresh copy once and retry before giving up.
+    if (recipe.endPage > srcDoc.getPageCount()) {
+      const fresh = await fetch('KookboekFamilieSpoor.pdf', { cache: 'reload' });
+      pdfBytes = await fresh.arrayBuffer();
+      srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
+      if (recipe.endPage > srcDoc.getPageCount()) {
+        throw new Error(
+          `Recept verwijst naar pagina ${recipe.endPage}, maar de PDF heeft er maar ${srcDoc.getPageCount()}.`
+        );
+      }
+    }
+
     const newDoc = await PDFDocument.create();
 
     const from    = recipe.page - 1;
@@ -886,7 +907,7 @@ async function downloadRecipe() {
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   } catch (err) {
     console.error('Download mislukt:', err);
-    alert('Downloaden mislukt. Gebruik "Volledig boek" als alternatief.');
+    alert(`Downloaden mislukt (${err.message || err}). Gebruik "Volledig boek" als alternatief.`);
   } finally {
     btn.classList.remove('busy');
     btn.disabled = false;
