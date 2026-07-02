@@ -868,7 +868,23 @@ async function downloadRecipe() {
 
   try {
     const { PDFDocument } = PDFLib;
-    const srcDoc = await PDFDocument.load(pdfBytes);
+    let srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
+
+    // recipes.json and the in-memory PDF bytes must agree on page count. If
+    // the browser served a stale cached copy of one but not the other (e.g.
+    // right after a deploy), recipe.endPage can point past the end of this
+    // PDF. Re-fetch a guaranteed-fresh copy once and retry before giving up.
+    if (recipe.endPage > srcDoc.getPageCount()) {
+      const fresh = await fetch('KookboekFamilieSpoor.pdf', { cache: 'reload' });
+      pdfBytes = await fresh.arrayBuffer();
+      srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
+      if (recipe.endPage > srcDoc.getPageCount()) {
+        throw new Error(
+          `Recept verwijst naar pagina ${recipe.endPage}, maar de PDF heeft er maar ${srcDoc.getPageCount()}.`
+        );
+      }
+    }
+
     const newDoc = await PDFDocument.create();
 
     const from    = recipe.page - 1;
@@ -891,7 +907,7 @@ async function downloadRecipe() {
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   } catch (err) {
     console.error('Download mislukt:', err);
-    alert('Downloaden mislukt. Gebruik "Volledig boek" als alternatief.');
+    alert(`Downloaden mislukt (${err.message || err}). Gebruik "Volledig boek" als alternatief.`);
   } finally {
     btn.classList.remove('busy');
     btn.disabled = false;
