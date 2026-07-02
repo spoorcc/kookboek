@@ -415,7 +415,6 @@
     }
 
     /* ── Mobile ───────────────────────────────── */
-    #back-mobile { display: none; }
 
     @media (max-width: 680px) {
       :root { --sidebar-w: 100%; --header-h: 50px; }
@@ -427,11 +426,6 @@
       .header-title .sep { display: none; }
       .header-title .sub { display: none; }
 
-      /* "← Lijst" in the viewer bar already returns to the sidebar here,
-         so the header hamburger would just be a second button doing the
-         same thing. */
-      #sidebar-toggle { display: none; }
-
       #dl-full { padding: 5px 10px; font-size: 0.72rem; }
 
       aside {
@@ -441,8 +435,6 @@
         width: 100%;
       }
       aside.slide-out { transform: translateX(-100%); }
-
-      #back-mobile { display: block; }
 
       #viewer-bar {
         justify-content: space-between;
@@ -533,7 +525,6 @@
     </div>
 
     <div id="viewer-bar">
-      <button class="nav-btn" id="back-mobile" onclick="showSidebar()">← Lijst</button>
       <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Vorige</button>
       <span id="page-label"></span>
       <button class="nav-btn" id="next-btn" onclick="navigate(1)">Volgende →</button>
@@ -761,10 +752,6 @@ function openRegisterEntry(page, rowEl) {
   curPage = page;
   renderSpread(page);
   if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
-}
-
-function showSidebar() {
-  document.getElementById('sidebar').classList.remove('slide-out');
 }
 
 // ── Collapse sidebar (tablet / desktop full-screen reading) ────────────────
