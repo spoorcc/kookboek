@@ -79,3 +79,87 @@ zonder hoeveelheid staan:
 ### recipes/lasagne-simpel.tex
 "Verhit de olijfolie in een pan en bak de ui glazig" (stap 2) noemt geen
 pantype.
+
+## Toon, stijl en leesbaarheid
+
+Geen enkel recept bevat een em-dash of emoji, dat staat overal goed. Wat wel
+nog aandacht vraagt:
+
+### Overdreven claims (in strijd met de stijlregel)
+- **recipes/pita.tex**: "Perfect om in de shakshuka te dippen." gebruikt
+  letterlijk het woord dat de stijlregels als voorbeeld van een te vermijden
+  claim noemen.
+- **recipes/pannenkoeken.tex**: "voor iedereen leuk" is een ongekwalificeerde
+  uitspraak over wat iedereen leuk vindt.
+- **recipes/drollenkoekjes.tex**: "gaan er altijd in bij kinderen" is
+  eenzelfde soort absolute uitspraak.
+
+### Intro en tip zeggen hetzelfde
+- **recipes/basiskoekjes.tex**: intro en tip beschrijven allebei dat de
+  koekjes zacht uit de oven komen en pas na afkoelen stevig worden.
+- **recipes/bloemkoolquiche.tex**: tip en stap 7 zeggen allebei letterlijk
+  dat de zijkanten met aluminiumfolie bedekt moeten worden.
+- **recipes/bonensalade.tex**: intro en tip geven allebei het advies om de
+  salade een dag van tevoren te maken.
+- **recipes/hutspot.tex**: intro en tip zeggen bijna woord voor woord
+  hetzelfde over niet te glad stampen.
+- **recipes/ijstaart-karamel.tex**: intro en tip herhalen allebei dat de
+  taart een hele nacht de vriezer in moet.
+- **recipes/jambalaya.tex**: de meta-regel noemt al "Eén pan", de intro
+  herhaalt dat met "in één pan".
+- **recipes/broodje-hamburger.tex**: de kicker noemt al "kinderfavoriet", de
+  intro herhaalt dat letterlijk.
+- **recipes/quiche-groente-cirkel.tex**: intro en tip waarschuwen allebei
+  met andere woorden voor rauw blijvende groente en het belang van
+  blancheren.
+- **recipes/risotto.tex**: de tip en stap 7 hangen hetzelfde label ("pas
+  écht romig") aan twee verschillende technieken (roeren met bouillon versus
+  laten rusten).
+- **recipes/roti.tex**: intro en tip zeggen allebei dat de saus een dag van
+  tevoren gemaakt kan worden.
+- **recipes/lasagne-simpel.tex**: "klaar in drie kwartier" in de intro zegt
+  hetzelfde als `\meta{45 minuten}` erboven.
+- **recipes/lekkerbekjes-kroketjes-sla.tex**: de tip noemt remouladesaus en
+  augurken/zilveruitjes, die al gewoon in de ingrediëntenlijst staan.
+- **recipes/moussaka.tex**: "Reken op een goede twee uur" in de intro
+  herhaalt `\meta{2 uur}` erboven.
+- **recipes/nasi.tex**: de intro noemt "op een doordeweekse avond" terwijl
+  de kicker al "doordeweeks" als label heeft.
+- **recipes/pita.tex**: de tip herhaalt de geruststelling die de intro al
+  geeft ("het komt helemaal goed" / "het komt goed").
+
+### Duidelijkheid
+- **recipes/eierkoeken.tex**: "Eierkoeken zijn een klassiek Nederlands
+  koekje dat..." laat het meervoud "zijn" botsen met het enkelvoud "een
+  klassiek Nederlands koekje".
+- **recipes/gnocchi-broccoli.tex**: "klaar voordat het water goed en wel
+  kookt" is een verwarrende bijzin, want er moet in het recept zelf ook
+  water gekookt worden voor de gnocchi.
+- **recipes/jambalaya.tex**: de zin "Was de rijst tot het water helder is en
+  laat alles samen garen tot een rokerig, stevig bord" staat als instructie
+  midden in de beschrijvende intro, nog voor de ingrediëntenlijst.
+- **recipes/lasagne-simpel.tex**: "Ui, paprika en courgette zijn de enige
+  groente die je hoeft te snijden, de kant-en-klare lasagnesaus doet de rest
+  van het werk" zijn eigenlijk twee zinnen met een komma aan elkaar geplakt.
+- **recipes/pannenkoeken.tex**: "Dat maakt de pannenkoeken soepeler en
+  minder snel scheuren bij het omdraaien" loopt grammaticaal niet helemaal
+  parallel.
+- **recipes/venkel-risotto.tex**: "Venkelrisotto vraagt iets meer aandacht
+  dan een gewone pasta, maar dat heeft zijn redenen" blijft vaag over welke
+  redenen dat dan zijn.
+
+### Toon
+- **recipes/bobotie.tex**: de intro is volledig beschrijvend zonder
+  persoonlijk detail, en dit is het enige recept in de reeks zonder `\tip`,
+  wat het net iets kaler maakt dan de rest van het boek.
+- **recipes/mac-n-cheese.tex**: "De zelfgemaakte bechamel maakt het geheel"
+  is een vage opvulzin die weinig toevoegt vergeleken met de concretere
+  intro's elders in het boek.
+- **recipes/venkelworstpasta.tex**: "tot iets bijzonders uitgroeit" klinkt
+  meer als foodblogtaal dan als de nuchtere stem van de rest van het boek.
+
+### Overig
+`shoarma.tex` en `venkelworstpasta.tex` hebben een kicker-tag ("met kip",
+"met worst") die niet in het protein/diet-schema uit CLAUDE.md past
+(Vlees/Vis/Vegetarisch/Vegan/Zoet). Geen prozakwestie, maar wel een
+inconsistentie in de kicker-indeling.
