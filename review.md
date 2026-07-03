@@ -8,6 +8,80 @@ ontbreken. Puur bewuste `\ingb`-items ("naar smaak", "op gevoel") zijn niet
 meegenomen, dat is een gekozen stijl in het boek. Hieronder alleen recepten
 waar iets is gevonden, gegroepeerd per hoofdstuk zoals in `main.tex`.
 
+## Status na tweede rebase
+
+De branch is opnieuw op `main` gebaseerd (nu 76 recepten, drie er weer bij:
+`burritos.tex`, `lasagne-simpel.tex`, `pasta-primavera.tex`). Er zaten tussen
+de vorige en deze rebase ruim 90 commits, waarvan een flink deel gericht was
+op precies de dingen die in deze review stonden: hoeveelheden toevoegen,
+terminologie gelijktrekken (`versgemalen peper`, `knoflookteentje`,
+`risottorijst`), servings-vermelding opschonen (5 personen is nu de
+stilzwijgende standaard uit het voorwoord, alleen afwijkende aantallen worden
+nog genoemd), em-dashes eruit, en hoofdstukken in subchapters opgedeeld. Ik
+heb elk item hieronder tegen de huidige tekst gehouden.
+
+**Opgelost:**
+- `kofta.tex` — de lege hoeveelheid bij de tomaten is aangevuld (`\ing{2}{...}`).
+- `quiche-groente-geitenkaas.tex` — de aubergine staat nu in de ingrediëntenlijst.
+- `shakshuka.tex` — nu overal 6 eieren, in lijn met "maak 6 kuiltjes".
+- `broodje-hamburger.tex` — tomaat, augurken, komkommer, paprika en
+  plakjes kaas hebben nu allemaal een hoeveelheid. Alleen sla staat nog als
+  `\ingb`, maar dat is voor een krop sla een redelijke keuze.
+- `lekkerbekjes-kroketjes-sla.tex` — kroketjes (`1 zak`) en ijsbergsla
+  (`1 krop`) hebben nu een hoeveelheid.
+- `kip-madras.tex` — de kipfilet staat nu correct als `\ing{1}{kipfilet, in
+  stukken}` in plaats van als `\ingb`. Ook is "Voor 4 personen" terecht
+  vervangen door de stilzwijgende 5, want de hoeveelheden klopten toch al op
+  5 personen.
+
+**Deels opgelost:**
+- `gevulde-varkensrollade.tex` — de bladspinazie heeft nu een hoeveelheid
+  (`1 klein zakje`), en spek en prosciutto zijn losgetrokken in twee aparte
+  regels. Die twee hebben zelf nog steeds geen hoeveelheid.
+- `tortellini-al-forno.tex` — ui en courgette hebben nu een hoeveelheid. De
+  tortellini zelf, de spekjes, de ricotta, de parmezaanse kaas en de
+  mozzarella (dus het grootste deel van het gerecht) staan nog steeds zonder
+  hoeveelheid.
+
+**Nog open, ongewijzigd:** vrijwel alle andere bevindingen hieronder staan
+nog exact zoals beschreven: de zesde wrap in `fajitas.tex`, het vocht in
+`jambalaya.tex`, de rookworsttijd in `hutspot.tex`, het ontbrekende zout in
+de vulling van `quiche-groente-geitenkaas.tex`, de topping zonder
+hoeveelheid en de uitleksduur in `pizza.tex`, de 2 dooiers in
+`pasta-carbonara.tex`, de bechamel zonder hoeveelheid in `mac-n-cheese.tex`,
+enkelvoud/meervoud in `rode-rijst.tex`, "baking soda" in het Engels en het
+late voorverwarmen in `pretzels.tex`, de 6 g vs 5 g kruiden in
+`sauzijcenbroodjes.tex`, het vierde ei in `tiramisu-ricotta.tex`, en zo goed
+als alle kookgerei-, olie-, voorverwarm- en 'waarom'-bevindingen verderop.
+Die laatste categorieën (welke pan, welke olie, wanneer de oven aan, waarom
+een stap zo moet) zijn dit keer niet aangepakt in de commits.
+
+**Correctie op een eerdere bevinding:** de groep
+`bloemkoolquiche.tex, quiche-lorraine.tex, quiche-ham-prei.tex,
+quiche-groente-cirkel.tex` bij "Voorkennis" (voorbakken zonder uitleg over
+inprikken/gewichtjes) klopt niet voor `quiche-groente-cirkel.tex`: dat
+recept heeft helemaal geen aparte voorbakstap, de bodem wordt in één keer
+met de vulling gebakken. Die vier moet dus drie zijn.
+
+**Nieuwe kleine bevindingen bij deze ronde:**
+- `wafels.tex`, laatste stap: "Bak de wafels in een voorverwarmde
+  wafelichter goudbruin." Dat moet waarschijnlijk "wafelijzer" zijn, "wafelichter"
+  bestaat niet als woord.
+- `fajitas.tex` en `burritos.tex` gebruiken `\ing{—}{zout}` (een liggend
+  streepje als hoeveelheid) waar de rest van het boek `\ingb{zout}` gebruikt.
+  Werkt in de praktijk hetzelfde, maar is een afwijkend patroon.
+- `lasagne-simpel.tex` (nieuw recept): `\ingb{1 eetlepel olijfolie}` heeft de
+  hoeveelheid al in de tekst staan maar gebruikt de verkeerde macro, precies
+  hetzelfde slordigheidje als eerder bij `kip-madras.tex` (nu wel opgelost)
+  en `kofta.tex`. Dit hoort `\ing{1 eetlepel}{olijfolie}` te zijn.
+- `burritos.tex`, `lasagne-simpel.tex` en `pasta-primavera.tex` (de drie
+  nieuwe recepten) zijn verder solide: hoeveelheden kloppen, de oven wordt op
+  tijd voorverwarmd (`lasagne-simpel.tex` geeft zelfs een gasovenstand erbij
+  als alternatief, een mooie aanvulling), en `pasta-primavera.tex` legt het
+  waarom van een paar stappen (geen room nodig, pasta zeer al dente koken)
+  juist goed uit. Enige kleine kanttekening: geen van de drie noemt een
+  pantype, hetzelfde terugkerende puntje als in de rest van het boek.
+
 ## Voorgerechten
 
 Geen bijzonderheden gevonden. Riso freddo, tomatensoep, mini-aardappelquiches
