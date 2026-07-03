@@ -10,7 +10,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Aubergine met tahini dip
 - [x] Bobotie
 - [x] Burritos
-- [ ] Chili con carne
+- [x] Chili con carne
 - [x] Fajitas
 - [ ] Falafel
 - [x] Flammkuchen
