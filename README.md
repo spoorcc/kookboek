@@ -10,8 +10,8 @@ contents (*Inhoud*) and an alphabetical *Register* (index).
 This book is made to be printed via [Lulu.com](https://www.lulu.com). Want a physical
 copy? Go to [lulu.com/create](https://www.lulu.com/create), start a new print book,
 upload `KookboekFamilieSpoor.pdf` and `KookboekFamilieSpoor-cover.pdf`, and pick
-**Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — it's the closest
-match to this book's 19 × 24 cm format.
+**Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — this book is
+typeset to that exact format.
 
 ## Requirements
 
@@ -28,7 +28,8 @@ match to this book's 19 × 24 cm format.
 
 This runs `latexmk -xelatex` for both the interior and the wraparound cover,
 then checks the interior against Lulu's print requirements. Output:
-`KookboekFamilieSpoor.pdf` (19 × 24 cm trim) and `KookboekFamilieSpoor-cover.pdf`.
+`KookboekFamilieSpoor.pdf` (189 × 246 mm Crown Quarto trim) and
+`KookboekFamilieSpoor-cover.pdf`.
 
 For a manual build (note the index pass):
 
