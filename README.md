@@ -7,9 +7,11 @@ contents (*Inhoud*) and an alphabetical *Register* (index).
 
 **Browse it online:** [spoorcc.github.io/kookboek](https://spoorcc.github.io/kookboek/)
 
-This book is made to be printed via [Lulu.com](https://www.lulu.com). Its 19 × 24 cm
-trim lines up with Lulu's **Crown Quarto** format (189 × 246 mm / 7.44 × 9.68 in) —
-pick that size when creating the print project.
+This book is made to be printed via [Lulu.com](https://www.lulu.com). Want a physical
+copy? Go to [lulu.com/create](https://www.lulu.com/create), start a new print book,
+upload `KookboekFamilieSpoor.pdf` and `KookboekFamilieSpoor-cover.pdf`, and pick
+**Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — it's the closest
+match to this book's 19 × 24 cm format.
 
 ## Requirements
 
