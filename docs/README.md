@@ -41,6 +41,7 @@ On load, `index.html` fetches `recipes.json` to build the sidebar, then fetches 
 - **Two-page spread** — renders the recipe's PDF pages side by side on wide screens, single page on mobile
 - **↓ Recept** — downloads only the current recipe's pages as a standalone PDF (uses pdf-lib in the browser, no server needed)
 - **↓ Volledig boek** — downloads the complete cookbook PDF
+- **Shareable links** — opening a recipe updates the URL to `?recept=<slug>` (e.g. `?recept=hollandse-appeltaart`); sharing that link opens the same recipe directly, and the browser's back/forward buttons move between previously opened recipes
 
 ## Local preview
 

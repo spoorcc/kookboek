@@ -552,6 +552,29 @@ let registerData     = [];
 let curPage          = 1;
 let currentRecipeIdx = null;
 let activeTab        = 'recepten';
+const pageTitle       = document.title;
+
+// ── Slugs (used in the shareable ?recept= URL) ──────────────────────────────
+
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents (é, ë, ï, …)
+    .replace(/&/g, 'en')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function assignSlugs(list) {
+  const seen = new Map();
+  list.forEach(r => {
+    let slug = slugify(r.title);
+    const n = seen.get(slug) || 0;
+    seen.set(slug, n + 1);
+    if (n > 0) slug += '-' + (n + 1);
+    r.slug = slug;
+  });
+}
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
@@ -566,7 +589,9 @@ async function init() {
     const res = await fetch('recipes.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(res.statusText);
     recipes = await res.json();
+    assignSlugs(recipes);
     buildSidebar(recipes);
+    openRecipeFromUrl(false);
   } catch {
     document.getElementById('recipe-list').innerHTML =
       '<div style="padding:16px;color:var(--muted);font-size:.88rem">Receptenlijst niet beschikbaar.</div>';
@@ -735,7 +760,7 @@ function buildRegister(list) {
 
 // ── Open recipe ───────────────────────────────────────────────────────────
 
-function openRecipe(idx, rowEl) {
+function openRecipe(idx, rowEl, updateUrl = true) {
   document.querySelectorAll('.recipe-row.active').forEach(e => e.classList.remove('active'));
   rowEl.classList.add('active');
   currentRecipeIdx = idx;
@@ -743,9 +768,11 @@ function openRecipe(idx, rowEl) {
   renderSpread(curPage);
   document.getElementById('dl-recipe-btn').style.display = 'inline-block';
   if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
+  document.title = recipes[idx].title + ' · ' + pageTitle;
+  if (updateUrl) pushRecipeUrl(recipes[idx].slug);
 }
 
-function openRegisterEntry(page, rowEl) {
+function openRegisterEntry(page, rowEl, updateUrl = true) {
   document.querySelectorAll('.reg-row.active').forEach(e => e.classList.remove('active'));
   rowEl.classList.add('active');
   currentRecipeIdx = null;
@@ -753,7 +780,40 @@ function openRegisterEntry(page, rowEl) {
   curPage = page;
   renderSpread(page);
   if (window.innerWidth <= 680) document.getElementById('sidebar').classList.add('slide-out');
+  document.title = pageTitle;
+  if (updateUrl) pushRecipeUrl(null);
 }
+
+// ── Shareable ?recept= URL ──────────────────────────────────────────────────
+
+function pushRecipeUrl(slug) {
+  const url = new URL(window.location.href);
+  if (slug) {
+    url.searchParams.set('recept', slug);
+  } else {
+    url.searchParams.delete('recept');
+  }
+  history.pushState({ slug }, '', url);
+}
+
+function openRecipeFromUrl(pushState) {
+  const slug = new URLSearchParams(window.location.search).get('recept');
+  if (!slug) return;
+  const idx = recipes.findIndex(r => r.slug === slug);
+  if (idx === -1) return;
+  const row = document.querySelector(`.recipe-row[data-idx="${idx}"]`);
+  if (row) openRecipe(idx, row, pushState);
+}
+
+window.addEventListener('popstate', () => {
+  const slug = new URLSearchParams(window.location.search).get('recept');
+  if (!slug) {
+    document.querySelectorAll('.recipe-row.active, .reg-row.active').forEach(e => e.classList.remove('active'));
+    document.title = pageTitle;
+    return;
+  }
+  openRecipeFromUrl(false);
+});
 
 // ── Collapse sidebar (tablet / desktop full-screen reading) ────────────────
 
