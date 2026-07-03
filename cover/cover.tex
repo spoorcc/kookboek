@@ -65,7 +65,22 @@
 
 \usepackage{amssymb}
 \usepackage{tikz}
+\usetikzlibrary{fadings}
 \usepackage{graphicx}
+
+% The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see
+% kookboek.sty's Numbers=OldStyle/Lining comment for the same root cause),
+% so \scshape silently falls back to plain upright text instead of small
+% caps. \labelcaps fakes the label look with tracked full capitals instead.
+\newcommand{\labelcaps}[2]{\addfontfeatures{LetterSpace=#1}\MakeUppercase{#2}}
+
+% Fadings for the cover art: each "vanishes" (fades to transparent) toward
+% the named edge and stays opaque toward the opposite edge, so overlay
+% panels and the artwork's own edges dissolve into the paper colour instead
+% of ending in a hard, guillotined edge.
+\tikzfading[name=fade-vanish-top,    top color=transparent!100, bottom color=transparent!0]
+\tikzfading[name=fade-vanish-bottom, top color=transparent!0,   bottom color=transparent!100]
+\tikzfading[name=fade-vanish-right,  left color=transparent!0,  right color=transparent!100]
 
 \begin{document}
 \thispagestyle{empty}
@@ -79,34 +94,55 @@
   \node[inner sep=0, outer sep=0, anchor=south west] at
       ([shift={(\frontx,0)}]current page.south west) {%
     \includegraphics[width=\panelw, height=\spreadh]{images/pasta}};
-  \fill[paper, fill opacity=0.88]
-    ([shift={(\frontx+\safety,15.5cm)}]current page.south west) rectangle
+
+  % The illustration's background is a hair off pure white, which reads as
+  % a visible seam against the spine's flat white paper fill. Fade it out
+  % instead of butting a hard photo edge against the spine.
+  \fill[paper, path fading=fade-vanish-right]
+    ([shift={(\frontx,0)}]current page.south west) rectangle
+    ([shift={(\frontx+3cm,\spreadh)}]current page.south west);
+
+  % Title and tagline panels used to be hard-edged opaque rectangles that
+  % sliced straight across the plate rim and its shadow. A fade only reads
+  % as soft if it resolves to fully transparent before it reaches any real
+  % artwork — otherwise it just washes a grey veil over the drawing. So
+  % each is split into a solid block (safely inside the plain background)
+  % and a fade band that finishes dissolving just short of where the plate
+  % rim / shadow actually starts (checked against images/pasta.jpg directly).
+  \fill[paper]
+    ([shift={(\frontx+\safety,17.0cm)}]current page.south west) rectangle
     ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
-  \fill[paper, fill opacity=0.88]
+  \fill[paper, path fading=fade-vanish-bottom]
+    ([shift={(\frontx+\safety,15.7cm)}]current page.south west) rectangle
+    ([shift={(\frontx+\panelw-\safety,17.0cm)}]current page.south west);
+  \fill[paper]
     ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,3.0cm)}]current page.south west);
+    ([shift={(\frontx+\panelw-\safety,2.5cm)}]current page.south west);
+  \fill[paper, path fading=fade-vanish-top]
+    ([shift={(\frontx+\safety,2.5cm)}]current page.south west) rectangle
+    ([shift={(\frontx+\panelw-\safety,3.3cm)}]current page.south west);
   \draw[ink, line width=1.2pt]
     ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
     ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
 
   \node[anchor=south, align=center, text width=\panelw-4\safety] at
       ([shift={(\frontx+0.5\panelw,0.72\spreadh)}]current page.south west) {%
-    {\footnotesize\scshape\color{terracotta}Familierecepten \textperiodcentered{} bijeengebracht met zorg}\par
+    {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
     \vspace{2mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
     \vspace{2mm}
-    {\footnotesize\scshape\color{inkfaint}Recepten van de familie}\par
+    {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
     \vspace{1mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
   \node[anchor=south, align=center] at
       ([shift={(\frontx+0.5\panelw,1.6\safety)}]current page.south west) {%
-    \footnotesize\scshape\color{ink}Bereid met liefde \textperiodcentered{} Anno MMXXVI};
+    \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 
   % ------------------------------------------------------------- SPINE -----
   % Panel occupies x in [\spinex, \spinex+\spinew].
   \node[rotate=90, anchor=center, align=center] at
       ([shift={(\spinex+0.5\spinew,0.5\spreadh)}]current page.south west) {%
-    {\scshape\color{ink}\addfontfeatures{LetterSpace=8.0}Kookboek}%
+    {\color{ink}\labelcaps{8.0}{Kookboek}}%
     \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
     {\julianafont\color{ink}Spoor}};
 
@@ -115,10 +151,24 @@
   \draw[ink, line width=1.2pt]
     ([shift={(\safety,\safety)}]current page.south west) rectangle
     ([shift={(\panelw-\safety,\spreadh-\safety)}]current page.south west);
-  \node[anchor=center, align=center, text width=\panelw-4\safety] at
-      ([shift={(0.5\panelw,0.55\spreadh)}]current page.south west) {%
+  \node[anchor=south] at
+      ([shift={(0.5\panelw,0.64\spreadh)}]current page.south west) {%
+    \fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}};
+  \node[anchor=north] at
+      ([shift={(0.5\panelw,0.625\spreadh)}]current page.south west) {%
+    \color{terracotta}\rule{2.4cm}{0.5pt}};
+
+  \node[anchor=center, align=center, text width=\panelw-5\safety] at
+      ([shift={(0.5\panelw,0.5\spreadh)}]current page.south west) {%
     \itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
     eindelijk opgeschreven, hoeveelheden bij benadering.\\
     Proef vooral mee, en pas gerust aan waar nodig.};
+
+  \node[anchor=north] at
+      ([shift={(0.5\panelw,0.5\spreadh-2.4cm)}]current page.south west) {%
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}};
+  \node[anchor=north] at
+      ([shift={(0.5\panelw,0.5\spreadh-3.0cm)}]current page.south west) {%
+    \handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor};
 \end{tikzpicture}
 \end{document}
