@@ -7,6 +7,10 @@ contents (*Inhoud*) and an alphabetical *Register* (index).
 
 **Browse it online:** [spoorcc.github.io/kookboek](https://spoorcc.github.io/kookboek/)
 
+This book is made to be printed via [Lulu.com](https://www.lulu.com). Its 19 × 24 cm
+trim lines up with Lulu's **Crown Quarto** format (189 × 246 mm / 7.44 × 9.68 in) —
+pick that size when creating the print project.
+
 ## Requirements
 
 - **XeLaTeX** or **LuaLaTeX** (the style uses `fontspec` — plain pdfLaTeX won't work).
