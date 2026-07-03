@@ -1104,6 +1104,10 @@
     "entry": "Hartig",
     "pages": [
       {
+        "label": "35",
+        "page": 43
+      },
+      {
         "label": "45",
         "page": 53
       },
@@ -1114,6 +1118,10 @@
       {
         "label": "48",
         "page": 56
+      },
+      {
+        "label": "50",
+        "page": 58
       },
       {
         "label": "56",
@@ -1410,6 +1418,10 @@
       {
         "label": "17",
         "page": 25
+      },
+      {
+        "label": "20",
+        "page": 28
       },
       {
         "label": "21",
@@ -2314,6 +2326,27 @@
     ]
   },
   {
+    "entry": "Pittig",
+    "pages": [
+      {
+        "label": "21",
+        "page": 29
+      },
+      {
+        "label": "23",
+        "page": 31
+      },
+      {
+        "label": "62",
+        "page": 70
+      },
+      {
+        "label": "68",
+        "page": 76
+      }
+    ]
+  },
+  {
     "entry": "Pizza",
     "pages": [
       {
@@ -2661,6 +2694,15 @@
       {
         "label": "105",
         "page": 113
+      }
+    ]
+  },
+  {
+    "entry": "Siciliaans",
+    "pages": [
+      {
+        "label": "19",
+        "page": 27
       }
     ]
   },
