@@ -8,6 +8,61 @@ ontbreken. Puur bewuste `\ingb`-items ("naar smaak", "op gevoel") zijn niet
 meegenomen, dat is een gekozen stijl in het boek. Hieronder alleen recepten
 waar iets is gevonden, gegroepeerd per hoofdstuk zoals in `main.tex`.
 
+## Status na derde rebase
+
+De branch is opnieuw op `main` gebaseerd. Er kwamen twee commits mee
+("Fix ten small recipe consistency issues" en "Fix additional recipe
+consistency issues found in a wider sweep") die alle 11 punten uit de
+"simpele dingen"-lijst hierboven oplossen, plus een aantal extra die bij een
+bredere sweep zijn gevonden. Allemaal gecontroleerd tegen de huidige tekst.
+
+**Alle 11 simpele punten zijn nu opgelost:**
+- `wafels.tex` — "wafelichter" → "wafelijzer".
+- `rode-rijst.tex` — "bouillonblokjes" (meervoud) is nu "bouillonblokje"
+  (enkelvoud), consistent met de ingrediëntenlijst.
+- `pretzels.tex` — "baking soda" is overal vervangen door "zuiveringszout".
+- `quiche-groente-geitenkaas.tex` — `\ingb{zout}` staat nu in de
+  ingrediëntenlijst van de vulling.
+- `fajitas.tex` en `burritos.tex` — `\ing{—}{zout}` is `\ingb{zout}`
+  geworden.
+- `lasagne-simpel.tex` — `\ing{1 eetlepel}{olijfolie}` in plaats van de
+  `\ingb`-variant met de hoeveelheid erin verstopt.
+- `pizza.tex` — de uitlekstap heeft nu "ca. 10 minuten".
+- `hutspot.tex` — het opwarmen van de rookworst heeft nu "ca. 10 minuten".
+- `sauzijcenbroodjes.tex` — het hoofdrecept vraagt nu 5 g gehaktkruiden,
+  gelijk aan wat het mengsel oplevert (in plaats van het mengsel op te
+  schalen naar 6 g, is het hoofdrecept naar beneden bijgesteld, functioneel
+  hetzelfde resultaat).
+- `fajitas.tex` — er zijn nu 6 wraps in de ingrediëntenlijst, en stap 4 zegt
+  ook "alle zes" in plaats van "alle vijf". Klopt nu met de tip over de
+  zesde wrap.
+
+**Extra gevonden en meteen gefixt in de bredere sweep (niet in mijn lijst,
+maar terecht):**
+- `roti.tex` — typo "krielftjes" → "krieltjes".
+- `pannenkoeken.tex` — typo "pannenkoeek" → "pannenkoek".
+- `jambalaya.tex` — `\meta` had geen bereidingstijd, nu "45 minuten" toegevoegd.
+- `mini-aardappel-quiches.tex` — "bosui" (ingrediënt) vs "bosuien" (stap),
+  nu beide meervoud.
+- `pasta-scarapiello.tex` en `pastinaaksoep.tex` — knoflookteentje stond
+  als "1" terwijl de stap het meervoud gebruikte ("knoflookteentjes"/
+  "knoflooktenen"), nu beide "2 knoflookteentjes".
+- `venkelworstpasta.tex` en `groene-salade.tex` — dezelfde `\ing{—}{zout}`
+  inconsistentie die ik alleen in fajitas en burritos had gezien, bleek ook
+  hier voor te komen. Nu ook `\ingb{...}`.
+- `mac-n-cheese.tex` en `bloemkoolpasta.tex` — dezelfde macro-fout als
+  lasagne-simpel (hoeveelheid verstopt in een `\ingb`), nu opgesplitst in
+  `\ing{...}{...}`.
+- `quesadillas.tex` — het knoflookteentje stond wel in de ingrediëntenlijst
+  maar werd in geen enkele stap gebruikt. Nu wordt de knoflook fijngehakt en
+  meegebakken met de ui en paprika.
+
+Dit was een grondige sweep, ik heb geen nieuwe problemen gevonden in de
+gewijzigde bestanden. Alles wat verderop in dit document nog als open punt
+staat (kookgerei/olie-vermeldingen, voorverwarm-timing, 'waarom'-uitleg, de
+resterende hoeveelheden zoals de bechamel in mac-n-cheese en de dooiers in
+pasta-carbonara) staat nog steeds open, dat is deze ronde niet aangeraakt.
+
 ## Status na tweede rebase
 
 De branch is opnieuw op `main` gebaseerd (nu 76 recepten, drie er weer bij:
