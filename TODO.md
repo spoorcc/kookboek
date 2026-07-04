@@ -12,7 +12,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Burritos
 - [x] Chili con carne
 - [x] Fajitas
-- [ ] Falafel
+- [x] Falafel
 - [x] Flammkuchen
 - [x] Gnocchi
 - [x] Hamburgers
