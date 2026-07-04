@@ -89,7 +89,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] barbeque
 - [ ] verhuis rode rijst naar worstjes rode rijst en salade 
 - [ ] brood bakken 
-- [ ] hamburger bolletjes zelf maken
+- [x] hamburger bolletjes zelf maken
 - [x] focaccia maken
 - [x] gehaktballetjes
 - [x] broodje knakworst (hotdogs)
