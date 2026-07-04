@@ -107,8 +107,13 @@ def extract_register(idx_path: Path, pdf_path: Path) -> list[dict]:
         from pypdf import PdfReader
 
         reader = PdfReader(str(pdf_path))
+        # The page before \frontmatter takes effect (the book class's blank
+        # verso after the title page) is still numbered with the default
+        # arabic style, so labels like "2" occur twice: once there and once
+        # in \mainmatter, where every \index entry actually lives. Overwrite
+        # rather than setdefault so the later (mainmatter) occurrence wins.
         for i, label in enumerate(reader.page_labels, start=1):
-            label_to_index.setdefault(label, i)
+            label_to_index[label] = i
     except Exception:
         pass
 
