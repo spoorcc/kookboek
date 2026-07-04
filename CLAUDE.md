@@ -103,6 +103,23 @@ Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` t
 - Cuisine belongs only in `\kicker`, never repeated in `\meta`.
 - Diet/allergen tags (glutenvrij, lactosevrij, notenvrij) are intentionally not part of this scheme — mislabeling those is a food-safety risk, not just a style slip.
 
+## Ingredient ordering
+
+Within a `\begin{ingredients}` … `\end{ingredients}` block, order matters:
+
+1. **Protein** first (vlees, vis, gehakt, worst, ei, peulvruchten — or, in a vegetarian dish where cheese carries the dish, a cheese like feta/geitenkaas/gorgonzola).
+2. **Zetmeel** (the classic starchy staple: aardappel/rijst/pasta/couscous/noodles, or a bread/wrap/tortilla serving as the dish's carrier).
+3. **Hoofdgroente** (the single vegetable that's central to the dish), if there is one clear candidate.
+4. Everything else, in whatever order already reads naturally (aromatics, dairy, spices, liquids).
+5. `\ingb{…}` items always last, in their existing relative order — these are bullet ingredients without a fixed amount (to taste, a splash, a garnish) and stay at the back regardless of category.
+
+This ordering applies to a dish's main ingredient list. It does **not** apply to:
+- Pastry/dough sub-blocks (a quiche crust, bread dough, pizza dough) — keep the standard baking order (bloem, vet, ei, zout, ...) since there's no protein/starch/vegetable split to make.
+- Puff pastry (bladerdeeg) used as a wrapper or crust — treat it as a structural component, not as "zetmeel".
+- Desserts, sauces, spice-mix sub-recipes, and dishes with several vegetables of genuinely equal weight (a primavera, a ratatouille-style quiche) — don't force a single "hoofdgroente" pick where none exists.
+
+When several ingredients qualify as protein (e.g. two meats, or meat plus egg), group them together at the front in their original relative order rather than picking just one.
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
