@@ -4,29 +4,45 @@
 %          (build.sh does this for you)
 %
 %  This is uploaded to Lulu separately from the interior file (main.tex).
-%  It is a single page sized to trim + bleed on every outer edge, per
-%  Lulu's cover requirements: https://help.lulu.com
+%  It is a single page sized to trim + wrap on every outer edge, per
+%  Lulu's hardcover casewrap cover requirements: https://help.lulu.com
+%
+%  This book is a HARDCOVER CASEWRAP. The case (this cover) is physically
+%  LARGER than the interior's text-block trim (see kookboek.sty) — the
+%  case wraps around the block with a small overhang on every outer edge,
+%  which is normal for hardcover binding, so the two files are sized
+%  independently on purpose; they don't need to (and shouldn't) match.
+%
+%  Unlike a paperback, Lulu does not publish a spine-width formula for
+%  casewrap covers — spine width comes from an internal lookup table keyed
+%  on page count, and is only known for certain once you generate a cover
+%  template from Lulu's own Project Creation Tool after uploading the
+%  interior file. All the constants below (trim, wrap area, safety
+%  margin, and the current spine width) were read directly off one such
+%  template, q6qdvpe-cover-template.pdf, generated for a 164-page interior
+%  — which matches the interior's actual current page count.
 %
 %  BEFORE ORDERING A REAL PROOF:
 %   - Set \interiorpagecount below to the actual page count of the built
-%     interior PDF (KookboekFamilieSpoor.pdf).
-%   - The spine-width formula used here (pages/444 + 0.06in) is Lulu's
-%     published rule-of-thumb for standard paper. Confirm the exact spine
-%     width against Lulu's own cover calculator/template for the chosen
-%     paper stock before submitting artwork.
+%     interior PDF (KookboekFamilieSpoor.pdf) if it ever changes from 164.
+%   - If it changes, re-download the cover template from Lulu's Project
+%     Creation Tool for that exact page count and confirm \spinew below
+%     still matches its reported spine width — don't assume the same
+%     lookup-table bucket still applies.
 % =============================================================================
 \documentclass[10pt]{article}
-\usepackage{xfp}
 
-% ---- Trim, bleed, safety margin, spine ------------------------------------
-\newlength\trimw  \setlength\trimw{189mm}   % matches kookboek.sty paperwidth
-\newlength\trimh  \setlength\trimh{246mm}   % matches kookboek.sty paperheight
-\newlength\bleed  \setlength\bleed{3.18mm}  % Lulu bleed: 0.125in
-\newlength\safety \setlength\safety{12.7mm} % Lulu safety margin: 0.5in
+% ---- Trim, wrap area, safety margin, spine --------------------------------
+% Hardcover casewrap case size + wrap area, per q6qdvpe-cover-template.pdf.
+% Intentionally larger than kookboek.sty's interior trim (see note above).
+\newlength\trimw  \setlength\trimw{195.33mm}
+\newlength\trimh  \setlength\trimh{258.57mm}
+\newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
+\newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{112} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{164} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
-\setlength\spinew{\fpeval{(\interiorpagecount/444+0.06)}in}
+\setlength\spinew{15.87mm} % <-- Lulu's own spine width for 164 pages (see note above)
 
 % Back and front cover panels are each trim width plus one outer bleed edge.
 \newlength\panelw \setlength\panelw{\dimexpr\bleed+\trimw\relax}
@@ -38,6 +54,28 @@
 \newlength\spreadw \setlength\spreadw{\dimexpr 2\panelw+\spinew\relax}
 \newlength\spreadh \setlength\spreadh{\dimexpr \trimh+2\bleed\relax}
 
+% Lulu's own cover template (q6qdvpe-cover-template.pdf) shows the safety
+% margin is NOT a uniform \safety inset from every panel edge. It's
+% \bleed+\safety from each TRUE outer/wrap edge (top, bottom, and the
+% panel's own outer side) — since the wrap area sits between that edge
+% and the trim line, and safety is measured a further \safety in from
+% there — but only \safety from each SPINE-facing edge, since the trim
+% line already sits right at the spine with no wrap zone to cross.
+% Confirmed against the template's guide rectangles directly (extracted
+% with PyMuPDF): e.g. its front-panel safety box is x=[688.68,1152.36]pt,
+% which is [\frontx+\safety, \frontx+\panelw-\bleed-\safety] to the point.
+\newlength\marginsafety \setlength\marginsafety{\dimexpr\bleed+\safety\relax}
+\newlength\boxw \setlength\boxw{\dimexpr\panelw-\safety-\marginsafety\relax}
+\newlength\boxh \setlength\boxh{\dimexpr\spreadh-2\marginsafety\relax}
+\newlength\boxbottom \setlength\boxbottom{\marginsafety}
+\newlength\boxtop \setlength\boxtop{\dimexpr\spreadh-\marginsafety\relax}
+\newlength\frontboxleft \setlength\frontboxleft{\dimexpr\frontx+\safety\relax}
+\newlength\frontboxright \setlength\frontboxright{\dimexpr\frontx+\panelw-\marginsafety\relax}
+\newlength\frontboxcenterx \setlength\frontboxcenterx{\dimexpr\frontboxleft+0.5\boxw\relax}
+\newlength\backboxleft \setlength\backboxleft{\marginsafety}
+\newlength\backboxright \setlength\backboxright{\dimexpr\panelw-\safety\relax}
+\newlength\backboxcenterx \setlength\backboxcenterx{\dimexpr\backboxleft+0.5\boxw\relax}
+
 \usepackage[paperwidth=\spreadw, paperheight=\spreadh, margin=0pt]{geometry}
 \pagestyle{empty}
 
@@ -46,15 +84,14 @@
 \setmainfont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = EBGaramond-Regular, ItalicFont = EBGaramond-Italic, BoldFont = EBGaramond-SemiBold,
-  Ligatures = TeX, Numbers = OldStyle ]
+  Ligatures = TeX ]
 \newfontfamily\handfont{Nothing You Could Do}[
   Path = fonts/ , Extension = .ttf ,
   UprightFont = NothingYouCouldDo-Regular,
   Ligatures = TeX]
 \newfontfamily\julianafont{EB Garamond}[
   Path = fonts/ , Extension = .ttf ,
-  UprightFont = EBGaramond-Regular,
-  Numbers = Lining]
+  UprightFont = EBGaramond-Regular]
 
 % ---- Colours (kept in sync with kookboek.sty) ------------------------------
 \usepackage{xcolor}
@@ -68,19 +105,16 @@
 \usetikzlibrary{fadings}
 \usepackage{graphicx}
 
+% Fades the plain white margin above the front-cover photo into the
+% photo's own (very slightly off-white) background, so that boundary
+% reads as a soft edge instead of a sharp, visible seam.
+\tikzfading[name=fade-vanish-bottom, top color=transparent!0, bottom color=transparent!100]
+
 % The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see
 % kookboek.sty's Numbers=OldStyle/Lining comment for the same root cause),
 % so \scshape silently falls back to plain upright text instead of small
 % caps. \labelcaps fakes the label look with tracked full capitals instead.
 \newcommand{\labelcaps}[2]{\addfontfeatures{LetterSpace=#1}\MakeUppercase{#2}}
-
-% Fadings for the cover art: each "vanishes" (fades to transparent) toward
-% the named edge and stays opaque toward the opposite edge, so overlay
-% panels and the artwork's own edges dissolve into the paper colour instead
-% of ending in a hard, guillotined edge.
-\tikzfading[name=fade-vanish-top,    top color=transparent!100, bottom color=transparent!0]
-\tikzfading[name=fade-vanish-bottom, top color=transparent!0,   bottom color=transparent!100]
-\tikzfading[name=fade-vanish-right,  left color=transparent!0,  right color=transparent!100]
 
 \begin{document}
 \thispagestyle{empty}
@@ -90,43 +124,55 @@
   \fill[paper] (current page.south west) rectangle (current page.north east);
 
   % ------------------------------------------------------------ FRONT ------
-  % Panel occupies x in [\frontx, \frontx+\panelw].
-  \node[inner sep=0, outer sep=0, anchor=south west] at
-      ([shift={(\frontx,0)}]current page.south west) {%
-    \includegraphics[width=\panelw, height=\spreadh]{images/pasta}};
+  % Panel occupies x in [\frontx, \frontx+\panelw]. Photo and border are
+  % both sized to \boxw x \boxh — Lulu's actual safety-margin box for this
+  % panel (see the note by \marginsafety above) — instead of the panel's
+  % own (asymmetric wrap/spine) proportions. Inset like the interior title
+  % page (main.tex) — kept clear of every edge, including the spine —
+  % instead of stretching full-bleed to the panel's edges. The illustration's
+  % background is a hair off pure white, which used to read as a visible
+  % seam butted straight against the spine's flat white paper fill; insetting
+  % it the same way the title page does removes the seam entirely instead of
+  % papering over it with a fade.
+  % Bottom-aligned to the border instead of centered in the box — its
+  % bottom edge touches \boxbottom exactly, so there's no gap and no seam
+  % to hide there. All of keepaspectratio's letterboxing (images/pasta.jpg
+  % is narrower than \boxw:\boxh) goes to the top instead, where the seam
+  % fade below already handles it.
+  \node[anchor=south, inner sep=0, outer sep=0] at
+      ([shift={(\frontboxcenterx,\boxbottom)}]current page.south west) {%
+    \includegraphics[width=\boxw, height=\boxh, keepaspectratio]{images/pasta}};
 
-  % The illustration's background is a hair off pure white, which reads as
-  % a visible seam against the spine's flat white paper fill. Fade it out
-  % instead of butting a hard photo edge against the spine.
-  \fill[paper, path fading=fade-vanish-right]
-    ([shift={(\frontx,0)}]current page.south west) rectangle
-    ([shift={(\frontx+3cm,\spreadh)}]current page.south west);
+  \newlength\photorenderedh \setlength\photorenderedh{\dimexpr\boxw*2000/1583\relax} % images/pasta.jpg is 1583x2000px
+  \newlength\photobottomy \setlength\photobottomy{\boxbottom}
+  \newlength\phototopy \setlength\phototopy{\dimexpr\photobottomy+\photorenderedh\relax}
+  % Title and footer text used to be positioned around a centered photo;
+  % now that the photo dropped to sit flush with \boxbottom, shift both
+  % down by the same amount its bottom edge moved, so the whole
+  % composition keeps its old relative spacing instead of leaving a
+  % widening gap above the photo.
+  \newlength\photoshift \setlength\photoshift{\dimexpr(\boxh-\photorenderedh)/2\relax}
 
-  % Title and tagline panels used to be hard-edged opaque rectangles that
-  % sliced straight across the plate rim and its shadow. A fade only reads
-  % as soft if it resolves to fully transparent before it reaches any real
-  % artwork — otherwise it just washes a grey veil over the drawing. So
-  % each is split into a solid block (safely inside the plain background)
-  % and a fade band that finishes dissolving just short of where the plate
-  % rim / shadow actually starts (checked against images/pasta.jpg directly).
-  \fill[paper]
-    ([shift={(\frontx+\safety,17.0cm)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
+  % The photo's top edge (unlike its bottom, which ends in the plate's own
+  % shadow) butts a hard, visible line against the white margin above it —
+  % checked directly against the rendered PDF: a sharp jump from (255,255,255)
+  % to (248,248,248) right at this edge. A short fade softens just that seam.
   \fill[paper, path fading=fade-vanish-bottom]
-    ([shift={(\frontx+\safety,15.7cm)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,17.0cm)}]current page.south west);
-  \fill[paper]
-    ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,2.5cm)}]current page.south west);
-  \fill[paper, path fading=fade-vanish-top]
-    ([shift={(\frontx+\safety,2.5cm)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,3.3cm)}]current page.south west);
-  \draw[ink, line width=1.2pt]
-    ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
-    ([shift={(\frontx+\panelw-\safety,\spreadh-\safety)}]current page.south west);
+    ([shift={(\frontboxleft,\dimexpr\phototopy-1.2cm\relax)}]current page.south west) rectangle
+    ([shift={(\frontboxright,\phototopy)}]current page.south west);
 
-  \node[anchor=south, align=center, text width=\panelw-4\safety] at
-      ([shift={(\frontx+0.5\panelw,0.72\spreadh)}]current page.south west) {%
+  \draw[ink, line width=1.2pt]
+    ([shift={(\frontboxleft,\boxbottom)}]current page.south west) rectangle
+    ([shift={(\frontboxright,\boxtop)}]current page.south west);
+
+  % Measured directly against the rendered PDFs (PyMuPDF: "Spoor"'s text
+  % bbox bottom vs. the photo's first non-white pixel scanning down from
+  % the title): the title page has a 6.57mm gap between "Spoor" and the
+  % plate; this block originally left a 26.00mm gap. Shifting down by the
+  % full 19.43mm difference read as too tight, so this splits the
+  % difference at 9.715mm instead.
+  \node[anchor=south, align=center, text width=\boxw] at
+      ([shift={(\frontboxcenterx,\dimexpr0.72\spreadh-\photoshift-9.715mm\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
     \vspace{2mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
@@ -135,7 +181,7 @@
     \vspace{1mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
   \node[anchor=south, align=center] at
-      ([shift={(\frontx+0.5\panelw,1.6\safety)}]current page.south west) {%
+      ([shift={(\frontboxcenterx,\dimexpr\boxbottom+1.3cm-\photoshift\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 
   % ------------------------------------------------------------- SPINE -----
@@ -147,28 +193,32 @@
     {\julianafont\color{ink}Spoor}};
 
   % -------------------------------------------------------------- BACK -----
-  % Panel occupies x in [0, \panelw].
+  % Panel occupies x in [0, \panelw]. Border is \boxw x \boxh again, same
+  % as the front — Lulu's actual safety-margin box for this panel — but
+  % centered at \backboxcenterx, not \frontboxcenterx: the box sits off
+  % the panel's geometric center since the wrap-edge (left, here) margin
+  % is bigger than the spine-edge (right) margin (see \marginsafety note).
   \draw[ink, line width=1.2pt]
-    ([shift={(\safety,\safety)}]current page.south west) rectangle
-    ([shift={(\panelw-\safety,\spreadh-\safety)}]current page.south west);
+    ([shift={(\backboxleft,\boxbottom)}]current page.south west) rectangle
+    ([shift={(\backboxright,\boxtop)}]current page.south west);
   \node[anchor=south] at
-      ([shift={(0.5\panelw,0.64\spreadh)}]current page.south west) {%
+      ([shift={(\backboxcenterx,0.64\spreadh)}]current page.south west) {%
     \fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}};
   \node[anchor=north] at
-      ([shift={(0.5\panelw,0.625\spreadh)}]current page.south west) {%
+      ([shift={(\backboxcenterx,0.625\spreadh)}]current page.south west) {%
     \color{terracotta}\rule{2.4cm}{0.5pt}};
 
-  \node[anchor=center, align=center, text width=\panelw-5\safety] at
-      ([shift={(0.5\panelw,0.5\spreadh)}]current page.south west) {%
+  \node[anchor=center, align=center, text width=\boxw] at
+      ([shift={(\backboxcenterx,0.5\spreadh)}]current page.south west) {%
     \itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
     eindelijk opgeschreven, hoeveelheden bij benadering.\\
     Proef vooral mee, en pas gerust aan waar nodig.};
 
   \node[anchor=north] at
-      ([shift={(0.5\panelw,0.5\spreadh-2.4cm)}]current page.south west) {%
+      ([shift={(\backboxcenterx,0.5\spreadh-2.4cm)}]current page.south west) {%
     \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}};
   \node[anchor=north] at
-      ([shift={(0.5\panelw,0.5\spreadh-3.0cm)}]current page.south west) {%
+      ([shift={(\backboxcenterx,0.5\spreadh-3.0cm)}]current page.south west) {%
     \handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor};
 \end{tikzpicture}
 \end{document}

@@ -31,7 +31,7 @@ from pdf_transparency import find_transparent_pages
 MM_PER_INCH = 25.4
 PT_PER_MM = 72 / MM_PER_INCH
 
-TRIM_WIDTH_MM = 189.0  # Lulu Crown Quarto, per CLAUDE.md / README
+TRIM_WIDTH_MM = 189.0  # Lulu Crown Quarto text-block trim, per CLAUDE.md / README
 TRIM_HEIGHT_MM = 246.0
 SAFETY_MARGIN_MM = 12.7  # Lulu's 0.5 in minimum safety margin
 BLEED_MM = 3.18  # Lulu's 0.125 in bleed requirement

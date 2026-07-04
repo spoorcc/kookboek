@@ -5,8 +5,12 @@
 \ProvidesPackage{kookboek}[2026/06/28 Familie Spoor kookboek]
 
 % ----------------------------------------------------------------------------
-% Page geometry — Lulu Crown Quarto trim (189 x 246 mm / 7.44 x 9.68 in),
-% generous outer margin for margin notes and ingredient sketches.
+% Page geometry — Lulu Crown Quarto text-block trim (189 x 246 mm /
+% 7.44 x 9.68 in), generous outer margin for margin notes and ingredient
+% sketches. This is the trim of the printed page block itself, which for
+% a hardcover casewrap book is smaller than the cover's case/board size
+% (see cover/cover.tex) — the case wraps around the block with a small
+% overhang on every outer edge, so the two files are sized independently.
 % ----------------------------------------------------------------------------
 \RequirePackage[
   paperwidth=189mm, paperheight=246mm,

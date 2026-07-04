@@ -20,9 +20,18 @@ recipes and read any of them right in the browser.
 The book is printed on demand via [Lulu.com](https://www.lulu.com). To order one:
 
 1. Go to [lulu.com/create](https://www.lulu.com/create) and start a new print book.
-2. Upload `KookboekFamilieSpoor.pdf` (interior) and `KookboekFamilieSpoor-cover.pdf` (cover).
-3. Pick **Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — the
-   book is typeset to that exact format.
+2. Pick **Hardcover Casewrap** binding. The interior text block is typeset at
+   **189 × 246 mm (7.44 × 9.68 in, Crown Quarto)** — `KookboekFamilieSpoor.pdf`.
+   The case itself is physically larger (**438.27 × 290.31 mm** wrapped sheet,
+   for a 164-page block) since a hardcover case wraps around the block with a
+   small overhang — that's `KookboekFamilieSpoor-cover.pdf`. The two files are
+   sized independently on purpose; they aren't meant to match.
+3. Upload both files.
+4. Hardcover casewrap spine width isn't a fixed formula — Lulu computes it from
+   your interior's page count once uploaded. If the generated cover template's
+   spine width doesn't match `KookboekFamilieSpoor-cover.pdf`, rebuild the cover
+   (see `cover/cover.tex`'s header comment) with the page count and spine width
+   Lulu reports, before ordering a proof.
 
 ## Build it locally
 
