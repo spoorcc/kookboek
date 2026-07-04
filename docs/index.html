@@ -272,6 +272,7 @@
     /* ── Register list rows ───────────────────── */
     .reg-row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       padding: 6px 14px 6px 18px;
@@ -290,13 +291,15 @@
     }
     .reg-row.hidden { display: none; }
 
+    .reg-name { min-width: 0; }
+
     .reg-pages {
       font-size: 0.74rem;
       color: var(--muted);
       font-style: italic;
       margin-left: 6px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      min-width: 0;
+      flex-shrink: 1;
     }
     .reg-row.active .reg-pages { color: rgba(255,255,255,0.55); }
 
