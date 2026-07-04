@@ -60,6 +60,13 @@
 \end{tikzpicture}
 \end{titlepage}
 
+% The book class inserts a blank verso page here (twoside + titlepage) before
+% the foreword can start on a recto page. It would otherwise pick up the
+% running head/footer from kookboek.sty's package-load-time \pagestyle{fancy},
+% since \frontmatter's \pagenumbering{roman} only takes effect after this page
+% has already shipped out.
+\thispagestyle{empty}
+
 % ------------------------------------------------------------- FRONT MATTER ---
 \frontmatter
 \pagestyle{plain}
