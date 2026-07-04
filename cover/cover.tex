@@ -84,11 +84,12 @@
   % Panel occupies x in [\frontx, \frontx+\panelw].
   % images/pasta.jpg is 1583x2000px. Printed full-bleed across the whole
   % front panel (192x252mm) it falls to ~200dpi, below Lulu's 300dpi
-  % minimum. Inset it at a smaller size instead, comfortably under the
-  % ~131x166mm ceiling that keeps the source photo at or above 300dpi.
+  % minimum. Sized as large as it can go without crowding the title
+  % block above (bottom edge ~18.28cm) or the footer line below (top
+  % edge ~2.45cm), this comes out to ~339dpi.
   \node[inner sep=0, outer sep=0, anchor=south] at
-      ([shift={(\frontx+0.5\panelw,3.75cm)}]current page.south west) {%
-    \includegraphics[height=11.5cm]{images/pasta}};
+      ([shift={(\frontx+0.5\panelw,2.9cm)}]current page.south west) {%
+    \includegraphics[height=15cm]{images/pasta}};
 
   \draw[ink, line width=1.2pt]
     ([shift={(\frontx+\safety,\safety)}]current page.south west) rectangle
