@@ -12,9 +12,18 @@
 % (see cover/cover.tex) — the case wraps around the block with a small
 % overhang on every outer edge, so the two files are sized independently.
 % ----------------------------------------------------------------------------
+% outer=4.9cm: the outer margin has to hold the marginparsep+marginparwidth
+% (0.5cm+2.5cm=3cm) reserved for \tip/\ingredientsketch AND still leave
+% Lulu's safety buffer beyond that reserved box, not just beyond the text
+% column. 3.6cm only left 0.6cm of buffer past the marginpar itself (below
+% Lulu's 12.7mm minimum) even though the declared "outer" value alone read
+% as safe — Lulu's check (and lulu_lint.py's) only sees the declared
+% top/bottom/inner/outer numbers, not what's drawn inside them. 4.9cm
+% leaves ~1.9cm past the marginpar, matching Lulu's own suggested 0.75in
+% outside margin.
 \RequirePackage[
   paperwidth=189mm, paperheight=246mm,
-  top=2.4cm, bottom=2.6cm, inner=2.1cm, outer=3.6cm,
+  top=2.4cm, bottom=2.6cm, inner=2.1cm, outer=4.5cm,
   marginparwidth=2.5cm, marginparsep=0.5cm, headsep=1.0cm
 ]{geometry}
 

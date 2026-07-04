@@ -18,17 +18,18 @@
 %  on page count, and is only known for certain once you generate a cover
 %  template from Lulu's own Project Creation Tool after uploading the
 %  interior file. All the constants below (trim, wrap area, safety
-%  margin, and the current spine width) were read directly off one such
-%  template, q6qdvpe-cover-template.pdf, generated for a 164-page interior
-%  — which matches the interior's actual current page count.
+%  margin, and the spine width below) were read directly off one such
+%  template, q6qdvpe-cover-template.pdf, regenerated for the interior's
+%  current 176-page count (trim and wrap area are unchanged from the
+%  164-page version — only spine width moved, to 17.48mm).
 %
 %  BEFORE ORDERING A REAL PROOF:
 %   - Set \interiorpagecount below to the actual page count of the built
-%     interior PDF (KookboekFamilieSpoor.pdf) if it ever changes from 164.
-%   - If it changes, re-download the cover template from Lulu's Project
-%     Creation Tool for that exact page count and confirm \spinew below
-%     still matches its reported spine width — don't assume the same
-%     lookup-table bucket still applies.
+%     interior PDF (KookboekFamilieSpoor.pdf) if it changes again.
+%   - Re-download the cover template from Lulu's Project Creation Tool for
+%     the current page count and confirm \spinew below still matches its
+%     reported spine width — don't assume the same lookup-table bucket
+%     still applies.
 % =============================================================================
 \documentclass[10pt]{article}
 
@@ -40,9 +41,10 @@
 \newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
 \newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{164} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{176} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
-\setlength\spinew{15.87mm} % <-- Lulu's own spine width for 164 pages (see note above)
+\setlength\spinew{17.48mm} % <-- Lulu's own spine width for 176 pages, per the
+% regenerated q6qdvpe-cover-template.pdf (see note above)
 
 % Back and front cover panels are each trim width plus one outer bleed edge.
 \newlength\panelw \setlength\panelw{\dimexpr\bleed+\trimw\relax}
