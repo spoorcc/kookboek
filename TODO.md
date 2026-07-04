@@ -32,7 +32,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Roti
 - [x] Shakshuka
 - [x] Shoarma
-- [ ] Stamppot — Andijvie
+- [x] Stamppot — Andijvie
 - [ ] Stamppot — Boerenkool
 - [ ] Stamppot — Pompoen
 - [x] Stamppot — Spruiten
