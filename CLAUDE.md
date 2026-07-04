@@ -103,6 +103,26 @@ Before ordering a real proof, update `\interiorpagecount` in `cover/cover.tex` t
 - Cuisine belongs only in `\kicker`, never repeated in `\meta`.
 - Diet/allergen tags (glutenvrij, lactosevrij, notenvrij) are intentionally not part of this scheme — mislabeling those is a food-safety risk, not just a style slip.
 
+## Ingredient ordering
+
+Within a `\begin{ingredients}` … `\end{ingredients}` block, order matters:
+
+0. **Named-in-the-title ingredient(s) first, above all else.** If the recipe title itself names an ingredient — as the first half of a compound dish name (bloemkool**pasta**, andijvie**stamp**, boerenkool**stamp**, spinazie**quiche**, venkel**risotto**, pastinaak**soep**) or via an explicit "met X(, Y en Z)" / "van X" clause (*Boerenkoolstamp met rookworst*, *Quiche met ham en prei*, *Tomatensoep van geroosterde tomaten*) — that ingredient leads the list, in the order the title names it, ahead of the protein/starch/vegetable heuristic below. This applies even when the named ingredient wouldn't otherwise be the protein/starch/vegetable pick (e.g. *Riso freddo* → rijst first; *IJstaart met karamel en chocolade* → karamel, chocolade first). Generic dish-type words that aren't themselves a specific ingredient (pasta, quiche, stamp, soep, risotto, salade, taart used as the bare head noun with no modifier) don't force anything — only an actual named foodstuff does.
+1. **Protein** first (vlees, vis, gehakt, worst, ei, peulvruchten — or, in a vegetarian dish where cheese carries the dish, a cheese like feta/geitenkaas/gorgonzola).
+2. **Zetmeel** (the classic starchy staple: aardappel/rijst/pasta/couscous/noodles, or a bread/wrap/tortilla serving as the dish's carrier).
+3. **Hoofdgroente** (the single vegetable that's central to the dish), if there is one clear candidate.
+4. Everything else, in whatever order already reads naturally (aromatics, dairy, spices, liquids).
+5. `\ingb{…}` items always last, in their existing relative order — these are bullet ingredients without a fixed amount (to taste, a splash, a garnish) and stay at the back regardless of category.
+
+This ordering applies to a dish's main ingredient list. It does **not** apply to:
+- Pastry/dough sub-blocks (a quiche crust, bread dough, pizza dough) — keep the standard baking order (bloem, vet, ei, zout, ...) since there's no protein/starch/vegetable split to make.
+- Puff pastry (bladerdeeg) used as a wrapper or crust — treat it as a structural component, not as "zetmeel".
+- Desserts, sauces, spice-mix sub-recipes, and dishes with several vegetables of genuinely equal weight (a primavera, a ratatouille-style quiche) — don't force a single "hoofdgroente" pick where none exists.
+
+When several ingredients qualify as protein (e.g. two meats, or meat plus egg), group them together at the front in their original relative order rather than picking just one.
+
+**A small splash of water never needs an ingredient line.** If a step just needs "een scheutje water", "wat water", or "een klein scheutje water" to deglaze a pan, loosen a mixture, or adjust consistency, mention it inline in that step and don't add it to the `\begin{ingredients}` block at all (see `pasta-bolognese`, `rode-rijst`, `shakshuka`, `roti` for the existing pattern). This only covers casual, unmeasured splashes. Any water that's actually measured and matters for the recipe to work — dough hydration (`\ing{275 ml}{lauwwarm water}`), cooking/soaking liquid (couscous, rice, risotto), a soup or sauce base, a dip bath — stays a normal `\ing{amount}{water}` line like any other ingredient.
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
