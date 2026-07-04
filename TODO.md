@@ -38,8 +38,8 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Stamppot — Spruiten
 - [x] Stamppot — Wortel/ui
 - [x] Tortellini al forno
-- [ ] Wokgerecht noodles
-- [ ] Wokgerecht rijst
+- [x] Wokgerecht noodles
+- [x] Wokgerecht rijst
 
 ## Pasta
 
@@ -75,7 +75,6 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Couscous
 - [ ] Ovenfriet
 - [x] Quesadillas
-- [ ] Witlofsalade
 
 ## Soep
 
