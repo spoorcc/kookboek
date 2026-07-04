@@ -1,7 +1,17 @@
 # Kookboek — Familie Spoor
 
-A vintage, two-color family cookbook typeset in LaTeX. Cream paper, EB Garamond
-with a handwriting accent, drop caps, running heads, margin "Tip van Ben" notes,
+<img src="docs/cover-preview.png" alt="Cover of Kookboek — Familie Spoor" width="360">
+
+This isn't a book for outsiders. It's the recipes one family actually cooked over
+the years — doordeweeks and met kerst, for two adults and three kids — written
+down for the first time so they'd stop living only in one person's head. Nothing
+in it was invented here: every recipe started somewhere else and slowly turned
+into "how we make it." Quantities are approximate, a few Italian classics have
+been quietly Dutch-ified, and a cookbook is never really finished — margins are
+there to be written in. (The full note is in the book itself: `frontmatter/voorwoord.tex`.)
+
+Typeset in LaTeX as a vintage, two-color cookbook: cream paper, EB Garamond with
+a handwriting accent, drop caps, running heads, margin "Tip van Ben" notes,
 hand-drawn ingredient/hero illustration placeholders, a category table of
 contents (*Inhoud*) and an alphabetical *Register* (index).
 
@@ -44,3 +54,13 @@ xelatex main.tex
 
 Replace `\heroplaceholder{caption}` with `\heroimage{path/to/drawing.png}{caption}`,
 and the dashed `\ingredientsketch{label}` boxes likewise once you have the art.
+
+## License
+
+The recipes, prose, and illustrations in this book are licensed under
+[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) —
+see [LICENSE](LICENSE). Copy it, adapt it, print your own family's version —
+just credit Familie Spoor and share it under the same license.
+
+This doesn't cover the vendored fonts in `fonts/` (EB Garamond and Nothing You
+Could Do), which keep their own SIL Open Font License.
