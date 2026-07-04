@@ -51,7 +51,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Pasta carbonara
 - [x] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
 - [ ] Pasta pesto met gegrilde k
-- [ ] Pasta prei, hamblokjes, zwarte olijven
+- [x] Pasta prei, hamblokjes, zwarte olijven
 - [x] Pasta tomaat / verse basilicum
 
 ## Risotto
