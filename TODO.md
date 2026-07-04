@@ -34,7 +34,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Shoarma
 - [x] Stamppot — Andijvie
 - [x] Stamppot — Boerenkool
-- [ ] Stamppot — Pompoen
+- [x] Stamppot — Pompoen
 - [x] Stamppot — Spruiten
 - [x] Stamppot — Wortel/ui
 - [x] Tortellini al forno
