@@ -50,7 +50,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Pasta bloemkool, spekjes, erwtjes, room
 - [x] Pasta carbonara
 - [x] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
-- [ ] Pasta pesto met gegrilde kip
+- [ ] Pasta pesto met gegrilde k
 - [ ] Pasta prei, hamblokjes, zwarte olijven
 - [x] Pasta tomaat / verse basilicum
 
@@ -79,3 +79,17 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 ## Soep
 
 - [x] Tomatensoep
+
+## te doen
+
+- [ ] zelf gnocchi maken
+- [ ] verse pasta maken
+- [ ] zelf wraps maken
+- [ ] gnocchi salie roomboter
+- [ ] barbeque
+- [ ] verhuis rode rijst naar worstjes rode rijst en salade 
+- [ ] brood bakken 
+- [ ] hamburger bolletjes zelf maken
+- [ ] focaccia maken
+- [ ] gehaktballetjes
+- [ ] broodje knakworst (hotdogs)
