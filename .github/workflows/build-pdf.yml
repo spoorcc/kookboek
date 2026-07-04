@@ -18,6 +18,9 @@ jobs:
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor
 
+      - name: Fix PDF ownership
+        run: sudo chown "$(id -u):$(id -g)" KookboekFamilieSpoor.pdf
+
       - name: Install print-check tools
         run: |
           sudo apt-get update
@@ -37,6 +40,9 @@ jobs:
           latexmk_use_xelatex: true
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor-cover -output-directory=.
+
+      - name: Fix cover PDF ownership
+        run: sudo chown "$(id -u):$(id -g)" KookboekFamilieSpoor-cover.pdf
 
       - name: Flatten cover PDF transparency
         run: python3 scripts/flatten_transparency.py KookboekFamilieSpoor-cover.pdf
