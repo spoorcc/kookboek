@@ -28,8 +28,8 @@ except ImportError:
 MM_PER_INCH = 25.4
 PT_PER_MM = 72 / MM_PER_INCH
 
-TRIM_WIDTH_MM = 190.0  # 19 cm, per CLAUDE.md / README
-TRIM_HEIGHT_MM = 240.0  # 24 cm
+TRIM_WIDTH_MM = 189.0  # Lulu Crown Quarto, per CLAUDE.md / README
+TRIM_HEIGHT_MM = 246.0
 SAFETY_MARGIN_MM = 12.7  # Lulu's 0.5 in minimum safety margin
 BLEED_MM = 3.18  # Lulu's 0.125 in bleed requirement
 MIN_PAGES_HARDCOVER = 24

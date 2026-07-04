@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A vintage, two-color family cookbook (*Kookboek — Familie Spoor*) typeset in LaTeX. Output is `main.pdf` at 19 × 24 cm trim.
+A vintage, two-color family cookbook (*Kookboek — Familie Spoor*) typeset in LaTeX. Output is `main.pdf` at Lulu Crown Quarto trim (189 × 246 mm / 7.44 × 9.68 in).
 
 ## Development environment
 
@@ -39,7 +39,7 @@ CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` commands for both
 
 This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` checks the built PDF and LaTeX source against Lulu's print requirements:
 
-- Trim size matches 190×240mm on every page
+- Trim size matches 189×246mm (Lulu Crown Quarto) on every page
 - All fonts are embedded
 - Full-bleed artwork doesn't touch the page edge unless the page includes Lulu's bleed margin
 - Image resolution is at least 300 DPI at printed size
