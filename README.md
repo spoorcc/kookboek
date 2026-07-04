@@ -57,10 +57,16 @@ and the dashed `\ingredientsketch{label}` boxes likewise once you have the art.
 
 ## License
 
-The recipes, prose, and illustrations in this book are licensed under
+The book itself — recipes, prose, and illustrations (`frontmatter/`, `recipes/`,
+`images/`) — is licensed under
 [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) —
 see [LICENSE](LICENSE). Copy it, adapt it, print your own family's version —
 just credit Familie Spoor and share it under the same license.
 
-This doesn't cover the vendored fonts in `fonts/` (EB Garamond and Nothing You
-Could Do), which keep their own SIL Open Font License.
+The LaTeX styling/build code and tooling (`kookboek.sty`, `main.tex`,
+`cover/cover.tex`, `scripts/`, `build.sh`, `docs/index.html`) is licensed
+separately under [MIT](LICENSE-MIT) — Creative Commons licenses are meant for
+creative works, not software, so the code is split out on purpose.
+
+Neither license covers the vendored fonts in `fonts/` (EB Garamond and Nothing
+You Could Do), which keep their own SIL Open Font License.

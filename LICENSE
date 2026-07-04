@@ -19,7 +19,12 @@ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 ---
 
 Scope: this license covers the recipes, prose, and illustrations that make up
-the book itself (frontmatter/, recipes/, images/). It does not cover the
-vendored fonts in fonts/ (EB Garamond and Nothing You Could Do), which keep
-their own licenses (SIL Open Font License) — check with the font's original
-source before redistributing those files on their own.
+the book itself (frontmatter/, recipes/, images/). It does not cover:
+
+  - the vendored fonts in fonts/ (EB Garamond and Nothing You Could Do), which
+    keep their own licenses (SIL Open Font License) — check with the font's
+    original source before redistributing those files on their own;
+  - the LaTeX styling/build code and tooling (kookboek.sty, main.tex,
+    cover/cover.tex, scripts/, build.sh, docs/index.html), which is licensed
+    under MIT instead — see LICENSE-MIT. Creative Commons licenses are meant
+    for creative works, not software, so the code is split out on purpose.
