@@ -25,7 +25,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Mac 'n cheese
 - [x] Moussaka
 - [x] Nasi
-- [ ] Paella
+- [x] Paella
 - [x] Pannenkoeken
 - [x] Roerbak
 - [x] Rode rijst
