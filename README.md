@@ -2,10 +2,16 @@
 
 <img src="docs/cover-preview.png" alt="Cover of Kookboek — Familie Spoor" width="360">
 
-A family cookbook: the recipes one family actually cooks, written down and
-typeset as a proper vintage, two-color book — cream paper, a handwriting
-accent, drop caps, margin "Tip van Ben" notes, a category table of contents,
-and an alphabetical index at the back.
+This isn't a book written for a wide audience. It's the recipes one family has
+actually cooked over the years, gathered here for the first time so they don't
+only live in one person's head. Nothing in it was invented from scratch —
+every recipe started somewhere else and slowly turned into "how we make it."
+Quantities are approximate, and a cookbook like this is never really finished.
+
+The book itself is written in Dutch, since it's really just for family — but
+here's what it is either way: a vintage, two-color cookbook typeset with cream
+paper, a handwriting accent, drop caps, margin "Tip van Ben" notes, a category
+table of contents, and an alphabetical index at the back.
 
 ## Browse it online
 
