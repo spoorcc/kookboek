@@ -25,6 +25,9 @@ except ImportError:
     print("error: this script needs PyMuPDF (`pip install pymupdf`)", file=sys.stderr)
     sys.exit(2)
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pdf_transparency import find_transparent_pages
+
 MM_PER_INCH = 25.4
 PT_PER_MM = 72 / MM_PER_INCH
 
@@ -36,6 +39,10 @@ MIN_PAGES_HARDCOVER = 24
 MIN_PAGES_PAPERBACK = 32
 MIN_DPI = 300
 EDGE_TOLERANCE_PT = 1.0
+PAPER_COLOR_TOLERANCE = 10  # per-channel, out of 255 — a flattened page's
+# blank margin renders as a solid image touching the trim edge, which looks
+# identical to real full-bleed art unless we check whether that edge is
+# actually just the paper background colour.
 
 PLACEHOLDER_MACROS = {
     r"\heroplaceholder": "hero illustration not finished",
@@ -69,7 +76,49 @@ class Report:
         self.warnings.append(msg)
 
 
-def check_pdf(pdf_path, report):
+def _paper_rgb(sty_path):
+    """Parse kookboek.sty's `\\definecolor{paper}{HTML}{XXXXXX}` so the
+    bleed check can tell blank paper-coloured margin apart from real
+    artwork touching the trim edge. Falls back to white if not found."""
+    try:
+        text = sty_path.read_text(encoding="utf-8")
+    except OSError:
+        return (255, 255, 255)
+    match = re.search(r"\\definecolor\{paper\}\{HTML\}\{([0-9A-Fa-f]{6})\}", text)
+    if not match:
+        return (255, 255, 255)
+    hex_color = match.group(1)
+    return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+
+
+def _touching_edge_is_blank(page, pw, ph, touches, paper_rgb):
+    """Render the page at low resolution and sample its touching edge(s) —
+    a flattened page (see scripts/flatten_transparency.py) always produces
+    one image spanning the full page, even where the actual content is
+    just blank paper-coloured margin, so the raw bbox-touches-edge check
+    alone can't distinguish that from real full-bleed art."""
+    touches_left, touches_right, touches_top, touches_bottom = touches
+    pix = page.get_pixmap(dpi=72)
+    w, h = pix.width, pix.height
+    if w == 0 or h == 0:
+        return False
+    samples = []
+    step = max(1, w // 40)
+    if touches_top:
+        samples += [pix.pixel(x, 0) for x in range(0, w, step)]
+    if touches_bottom:
+        samples += [pix.pixel(x, h - 1) for x in range(0, w, step)]
+    step = max(1, h // 40)
+    if touches_left:
+        samples += [pix.pixel(0, y) for y in range(0, h, step)]
+    if touches_right:
+        samples += [pix.pixel(w - 1, y) for y in range(0, h, step)]
+    return all(
+        all(abs(c - p) <= PAPER_COLOR_TOLERANCE for c, p in zip(px[:3], paper_rgb)) for px in samples
+    )
+
+
+def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255)):
     doc = fitz.open(pdf_path)
     if doc.page_count == 0:
         report.error(f"{pdf_path}: PDF has no pages")
@@ -126,8 +175,10 @@ def check_pdf(pdf_path, report):
             touches_right = bbox.x1 >= pw - EDGE_TOLERANCE_PT
             touches_top = bbox.y0 <= EDGE_TOLERANCE_PT
             touches_bottom = bbox.y1 >= ph - EDGE_TOLERANCE_PT
+            touches = (touches_left, touches_right, touches_top, touches_bottom)
             if (touches_left and touches_right) or (touches_top and touches_bottom):
-                bleed_risk_pages.add(pno)
+                if not _touching_edge_is_blank(page, pw, ph, touches, paper_rgb):
+                    bleed_risk_pages.add(pno)
 
     if low_dpi:
         worst = sorted(low_dpi, key=lambda t: t[1])[:5]
@@ -145,6 +196,22 @@ def check_pdf(pdf_path, report):
         )
 
     doc.close()
+
+
+def check_transparency(pdf_path, report):
+    doc = fitz.open(pdf_path)
+    try:
+        pages = find_transparent_pages(doc)
+    finally:
+        doc.close()
+    if pages:
+        detail = ", ".join(str(p) for p in pages[:10])
+        report.warn(
+            f"{len(pages)} page(s) paint with PDF transparency (soft masks / transparency "
+            f"groups) — Lulu strongly recommends flattening all transparency before upload: "
+            f"{detail}. Run scripts/flatten_transparency.py on the PDF to fix it (build.sh "
+            "does this automatically before this check runs)"
+        )
 
 
 def check_geometry(sty_path, report):
@@ -289,7 +356,8 @@ def main():
         return 2
 
     report = Report()
-    check_pdf(pdf_path, report)
+    check_pdf(pdf_path, report, paper_rgb=_paper_rgb(root / "kookboek.sty"))
+    check_transparency(pdf_path, report)
     check_geometry(root / "kookboek.sty", report)
     check_orphan_pages(pdf_path, root / "main.tex", report)
     check_placeholders(root / "recipes", report)

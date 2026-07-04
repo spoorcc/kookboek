@@ -19,3 +19,4 @@ KookboekFamilieSpoor-cover.pdf
 
 # Python
 __pycache__/
+.venv/

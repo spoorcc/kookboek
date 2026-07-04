@@ -18,10 +18,17 @@ jobs:
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor
 
-      - name: Lulu print-readiness check
+      - name: Install print-check tools
         run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends qpdf ghostscript
           pip install --quiet pymupdf
-          python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
+
+      - name: Flatten PDF transparency
+        run: python3 scripts/flatten_transparency.py KookboekFamilieSpoor.pdf
+
+      - name: Lulu print-readiness check
+        run: python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
 
       - name: Build cover PDF
         uses: xu-cheng/latex-action@v3
@@ -30,6 +37,9 @@ jobs:
           latexmk_use_xelatex: true
           extra_system_packages: ""
           args: -xelatex -jobname=KookboekFamilieSpoor-cover -output-directory=.
+
+      - name: Flatten cover PDF transparency
+        run: python3 scripts/flatten_transparency.py KookboekFamilieSpoor-cover.pdf
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
