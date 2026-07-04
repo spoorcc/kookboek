@@ -8,10 +8,7 @@ only live in one person's head. Nothing in it was invented from scratch —
 every recipe started somewhere else and slowly turned into "how we make it."
 Quantities are approximate, and a cookbook like this is never really finished.
 
-The book itself is written in Dutch, since it's really just for family — but
-here's what it is either way: a vintage, two-color cookbook typeset with cream
-paper, a handwriting accent, drop caps, margin "Tip van Ben" notes, a category
-table of contents, and an alphabetical index at the back.
+The book itself is written in Dutch, since it's really just for family.
 
 ## Browse it online
 
