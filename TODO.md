@@ -70,7 +70,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 ## Salade & bijgerecht
 
-- [ ] Asperges
+- [x] Asperges
 - [x] Bonensalade (lima / reuzen) met peterselie
 - [x] Couscous
 - [x] Ovenfriet
