@@ -18,7 +18,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Hamburgers
 - [x] Jambalaya
 - [x] Kofta
-- [ ] Kokos vis
+- [x] Kokos vis
 - [x] Lasagne
 - [x] Lasagne asperge
 - [x] Lekkerbekjes, aardappelkroketjes, sla
