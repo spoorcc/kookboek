@@ -73,7 +73,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] Asperges
 - [x] Bonensalade (lima / reuzen) met peterselie
 - [x] Couscous
-- [ ] Ovenfriet
+- [x] Ovenfriet
 - [x] Quesadillas
 
 ## Soep
