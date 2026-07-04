@@ -83,7 +83,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 ## te doen
 
 - [ ] zelf gnocchi maken
-- [ ] verse pasta maken
+- [x] verse pasta maken
 - [ ] zelf wraps maken
 - [ ] gnocchi salie roomboter
 - [ ] barbeque
