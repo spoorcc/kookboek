@@ -91,5 +91,5 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] brood bakken 
 - [ ] hamburger bolletjes zelf maken
 - [ ] focaccia maken
-- [ ] gehaktballetjes
+- [x] gehaktballetjes
 - [x] broodje knakworst (hotdogs)
