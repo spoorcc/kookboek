@@ -13,45 +13,51 @@
 % ---------------------------------------------------------------- COVER -------
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
 \begin{tikzpicture}[remember picture, overlay]
   % Inset image — kept clear of the trim edge (this page is interior trim
   % size with no bleed; see the separate wraparound cover in cover/ for the
   % printed cover, which does add bleed).
   \node[inner sep=0, outer sep=0] at (current page.center) {%
     \includegraphics[width=\dimexpr\paperwidth-3.2cm\relax, height=\dimexpr\paperheight-3.2cm\relax, keepaspectratio]{images/pasta}};
-  % Translucent paper-coloured band behind the title block
-  \fill[paper, fill opacity=0.88]
-    ([shift={(1.6cm,15.5cm)}]current page.south west) rectangle
+  % Title block: a solid paper-coloured panel safely inside the plain
+  % background, softened into the image below by a fading band instead of
+  % a hard-edged cut (same technique as the wraparound cover in
+  % cover/cover.tex).
+  \fill[paper]
+    ([shift={(1.6cm,16.8cm)}]current page.south west) rectangle
     ([shift={(-1.6cm,-1.6cm)}]current page.north east);
-  % Translucent strip behind the footer line
-  \fill[paper, fill opacity=0.88]
+  \fill[paper, path fading=fade-vanish-bottom]
+    ([shift={(1.6cm,15.5cm)}]current page.south west) rectangle
+    ([shift={(-1.6cm,16.8cm)}]current page.south east);
+  % Footer strip: same solid-plus-fade treatment behind the closing line.
+  \fill[paper]
     ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,3.0cm)}]current page.south west);
-  % Decorative border
+    ([shift={(-1.6cm,2.3cm)}]current page.south east);
+  \fill[paper, path fading=fade-vanish-top]
+    ([shift={(1.6cm,2.3cm)}]current page.south west) rectangle
+    ([shift={(-1.6cm,3.0cm)}]current page.south east);
   \draw[ink, line width=1.2pt]
     ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
     ([shift={(-1.6cm,-1.6cm)}]current page.north east);
-  \draw[terracotta, line width=0.5pt]
-    ([shift={(2.0cm,2.0cm)}]current page.south west) rectangle
-    ([shift={(-2.0cm,-2.0cm)}]current page.north east);
+
+  % Title and footer text are set as tikz nodes anchored to absolute page
+  % coordinates (matching cover/cover.tex's technique) rather than plain
+  % \centering paragraphs — the book's asymmetric inner/outer margins (for
+  % the \tip marginpar column) would otherwise pull \centering off-centre
+  % from the page's true middle, where the border above is drawn.
+  \node[anchor=south, align=center, text width=\dimexpr\paperwidth-5.0cm\relax] at
+      ([shift={(0.5\paperwidth,16.5cm)}]current page.south west) {%
+    {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
+    \vspace{2mm}
+    {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
+    \vspace{2mm}
+    {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
+    \vspace{1mm}
+    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
+  \node[anchor=south, align=center] at
+      ([shift={(0.5\paperwidth,2.9cm)}]current page.south west) {%
+    \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 \end{tikzpicture}
-
-\vspace*{0.2cm}
-{\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=24.0}Familierecepten · bijeengebracht met zorg}\par
-\vspace{0.2cm}
-{\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-\vspace{0.3cm}
-{\color{terracotta}\rule{2.2cm}{0.4pt}\;\raisebox{-0.2ex}{$\blacklozenge$}\;\rule{2.2cm}{0.4pt}}\par
-\vspace{0.2cm}
-{\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Recepten van de familie}\par
-\vspace{4pt}
-{\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
-
-\vfill
-
-{\footnotesize\scshape\color{ink}\addfontfeatures{LetterSpace=18.0}Bereid met liefde · Anno MMXXVI}\par
-\vspace*{0.4cm}
 \end{titlepage}
 
 % ------------------------------------------------------------- FRONT MATTER ---

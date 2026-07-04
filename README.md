@@ -1,46 +1,45 @@
 # Kookboek — Familie Spoor
 
-A vintage, two-color family cookbook typeset in LaTeX. Cream paper, EB Garamond
-with a handwriting accent, drop caps, running heads, margin "Tip van Ben" notes,
-hand-drawn ingredient/hero illustration placeholders, a category table of
-contents (*Inhoud*) and an alphabetical *Register* (index).
+<img src="docs/cover-preview.png" alt="Cover of Kookboek — Familie Spoor" width="360">
 
-**Browse it online:** [spoorcc.github.io/kookboek](https://spoorcc.github.io/kookboek/)
+This isn't a book written for a wide audience. It's the recipes one family has
+actually cooked over the years, gathered here for the first time so they don't
+only live in one person's head. Nothing in it was invented from scratch —
+every recipe started somewhere else and slowly turned into "how we make it."
+Quantities are approximate, and a cookbook like this is never really finished.
 
-This book is made to be printed via [Lulu.com](https://www.lulu.com). Want a physical
-copy? Go to [lulu.com/create](https://www.lulu.com/create), start a new print book,
-upload `KookboekFamilieSpoor.pdf` and `KookboekFamilieSpoor-cover.pdf`, and pick
-**Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — this book is
-typeset to that exact format.
+The book itself is written in Dutch, since it's really just for family.
 
-## Requirements
+## Browse it online
 
-- **XeLaTeX** or **LuaLaTeX** (the style uses `fontspec` — plain pdfLaTeX won't work).
-- Fonts are vendored in `fonts/` — no system installation needed.
-  - *(optional)* **Juliana** (Sem Hartz) for the family name on the cover — a
-    licensed face; falls back to EB Garamond until you add it.
+[spoorcc.github.io/kookboek](https://spoorcc.github.io/kookboek/) — search the
+recipes and read any of them right in the browser.
 
-## Build
+## Get a printed copy
+
+The book is printed on demand via [Lulu.com](https://www.lulu.com). To order one:
+
+1. Go to [lulu.com/create](https://www.lulu.com/create) and start a new print book.
+2. Upload `KookboekFamilieSpoor.pdf` (interior) and `KookboekFamilieSpoor-cover.pdf` (cover).
+3. Pick **Crown Quarto** (189 × 246 mm / 7.44 × 9.68 in) as the trim size — the
+   book is typeset to that exact format.
+
+## Build it locally
+
+Requires XeLaTeX. Run:
 
 ```sh
 ./build.sh
 ```
 
-This runs `latexmk -xelatex` for both the interior and the wraparound cover,
-then checks the interior against Lulu's print requirements. Output:
-`KookboekFamilieSpoor.pdf` (189 × 246 mm Crown Quarto trim) and
-`KookboekFamilieSpoor-cover.pdf`.
+This produces `KookboekFamilieSpoor.pdf` and `KookboekFamilieSpoor-cover.pdf`.
 
-For a manual build (note the index pass):
+## License
 
-```sh
-xelatex main.tex
-makeindex -o register.ind register.idx   # or: xindy
-xelatex main.tex
-xelatex main.tex
-```
+The book itself — recipes, prose, and illustrations — is licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (see
+[LICENSE](LICENSE)): copy it, adapt it, print your own family's version, just
+credit Familie Spoor and share it under the same license.
 
-## Swapping placeholders for real drawings
-
-Replace `\heroplaceholder{caption}` with `\heroimage{path/to/drawing.png}{caption}`,
-and the dashed `\ingredientsketch{label}` boxes likewise once you have the art.
+The code that builds it is licensed separately under [MIT](LICENSE-MIT) —
+Creative Commons licenses aren't meant for software.

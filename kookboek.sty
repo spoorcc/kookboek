@@ -53,6 +53,14 @@
   Path = fonts/ , Extension = .ttf ,
   UprightFont = EBGaramond-Regular]
 
+% The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see the
+% Numbers=OldStyle/Lining comment above for the same root cause), so
+% \scshape silently falls back to plain upright text instead of small caps.
+% \labelcaps fakes the label look with tracked full capitals instead. Kept
+% in sync with the same definition in cover/cover.tex (a standalone
+% document that can't \usepackage this file).
+\newcommand{\labelcaps}[2]{\addfontfeatures{LetterSpace=#1}\MakeUppercase{#2}}
+
 % Dutch hyphenation. Without this, TeX has no pattern set for Dutch and
 % can't break long compound words — deadly in the narrow \tip marginpar
 % column (marginparwidth=2.5cm), where an unhyphenated word simply
@@ -130,6 +138,19 @@
 % Usage: \subchapter{Pasta \& risotto}
 \newcommand{\subchapter}[1]{\clearpage\subsection{#1}}
 
+% Left to the book class default, a \subchapter's Inhoud entry is set in
+% the same plain roman as every recipe title around it, so group dividers
+% like "Pasta & risotto" disappear into the list instead of reading as a
+% break. Give it the same small-caps terracotta treatment as the in-book
+% subsection heading, plus some air above, so it reads as a sub-heading at
+% a glance. Indent/numwidth (3.8em/3.2em) are untouched from the book class
+% default to keep its title text aligned with the recipe titles above it.
+\renewcommand*{\l@subsection}[2]{%
+  \addvspace{10pt plus 2pt}%
+  \@dottedtocline{2}{3.8em}{3.2em}%
+    {\scshape\color{terracotta}\addfontfeatures{LetterSpace=8.0}#1}%
+    {\color{terracotta}#2}}
+
 % ----------------------------------------------------------------------------
 % Running heads + folio.
 % ----------------------------------------------------------------------------
@@ -157,6 +178,14 @@
 \RequirePackage{multicol}
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
+\usetikzlibrary{fadings}
+% Fadings for cover art: each "vanishes" (fades to transparent) toward the
+% named edge and stays opaque toward the opposite edge, so an overlay panel
+% dissolves into the paper colour instead of cutting the artwork with a
+% hard, guillotined edge. Kept in sync with the same definitions in
+% cover/cover.tex.
+\tikzfading[name=fade-vanish-top,    top color=transparent!100, bottom color=transparent!0]
+\tikzfading[name=fade-vanish-bottom, top color=transparent!0,   bottom color=transparent!100]
 \RequirePackage{enumitem}
 \RequirePackage{imakeidx}
 \RequirePackage[hidelinks]{hyperref}
