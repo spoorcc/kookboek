@@ -53,6 +53,14 @@
   Path = fonts/ , Extension = .ttf ,
   UprightFont = EBGaramond-Regular]
 
+% The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see the
+% Numbers=OldStyle/Lining comment above for the same root cause), so
+% \scshape silently falls back to plain upright text instead of small caps.
+% \labelcaps fakes the label look with tracked full capitals instead. Kept
+% in sync with the same definition in cover/cover.tex (a standalone
+% document that can't \usepackage this file).
+\newcommand{\labelcaps}[2]{\addfontfeatures{LetterSpace=#1}\MakeUppercase{#2}}
+
 % Dutch hyphenation. Without this, TeX has no pattern set for Dutch and
 % can't break long compound words — deadly in the narrow \tip marginpar
 % column (marginparwidth=2.5cm), where an unhyphenated word simply

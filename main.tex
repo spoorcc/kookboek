@@ -13,7 +13,6 @@
 % ---------------------------------------------------------------- COVER -------
 \begin{titlepage}
 \thispagestyle{empty}
-\centering
 \begin{tikzpicture}[remember picture, overlay]
   % Inset image — kept clear of the trim edge (this page is interior trim
   % size with no bleed; see the separate wraparound cover in cover/ for the
@@ -37,30 +36,28 @@
   \fill[paper, path fading=fade-vanish-top]
     ([shift={(1.6cm,2.3cm)}]current page.south west) rectangle
     ([shift={(-1.6cm,3.0cm)}]current page.south east);
-  % Decorative border
   \draw[ink, line width=1.2pt]
     ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
     ([shift={(-1.6cm,-1.6cm)}]current page.north east);
-  \draw[terracotta, line width=0.5pt]
-    ([shift={(2.0cm,2.0cm)}]current page.south west) rectangle
-    ([shift={(-2.0cm,-2.0cm)}]current page.north east);
+
+  % Title and footer text are set as tikz nodes anchored to absolute page
+  % coordinates (matching cover/cover.tex's technique) rather than plain
+  % \centering paragraphs — the book's asymmetric inner/outer margins (for
+  % the \tip marginpar column) would otherwise pull \centering off-centre
+  % from the page's true middle, where the border above is drawn.
+  \node[anchor=south, align=center, text width=\dimexpr\paperwidth-5.0cm\relax] at
+      ([shift={(0.5\paperwidth,16.5cm)}]current page.south west) {%
+    {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
+    \vspace{2mm}
+    {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
+    \vspace{2mm}
+    {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
+    \vspace{1mm}
+    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
+  \node[anchor=south, align=center] at
+      ([shift={(0.5\paperwidth,2.9cm)}]current page.south west) {%
+    \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 \end{tikzpicture}
-
-\vspace*{0.2cm}
-{\footnotesize\scshape\color{terracotta}\addfontfeatures{LetterSpace=24.0}Familierecepten · bijeengebracht met zorg}\par
-\vspace{0.2cm}
-{\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-\vspace{0.3cm}
-{\color{terracotta}\rule{2.2cm}{0.4pt}\;\raisebox{-0.2ex}{$\blacklozenge$}\;\rule{2.2cm}{0.4pt}}\par
-\vspace{0.2cm}
-{\footnotesize\scshape\color{inkfaint}\addfontfeatures{LetterSpace=18.0}Recepten van de familie}\par
-\vspace{4pt}
-{\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
-
-\vfill
-
-{\footnotesize\scshape\color{ink}\addfontfeatures{LetterSpace=18.0}Bereid met liefde · Anno MMXXVI}\par
-\vspace*{0.4cm}
 \end{titlepage}
 
 % ------------------------------------------------------------- FRONT MATTER ---
