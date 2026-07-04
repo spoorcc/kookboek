@@ -1337,10 +1337,6 @@
       {
         "label": "41",
         "page": 51
-      },
-      {
-        "label": "84",
-        "page": 94
       }
     ]
   },
@@ -2457,6 +2453,10 @@
       {
         "label": "82",
         "page": 92
+      },
+      {
+        "label": "84",
+        "page": 94
       },
       {
         "label": "85",
@@ -3731,7 +3731,7 @@
     ]
   },
   {
-    "entry": "Tarte tatin met wortels",
+    "entry": "Tarte Tatin met wortels",
     "pages": [
       {
         "label": "114",
