@@ -121,7 +121,7 @@ This ordering applies to a dish's main ingredient list. It does **not** apply to
 
 When several ingredients qualify as protein (e.g. two meats, or meat plus egg), group them together at the front in their original relative order rather than picking just one.
 
-**Water never appears as an ingredient.** Plain water (`\ing{500 ml}{water}`, `kokend water`, `lauwwarm water`, `kraanwater`, ...) is never listed in a `\begin{ingredients}` block — it's assumed available. Fold the amount into the method step that uses it instead (e.g. "Voeg 500 ml water toe" rather than "Voeg het water toe"), so the recipe stays reproducible without an ingredient line. This doesn't apply to bouillon, stock, or anything already mixed with something else (kokosmelk, groentebouillon, ...) — only to water on its own.
+**Water is dropped as an ingredient only in dough.** In a `Deeg` sub-block (bread, pizza, pita, pretzel, flammkuchen, lahmacun/pide dough, ...), plain water (`lauwwarm water`, `handwarm water`, ...) is never listed in the `\begin{ingredients}` block — fold the amount into the mixing step instead (e.g. "Meng bloem, 150 ml handwarm water, olijfolie en zout" rather than listing water separately). Everywhere else — sauces, soups, stews, rice/couscous cooking liquid, a baking-soda dip bath — water stays a normal `\ing{amount}{water}` line like any other ingredient; don't strip it out there.
 
 ## Writing style for recipe text
 
