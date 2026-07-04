@@ -88,7 +88,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [ ] gnocchi salie roomboter
 - [ ] barbeque
 - [ ] verhuis rode rijst naar worstjes rode rijst en salade 
-- [ ] brood bakken 
+- [x] brood bakken 
 - [x] hamburger bolletjes zelf maken
 - [x] focaccia maken
 - [x] gehaktballetjes
