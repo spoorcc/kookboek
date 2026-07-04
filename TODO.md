@@ -12,34 +12,34 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Burritos
 - [x] Chili con carne
 - [x] Fajitas
-- [ ] Falafel
+- [x] Falafel
 - [x] Flammkuchen
 - [x] Gnocchi
 - [x] Hamburgers
 - [x] Jambalaya
 - [x] Kofta
-- [ ] Kokos vis
+- [x] Kokos vis
 - [x] Lasagne
 - [x] Lasagne asperge
 - [x] Lekkerbekjes, aardappelkroketjes, sla
 - [x] Mac 'n cheese
 - [x] Moussaka
 - [x] Nasi
-- [ ] Paella
+- [x] Paella
 - [x] Pannenkoeken
 - [x] Roerbak
 - [x] Rode rijst
 - [x] Roti
 - [x] Shakshuka
 - [x] Shoarma
-- [ ] Stamppot — Andijvie
-- [ ] Stamppot — Boerenkool
+- [x] Stamppot — Andijvie
+- [x] Stamppot — Boerenkool
 - [ ] Stamppot — Pompoen
 - [x] Stamppot — Spruiten
 - [x] Stamppot — Wortel/ui
 - [x] Tortellini al forno
-- [ ] Wokgerecht noodles
-- [ ] Wokgerecht rijst
+- [x] Wokgerecht noodles
+- [x] Wokgerecht rijst
 
 ## Pasta
 
@@ -52,7 +52,7 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 - [x] Pasta chorizo, andijvie, ui, slagroom, zongedroogde tomaten
 - [ ] Pasta pesto met gegrilde kip
 - [ ] Pasta prei, hamblokjes, zwarte olijven
-- [ ] Pasta tomaat / verse basilicum
+- [x] Pasta tomaat / verse basilicum
 
 ## Risotto
 
@@ -70,12 +70,11 @@ Vinkje = recept staat al in het boek (`recipes/` + `main.tex`).
 
 ## Salade & bijgerecht
 
-- [ ] Asperges
+- [x] Asperges
 - [x] Bonensalade (lima / reuzen) met peterselie
 - [x] Couscous
-- [ ] Ovenfriet
+- [x] Ovenfriet
 - [x] Quesadillas
-- [ ] Witlofsalade
 
 ## Soep
 
