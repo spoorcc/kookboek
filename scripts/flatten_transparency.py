@@ -68,6 +68,7 @@ def flatten(pdf_path, dpi):
     doc = fitz.open(pdf_path)
     total = doc.page_count
     transparent = find_transparent_pages(doc)
+    toc = doc.get_toc(simple=True)
     doc.close()
     if not transparent:
         return
@@ -101,6 +102,18 @@ def flatten(pdf_path, dpi):
             merge_cmd += [str(source), page_range]
         merge_cmd += ["--", str(merged)]
         _run(merge_cmd)
+
+        if toc:
+            # qpdf's --pages merge drops document-level bookmarks even when,
+            # as here, the page count and order are unchanged — restore them
+            # by page index rather than relying on qpdf to carry them over.
+            merged_doc = fitz.open(merged)
+            merged_doc.set_toc(toc)
+            with_toc = tmp / "with_toc.pdf"
+            merged_doc.save(with_toc)
+            merged_doc.close()
+            merged = with_toc
+
         shutil.copyfile(merged, pdf_path)
 
     print(f"flattened transparency on page(s) {', '.join(str(p) for p in transparent)} of {pdf_path}")
