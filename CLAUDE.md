@@ -123,6 +123,10 @@ When several ingredients qualify as protein (e.g. two meats, or meat plus egg), 
 
 **A small splash of water never needs an ingredient line.** If a step just needs "een scheutje water", "wat water", or "een klein scheutje water" to deglaze a pan, loosen a mixture, or adjust consistency, mention it inline in that step and don't add it to the `\begin{ingredients}` block at all (see `pasta-bolognese`, `worstjes-rode-rijst-salade`, `shakshuka`, `roti` for the existing pattern). This only covers casual, unmeasured splashes. Any water that's actually measured and matters for the recipe to work — dough hydration (`\ing{275 ml}{lauwwarm water}`), cooking/soaking liquid (couscous, rice, risotto), a soup or sauce base, a dip bath — stays a normal `\ing{amount}{water}` line like any other ingredient.
 
+## Units
+
+Use abbreviated units in `\ing{amount}{...}`, matching the overwhelming convention already in `recipes/*.tex`: `g` (not "gram" or "gr"), `el` (not "eetlepel(s)"), `tl` (not "theelepel(s)"), `ml`, `kg`. The one exception is liter, which stays spelled out as `liter` (not abbreviated to `l`) since that's how the handful of existing recipes using it write it.
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
