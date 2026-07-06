@@ -54,6 +54,13 @@ jobs:
           path: KookboekFamilieSpoor.pdf
           retention-days: 30
 
+      - name: Upload register index artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: register-idx
+          path: register.idx
+          retention-days: 30
+
       - name: Upload cover PDF artifact
         uses: actions/upload-artifact@v4
         with:

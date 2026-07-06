@@ -1,12 +1,14 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
+  workflow_run:
+    workflows: [Build PDF]
+    types: [completed]
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: pages
@@ -15,16 +17,26 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Build PDF
-        uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
-          latexmk_use_xelatex: true
-          args: -xelatex -jobname=KookboekFamilieSpoor
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: kookboek
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download register index artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: register-idx
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install pypdf
         run: pip3 install pypdf
