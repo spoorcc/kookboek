@@ -2,6 +2,7 @@ name: Build PDF
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   build-pdf:
