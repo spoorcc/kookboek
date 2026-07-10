@@ -199,6 +199,8 @@
 % cover/cover.tex.
 \tikzfading[name=fade-vanish-top,    top color=transparent!100, bottom color=transparent!0]
 \tikzfading[name=fade-vanish-bottom, top color=transparent!0,   bottom color=transparent!100]
+\tikzfading[name=fade-vanish-left,   left color=transparent!100, right color=transparent!0]
+\tikzfading[name=fade-vanish-right,  left color=transparent!0,   right color=transparent!100]
 \RequirePackage{enumitem}
 \RequirePackage{imakeidx}
 \RequirePackage[hidelinks]{hyperref}
@@ -249,6 +251,67 @@
 \newcommand{\heroimage}[2]{\par\noindent
   \fcolorbox{terracotta}{paper}{\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax, height=4.8cm, keepaspectratio]{#1}}\\[3pt]
   {\footnotesize\itshape\color{terracotta}#2}\par\vspace{1.0em}}
+
+% Full-width, borderless, uncaptioned photo (e.g. a closing shot after a
+% recipe's steps). Spans the full margin-to-margin width — \textwidth plus
+% the \tip column's marginparsep+marginparwidth — not just the text column,
+% so it bleeds out to the same outer boundary the tip sidebar itself uses.
+%
+% Usage: \heroimagefade[<keys>]{file}, e.g.
+%   \heroimagefade{images/roti}                     recto, default fade width
+%   \heroimagefade[verso]{images/kalkoen_spek}       verso, default fade width
+%   \heroimagefade[verso, fadewidth=2.5cm]{images/x} verso, wider fade
+%   \heroimagefade[fadewidth=0.6cm]{images/y}        recto, thinner fade
+%
+% side (recto/verso, default recto): since the tip column sits on a
+% different physical side on recto/verso pages (twoside geometry mirrors
+% inner/outer), the extra width must go on the correct side, and that side
+% has to be given explicitly: neither \ifodd\value{page} nor a
+% \label/\getpagerefnumber round-trip can be trusted here, because these
+% images are wide enough to often start a fresh page on their own, and the
+% page-break decision (hence the true page number) isn't final yet at the
+% point this material is typeset — both approaches were tried and both
+% silently landed the image a whole \marginparwidth off the true margin on
+% a page where that lag hit. Check which side a new/moved \heroimagefade
+% needs by building and looking (or cropping the page with pdftoppm)
+% rather than guessing.
+%
+% fadewidth (default \heroimagefadewidth): how wide a band along each edge
+% fades toward the paper colour, tweakable per image — a photo with a lot
+% of its own white space at the edges can take a wider, softer fade, while
+% one with content close to the edge needs a thinner one.
+\def\heroimgfaderecto{recto}
+\newlength{\heroimagefadewidth}
+\setlength{\heroimagefadewidth}{1.6cm}
+\pgfkeys{
+  /heroimagefade/side/.store in=\heroimgfadeside,
+  /heroimagefade/side/.default=recto,
+  /heroimagefade/side=recto,
+  /heroimagefade/recto/.style={/heroimagefade/side=recto},
+  /heroimagefade/verso/.style={/heroimagefade/side=verso},
+  /heroimagefade/fadewidth/.store in=\heroimgfadewidthval,
+}
+\newcommand{\heroimagefade}[2][]{%
+  \pgfkeys{/heroimagefade/side=recto}%
+  \edef\heroimgfadewidthval{\the\heroimagefadewidth}%
+  \pgfkeys{/heroimagefade/.cd, #1}%
+  \par\noindent
+  \ifx\heroimgfadeside\heroimgfaderecto\else
+    \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
+  \fi
+  \begin{tikzpicture}
+    \node[inner sep=0, outer sep=0] (heroimgfade)
+      {\includegraphics[width=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax]{#2}};
+    \fill[paper, path fading=fade-vanish-bottom]
+      (heroimgfade.north west) rectangle ([yshift=-\heroimgfadewidthval]heroimgfade.north east);
+    \fill[paper, path fading=fade-vanish-top]
+      ([yshift=\heroimgfadewidthval]heroimgfade.south west) rectangle (heroimgfade.south east);
+    \fill[paper, path fading=fade-vanish-right]
+      (heroimgfade.south west) rectangle ([xshift=\heroimgfadewidthval]heroimgfade.north west);
+    \fill[paper, path fading=fade-vanish-left]
+      ([xshift=-\heroimgfadewidthval]heroimgfade.south east) rectangle (heroimgfade.north east);
+  \end{tikzpicture}
+  \par\vspace{1.0em}}
 
 % A loose, hand-labelled ingredient sketch in the margin.
 \newcommand{\ingredientsketch}[1]{\marginpar{\centering
