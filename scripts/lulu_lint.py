@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
-"""Check the built cookbook PDF (and its LaTeX source) against Lulu.com print
-requirements as documented in Lulu's Book Creation Guide: trim size, embedded
-fonts, image resolution (300-600 PPI), PDF encryption, full-bleed safety,
-safety/gutter margins, page count, single-step widow pages, and (when the
-wraparound cover PDF is present) cover-specific checks including hardcover
-spine width against Lulu's page-count-to-spine table.
+"""Check a book PDF (and its LaTeX source) against Lulu.com's print
+requirements as documented in Lulu's Book Creation Guide.
+
+The trim-size check is generic: every Lulu p11 trim (Pocketbook, Novella,
+Digest, A5, US Trade, Royal, Comic Book, Executive, Crown Quarto, Small
+Square, A4, Square, US Letter, Small Landscape, US Letter Landscape, A4
+Landscape, Calendar) is accepted, with or without Lulu's bleed added.
+The linter identifies which trim the PDF is at and reports it. By default
+the intended trim is inferred from the .sty file's geometry
+paperwidth/paperheight and enforced; pass --trim NAME to override, or
+--trim any to disable enforcement. Everything else the linter checks
+(fonts, image PPI, encryption, safety/gutter margins, page count, spine
+width against the p14 hardcover table, and so on) is trim-agnostic.
 
 Usage:
-    python3 scripts/lulu_lint.py [PDF] [--cover PDF] [--repo-root DIR] [--strict]
+    python3 scripts/lulu_lint.py [PDF] [--cover PDF] [--trim NAME]
+                                 [--repo-root DIR] [--strict]
 
-Errors are things that will actually break a Lulu print job (wrong trim
-size, unembedded fonts, encrypted PDF, full-bleed art without a bleed
-margin, margins below Lulu's minimum, page count over Lulu's cap).
-Warnings are things worth knowing about but that are expected while the
-book is still a work in progress (unfinished recipes, low- or high-DPI
-art, an odd page count, an inner margin below the recommended gutter for
-the current page count). Pass --strict to also fail on warnings, e.g.
-right before uploading to Lulu.
+Errors are things that will actually break a Lulu print job (wrong or
+unrecognized trim size, unembedded fonts, encrypted PDF, full-bleed art
+without a bleed margin, margins below Lulu's minimum, page count over
+Lulu's cap). Warnings are things worth knowing about but that are
+expected while the book is still a work in progress (unfinished recipes,
+low- or high-DPI art, an odd page count, an inner margin below the
+recommended gutter for the current page count). Pass --strict to also
+fail on warnings, e.g. right before uploading to Lulu.
 """
 
 import argparse
@@ -36,15 +44,33 @@ from pdf_transparency import find_transparent_pages
 MM_PER_INCH = 25.4
 PT_PER_MM = 72 / MM_PER_INCH
 
-# Lulu Crown Quarto text-block trim, per the "Book Trim Sizes" table on
-# page 11 of Lulu's Book Creation Guide (also cross-referenced in
-# CLAUDE.md / README). The "with bleed" pair is the same row's Interior
-# File Dimensions - With Bleed column, accepted as an alternative trim
-# for the case where the interior file adds Lulu's bleed to the page size.
-TRIM_WIDTH_MM = 189.0
-TRIM_HEIGHT_MM = 246.0
-TRIM_WIDTH_MM_WITH_BLEED = 195.0
-TRIM_HEIGHT_MM_WITH_BLEED = 252.0
+# Full Lulu Book Creation Guide p11 "Book Trim Sizes" table. Each entry is
+# (name, trim_w_mm, trim_h_mm, bleed_w_mm, bleed_h_mm). The guide's "Trim
+# Size" and "Interior File Dimensions - No Bleed" columns are the same in
+# every row, so only one pair (trim_w/trim_h) is stored; the with-bleed
+# pair is the size a publisher uses when they choose to add Lulu's bleed
+# to the page dimensions themselves. Two rows (US Letter Landscape and
+# Calendar) share the same dimensions — that's how the guide prints it;
+# _identify_trim() reports whichever entry it matches first.
+LULU_TRIM_SIZES = [
+    ("Pocketbook",          108, 175, 114, 181),
+    ("Novella",             127, 203, 133, 210),
+    ("Digest",              140, 216, 146, 222),
+    ("A5",                  148, 210, 154, 216),
+    ("US Trade",            152, 229, 159, 235),
+    ("Royal",               156, 234, 162, 240),
+    ("Comic Book",          168, 260, 175, 267),
+    ("Executive",           178, 254, 184, 260),
+    ("Crown Quarto",        189, 246, 195, 252),
+    ("Small Square",        191, 191, 197, 197),
+    ("A4",                  210, 297, 216, 303),
+    ("Square",              216, 216, 222, 222),
+    ("US Letter",           216, 279, 222, 286),
+    ("Small Landscape",     229, 178, 235, 184),
+    ("US Letter Landscape", 279, 216, 286, 222),
+    ("A4 Landscape",        297, 210, 303, 216),
+    ("Calendar",            279, 216, 286, 222),
+]
 
 SAFETY_MARGIN_MM = 12.7  # Lulu's 0.5 in minimum safety margin (guide p8, p23)
 BLEED_MM = 3.18  # Lulu's 0.125 in bleed (guide p10, p24)
@@ -131,12 +157,17 @@ class Report:
     def __init__(self):
         self.errors = []
         self.warnings = []
+        self.notes = []
 
     def error(self, msg):
         self.errors.append(msg)
 
     def warn(self, msg):
         self.warnings.append(msg)
+
+    def note(self, msg):
+        """Non-failing informational line (e.g. "detected trim: Crown Quarto")."""
+        self.notes.append(msg)
 
 
 def _paper_rgb(sty_path):
@@ -181,10 +212,51 @@ def _touching_edge_is_blank(page, pw, ph, touches, paper_rgb):
     )
 
 
-def _matches_size(page, w_mm, h_mm):
-    expected_w = w_mm * PT_PER_MM
-    expected_h = h_mm * PT_PER_MM
-    return abs(page.rect.width - expected_w) <= 1 and abs(page.rect.height - expected_h) <= 1
+TRIM_TOLERANCE_MM = 0.5
+
+
+def _identify_trim(w_mm, h_mm):
+    """Match (w_mm, h_mm) against the Lulu Book Creation Guide p11 table.
+    Returns (name, has_bleed, trim_w_mm, trim_h_mm, bleed_w_mm, bleed_h_mm)
+    for the matching entry, or None if the size is not a Lulu-supported trim."""
+    for name, tw, th, bw, bh in LULU_TRIM_SIZES:
+        if abs(w_mm - tw) <= TRIM_TOLERANCE_MM and abs(h_mm - th) <= TRIM_TOLERANCE_MM:
+            return (name, False, tw, th, bw, bh)
+        if abs(w_mm - bw) <= TRIM_TOLERANCE_MM and abs(h_mm - bh) <= TRIM_TOLERANCE_MM:
+            return (name, True, tw, th, bw, bh)
+    return None
+
+
+def _find_trim_by_name(name):
+    """Case-insensitive lookup of a p11 table entry by name."""
+    key = name.strip().casefold()
+    for entry in LULU_TRIM_SIZES:
+        if entry[0].casefold() == key:
+            return entry
+    return None
+
+
+def _identify_page(page):
+    return _identify_trim(mm(page.rect.width), mm(page.rect.height))
+
+
+def _geometry_paper_size_mm(sty_path):
+    """Extract (paperwidth_mm, paperheight_mm) from the .sty file's
+    geometry configuration, or None if it can't be parsed. Used to
+    determine which Lulu trim size the LaTeX source declares, so the
+    linter can enforce that against the built PDF."""
+    if not sty_path.exists():
+        return None
+    text = sty_path.read_text(encoding="utf-8")
+    match = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S)
+    if not match:
+        return None
+    opts = match.group(1)
+    w = re.search(r"paperwidth\s*=\s*([\d.]+)mm", opts)
+    h = re.search(r"paperheight\s*=\s*([\d.]+)mm", opts)
+    if not (w and h):
+        return None
+    return float(w.group(1)), float(h.group(1))
 
 
 def _check_encryption(pdf_path, doc, report):
@@ -210,7 +282,13 @@ def _check_fonts_embedded(pdf_path, doc, report):
         report.error(f"{pdf_path}: font(s) not embedded: " + ", ".join(sorted(unembedded)))
 
 
-def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255)):
+def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255), expected_trim=None):
+    """Validate the PDF against Lulu's interior-file rules.
+
+    `expected_trim`: optional name (case-insensitive, e.g. "Crown Quarto")
+    from the p11 Book Trim Sizes table. When given, the PDF must be at
+    that trim; when None, any Lulu trim is accepted and the detected
+    one is reported."""
     doc = fitz.open(pdf_path)
     try:
         if _check_encryption(pdf_path, doc, report):
@@ -219,41 +297,70 @@ def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255)):
             report.error(f"{pdf_path}: PDF has no pages")
             return 0
 
-        # Trim size — accept either the exact text-block trim (guide p11
-        # "Interior File Dimensions - No Bleed") or the with-bleed size
-        # (same row's "Interior File Dimensions - With Bleed" column).
-        # Every page must use the SAME size; Lulu won't accept a mixed
-        # trim within one file.
-        mismatched = []
-        pages_no_bleed = 0
-        pages_with_bleed = 0
+        # Identify every page's trim against the full p11 "Book Trim
+        # Sizes" table. Two variants of one trim are both acceptable —
+        # exact trim ("No Bleed" column) or the same trim with Lulu's
+        # bleed added ("With Bleed" column) — but the file must be
+        # uniform: every page the same trim, and every page in the same
+        # bleed vs. no-bleed variant.
+        unknown = []
+        seen_trims = {}  # (name, has_bleed) -> [page_numbers]
         for i, page in enumerate(doc, start=1):
-            if _matches_size(page, TRIM_WIDTH_MM, TRIM_HEIGHT_MM):
-                pages_no_bleed += 1
+            match = _identify_page(page)
+            if match is None:
+                unknown.append((i, mm(page.rect.width), mm(page.rect.height)))
                 continue
-            if _matches_size(page, TRIM_WIDTH_MM_WITH_BLEED, TRIM_HEIGHT_MM_WITH_BLEED):
-                pages_with_bleed += 1
-                continue
-            mismatched.append((i, mm(page.rect.width), mm(page.rect.height)))
-        if mismatched:
-            sample = ", ".join(f"page {i} ({w:.1f}x{h:.1f}mm)" for i, w, h in mismatched[:5])
+            key = (match[0], match[1])
+            seen_trims.setdefault(key, []).append(i)
+
+        if unknown:
+            sample = ", ".join(f"page {i} ({w:.1f}x{h:.1f}mm)" for i, w, h in unknown[:5])
             report.error(
-                f"{len(mismatched)} page(s) don't match the Lulu Crown Quarto trim size "
-                f"({TRIM_WIDTH_MM:.0f}x{TRIM_HEIGHT_MM:.0f}mm no-bleed or "
-                f"{TRIM_WIDTH_MM_WITH_BLEED:.0f}x{TRIM_HEIGHT_MM_WITH_BLEED:.0f}mm with bleed): "
-                f"{sample}"
+                f"{len(unknown)} page(s) don't match any Lulu trim size from the "
+                f"Book Creation Guide p11 table: {sample}"
             )
-        if pages_no_bleed > 0 and pages_with_bleed > 0:
+
+        if len(seen_trims) > 1:
+            parts = []
+            for (name, has_bleed), pages in seen_trims.items():
+                _, tw, th, bw, bh = _find_trim_by_name(name)
+                w, h = (bw, bh) if has_bleed else (tw, th)
+                variant = " with bleed" if has_bleed else ""
+                parts.append(f"{len(pages)} page(s) at {name}{variant} ({w}x{h}mm)")
             report.error(
-                f"PDF mixes {pages_no_bleed} page(s) at exact trim "
-                f"({TRIM_WIDTH_MM:.0f}x{TRIM_HEIGHT_MM:.0f}mm) with {pages_with_bleed} "
-                f"page(s) at with-bleed size "
-                f"({TRIM_WIDTH_MM_WITH_BLEED:.0f}x{TRIM_HEIGHT_MM_WITH_BLEED:.0f}mm) — "
-                "Lulu requires every page to be the same size within one file"
+                f"PDF mixes multiple trim sizes — Lulu requires every page to be the "
+                f"same size within one file: {'; '.join(parts)}"
             )
+
+        detected = next(iter(seen_trims), None) if len(seen_trims) == 1 else None
         # Only treat the file as "using bleed" (and skip the bleed-touching
-        # error below) when every page uniformly uses the with-bleed size.
-        file_has_bleed = pages_with_bleed > 0 and pages_no_bleed == 0 and not mismatched
+        # error below) when the whole file is uniformly the with-bleed
+        # variant of a Lulu trim.
+        file_has_bleed = detected is not None and detected[1]
+
+        if expected_trim is not None:
+            expected_entry = _find_trim_by_name(expected_trim)
+            if expected_entry is None:
+                report.error(
+                    f"expected trim {expected_trim!r} is not a Lulu Book Creation Guide "
+                    f"p11 trim size — known names: "
+                    + ", ".join(e[0] for e in LULU_TRIM_SIZES)
+                )
+            elif detected is not None and detected[0].casefold() != expected_entry[0].casefold():
+                d_name, d_bleed = detected
+                _, dtw, dth, dbw, dbh = _find_trim_by_name(d_name)
+                d_w, d_h = (dbw, dbh) if d_bleed else (dtw, dth)
+                variant = "with bleed" if d_bleed else "no bleed"
+                report.error(
+                    f"PDF is {d_name} ({d_w}x{d_h}mm, {variant}) but this project "
+                    f"expects {expected_entry[0]} "
+                    f"({expected_entry[1]}x{expected_entry[2]}mm, no bleed / "
+                    f"{expected_entry[3]}x{expected_entry[4]}mm, with bleed)"
+                )
+
+        if detected is not None and not unknown:
+            variant = "with bleed" if detected[1] else "no bleed"
+            report.note(f"detected trim: {detected[0]} ({variant})")
 
         n = doc.page_count
         if n < MIN_PAGES_HARDCOVER:
@@ -313,17 +420,17 @@ def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255)):
                 f"printed size (guide p23/p24: images should not exceed {MAX_DPI} PPI): {detail}"
             )
 
-        if bleed_risk_pages and not file_has_bleed and not mismatched:
+        if bleed_risk_pages and not file_has_bleed and not unknown and detected is not None:
             # Page size matches exact trim (no bleed margin added) but art
             # touches the edge — Lulu will trim into that art.
+            name, _has_bleed = detected
+            _, tw, th, bw, bh = _find_trim_by_name(name)
             pages = ", ".join(str(p) for p in sorted(bleed_risk_pages)[:5])
             report.error(
                 f"full-bleed image(s) touch the page edge on page(s) {pages}, but pages are sized "
-                f"to exact trim ({TRIM_WIDTH_MM:.0f}x{TRIM_HEIGHT_MM:.0f}mm) with no "
-                f"{BLEED_MM:.2f}mm bleed margin — Lulu needs bleed added to the page size for "
-                "full-bleed artwork (page grows to "
-                f"{TRIM_WIDTH_MM_WITH_BLEED:.0f}x{TRIM_HEIGHT_MM_WITH_BLEED:.0f}mm), or the "
-                "image should be inset from the edge"
+                f"to exact {name} trim ({tw:.0f}x{th:.0f}mm) with no {BLEED_MM:.2f}mm bleed "
+                f"margin — Lulu needs bleed added to the page size for full-bleed artwork "
+                f"(page grows to {bw:.0f}x{bh:.0f}mm), or the image should be inset from the edge"
             )
 
         return n
@@ -654,6 +761,35 @@ def check_placeholders(recipes_dir, report):
         )
 
 
+def _resolve_expected_trim(cli_trim, sty_path, report):
+    """Decide which Lulu p11 trim the PDF is supposed to be at. Priority:
+    (1) explicit --trim CLI flag, (2) the .sty file's geometry
+    paperwidth/paperheight (looked up in the p11 table), (3) nothing —
+    the linter then accepts any Lulu trim it detects."""
+    if cli_trim:
+        if cli_trim.lower() == "any":
+            return None
+        if _find_trim_by_name(cli_trim) is None:
+            report.error(
+                f"--trim {cli_trim!r} is not a Lulu Book Creation Guide p11 trim name — "
+                f"known names: " + ", ".join(e[0] for e in LULU_TRIM_SIZES)
+            )
+            return None
+        return cli_trim
+    paper = _geometry_paper_size_mm(sty_path)
+    if paper is None:
+        return None
+    match = _identify_trim(*paper)
+    if match is None:
+        report.warn(
+            f"{sty_path} declares paperwidth×paperheight = {paper[0]}×{paper[1]}mm, which "
+            f"isn't in the Lulu Book Creation Guide p11 trim-size table — the PDF's trim "
+            f"can't be cross-checked against a known Lulu size"
+        )
+        return None
+    return match[0]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("pdf", nargs="?", default="main.pdf", help="path to the built interior PDF (default: main.pdf)")
@@ -661,6 +797,12 @@ def main():
         "--cover", default=None,
         help="path to the built wraparound cover PDF (default: auto-detect "
              "KookboekFamilieSpoor-cover.pdf next to the interior PDF)",
+    )
+    parser.add_argument(
+        "--trim", default=None,
+        help='Lulu p11 trim to enforce (e.g. "Crown Quarto", "A5", "US Trade"). '
+             'Default: infer from the .sty file\'s geometry paperwidth/paperheight. '
+             'Pass "any" to accept any Lulu trim without enforcing a specific one.',
     )
     parser.add_argument("--repo-root", default=".", help="repository root (default: current directory)")
     parser.add_argument(
@@ -681,7 +823,12 @@ def main():
         cover_pdf_path = pdf_path.with_name(pdf_path.stem + "-cover.pdf")
 
     report = Report()
-    page_count = check_pdf(pdf_path, report, paper_rgb=_paper_rgb(root / "kookboek.sty"))
+    expected_trim = _resolve_expected_trim(args.trim, root / "kookboek.sty", report)
+    page_count = check_pdf(
+        pdf_path, report,
+        paper_rgb=_paper_rgb(root / "kookboek.sty"),
+        expected_trim=expected_trim,
+    )
     check_transparency(pdf_path, report)
     check_geometry(root / "kookboek.sty", page_count, report)
     check_orphan_pages(pdf_path, root / "main.tex", report)
@@ -692,6 +839,8 @@ def main():
     check_cover_spine(root / "cover" / "cover.tex", page_count, report)
     check_spine_text(root / "cover" / "cover.tex", page_count, report)
 
+    for n in report.notes:
+        print(f"  note: {n}")
     if report.errors:
         print(f"{len(report.errors)} error(s):")
         for e in report.errors:

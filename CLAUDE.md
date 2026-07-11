@@ -39,7 +39,7 @@ CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` commands for both
 
 This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` checks the built PDF and LaTeX source against Lulu's print requirements:
 
-- Trim size matches 189×246mm (Lulu Crown Quarto text-block trim), or the 195×252mm with-bleed variant, on every page
+- Trim size is one of the 17 Lulu trims from the Book Creation Guide p11 table (Crown Quarto, A5, US Trade, etc.) on every page — no-bleed or with-bleed variant. The intended trim is inferred from `kookboek.sty`'s `geometry` paperwidth/paperheight (this project pins to Crown Quarto, 189×246mm) and the PDF is enforced against it; pass `--trim NAME` to override, `--trim any` to accept any Lulu trim without enforcement
 - All fonts are embedded (interior and wraparound cover)
 - The PDF is not encrypted / password-protected (Lulu Book Creation Guide p23/p24)
 - Full-bleed artwork doesn't touch the page edge unless the page includes Lulu's bleed margin
