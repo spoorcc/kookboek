@@ -161,11 +161,67 @@ def mm(pt):
     return pt / PT_PER_MM
 
 
+class _CheckCtx:
+    """Records errors/warnings/notes raised during one named check block.
+    Yielded by Report.check(); tracks a check's outcome and lets the
+    verbose output print [PASS] / [WARN] / [FAIL] / [SKIP] for it."""
+
+    def __init__(self, report, name, description):
+        self.report = report
+        self.name = name
+        self.description = description
+        self._errors_before = len(report.errors)
+        self._warnings_before = len(report.warnings)
+        self._notes_before = len(report.notes)
+        self._skip_reason = None
+
+    def skip(self, reason):
+        """Mark this check as skipped and record why."""
+        self._skip_reason = reason
+        self.report.note(reason)
+
+    def __enter__(self):
+        self.report._current = self
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        self.report._current = None
+        errors = self.report.errors[self._errors_before:]
+        warnings = self.report.warnings[self._warnings_before:]
+        notes = self.report.notes[self._notes_before:]
+        if self._skip_reason is not None:
+            status = "SKIP"
+        elif errors:
+            status = "FAIL"
+        elif warnings:
+            status = "WARN"
+        else:
+            status = "PASS"
+        self.report.checks.append({
+            "name": self.name,
+            "description": self.description,
+            "status": status,
+            "errors": errors,
+            "warnings": warnings,
+            "notes": notes,
+        })
+        # Never swallow real exceptions.
+        return False
+
+
 class Report:
     def __init__(self):
         self.errors = []
         self.warnings = []
         self.notes = []
+        self.checks = []       # ordered list of finished-check records
+        self._current = None   # currently-active _CheckCtx, if any
+
+    def check(self, name, description=""):
+        """Context manager that names a single check. Errors, warnings,
+        and notes emitted inside the block are attributed to it, and its
+        pass/fail/warn/skip status is recorded for verbose output."""
+        return _CheckCtx(self, name, description)
 
     def error(self, msg):
         self.errors.append(msg)
@@ -291,7 +347,9 @@ def _check_fonts_embedded(pdf_path, doc, report):
 
 
 def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255), expected_trim=None):
-    """Validate the PDF against Lulu's interior-file rules.
+    """Validate the PDF against Lulu's interior-file rules. Splits into
+    several named sub-checks so the verbose output can report a
+    PASS/FAIL/WARN line per rule.
 
     `expected_trim`: optional name (case-insensitive, e.g. "Crown Quarto")
     from the p11 Book Trim Sizes table. When given, the PDF must be at
@@ -299,95 +357,102 @@ def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255), expected_trim=None):
     one is reported."""
     doc = fitz.open(pdf_path)
     try:
-        if _check_encryption(pdf_path, doc, report):
-            return 0
+        with report.check("PDF encryption", "guide p23/p24: no security/password protection"):
+            if _check_encryption(pdf_path, doc, report):
+                return 0
+
         if doc.page_count == 0:
-            report.error(f"{pdf_path}: PDF has no pages")
+            with report.check("Basic PDF integrity"):
+                report.error(f"{pdf_path}: PDF has no pages")
             return 0
 
-        # Identify every page's trim against the full p11 "Book Trim
-        # Sizes" table. Two variants of one trim are both acceptable —
-        # exact trim ("No Bleed" column) or the same trim with Lulu's
-        # bleed added ("With Bleed" column) — but the file must be
-        # uniform: every page the same trim, and every page in the same
-        # bleed vs. no-bleed variant.
-        unknown = []
-        seen_trims = {}  # (name, has_bleed) -> [page_numbers]
-        for i, page in enumerate(doc, start=1):
-            match = _identify_page(page)
-            if match is None:
-                unknown.append((i, mm(page.rect.width), mm(page.rect.height)))
-                continue
-            key = (match[0], match[1])
-            seen_trims.setdefault(key, []).append(i)
+        with report.check("Trim size", "guide p11 Book Trim Sizes table"):
+            # Identify every page's trim against the full p11 table. Two
+            # variants of one trim are both acceptable — exact trim ("No
+            # Bleed" column) or the same trim with Lulu's bleed added
+            # ("With Bleed" column) — but the file must be uniform: every
+            # page the same trim, and every page in the same bleed vs.
+            # no-bleed variant.
+            unknown = []
+            seen_trims = {}  # (name, has_bleed) -> [page_numbers]
+            for i, page in enumerate(doc, start=1):
+                match = _identify_page(page)
+                if match is None:
+                    unknown.append((i, mm(page.rect.width), mm(page.rect.height)))
+                    continue
+                key = (match[0], match[1])
+                seen_trims.setdefault(key, []).append(i)
 
-        if unknown:
-            sample = ", ".join(f"page {i} ({w:.1f}x{h:.1f}mm)" for i, w, h in unknown[:5])
-            report.error(
-                f"{len(unknown)} page(s) don't match any Lulu trim size from the "
-                f"Book Creation Guide p11 table: {sample}"
-            )
-
-        if len(seen_trims) > 1:
-            parts = []
-            for (name, has_bleed), pages in seen_trims.items():
-                _, tw, th, bw, bh = _find_trim_by_name(name)
-                w, h = (bw, bh) if has_bleed else (tw, th)
-                variant = " with bleed" if has_bleed else ""
-                parts.append(f"{len(pages)} page(s) at {name}{variant} ({w}x{h}mm)")
-            report.error(
-                f"PDF mixes multiple trim sizes — Lulu requires every page to be the "
-                f"same size within one file: {'; '.join(parts)}"
-            )
-
-        detected = next(iter(seen_trims), None) if len(seen_trims) == 1 else None
-        # Only treat the file as "using bleed" (and skip the bleed-touching
-        # error below) when the whole file is uniformly the with-bleed
-        # variant of a Lulu trim.
-        file_has_bleed = detected is not None and detected[1]
-
-        if expected_trim is not None:
-            expected_entry = _find_trim_by_name(expected_trim)
-            if expected_entry is None:
+            if unknown:
+                sample = ", ".join(f"page {i} ({w:.1f}x{h:.1f}mm)" for i, w, h in unknown[:5])
                 report.error(
-                    f"expected trim {expected_trim!r} is not a Lulu Book Creation Guide "
-                    f"p11 trim size — known names: "
-                    + ", ".join(e[0] for e in LULU_TRIM_SIZES)
-                )
-            elif detected is not None and detected[0].casefold() != expected_entry[0].casefold():
-                d_name, d_bleed = detected
-                _, dtw, dth, dbw, dbh = _find_trim_by_name(d_name)
-                d_w, d_h = (dbw, dbh) if d_bleed else (dtw, dth)
-                variant = "with bleed" if d_bleed else "no bleed"
-                report.error(
-                    f"PDF is {d_name} ({d_w}x{d_h}mm, {variant}) but this project "
-                    f"expects {expected_entry[0]} "
-                    f"({expected_entry[1]}x{expected_entry[2]}mm, no bleed / "
-                    f"{expected_entry[3]}x{expected_entry[4]}mm, with bleed)"
+                    f"{len(unknown)} page(s) don't match any Lulu trim size from the "
+                    f"Book Creation Guide p11 table: {sample}"
                 )
 
-        if detected is not None and not unknown:
-            variant = "with bleed" if detected[1] else "no bleed"
-            report.note(f"detected trim: {detected[0]} ({variant})")
+            if len(seen_trims) > 1:
+                parts = []
+                for (name, has_bleed), pages in seen_trims.items():
+                    _, tw, th, bw, bh = _find_trim_by_name(name)
+                    w, h = (bw, bh) if has_bleed else (tw, th)
+                    variant = " with bleed" if has_bleed else ""
+                    parts.append(f"{len(pages)} page(s) at {name}{variant} ({w}x{h}mm)")
+                report.error(
+                    f"PDF mixes multiple trim sizes — Lulu requires every page to be the "
+                    f"same size within one file: {'; '.join(parts)}"
+                )
+
+            detected = next(iter(seen_trims), None) if len(seen_trims) == 1 else None
+            # Only treat the file as "using bleed" (and skip the
+            # bleed-touching error below) when the whole file is uniformly
+            # the with-bleed variant of a Lulu trim.
+            file_has_bleed = detected is not None and detected[1]
+
+            if expected_trim is not None:
+                expected_entry = _find_trim_by_name(expected_trim)
+                if expected_entry is None:
+                    report.error(
+                        f"expected trim {expected_trim!r} is not a Lulu Book Creation Guide "
+                        f"p11 trim size — known names: "
+                        + ", ".join(e[0] for e in LULU_TRIM_SIZES)
+                    )
+                elif detected is not None and detected[0].casefold() != expected_entry[0].casefold():
+                    d_name, d_bleed = detected
+                    _, dtw, dth, dbw, dbh = _find_trim_by_name(d_name)
+                    d_w, d_h = (dbw, dbh) if d_bleed else (dtw, dth)
+                    variant = "with bleed" if d_bleed else "no bleed"
+                    report.error(
+                        f"PDF is {d_name} ({d_w}x{d_h}mm, {variant}) but this project "
+                        f"expects {expected_entry[0]} "
+                        f"({expected_entry[1]}x{expected_entry[2]}mm, no bleed / "
+                        f"{expected_entry[3]}x{expected_entry[4]}mm, with bleed)"
+                    )
+
+            if detected is not None and not unknown:
+                variant = "with bleed" if detected[1] else "no bleed"
+                report.note(f"detected trim: {detected[0]} ({variant})")
 
         n = doc.page_count
-        if n < MIN_PAGES_HARDCOVER:
-            report.error(f"only {n} page(s) — below Lulu's {MIN_PAGES_HARDCOVER}-page hardcover minimum")
-        elif n < MIN_PAGES_PAPERBACK:
-            report.warn(
-                f"only {n} page(s) — below Lulu's {MIN_PAGES_PAPERBACK}-page paperback minimum "
-                f"(the {MIN_PAGES_HARDCOVER}-page hardcover minimum is met)"
-            )
-        elif n % 4 != 0:
-            report.warn(f"{n} pages is not a multiple of 4 — Lulu may pad with blank pages")
-        if n > MAX_PAGES:
-            report.error(
-                f"{n} pages exceeds Lulu's hardcover binding maximum of {MAX_PAGES} pages "
-                f"(guide p14 spine table tops out at {MAX_PAGES} pages)"
-            )
+        with report.check("Page count", "guide p13 minimums, p14 hardcover cap, multiples of 4"):
+            if n < MIN_PAGES_HARDCOVER:
+                report.error(f"only {n} page(s) — below Lulu's {MIN_PAGES_HARDCOVER}-page hardcover minimum")
+            elif n < MIN_PAGES_PAPERBACK:
+                report.warn(
+                    f"only {n} page(s) — below Lulu's {MIN_PAGES_PAPERBACK}-page paperback minimum "
+                    f"(the {MIN_PAGES_HARDCOVER}-page hardcover minimum is met)"
+                )
+            elif n % 4 != 0:
+                report.warn(f"{n} pages is not a multiple of 4 — Lulu may pad with blank pages")
+            if n > MAX_PAGES:
+                report.error(
+                    f"{n} pages exceeds Lulu's hardcover binding maximum of {MAX_PAGES} pages "
+                    f"(guide p14 spine table tops out at {MAX_PAGES} pages)"
+                )
 
-        _check_fonts_embedded(pdf_path, doc, report)
+        with report.check("Font embedding", "guide p23/p24: all fonts must be embedded"):
+            _check_fonts_embedded(pdf_path, doc, report)
 
+        # DPI and bleed-touching share the same per-page image loop.
         low_dpi = []
         high_dpi = []
         bleed_risk_pages = set()
@@ -415,51 +480,61 @@ def check_pdf(pdf_path, report, paper_rgb=(255, 255, 255), expected_trim=None):
                     if not _touching_edge_is_blank(page, pw, ph, touches, paper_rgb):
                         bleed_risk_pages.add(pno)
 
-        if low_dpi:
-            worst = sorted(low_dpi, key=lambda t: t[1])[:5]
-            detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
-            report.warn(f"{len(low_dpi)} image placement(s) below {MIN_DPI} dpi at printed size: {detail}")
+        with report.check("Image resolution", f"guide p4/p23: {MIN_DPI}-{MAX_DPI} PPI at printed size"):
+            if low_dpi:
+                worst = sorted(low_dpi, key=lambda t: t[1])[:5]
+                detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
+                report.warn(f"{len(low_dpi)} image placement(s) below {MIN_DPI} dpi at printed size: {detail}")
+            if high_dpi:
+                worst = sorted(high_dpi, key=lambda t: -t[1])[:5]
+                detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
+                report.warn(
+                    f"{len(high_dpi)} image placement(s) above Lulu's {MAX_DPI} dpi ceiling at "
+                    f"printed size (guide p23/p24: images should not exceed {MAX_DPI} PPI): {detail}"
+                )
 
-        if high_dpi:
-            worst = sorted(high_dpi, key=lambda t: -t[1])[:5]
-            detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
-            report.warn(
-                f"{len(high_dpi)} image placement(s) above Lulu's {MAX_DPI} dpi ceiling at "
-                f"printed size (guide p23/p24: images should not exceed {MAX_DPI} PPI): {detail}"
-            )
-
-        if bleed_risk_pages and not file_has_bleed and not unknown and detected is not None:
-            # Page size matches exact trim (no bleed margin added) but art
-            # touches the edge — Lulu will trim into that art.
-            name, _has_bleed = detected
-            _, tw, th, bw, bh = _find_trim_by_name(name)
-            pages = ", ".join(str(p) for p in sorted(bleed_risk_pages)[:5])
-            report.error(
-                f"full-bleed image(s) touch the page edge on page(s) {pages}, but pages are sized "
-                f"to exact {name} trim ({tw:.0f}x{th:.0f}mm) with no {BLEED_MM:.2f}mm bleed "
-                f"margin — Lulu needs bleed added to the page size for full-bleed artwork "
-                f"(page grows to {bw:.0f}x{bh:.0f}mm), or the image should be inset from the edge"
-            )
+        with report.check("Full-bleed safety", "guide p10: art at the trim edge needs bleed"):
+            if bleed_risk_pages and not file_has_bleed and not unknown and detected is not None:
+                # Page size matches exact trim (no bleed margin added) but
+                # art touches the edge — Lulu will trim into that art.
+                name, _has_bleed = detected
+                _, tw, th, bw, bh = _find_trim_by_name(name)
+                pages = ", ".join(str(p) for p in sorted(bleed_risk_pages)[:5])
+                report.error(
+                    f"full-bleed image(s) touch the page edge on page(s) {pages}, but pages are "
+                    f"sized to exact {name} trim ({tw:.0f}x{th:.0f}mm) with no {BLEED_MM:.2f}mm "
+                    f"bleed margin — Lulu needs bleed added to the page size for full-bleed "
+                    f"artwork (page grows to {bw:.0f}x{bh:.0f}mm), or the image should be "
+                    f"inset from the edge"
+                )
 
         return n
     finally:
         doc.close()
 
 
-def check_transparency(pdf_path, report):
-    doc = fitz.open(pdf_path)
-    try:
-        pages = find_transparent_pages(doc)
-    finally:
-        doc.close()
-    if pages:
-        detail = ", ".join(str(p) for p in pages[:10])
-        report.warn(
-            f"{len(pages)} page(s) paint with PDF transparency (soft masks / transparency "
-            f"groups) — Lulu strongly recommends flattening all transparency before upload: "
-            f"{detail}. Run scripts/flatten_transparency.py on the PDF to fix it (build.sh "
-            "does this automatically before this check runs)"
-        )
+def check_transparency(pdf_path, report, name_prefix=""):
+    label = f"{name_prefix}Transparency flattening" if name_prefix else "Transparency flattening"
+    with report.check(label, "Lulu recommends flattening all transparency before upload") as ctx:
+        if pdf_path is None or not pdf_path.exists():
+            ctx.skip(f"no PDF at {pdf_path} — transparency check skipped")
+            return
+        doc = fitz.open(pdf_path)
+        try:
+            if doc.is_encrypted or doc.needs_pass:
+                ctx.skip(f"{pdf_path}: PDF is encrypted — transparency check skipped")
+                return
+            pages = find_transparent_pages(doc)
+        finally:
+            doc.close()
+        if pages:
+            detail = ", ".join(str(p) for p in pages[:10])
+            report.warn(
+                f"{len(pages)} page(s) paint with PDF transparency (soft masks / transparency "
+                f"groups) — Lulu strongly recommends flattening all transparency before upload: "
+                f"{detail}. Run scripts/flatten_transparency.py on the PDF to fix it (build.sh "
+                "does this automatically before this check runs)"
+            )
 
 
 def _recommended_gutter(page_count):
@@ -485,81 +560,86 @@ def check_pdf_margins(pdf_path, report):
     check or as a fallback when the LaTeX source isn't available.
     Only text is measured; images can legitimately extend to the edge
     on full-bleed pages (the bleed check in check_pdf handles those)."""
-    doc = fitz.open(pdf_path)
-    try:
-        safety_pt = SAFETY_MARGIN_MM * PT_PER_MM
-        offenders = []
-        for pno, page in enumerate(doc, start=1):
-            pw, ph = page.rect.width, page.rect.height
-            page_worst_pt = float("inf")
-            for block in page.get_text("blocks"):
-                bx0, by0, bx1, by1, text, *_ = block
-                if not text.strip():
-                    continue
-                worst = min(bx0, by0, pw - bx1, ph - by1)
-                if worst < page_worst_pt:
-                    page_worst_pt = worst
-            if page_worst_pt < safety_pt:
-                offenders.append((pno, mm(page_worst_pt)))
-        if offenders:
-            worst = sorted(offenders, key=lambda t: t[1])[:5]
-            detail = ", ".join(f"page {p} (~{d:.1f}mm from trim edge)" for p, d in worst)
-            report.warn(
-                f"{len(offenders)} page(s) have text sitting inside Lulu's "
-                f"{SAFETY_MARGIN_MM:.1f}mm safety margin (guide p8, p23) — content this "
-                f"close to the trim edge risks being cut off: {detail}"
-            )
-    finally:
-        doc.close()
+    with report.check("Empirical margin (PDF-side)", f"guide p8/p23: no content inside {SAFETY_MARGIN_MM:.1f}mm safety zone") as ctx:
+        doc = fitz.open(pdf_path)
+        try:
+            if doc.is_encrypted or doc.needs_pass:
+                ctx.skip(f"{pdf_path}: PDF is encrypted — empirical margin check skipped")
+                return
+            safety_pt = SAFETY_MARGIN_MM * PT_PER_MM
+            offenders = []
+            for pno, page in enumerate(doc, start=1):
+                pw, ph = page.rect.width, page.rect.height
+                page_worst_pt = float("inf")
+                for block in page.get_text("blocks"):
+                    bx0, by0, bx1, by1, text, *_ = block
+                    if not text.strip():
+                        continue
+                    worst = min(bx0, by0, pw - bx1, ph - by1)
+                    if worst < page_worst_pt:
+                        page_worst_pt = worst
+                if page_worst_pt < safety_pt:
+                    offenders.append((pno, mm(page_worst_pt)))
+            if offenders:
+                worst = sorted(offenders, key=lambda t: t[1])[:5]
+                detail = ", ".join(f"page {p} (~{d:.1f}mm from trim edge)" for p, d in worst)
+                report.warn(
+                    f"{len(offenders)} page(s) have text sitting inside Lulu's "
+                    f"{SAFETY_MARGIN_MM:.1f}mm safety margin (guide p8, p23) — content this "
+                    f"close to the trim edge risks being cut off: {detail}"
+                )
+        finally:
+            doc.close()
 
 
 def check_geometry(sty_path, page_count, report):
-    if not sty_path.exists():
-        report.note(
-            f"no .sty file at {sty_path} — margin/gutter checks running from "
-            f"the PDF alone (see check_pdf_margins)"
-        )
-        return False
-    text = sty_path.read_text(encoding="utf-8")
-    match = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S)
-    if not match:
-        report.warn(f"{sty_path}: couldn't find a geometry configuration to check margins")
-        return False
-    opts = dict(re.findall(r"(top|bottom|inner|outer)\s*=\s*([\d.]+)cm", match.group(1)))
-    for side in ("top", "bottom", "inner", "outer"):
-        if side not in opts:
-            continue
-        value_mm = float(opts[side]) * 10
-        if value_mm < SAFETY_MARGIN_MM:
-            report.error(
-                f"{sty_path}: {side} margin is {value_mm:.1f}mm, below Lulu's "
-                f"{SAFETY_MARGIN_MM:.1f}mm safety margin minimum"
+    with report.check("Interior margins (source-side)", "guide p8/p9/p23: safety, gutter floor, p9 gutter table") as ctx:
+        if not sty_path.exists():
+            ctx.skip(
+                f"no .sty file at {sty_path} — source-side margin/gutter check skipped "
+                f"(the PDF-side empirical check runs regardless)"
             )
-
-    # Lulu's Interior File Specifications (guide p23) call for at least a
-    # 2.08mm gutter added to the safety margin. In a twoside book class the
-    # `inner` value IS the binding-side (gutter) margin, so it must clear
-    # safety + minimum gutter to satisfy Lulu's absolute floor — and it
-    # SHOULD meet the recommended total inside margin for the page count
-    # bucket in the p9 "Gutter Additions" table.
-    inner_mm = float(opts["inner"]) * 10 if "inner" in opts else None
-    if inner_mm is not None:
-        floor = SAFETY_MARGIN_MM + MIN_GUTTER_MM
-        if inner_mm < floor:
-            report.error(
-                f"{sty_path}: inner (gutter-side) margin is {inner_mm:.1f}mm, below Lulu's "
-                f"{floor:.2f}mm absolute floor (safety {SAFETY_MARGIN_MM:.1f}mm + minimum "
-                f"gutter {MIN_GUTTER_MM:.2f}mm, guide p23)"
-            )
-        if page_count:
-            recommended, bucket = _recommended_gutter(page_count)
-            if recommended is not None and inner_mm < recommended:
-                report.warn(
-                    f"{sty_path}: inner margin is {inner_mm:.1f}mm; Lulu's Book Creation "
-                    f"Guide p9 recommends at least {recommended}mm total inside margin for "
-                    f"books in the {bucket} bucket (this book has {page_count} pages)"
+            return False
+        text = sty_path.read_text(encoding="utf-8")
+        match = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S)
+        if not match:
+            report.warn(f"{sty_path}: couldn't find a geometry configuration to check margins")
+            return False
+        opts = dict(re.findall(r"(top|bottom|inner|outer)\s*=\s*([\d.]+)cm", match.group(1)))
+        for side in ("top", "bottom", "inner", "outer"):
+            if side not in opts:
+                continue
+            value_mm = float(opts[side]) * 10
+            if value_mm < SAFETY_MARGIN_MM:
+                report.error(
+                    f"{sty_path}: {side} margin is {value_mm:.1f}mm, below Lulu's "
+                    f"{SAFETY_MARGIN_MM:.1f}mm safety margin minimum"
                 )
-    return True
+
+        # Lulu's Interior File Specifications (guide p23) call for at least a
+        # 2.08mm gutter added to the safety margin. In a twoside book class
+        # the `inner` value IS the binding-side (gutter) margin, so it must
+        # clear safety + minimum gutter to satisfy Lulu's absolute floor —
+        # and it SHOULD meet the recommended total inside margin for the
+        # page count bucket in the p9 "Gutter Additions" table.
+        inner_mm = float(opts["inner"]) * 10 if "inner" in opts else None
+        if inner_mm is not None:
+            floor = SAFETY_MARGIN_MM + MIN_GUTTER_MM
+            if inner_mm < floor:
+                report.error(
+                    f"{sty_path}: inner (gutter-side) margin is {inner_mm:.1f}mm, below Lulu's "
+                    f"{floor:.2f}mm absolute floor (safety {SAFETY_MARGIN_MM:.1f}mm + minimum "
+                    f"gutter {MIN_GUTTER_MM:.2f}mm, guide p23)"
+                )
+            if page_count:
+                recommended, bucket = _recommended_gutter(page_count)
+                if recommended is not None and inner_mm < recommended:
+                    report.warn(
+                        f"{sty_path}: inner margin is {inner_mm:.1f}mm; Lulu's Book Creation "
+                        f"Guide p9 recommends at least {recommended}mm total inside margin for "
+                        f"books in the {bucket} bucket (this book has {page_count} pages)"
+                    )
+        return True
 
 
 def _recipe_kinds(main_tex_path):
@@ -621,40 +701,42 @@ def check_orphan_pages(pdf_path, main_tex_path, report):
     only a single leftover step — a typographic widow that reads as a
     mistake (a near-blank page with one sentence on it) rather than a
     deliberate two-page recipe."""
-    if not main_tex_path.exists():
-        report.note(
-            f"no {main_tex_path} — widow-page check skipped (needs main.tex to "
-            f"distinguish subchapter dividers from recipes in the PDF outline)"
-        )
-        return
-    doc = fitz.open(pdf_path)
-    try:
-        recipes = _recipe_page_ranges(doc, main_tex_path)
-        if not recipes:
-            return
-        widows = []
-        for recipe in recipes:
-            if recipe["endPage"] <= recipe["page"]:
-                continue
-            page = doc[recipe["endPage"] - 1]
-            lines = [l.strip() for l in page.get_text().split("\n") if l.strip()]
-            content = [l for l in lines if not BOILERPLATE_LINE_RE.match(l)]
-            step_count = sum(1 for l in content if STEP_LINE_RE.match(l))
-            # Require at least one recognizable step line before trusting this
-            # page belongs to the recipe at all — guards against the page
-            # range spilling into the next chapter/Register's own opening
-            # page (a known quirk of the bookmark-derived page boundaries).
-            if step_count == 1:
-                widows.append((recipe["title"], recipe["page"], recipe["endPage"]))
-        if widows:
-            detail = "; ".join(f"{t!r} (p.{sp}–{ep})" for t, sp, ep in widows[:8])
-            report.warn(
-                f"{len(widows)} recipe(s) leave just one step behind on their last page "
-                f"— consider tightening the text so it fits on one page, or breaking the "
-                f"page differently: {detail}"
+    with report.check("Widow pages", "single-step recipe endings on their own page") as ctx:
+        if not main_tex_path.exists():
+            ctx.skip(
+                f"no {main_tex_path} — widow-page check skipped (needs main.tex "
+                f"to distinguish subchapter dividers from recipes in the PDF outline)"
             )
-    finally:
-        doc.close()
+            return
+        doc = fitz.open(pdf_path)
+        try:
+            recipes = _recipe_page_ranges(doc, main_tex_path)
+            if not recipes:
+                return
+            widows = []
+            for recipe in recipes:
+                if recipe["endPage"] <= recipe["page"]:
+                    continue
+                page = doc[recipe["endPage"] - 1]
+                lines = [l.strip() for l in page.get_text().split("\n") if l.strip()]
+                content = [l for l in lines if not BOILERPLATE_LINE_RE.match(l)]
+                step_count = sum(1 for l in content if STEP_LINE_RE.match(l))
+                # Require at least one recognizable step line before trusting
+                # this page belongs to the recipe at all — guards against the
+                # page range spilling into the next chapter/Register's own
+                # opening page (a known quirk of the bookmark-derived page
+                # boundaries).
+                if step_count == 1:
+                    widows.append((recipe["title"], recipe["page"], recipe["endPage"]))
+            if widows:
+                detail = "; ".join(f"{t!r} (p.{sp}–{ep})" for t, sp, ep in widows[:8])
+                report.warn(
+                    f"{len(widows)} recipe(s) leave just one step behind on their last page "
+                    f"— consider tightening the text so it fits on one page, or breaking the "
+                    f"page differently: {detail}"
+                )
+        finally:
+            doc.close()
 
 
 def _hardcover_spine_mm(page_count):
@@ -671,56 +753,71 @@ def _hardcover_spine_mm(page_count):
 
 def check_cover_pdf(cover_pdf_path, report):
     """Cover File Specifications (Lulu Book Creation Guide p24): fonts
-    embedded, images 300-600 PPI, no encryption. Trim size and bleed are
-    tied to the specific hardcover casewrap template rather than the
-    generic paperback bleed (0.125 in), so they're covered separately by
-    check_cover_spine's page-count-to-spine-table check on cover/cover.tex."""
-    if not cover_pdf_path.exists():
-        return
-    doc = fitz.open(cover_pdf_path)
-    try:
-        if _check_encryption(cover_pdf_path, doc, report):
+    embedded, images 300-600 PPI, no encryption, single integrated
+    spread page. Trim size and bleed are tied to the specific hardcover
+    casewrap template rather than the generic paperback bleed
+    (0.125 in), so they're covered separately by check_cover_spine's
+    page-count-to-spine-table check on cover/cover.tex."""
+    with report.check("Cover PDF integrity", "guide p24: single-page spread, fonts embedded, no encryption") as ctx:
+        if not cover_pdf_path.exists():
+            ctx.skip(f"no cover PDF at {cover_pdf_path} — cover PDF checks skipped")
+        else:
+            doc = fitz.open(cover_pdf_path)
+            try:
+                if not _check_encryption(cover_pdf_path, doc, report):
+                    if doc.page_count == 0:
+                        report.error(f"{cover_pdf_path}: cover PDF has no pages")
+                    elif doc.page_count != 1:
+                        # Lulu's cover spec (guide p24): "a single-page
+                        # integrated spread PDF (back cover, spine, and
+                        # front cover)".
+                        report.error(
+                            f"{cover_pdf_path}: cover PDF has {doc.page_count} pages, but Lulu "
+                            f"requires a single-page integrated spread (back cover + spine + "
+                            f"front cover on one page)"
+                        )
+                    _check_fonts_embedded(cover_pdf_path, doc, report)
+            finally:
+                doc.close()
+
+    with report.check("Cover image resolution", f"guide p4/p24: {MIN_DPI}-{MAX_DPI} PPI") as ctx:
+        if not cover_pdf_path.exists():
+            ctx.skip(f"no cover PDF at {cover_pdf_path} — cover image resolution check skipped")
             return
-        if doc.page_count == 0:
-            report.error(f"{cover_pdf_path}: cover PDF has no pages")
-            return
-        if doc.page_count != 1:
-            # Lulu's cover spec (guide p24): "a single-page integrated
-            # spread PDF (back cover, spine, and front cover)".
-            report.error(
-                f"{cover_pdf_path}: cover PDF has {doc.page_count} pages, but Lulu requires "
-                "a single-page integrated spread (back cover + spine + front cover on one page)"
-            )
-        _check_fonts_embedded(cover_pdf_path, doc, report)
-        low_dpi = []
-        high_dpi = []
-        for pno, page in enumerate(doc, start=1):
-            for info in page.get_image_info(xrefs=True):
-                bbox = fitz.Rect(info["bbox"])
-                iw, ih = info.get("width", 0), info.get("height", 0)
-                if iw and ih and bbox.width > 0 and bbox.height > 0:
-                    dpi_min = min(iw / (bbox.width / 72), ih / (bbox.height / 72))
-                    dpi_max = max(iw / (bbox.width / 72), ih / (bbox.height / 72))
-                    if dpi_min < MIN_DPI:
-                        low_dpi.append((pno, dpi_min))
-                    if dpi_max > MAX_DPI:
-                        high_dpi.append((pno, dpi_max))
-        if low_dpi:
-            worst = sorted(low_dpi, key=lambda t: t[1])[:5]
-            detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
-            report.warn(
-                f"{cover_pdf_path}: {len(low_dpi)} cover image(s) below {MIN_DPI} dpi at "
-                f"printed size: {detail}"
-            )
-        if high_dpi:
-            worst = sorted(high_dpi, key=lambda t: -t[1])[:5]
-            detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
-            report.warn(
-                f"{cover_pdf_path}: {len(high_dpi)} cover image(s) above Lulu's {MAX_DPI} dpi "
-                f"ceiling (guide p24): {detail}"
-            )
-    finally:
-        doc.close()
+        doc = fitz.open(cover_pdf_path)
+        try:
+            if doc.is_encrypted or doc.needs_pass:
+                ctx.skip(f"{cover_pdf_path}: encrypted — cover image resolution check skipped")
+                return
+            low_dpi = []
+            high_dpi = []
+            for pno, page in enumerate(doc, start=1):
+                for info in page.get_image_info(xrefs=True):
+                    bbox = fitz.Rect(info["bbox"])
+                    iw, ih = info.get("width", 0), info.get("height", 0)
+                    if iw and ih and bbox.width > 0 and bbox.height > 0:
+                        dpi_min = min(iw / (bbox.width / 72), ih / (bbox.height / 72))
+                        dpi_max = max(iw / (bbox.width / 72), ih / (bbox.height / 72))
+                        if dpi_min < MIN_DPI:
+                            low_dpi.append((pno, dpi_min))
+                        if dpi_max > MAX_DPI:
+                            high_dpi.append((pno, dpi_max))
+            if low_dpi:
+                worst = sorted(low_dpi, key=lambda t: t[1])[:5]
+                detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
+                report.warn(
+                    f"{cover_pdf_path}: {len(low_dpi)} cover image(s) below {MIN_DPI} dpi at "
+                    f"printed size: {detail}"
+                )
+            if high_dpi:
+                worst = sorted(high_dpi, key=lambda t: -t[1])[:5]
+                detail = ", ".join(f"page {p} (~{d:.0f} dpi)" for p, d in worst)
+                report.warn(
+                    f"{cover_pdf_path}: {len(high_dpi)} cover image(s) above Lulu's {MAX_DPI} dpi "
+                    f"ceiling (guide p24): {detail}"
+                )
+        finally:
+            doc.close()
 
 
 def _parse_length_mm(text, name):
@@ -741,93 +838,100 @@ def check_cover_spine(cover_tex_path, interior_page_count, report):
     e.g. 17.48mm instead of the table's 17mm for the 169-194 bucket),
     so we only flag a mismatch when the deviation is larger than one
     table bucket."""
-    if not interior_page_count:
-        return
-    if not cover_tex_path.exists():
-        report.note(
-            f"no {cover_tex_path} — cover spine-width check skipped (needs the "
-            f"cover source to read \\interiorpagecount and \\spinew)"
-        )
-        return
-    text = cover_tex_path.read_text(encoding="utf-8")
-
-    interior_match = re.search(r"\\newcommand\{?\\interiorpagecount\}?\s*\{\s*(\d+)\s*\}", text)
-    if interior_match:
-        declared = int(interior_match.group(1))
-        if declared != interior_page_count:
-            report.warn(
-                f"{cover_tex_path}: \\interiorpagecount is {declared} but the built interior "
-                f"PDF has {interior_page_count} pages — regenerate the cover template from "
-                f"Lulu's Project Creation Tool for the current page count and update "
-                f"\\interiorpagecount and \\spinew to match (see cover.tex header note)"
+    with report.check("Cover spine width", "guide p14 hardcover spine-width table vs \\interiorpagecount / \\spinew") as ctx:
+        if not interior_page_count:
+            ctx.skip("interior page count unavailable — cover spine-width check skipped")
+            return
+        if not cover_tex_path.exists():
+            ctx.skip(
+                f"no {cover_tex_path} — cover spine-width check skipped (needs the "
+                f"cover source to read \\interiorpagecount and \\spinew)"
             )
+            return
+        text = cover_tex_path.read_text(encoding="utf-8")
 
-    spine_mm = _parse_length_mm(text, "spinew")
-    expected = _hardcover_spine_mm(interior_page_count)
-    if spine_mm is not None and expected is not None:
-        # The p14 table uses 1mm-precision buckets; Lulu's own template can
-        # differ by up to a bucket. Warn only when the value is more than
-        # one bucket off, which usually means the wrong page count was
-        # used to regenerate the template.
-        if abs(spine_mm - expected) > 3:
-            report.warn(
-                f"{cover_tex_path}: spine width \\spinew={spine_mm:.2f}mm is far from Lulu's "
-                f"guide p14 hardcover-spine table value ({expected}mm) for "
-                f"{interior_page_count} pages — regenerate the cover template from Lulu's "
-                f"Project Creation Tool and update \\spinew"
+        interior_match = re.search(r"\\newcommand\{?\\interiorpagecount\}?\s*\{\s*(\d+)\s*\}", text)
+        if interior_match:
+            declared = int(interior_match.group(1))
+            if declared != interior_page_count:
+                report.warn(
+                    f"{cover_tex_path}: \\interiorpagecount is {declared} but the built interior "
+                    f"PDF has {interior_page_count} pages — regenerate the cover template from "
+                    f"Lulu's Project Creation Tool for the current page count and update "
+                    f"\\interiorpagecount and \\spinew to match (see cover.tex header note)"
+                )
+
+        spine_mm = _parse_length_mm(text, "spinew")
+        expected = _hardcover_spine_mm(interior_page_count)
+        if spine_mm is not None and expected is not None:
+            # The p14 table uses 1mm-precision buckets; Lulu's own template
+            # can differ by up to a bucket. Warn only when the value is
+            # more than one bucket off, which usually means the wrong page
+            # count was used to regenerate the template.
+            if abs(spine_mm - expected) > 3:
+                report.warn(
+                    f"{cover_tex_path}: spine width \\spinew={spine_mm:.2f}mm is far from Lulu's "
+                    f"guide p14 hardcover-spine table value ({expected}mm) for "
+                    f"{interior_page_count} pages — regenerate the cover template from Lulu's "
+                    f"Project Creation Tool and update \\spinew"
+                )
+        elif spine_mm is not None and expected is None and interior_page_count > MAX_PAGES:
+            report.error(
+                f"{cover_tex_path}: interior has {interior_page_count} pages, above Lulu's "
+                f"hardcover binding maximum of {MAX_PAGES} pages"
             )
-    elif spine_mm is not None and expected is None and interior_page_count > MAX_PAGES:
-        report.error(
-            f"{cover_tex_path}: interior has {interior_page_count} pages, above Lulu's "
-            f"hardcover binding maximum of {MAX_PAGES} pages"
-        )
 
 
 def check_spine_text(cover_tex_path, interior_page_count, report):
     """Lulu Book Creation Guide p17: "If your book is 80 pages or fewer, do
     not include spine text." The cover template contains a SPINE section
     with a rotated text node — flag its presence for thin books."""
-    if not interior_page_count or interior_page_count > MAX_SPINE_TEXT_PAGES:
-        return
-    if not cover_tex_path.exists():
-        # Silent when the book is thick enough that the check wouldn't fire
-        # anyway; only note when the check would have run.
-        report.note(
-            f"no {cover_tex_path} — spine-text check skipped (book is {interior_page_count} "
-            f"pages, ≤ {MAX_SPINE_TEXT_PAGES}; guide p17 says no spine text this thin)"
-        )
-        return
-    text = cover_tex_path.read_text(encoding="utf-8")
-    # cover.tex marks the spine section with a "SPINE" banner comment and
-    # sets a rotated text node inside it. Any rotated node paired with the
-    # spine banner is spine text worth flagging.
-    if re.search(r"SPINE.*?rotate\s*=\s*90", text, re.S):
-        report.warn(
-            f"{cover_tex_path}: interior is {interior_page_count} pages "
-            f"(≤ {MAX_SPINE_TEXT_PAGES}); Lulu Book Creation Guide p17 says "
-            f"no spine text on books this thin — the slightest shift in spine "
-            f"placement will run the text onto the front or back cover"
-        )
+    with report.check("Cover spine text", f"guide p17: no spine text on books ≤ {MAX_SPINE_TEXT_PAGES} pages") as ctx:
+        if not interior_page_count:
+            ctx.skip("interior page count unavailable — spine-text check skipped")
+            return
+        if interior_page_count > MAX_SPINE_TEXT_PAGES:
+            # Rule doesn't apply — book is thick enough for spine text.
+            return
+        if not cover_tex_path.exists():
+            ctx.skip(
+                f"no {cover_tex_path} — spine-text check skipped (book is "
+                f"{interior_page_count} pages, ≤ {MAX_SPINE_TEXT_PAGES}; guide p17 "
+                f"says no spine text this thin)"
+            )
+            return
+        text = cover_tex_path.read_text(encoding="utf-8")
+        # cover.tex marks the spine section with a "SPINE" banner comment and
+        # sets a rotated text node inside it. Any rotated node paired with the
+        # spine banner is spine text worth flagging.
+        if re.search(r"SPINE.*?rotate\s*=\s*90", text, re.S):
+            report.warn(
+                f"{cover_tex_path}: interior is {interior_page_count} pages "
+                f"(≤ {MAX_SPINE_TEXT_PAGES}); Lulu Book Creation Guide p17 says "
+                f"no spine text on books this thin — the slightest shift in spine "
+                f"placement will run the text onto the front or back cover"
+            )
 
 
 def check_placeholders(recipes_dir, report):
-    if not recipes_dir.exists():
-        report.note(
-            f"no {recipes_dir}/ — recipe-placeholder check skipped (needs the "
-            f"per-recipe .tex sources)"
-        )
-        return
-    todo = []
-    for path in sorted(recipes_dir.glob("*.tex")):
-        text = path.read_text(encoding="utf-8")
-        for macro, description in PLACEHOLDER_MACROS.items():
-            if macro in text:
-                todo.append(f"{path.name}: {description}")
-    if todo:
-        report.warn(
-            f"{len(todo)} recipe file(s) still contain print-readiness placeholders:\n    - "
-            + "\n    - ".join(todo)
-        )
+    with report.check("Unfinished recipe placeholders", "no \\heroplaceholder/\\ingredientsketch/\\writelines left") as ctx:
+        if not recipes_dir.exists():
+            ctx.skip(
+                f"no {recipes_dir}/ — recipe-placeholder check skipped (needs the "
+                f"per-recipe .tex sources)"
+            )
+            return
+        todo = []
+        for path in sorted(recipes_dir.glob("*.tex")):
+            text = path.read_text(encoding="utf-8")
+            for macro, description in PLACEHOLDER_MACROS.items():
+                if macro in text:
+                    todo.append(f"{path.name}: {description}")
+        if todo:
+            report.warn(
+                f"{len(todo)} recipe file(s) still contain print-readiness placeholders:\n    - "
+                + "\n    - ".join(todo)
+            )
 
 
 def _resolve_expected_trim(cli_trim, sty_path, report):
@@ -939,25 +1043,33 @@ def main():
     check_pdf_margins(pdf_path, report)
     check_orphan_pages(pdf_path, main_tex_path, report)
     check_placeholders(recipes_dir, report)
-    if cover_pdf_path is not None and cover_pdf_path.exists():
+    if cover_pdf_path is not None:
         check_cover_pdf(cover_pdf_path, report)
-        check_transparency(cover_pdf_path, report)
-    elif cover_pdf_path is not None:
-        report.note(f"no cover PDF at {cover_pdf_path} — cover PDF checks skipped")
+        check_transparency(cover_pdf_path, report, name_prefix="Cover ")
     check_cover_spine(cover_tex_path, page_count, report)
     check_spine_text(cover_tex_path, page_count, report)
 
-    for n in report.notes:
-        print(f"  note: {n}")
-    if report.errors:
-        print(f"{len(report.errors)} error(s):")
-        for e in report.errors:
-            print(f"  ERROR: {e}")
-    if report.warnings:
-        print(f"{len(report.warnings)} warning(s):")
-        for w in report.warnings:
-            print(f"  WARNING: {w}")
-    if not report.errors and not report.warnings:
+    print(f"Lulu print check: {pdf_path}")
+    for check in report.checks:
+        status = check["status"]
+        marker = {"PASS": "  [PASS]", "WARN": "  [WARN]", "FAIL": "  [FAIL]", "SKIP": "  [SKIP]"}[status]
+        line = f"{marker} {check['name']}"
+        if check["description"]:
+            line += f" — {check['description']}"
+        print(line)
+        for e in check["errors"]:
+            print(f"         ERROR:   {e}")
+        for w in check["warnings"]:
+            print(f"         WARNING: {w}")
+        for n in check["notes"]:
+            print(f"         note:    {n}")
+
+    n_err = len(report.errors)
+    n_warn = len(report.warnings)
+    print()
+    if n_err or n_warn:
+        print(f"{n_err} error(s), {n_warn} warning(s).")
+    else:
         print("Lulu print check passed with no issues.")
 
     if report.errors or (args.strict and report.warnings):
