@@ -14,8 +14,16 @@ paperwidth/paperheight and enforced; pass --trim NAME to override, or
 width against the p14 hardcover table, and so on) is trim-agnostic.
 
 Usage:
-    python3 scripts/lulu_lint.py [PDF] [--cover PDF] [--trim NAME]
+    python3 scripts/lulu_lint.py [PDF] [--cover PDF|none] [--trim NAME]
+                                 [--sty PATH] [--main-tex PATH]
+                                 [--cover-tex PATH] [--recipes-dir PATH]
                                  [--repo-root DIR] [--strict]
+
+Every source path defaults from --repo-root; supply the individual flags
+when your project's layout differs, or drop them entirely to run
+PDF-only. In PDF-only mode the linter prints a skip note for each
+source-dependent check and falls back to an empirical PDF-side margin
+measurement so Lulu's 12.7mm safety zone still gets checked.
 
 Errors are things that will actually break a Lulu print job (wrong or
 unrecognized trim size, unembedded fonts, encrypted PDF, full-bleed art
@@ -470,15 +478,53 @@ def _recommended_gutter(page_count):
     return None, None
 
 
+def check_pdf_margins(pdf_path, report):
+    """Empirically verify that no rendered text sits inside Lulu's
+    12.7mm safety margin (guide p8, p23). Runs on the PDF alone —
+    useful either as a belt-and-suspenders check alongside the .sty
+    check or as a fallback when the LaTeX source isn't available.
+    Only text is measured; images can legitimately extend to the edge
+    on full-bleed pages (the bleed check in check_pdf handles those)."""
+    doc = fitz.open(pdf_path)
+    try:
+        safety_pt = SAFETY_MARGIN_MM * PT_PER_MM
+        offenders = []
+        for pno, page in enumerate(doc, start=1):
+            pw, ph = page.rect.width, page.rect.height
+            page_worst_pt = float("inf")
+            for block in page.get_text("blocks"):
+                bx0, by0, bx1, by1, text, *_ = block
+                if not text.strip():
+                    continue
+                worst = min(bx0, by0, pw - bx1, ph - by1)
+                if worst < page_worst_pt:
+                    page_worst_pt = worst
+            if page_worst_pt < safety_pt:
+                offenders.append((pno, mm(page_worst_pt)))
+        if offenders:
+            worst = sorted(offenders, key=lambda t: t[1])[:5]
+            detail = ", ".join(f"page {p} (~{d:.1f}mm from trim edge)" for p, d in worst)
+            report.warn(
+                f"{len(offenders)} page(s) have text sitting inside Lulu's "
+                f"{SAFETY_MARGIN_MM:.1f}mm safety margin (guide p8, p23) — content this "
+                f"close to the trim edge risks being cut off: {detail}"
+            )
+    finally:
+        doc.close()
+
+
 def check_geometry(sty_path, page_count, report):
     if not sty_path.exists():
-        report.warn(f"{sty_path}: not found, skipped margin check")
-        return
+        report.note(
+            f"no .sty file at {sty_path} — margin/gutter checks running from "
+            f"the PDF alone (see check_pdf_margins)"
+        )
+        return False
     text = sty_path.read_text(encoding="utf-8")
     match = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S)
     if not match:
         report.warn(f"{sty_path}: couldn't find a geometry configuration to check margins")
-        return
+        return False
     opts = dict(re.findall(r"(top|bottom|inner|outer)\s*=\s*([\d.]+)cm", match.group(1)))
     for side in ("top", "bottom", "inner", "outer"):
         if side not in opts:
@@ -513,6 +559,7 @@ def check_geometry(sty_path, page_count, report):
                     f"Guide p9 recommends at least {recommended}mm total inside margin for "
                     f"books in the {bucket} bucket (this book has {page_count} pages)"
                 )
+    return True
 
 
 def _recipe_kinds(main_tex_path):
@@ -574,6 +621,12 @@ def check_orphan_pages(pdf_path, main_tex_path, report):
     only a single leftover step — a typographic widow that reads as a
     mistake (a near-blank page with one sentence on it) rather than a
     deliberate two-page recipe."""
+    if not main_tex_path.exists():
+        report.note(
+            f"no {main_tex_path} — widow-page check skipped (needs main.tex to "
+            f"distinguish subchapter dividers from recipes in the PDF outline)"
+        )
+        return
     doc = fitz.open(pdf_path)
     try:
         recipes = _recipe_page_ranges(doc, main_tex_path)
@@ -688,7 +741,13 @@ def check_cover_spine(cover_tex_path, interior_page_count, report):
     e.g. 17.48mm instead of the table's 17mm for the 169-194 bucket),
     so we only flag a mismatch when the deviation is larger than one
     table bucket."""
-    if not cover_tex_path.exists() or not interior_page_count:
+    if not interior_page_count:
+        return
+    if not cover_tex_path.exists():
+        report.note(
+            f"no {cover_tex_path} — cover spine-width check skipped (needs the "
+            f"cover source to read \\interiorpagecount and \\spinew)"
+        )
         return
     text = cover_tex_path.read_text(encoding="utf-8")
 
@@ -728,9 +787,15 @@ def check_spine_text(cover_tex_path, interior_page_count, report):
     """Lulu Book Creation Guide p17: "If your book is 80 pages or fewer, do
     not include spine text." The cover template contains a SPINE section
     with a rotated text node — flag its presence for thin books."""
-    if not cover_tex_path.exists() or not interior_page_count:
+    if not interior_page_count or interior_page_count > MAX_SPINE_TEXT_PAGES:
         return
-    if interior_page_count > MAX_SPINE_TEXT_PAGES:
+    if not cover_tex_path.exists():
+        # Silent when the book is thick enough that the check wouldn't fire
+        # anyway; only note when the check would have run.
+        report.note(
+            f"no {cover_tex_path} — spine-text check skipped (book is {interior_page_count} "
+            f"pages, ≤ {MAX_SPINE_TEXT_PAGES}; guide p17 says no spine text this thin)"
+        )
         return
     text = cover_tex_path.read_text(encoding="utf-8")
     # cover.tex marks the spine section with a "SPINE" banner comment and
@@ -747,6 +812,10 @@ def check_spine_text(cover_tex_path, interior_page_count, report):
 
 def check_placeholders(recipes_dir, report):
     if not recipes_dir.exists():
+        report.note(
+            f"no {recipes_dir}/ — recipe-placeholder check skipped (needs the "
+            f"per-recipe .tex sources)"
+        )
         return
     todo = []
     for path in sorted(recipes_dir.glob("*.tex")):
@@ -795,8 +864,8 @@ def main():
     parser.add_argument("pdf", nargs="?", default="main.pdf", help="path to the built interior PDF (default: main.pdf)")
     parser.add_argument(
         "--cover", default=None,
-        help="path to the built wraparound cover PDF (default: auto-detect "
-             "KookboekFamilieSpoor-cover.pdf next to the interior PDF)",
+        help="path to the built wraparound cover PDF (default: <PDF stem>-cover.pdf next "
+             "to the interior). Pass \"none\" to skip cover-PDF checks entirely.",
     )
     parser.add_argument(
         "--trim", default=None,
@@ -804,7 +873,34 @@ def main():
              'Default: infer from the .sty file\'s geometry paperwidth/paperheight. '
              'Pass "any" to accept any Lulu trim without enforcing a specific one.',
     )
-    parser.add_argument("--repo-root", default=".", help="repository root (default: current directory)")
+
+    # Individual LaTeX source paths. Each defaults from --repo-root when
+    # not given explicitly. Any source that doesn't exist is reported as
+    # a skip note; the PDF-side check runs whenever it can substitute.
+    parser.add_argument(
+        "--sty", default=None,
+        help="path to the .sty file with the geometry package (default: "
+             "<repo-root>/kookboek.sty). Used for margin, gutter, and "
+             "paper-colour checks.",
+    )
+    parser.add_argument(
+        "--main-tex", default=None, dest="main_tex",
+        help="path to the root .tex file (default: <repo-root>/main.tex). "
+             "Used to distinguish subchapter dividers from recipes in the "
+             "widow-page check.",
+    )
+    parser.add_argument(
+        "--cover-tex", default=None, dest="cover_tex",
+        help="path to the wraparound cover source (default: "
+             "<repo-root>/cover/cover.tex). Used for spine-width and "
+             "spine-text checks.",
+    )
+    parser.add_argument(
+        "--recipes-dir", default=None, dest="recipes_dir",
+        help="directory containing individual recipe .tex files (default: "
+             "<repo-root>/recipes). Used for the unfinished-placeholder check.",
+    )
+    parser.add_argument("--repo-root", default=".", help="fallback root for defaulting the source paths above (default: current directory)")
     parser.add_argument(
         "--strict", action="store_true", help="also fail on warnings (use before a real Lulu upload)"
     )
@@ -816,28 +912,40 @@ def main():
         print(f"error: {pdf_path} not found — build the book first (./build.sh)", file=sys.stderr)
         return 2
 
-    if args.cover is not None:
-        cover_pdf_path = Path(args.cover)
-    else:
+    sty_path = Path(args.sty) if args.sty else root / "kookboek.sty"
+    main_tex_path = Path(args.main_tex) if args.main_tex else root / "main.tex"
+    cover_tex_path = Path(args.cover_tex) if args.cover_tex else root / "cover" / "cover.tex"
+    recipes_dir = Path(args.recipes_dir) if args.recipes_dir else root / "recipes"
+
+    if args.cover is None:
         # Auto-detect the sibling cover PDF alongside the interior file.
         cover_pdf_path = pdf_path.with_name(pdf_path.stem + "-cover.pdf")
+    elif args.cover.lower() == "none":
+        cover_pdf_path = None
+    else:
+        cover_pdf_path = Path(args.cover)
 
     report = Report()
-    expected_trim = _resolve_expected_trim(args.trim, root / "kookboek.sty", report)
+    expected_trim = _resolve_expected_trim(args.trim, sty_path, report)
     page_count = check_pdf(
         pdf_path, report,
-        paper_rgb=_paper_rgb(root / "kookboek.sty"),
+        paper_rgb=_paper_rgb(sty_path),
         expected_trim=expected_trim,
     )
     check_transparency(pdf_path, report)
-    check_geometry(root / "kookboek.sty", page_count, report)
-    check_orphan_pages(pdf_path, root / "main.tex", report)
-    check_placeholders(root / "recipes", report)
-    if cover_pdf_path.exists():
+    # Source-side margin check when the .sty is available; PDF-side empirical
+    # check always runs, so a PDF-only user still gets margin coverage.
+    check_geometry(sty_path, page_count, report)
+    check_pdf_margins(pdf_path, report)
+    check_orphan_pages(pdf_path, main_tex_path, report)
+    check_placeholders(recipes_dir, report)
+    if cover_pdf_path is not None and cover_pdf_path.exists():
         check_cover_pdf(cover_pdf_path, report)
         check_transparency(cover_pdf_path, report)
-    check_cover_spine(root / "cover" / "cover.tex", page_count, report)
-    check_spine_text(root / "cover" / "cover.tex", page_count, report)
+    elif cover_pdf_path is not None:
+        report.note(f"no cover PDF at {cover_pdf_path} — cover PDF checks skipped")
+    check_cover_spine(cover_tex_path, page_count, report)
+    check_spine_text(cover_tex_path, page_count, report)
 
     for n in report.notes:
         print(f"  note: {n}")
