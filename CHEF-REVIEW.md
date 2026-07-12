@@ -95,8 +95,6 @@ het smaakwerk, en de warme kommen en het zeefje in de tip zijn precies goed.
   in de soep: zoete knoflooksmaak zonder risico.
 - Tomaten buiten het seizoen zijn vaak zuur en vlak. Een klein snufje suiker
   bij het roosteren compenseert dat; proef eerst.
-- In stap 3 staat "gerookte tomaten" waar de zongedroogde tomaten uit de
-  ingrediëntenlijst bedoeld worden; even rechtzetten.
 
 **Pastinaaksoep met croutons.** Goede opbouw en het krokante element zit er
 al in, dat is de juiste reflex.
@@ -210,9 +208,8 @@ van de Zuid-Italiaanse pasta met salsiccia en venkel; de tip over echte
 Italiaanse venkelworst is terecht.
 - Kneus of rooster het venkelzaad even voor het de pan in gaat: gekneusd
   zaad geeft veel meer af dan heel zaad.
-- Stap 5 verwijst naar "het bewaarde kookwater van de kool", maar de kool
-  wordt gestoofd in bouillon, niet gekookt. Even rechttrekken: kook de pasta
-  gewoon in gezouten water en bewaar daarvan een kop kookvocht voor de saus.
+- Bewaar bij het afgieten een kop pastakookvocht om de saus mee te binden
+  (rode draad 3).
 - De kool en worst zijn zoet en rijk; een scheutje witte wijn bij het stoven
   of een kneepje citroen op het eind zet het gerecht rechtop.
 
@@ -232,8 +229,9 @@ precies goed.
   kale versie te proeven naast deze.
 - Meng de pecorino er pas van het vuur af door of rasp hem alleen aan tafel:
   pecorino schift en wordt draderig in een te hete saus.
-- "Zuurkoolspek" in de ingrediëntenlijst leest als een verschrijving; bedoeld
-  is vermoedelijk gerookt of gezouten buikspek. Even nalopen.
+- Zuurkoolspek als guanciale-vervanger is trouwens een slimme vondst:
+  ongerookt gezouten buikspek zit dichter bij het origineel dan gerookte
+  spekjes.
 
 **Pasta carbonara.** Technisch het beste pastarecept van het boek: dooiers
 temperen met kookvocht, vuur uit voor het mengen, restwarmte doet het werk.
@@ -420,7 +418,6 @@ hier, goed zo.
   spekblokjes in plaats van ham zit je dichter bij het origineel.
 - Verse nootmuskaat over de custard is de klassieke afmaker bij deze
   familie van taarten.
-- In de deeglijst staat "1 eieren"; kleinigheid, even gladstrijken.
 
 **Quiche met ham en prei.** Goede vullingsopbouw, en het "prei gaart
 nauwelijks verder in de oven"-inzicht is juist.
@@ -439,10 +436,6 @@ lagen.
 
 **Spinaziequiche.** Goede vochtbeheersing (uitknijpen en droogbakken staat er
 allebei in), dat is bij spinazie het halve werk.
-- In de stappen staat "klop de crème fraîche en de 2 eieren los" terwijl de
-  lijst 4 eieren geeft. Met 2 eieren op 450 g spinazie en 200 g crème fraîche
-  stolt de vulling waarschijnlijk niet goed; 4 lijkt bedoeld. Even
-  rechtzetten.
 - 285 g zongedroogde tomaten is veel; ze zijn zoet en dominant. Met de helft
   proeft de spinazie beter door, en dan is er ruimte voor de nootmuskaat die
   er al in zit.
@@ -528,9 +521,6 @@ slim campingdenken.
 
 **Couscous met feta, groenten en rozijntjes.** Compleet, met citroen én de
 rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
-- Controleer de vochtverhouding: 850 ml bouillon op 420 g couscous is ruim
-  twee op één, terwijl couscous op ongeveer gelijke delen welt. Met zoveel
-  vocht wordt het snel pap; 450 tot 500 ml lijkt de bedoeling.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
@@ -929,13 +919,11 @@ voorverwarming, hete steen. De shakshuka-verwijzing maakt het rond.
 - Niets nodig. Hooguit: rol gelijkmatig dik; een plek die dunner is dan de
   rest is precies waar de pita niet opbolt.
 
-**Shoarmabroodjes.** Het idee (slappe deeg, hete steen, kort bakken) is
-goed, maar de verhouding vraagt controle:
-- 360 ml water op 300 g bloem is 120% hydratatie; dat is beslag, geen deeg
-  dat je "glad en elastisch" kneedt en in bolletjes verdeelt. Vermoedelijk is
-  160 tot 200 ml bedoeld (55 tot 65%, gewoon zacht brooddeeg). Een keer
-  nabakken en de echte hoeveelheid vastleggen voor het boek naar de drukker
-  gaat.
+**Shoarmabroodjes.** Zacht deeg, hete steen, kort bakken: dezelfde goede
+aanpak als de pita, en de lange rijs als smaakmaker is een terechte tip.
+- Weinig nodig; de hydratatie zit op hetzelfde niveau als de pita en de
+  vijf broodjes van 100 g passen precies bij wat de shoarma-, falafel- en
+  dönerrecepten vragen.
 
 **Focaccia.** Technisch het beste bakrecept van het boek: hydratatie
 benoemd, koude vertraging als optie, kuiltjes met natte vingers.
@@ -1065,7 +1053,7 @@ nacht-invriezen-tip is terecht streng.
 
 ---
 
-## Top 10 quick wins
+## Quick wins
 
 De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 
@@ -1075,22 +1063,12 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 2. **Falafel: weken, niet koken.** Alleen geweekte kikkererwten malen; dat
    lost meteen het natte-mengsel-probleem op dat het recept nu met bloem
    repareert.
-3. **Shoarmabroodjes: waterverhouding nameten.** 360 ml op 300 g bloem kan
-   niet kloppen; een keer testbakken en vastleggen.
-4. **Spinaziequiche: 2 of 4 eieren?** Stap en ingrediëntenlijst spreken
-   elkaar tegen; met 2 stolt de vulling waarschijnlijk niet.
-5. **Venkelworstpasta: kookwater-verwijzing herstellen.** Er is geen
-   koolkookwater; pasta gewoon in gezouten water koken en kookvocht bewaren.
-6. **Rollade eerst rondom aanbraden.** Eén extra pan, en het feestgerecht
+3. **Rollade eerst rondom aanbraden.** Eén extra pan, en het feestgerecht
    krijgt de korst die het verdient.
-7. **Paella niet roeren.** Bouillon in één keer erbij en met rust laten; dat
+4. **Paella niet roeren.** Bouillon in één keer erbij en met rust laten; dat
    levert precies de socarrat die de inleiding belooft.
-8. **Bloemkool, pompoen en spruiten roosteren of bakken in plaats van
-   koken.** Drie recepten (bloemkoolpasta, bloemkoolquiche, pompoenstamp,
+5. **Bloemkool, pompoen en spruiten roosteren of bakken in plaats van
+   koken.** Vier recepten (bloemkoolpasta, bloemkoolquiche, pompoenstamp,
    spruitenstamp) worden er direct dieper van.
-9. **Pasta afmaken in de saus met kookvocht als huisregel.** De helft van de
+6. **Pasta afmaken in de saus met kookvocht als huisregel.** De helft van de
    pastarecepten doet het al; de andere helft kan met één zin mee.
-10. **Kleine tekstfixes:** "gerookte" naar "zongedroogde" tomaten
-    (tomatensoep), "1 eieren" (quiche lorraine), "zuurkoolspek"
-    (amatriciana), en de bouillonverhouding van de couscous met feta
-    (850 ml op 420 g) nalopen.
