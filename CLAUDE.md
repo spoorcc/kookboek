@@ -39,12 +39,16 @@ CI (`.github/workflows/build-pdf.yml`) runs the same `latexmk` commands for both
 
 This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` checks the built PDF and LaTeX source against Lulu's print requirements:
 
-- Trim size matches 189×246mm (Lulu Crown Quarto text-block trim) on every page
-- All fonts are embedded
+- Trim size is one of the 17 Lulu trims from the Book Creation Guide p11 table (Crown Quarto, A5, US Trade, etc.) on every page — no-bleed or with-bleed variant. The intended trim is inferred from `kookboek.sty`'s `geometry` paperwidth/paperheight (this project pins to Crown Quarto, 189×246mm) and the PDF is enforced against it; pass `--trim NAME` to override, `--trim any` to accept any Lulu trim without enforcement
+- All fonts are embedded (interior and wraparound cover)
+- The PDF is not encrypted / password-protected (Lulu Book Creation Guide p23/p24)
 - Full-bleed artwork doesn't touch the page edge unless the page includes Lulu's bleed margin
-- Image resolution is at least 300 DPI at printed size
+- Image resolution is between 300 and 600 DPI at printed size (Lulu's stated PPI band)
 - Margins in `kookboek.sty`'s `geometry` settings meet Lulu's 12.7mm safety margin
-- Page count meets Lulu's binding minimums and is a multiple of 4
+- The `geometry` `inner` margin meets Lulu's absolute gutter floor and, ideally, the "Recommended Total Inside Margin" for the current page count (guide p9 "Gutter Additions" table)
+- Page count meets Lulu's binding minimums, is a multiple of 4, and doesn't exceed the 800-page hardcover cap (guide p14 spine table)
+- The wraparound cover's `\interiorpagecount` matches the built interior page count and `\spinew` is close to Lulu's hardcover-spine table bucket for that page count (guide p14)
+- No spine text on books ≤ 80 pages (guide p17)
 - Recipes don't still contain placeholder macros (`\heroplaceholder`, `\ingredientsketch`, `\writelines`)
 - No recipe leaves just one leftover step behind on its last page (a single-step widow page)
 
@@ -54,7 +58,7 @@ This book is printed via [Lulu](https://www.lulu.com). `scripts/lulu_lint.py` ch
 python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
 ```
 
-Trim-size, font-embedding, bleed, and margin problems are reported as errors and fail the build. Unfinished-recipe placeholders, low-resolution art, odd page counts, and single-step widow pages are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The checks target the interior file's text-block trim size and don't apply to the wraparound cover (see below), which is deliberately sized larger for the hardcover case.
+Every source path (`--sty`, `--main-tex`, `--cover-tex`, `--recipes-dir`) defaults from `--repo-root` but can be overridden individually. In PDF-only mode (no sources available) the linter prints an explicit skip note per source-dependent check and falls back to an empirical PDF-side margin measurement so Lulu's 12.7mm safety zone still gets checked. The linter auto-detects the sibling wraparound cover PDF (`KookboekFamilieSpoor-cover.pdf` alongside the interior) and runs cover-specific checks on it when it exists; pass `--cover none` to skip cover-PDF checks explicitly. Trim-size, font-embedding, encryption, bleed, margin, and over-cap page-count problems are reported as errors and fail the build. Unfinished-recipe placeholders, low- or high-DPI art, odd page counts, single-step widow pages, a below-recommendation inner margin, and a stale cover `\interiorpagecount`/`\spinew` are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The interior trim-size, bleed and margin checks target the interior file's text-block trim; the wraparound cover (see below) is deliberately sized larger for the hardcover case and has its own separate cover checks.
 
 ## Wraparound cover (`cover/cover.tex`)
 
