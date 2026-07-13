@@ -114,10 +114,11 @@ inzicht staat er al in.
 - Frisheid ontbreekt nog: een handje verse peterselie of dille erover bij het
   serveren, of een kneepje citroen per kom, maakt het verschil tussen bouillon
   en soep.
-- Kipdijfilet is hier de juiste keuze (blijft mals), houd dat zo.
+- ~~Kipdijfilet is hier de juiste keuze (blijft mals), houd dat zo.~~ *(geen
+  wijziging nodig.)*
 
-**Mini-aardappelquiches.** Slim feestje, en de uitknijptip is de kern van het
-recept: die verdient zijn plek.
+**Mini-aardappelquiches.** ~~Slim feestje, en de uitknijptip is de kern van het
+recept: die verdient zijn plek.~~ *(alle punten opgelost.)*
 - ~~Geraspte aardappel verkleurt snel. Meng hem direct na het raspen met de
   olie, dan sluit het vet de aardappel af en blijven de bakjes licht.~~
   *(opgelost.)*
@@ -199,16 +200,16 @@ fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
 - ~~Maak de pasta af in de sauspan met een scheutje kookvocht in plaats van
   mengen na het afgieten (rode draad 3).~~ *(opgelost.)*
 
-**Pasta met Marcella Hazans tomatensaus.** Klassieker die je met rust laat,
+**Pasta met Marcella Hazans tomatensaus.** ~~Klassieker die je met rust laat,
 en dat doet het recept ook. De ui-tip is leuk en de bron wordt netjes
-genoemd.
+genoemd.~~ *(alle punten opgelost.)*
 - ~~Alleen de afronding: schep de pasta met een beetje kookvocht door de saus
   in de pan in plaats van "giet af en meng", dan plakt de saus aan de pasta
   in plaats van eronder te lekken.~~ *(opgelost.)*
 
-**Pasta met venkelworst en kool.** Lekkere, rustieke combinatie in de geest
+**Pasta met venkelworst en kool.** ~~Lekkere, rustieke combinatie in de geest
 van de Zuid-Italiaanse pasta met salsiccia en venkel; de tip over echte
-Italiaanse venkelworst is terecht.
+Italiaanse venkelworst is terecht.~~ *(alle punten opgelost.)*
 - ~~Kneus of rooster het venkelzaad even voor het de pan in gaat: gekneusd
   zaad geeft veel meer af dan heel zaad.~~ *(opgelost.)*
 - ~~Bewaar bij het afgieten een kop pastakookvocht om de saus mee te binden
@@ -222,9 +223,9 @@ bronzo-tip is een echte kennerstip.
 - Presentatie: gebruik een mix van rode en gele cherrytomaatjes als ze er
   zijn, het bord wordt er zonder extra werk feestelijker van.
 
-**Pasta amatriciana.** Degelijke versie met de juiste prioriteit: het vet
+**Pasta amatriciana.** ~~Degelijke versie met de juiste prioriteit: het vet
 langzaam uit de guanciale bakken. De afronding in de saus met kookvocht is
-precies goed.
+precies goed.~~ *(alle punten opgelost.)*
 - ~~Voor de liefhebber van het origineel: de Romeinse canon is streng
   (guanciale, tomaat, pecorino, chili; geen ui, geen knoflook, nauwelijks
   olie omdat de guanciale zijn eigen vet levert). De ui hier maakt de saus
@@ -247,8 +248,8 @@ temperen met kookvocht, vuur uit voor het mengen, restwarmte doet het werk.
   mengt, dat is het verschil tussen peper als prikkel en peper als smaak.~~
   *(opgelost.)*
 
-**Pasta met blauwe kaas en champignons.** Goede basis, champignons eerst hard
-bruinen is het juiste instinct.
+**Pasta met blauwe kaas en champignons.** ~~Goede basis, champignons eerst hard
+bruinen is het juiste instinct.~~ *(alle punten opgelost.)*
 - ~~De klassieke maat hierbij: walnoten. Grof gehakt en kort geroosterd erover
   geven ze de crunch en bitterheid die de romige saus nodig heeft
   (gorgonzola met walnoot is een Noord-Italiaans standaardpaar).~~ *(opgelost.)*
@@ -269,8 +270,9 @@ trots op te zijn.
   spaghetti houdt zo'n stevige saus slecht vast. "Pasta naar keuze" mag een
   duwtje richting breed lint krijgen.~~ *(opgelost.)*
 
-**Pasta met chorizo en andijvie.** Eerlijke fusion, en het recept weet het
-zelf ("absoluut niet traditioneel"). De droge pan voor de chorizo is juist.
+**Pasta met chorizo en andijvie.** ~~Eerlijke fusion, en het recept weet het
+zelf ("absoluut niet traditioneel"). De droge pan voor de chorizo is juist.~~
+*(alle punten opgelost.)*
 - ~~De slagroom plus chorizovet maakt het rijk; de zongedroogde tomaten erop
   zijn nu het enige tegenwicht. Een kneepje citroen door de saus of wat rasp
   erover maakt het geheel minder zwaar (rode draad 1).~~ *(opgelost.)*
@@ -304,8 +306,8 @@ niet te veel bloem, deeg niet overwerken).
   warme aardappel nu direct op een bakplaat en bestuift die meteen met bloem,
   zodat de bloem gelijkmatig verdeelt en het vocht via de warmte wegdampt.)*
 
-**Gnocchi met broccoli en spek.** Vlot en compleet, en de citroentip staat er
-al: ~~die mag van tip naar hoofdtekst promoveren.~~ *(opgelost.)*
+**Gnocchi met broccoli en spek.** ~~Vlot en compleet, en de citroentip staat er
+al: die mag van tip naar hoofdtekst promoveren.~~ *(alle punten opgelost.)*
 - ~~Textuurtwist: schep de gekookte gnocchi eerst 2 minuten in een hete pan met
   een beetje boter of spekvet tot ze goudbruine vlekjes hebben, en dan pas
   door de saus. Krokant randje buiten, zacht binnen.~~ *(opgelost.)*
@@ -317,16 +319,17 @@ kookt wordt korrelig, dat zit hier al goed).
   een lepeltje van het tomatenvocht of een druppel azijn de saus wat
   spanning kan geven.
 
-**Gnocchi met salie-roomboter.** Klassieker (burro e salvia), kort en goed,
-met de juiste waarschuwing over het bruinen.
+**Gnocchi met salie-roomboter.** ~~Klassieker (burro e salvia), kort en goed,
+met de juiste waarschuwing over het bruinen.~~ *(alle punten opgelost.)*
 - ~~Schep een lepel gnocchi-kookvocht door de bruine boter voor je de gnocchi
   erin doet en beweeg de pan: boter en zetmeelwater emulgeren tot een glanzend
   sausje in plaats van een laagje vet.~~ *(opgelost.)*
 - ~~Een paar druppels citroensap in de bruine boter is de klassieke maat: het
   nootachtige vet krijgt er een frisse rand van.~~ *(opgelost.)*
 
-**Gnocchi alla sorrentina.** Trouw aan het origineel uit Sorrento, met de
-juiste volgorde (saus eerst rustig, gnocchi erin zodra ze drijven).
+**Gnocchi alla sorrentina.** ~~Trouw aan het origineel uit Sorrento, met de
+juiste volgorde (saus eerst rustig, gnocchi erin zodra ze drijven).~~ *(alle
+punten opgelost.)*
 - ~~Laat de mozzarella goed uitlekken en dep hem droog voor hij erop gaat:
   natte mozzarella maakt van de bovenkant soep in plaats van gratin.~~
   *(opgelost.)*
@@ -348,8 +351,9 @@ laurier) goed te pakken heeft, inclusief het ontvetten van het gehakt.
   Laat hem koken tot hij echt lobbig van de lepel valt voor de dooiers erin
   gaan, anders zakt hij tussen de lagen.~~ *(opgelost.)*
 
-**Parmigiana di Melanzane.** Goede, geduldige versie; zouten, in porties
-bakken en de spatelstreep-test voor de saus zijn allemaal juist.
+**Parmigiana di Melanzane.** ~~Goede, geduldige versie; zouten, in porties
+bakken en de spatelstreep-test voor de saus zijn allemaal juist.~~ *(alle
+punten opgelost.)*
 - ~~Eindig de bovenste laag met alleen saus en Parmezaan, en verdeel de
   mozzarella over de binnenlagen: mozzarella bovenop verbrandt en wordt
   taai, Parmezaan bovenop wordt een korst.~~ *(opgelost.)*
@@ -360,8 +364,8 @@ bakken en de spatelstreep-test voor de saus zijn allemaal juist.
   best, dat is ook hoe hij in Napels en op Sicilië op tafel komt.~~
   *(opgelost.)*
 
-**Mac 'n cheese.** Herkenbare gezinsversie met groente, en de zelfgemaakte
-bechamel is inderdaad de goede keuze.
+**Mac 'n cheese.** ~~Herkenbare gezinsversie met groente, en de zelfgemaakte
+bechamel is inderdaad de goede keuze.~~ *(alle punten opgelost.)*
 - ~~De Amerikaanse basis leunt op scherpe cheddar. Met alleen milde geraspte
   kaas wordt de saus vlak: neem minstens de helft extra belegen of oude kaas,
   en roer een theelepel mosterd(poeder) en een mespunt cayenne door de
@@ -385,8 +389,8 @@ erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
   tafel, zoals in Zuid-Afrika. Kinderen vinden het samenstellen vaak het
   leukste deel.
 
-**Mini-lasagne met asperges, ham en geitenkaas.** Licht en snel, leuk
-tussendoor formaat.
+**Mini-lasagne met asperges, ham en geitenkaas.** ~~Licht en snel, leuk
+tussendoor formaat.~~ *(alle punten opgelost.)*
 - ~~Dep de gekookte asperges echt droog en laat ze uitdampen: asperges geven
   in de oven veel vocht af en het crème-fraîchemengsel is dun, samen wordt
   dat snel soep op de bodem.~~ *(opgelost.)*
@@ -394,8 +398,8 @@ tussendoor formaat.
   fraîche kleurt dan en je krijgt een gegratineerd korstje op wat nu een
   bleke bovenkant blijft.~~ *(opgelost.)*
 
-**Simpele lasagne met gehakt.** Eerlijke doordeweekse oplossing, en de
-eierpasta-tip is een goede.
+**Simpele lasagne met gehakt.** ~~Eerlijke doordeweekse oplossing, en de
+eierpasta-tip is een goede.~~ *(alle punten opgelost.)*
 - ~~De grootste smaakwinst binnen hetzelfde gemak: laat het gehakt echt bruin
   bakken voor de groente erbij gaat (aanbaksels zijn hier de enige
   smaakmaker die je zelf in de hand hebt), en proef de saus voor het bouwen:
@@ -424,8 +428,8 @@ hier één keer:
   lorraine) mag overal bij: de vulling zet op en de punten blijven heel.~~
   *(opgelost: alle quiches hebben nu 10 minuten rust voor het aansnijden.)*
 
-**Quiche Lorraine.** De belangrijkste quiche-technieklessen staan precies
-hier, goed zo.
+**Quiche Lorraine.** ~~De belangrijkste quiche-technieklessen staan precies
+hier, goed zo.~~ *(alle punten opgelost.)*
 - ~~Aardigheidje over de afkomst: de originele Lotharingse quiche lorraine
   bevat spekjes en custard, geen kaas en geen ham; met ham en kaas heet hij
   in Frankrijk een quiche "au jambon". Niets mis mee, maar met gerookte
@@ -436,9 +440,9 @@ hier, goed zo.
 
 **Quiche met ham en prei.** Goede vullingsopbouw, en het "prei gaart
 nauwelijks verder in de oven"-inzicht is juist.
-- Smoor de prei in boter op laag vuur in plaats van roerbakken: prei die
+- ~~Smoor de prei in boter op laag vuur in plaats van roerbakken: prei die
   langzaam zacht wordt, wordt zoet, en zoete prei tegen zoute ham en feta is
-  waar deze quiche om draait.
+  waar deze quiche om draait.~~ *(opgelost.)*
 - Kerrie bij prei is een goede Hollandse gewoonte; houd hem op de achtergrond
   (een halve theelepel) zodat de prei het gerecht blijft.
 
@@ -455,9 +459,9 @@ allebei in), dat is bij spinazie het halve werk.
   proeft de spinazie beter door, en dan is er ruimte voor de nootmuskaat die
   er al in zit.
 
-**Quiche met groente in een cirkel.** Het pronkstuk van het hoofdstuk qua
+**Quiche met groente in een cirkel.** ~~Het pronkstuk van het hoofdstuk qua
 presentatie, en het recept kent zijn eigen valkuil (rauwe groente) en lost
-hem op met blancheren en dun snijden.
+hem op met blancheren en dun snijden.~~ *(alle punten opgelost.)*
 - ~~Dep de geblancheerde plakken goed droog voor het schikken: tussen dunne
   plakken blijft veel water hangen en dat komt er in de oven uit.~~
   *(opgelost.)*
@@ -465,8 +469,9 @@ hem op met blancheren en dun snijden.
   vorm niet te hoog en gun hem eerder 50 dan 45 minuten als hij nog golft.~~
   *(opgelost.)*
 
-**Quiche met geroosterde groente en geitenkaas.** Roosteren als smaakbasis en
-de niet-te-vol-op-de-plaat-tip: allebei precies goed.
+**Quiche met geroosterde groente en geitenkaas.** ~~Roosteren als smaakbasis en
+de niet-te-vol-op-de-plaat-tip: allebei precies goed.~~ *(alle punten
+opgelost.)*
 - ~~De cashewnoten liggen nu 45 minuten bovenop en worden dan donker en hard.
   Strooi ze er halverwege de baktijd op, of meng ze onder het eimengsel; dan
   roosteren ze mee zonder te verbranden.~~ *(opgelost: cashewnoten gaan er nu
@@ -480,8 +485,9 @@ paneermeel-op-de-bodem-tip is een goed alternatief daarvoor.
   bodem alle onderwarmte nodig die hij kan krijgen om gaar en krokant te
   worden in plaats van klef.
 
-**Pizza uit de reguliere oven.** Sterk recept: koude rijs, semolina, dubbel
-bakken, saus en mozzarella laten uitlekken. Dit is doordacht.
+**Pizza uit de reguliere oven.** ~~Sterk recept: koude rijs, semolina, dubbel
+bakken, saus en mozzarella laten uitlekken. Dit is doordacht.~~ *(alle punten
+opgelost.)*
 - ~~Prosciutto kan nog een stap beter: leg hem er pas ná de tweede bak op, op
   de hete pizza. Meegebakken prosciutto wordt zout en taai; rauw op de hitte
   gelegd wordt hij zacht en glanzend. Zo doen pizzeria's het met crudo.~~
@@ -493,8 +499,8 @@ bakken, saus en mozzarella laten uitlekken. Dit is doordacht.
   het zout bewust lager ligt dan traditioneel, milder en gezonder, en naar
   smaak te verhogen is.)*
 
-**Flammkuchen.** Correct gistloos, flinterdun en gloeiend heet: de Elzasser
-basis (tarte flambée) staat er goed in.
+**Flammkuchen.** ~~Correct gistloos, flinterdun en gloeiend heet: de Elzasser
+basis (tarte flambée) staat er goed in.~~ *(alle punten opgelost.)*
 - ~~Roer een snuf zout, peper en nootmuskaat door de crème fraîche voor het
   smeren; in de Elzas gaat de room nooit naakt op het deeg, en het scheelt
   een flauwe eerste hap.~~ *(opgelost.)*
@@ -545,8 +551,8 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
-**Kofta.** Goede pan-logica (worstjes eruit, saus in hetzelfde vet, worstjes
-terug) en de kaneel-tip is terecht.
+**Kofta.** ~~Goede pan-logica (worstjes eruit, saus in hetzelfde vet, worstjes
+terug) en de kaneel-tip is terecht.~~ *(alle punten opgelost.)*
 - ~~Kruid het gehakt zelf, niet alleen de saus: de komijn, kaneel en peper
   horen ook ín de kofta thuis (dat is wat ze van gehaktballetjes
   onderscheidt). Zelfde hoeveelheden, andere plek, groot verschil.~~
@@ -558,8 +564,8 @@ terug) en de kaneel-tip is terecht.
   frisse-koele tegenwicht dat dit soort stoofgerechten in het hele
   Midden-Oosten meekrijgt.~~ *(opgelost.)*
 
-**Falafel.** De belangrijkste keuze (gedroogde kikkererwten, niet uit blik)
-staat er al in, en de olietemperatuurtip is juist.
+**Falafel.** ~~De belangrijkste keuze (gedroogde kikkererwten, niet uit blik)
+staat er al in, en de olietemperatuurtip is juist.~~ *(alle punten opgelost.)*
 - ~~Grote technische winst: sla het koken over. Authentieke falafel wordt
   gemaakt van kikkererwten die alléén geweekt zijn (12 tot 24 uur); rauw
   gemalen binden ze zichzelf en frituren ze droog en luchtig. Gekookte
@@ -661,8 +667,8 @@ techniekpunt staat haaks op het doel:
   in één keer bij, daarna wordt niet meer geroerd.)*
 - De kneep limoen of citroen over de klaar-paella is in Spanje standaard;
   partjes op tafel is genoeg.
-- Kurkuma-plus-gerookt-paprikapoeder als saffraanvervanger (de tip) is
-  precies de juiste zuinige keuze, houd die erin.
+- ~~Kurkuma-plus-gerookt-paprikapoeder als saffraanvervanger (de tip) is
+  precies de juiste zuinige keuze, houd die erin.~~ *(geen wijziging nodig.)*
 
 **Nasi goreng.** Doet wat het belooft, en rijst-van-gisteren staat er
 terecht als belangrijkste voorwaarde in.
@@ -692,8 +698,8 @@ van de cashewnoten is netjes.
 - ~~Wok in twee porties: eerst de kip, dan de groente. Een volle wok zakt in
   temperatuur en dan stooft alles in plaats van dat het bakt.~~ *(opgelost.)*
 
-**Kokos vis.** Goede instincten: vis kort garen, currypasta even meebakken,
-waarschuwing over pittigheid per merk.
+**Kokos vis.** ~~Goede instincten: vis kort garen, currypasta even meebakken,
+waarschuwing over pittigheid per merk.~~ *(alle punten opgelost.)*
 - ~~Bak de vis, haal hem uit de pan, maak de saus en leg de vis er de laatste
   twee minuten in terug. Pangasius is zacht; wie hem door de roerbak laat
   meedraaien houdt vissnippers over. Nu staat hij de hele rit in de pan.~~
@@ -769,9 +775,9 @@ ontspannen) staat er goed in.
   en kaas en spek in de pan voor het beslag erop gaat, zoals de
   spekpannenkoek hoort.
 
-**Broodje hamburger.** De drie genoemde winstpunten (gekaramelliseerde ui,
+**Broodje hamburger.** ~~De drie genoemde winstpunten (gekaramelliseerde ui,
 geroosterd bolletje, kaas op de hete burger) zijn precies de juiste; dit
-recept begrijpt waar een goede burger om draait.
+recept begrijpt waar een goede burger om draait.~~ *(alle punten opgelost.)*
 - ~~Druk de burgers tijdens het bakken niet aan met de spatel: elk drukje
   perst sap de pan in dat in het broodje had moeten zitten.~~ *(opgelost.)*
 - ~~Laat de burgers na het bakken 2 tot 3 minuten liggen (onder de kaas, dat
@@ -870,8 +876,9 @@ gedocumenteerd.
 - Klop de dressing eerst onderin de slakom (azijn, zout, dan de olie erbij)
   en schep de sla erdoorheen: elk blad krijgt dan een dun laagje, in plaats
   van veel dressing op de bovenste bladeren en niets daaronder.
-- Zout en dressing pas vlak voor het serveren, anders slinkt ijsbergsla; het
-  recept zegt al "serveer direct", dit is de reden.
+- ~~Zout en dressing pas vlak voor het serveren, anders slinkt ijsbergsla; het
+  recept zegt al "serveer direct", dit is de reden.~~ *(geen wijziging nodig,
+  het recept zegt dit al.)*
 
 **Bonensalade met bleekselderij en citrus.** Verstandig recept, en de
 een-dag-eerder-tip klopt: bonen drinken dressing.
@@ -881,8 +888,8 @@ een-dag-eerder-tip klopt: bonen drinken dressing.
 - Gedroogde rozemarijn blijft in een koude salade hard en prikkerig. Vervang
   door verse (fijngehakt), of door tijm of oregano die zacht meetrekken.
 
-**Ovenfriet.** De methode (voorkoken, afspoelen, drogen, hete oven) is
-degelijk en de schud-tip klopt.
+**Ovenfriet.** ~~De methode (voorkoken, afspoelen, drogen, hete oven) is
+degelijk en de schud-tip klopt.~~ *(alle punten opgelost.)*
 - ~~Schud de afgegoten frieten na het drogen even ruw om in het vergiet tot de
   randen wat opruwen: dat kapotte oppervlak wordt in de oven de krokante
   korst. Gladde frietjes blijven glad.~~ *(opgelost.)*
@@ -900,8 +907,8 @@ elke groente werkt klopt.
   moeder van dit gerecht, concia di zucchine: gegrilde courgette die warm in
   knoflook-azijn-munt trekt. Zelfde ingrediëntenla, veel meer gerecht.
 
-**Zelfgemaakte mozzarella.** Leuk project en de veiligheidstip over de hete
-wei is terecht.
+**Zelfgemaakte mozzarella.** ~~Leuk project en de veiligheidstip over de hete
+wei is terecht.~~ *(alle punten opgelost.)*
 - ~~Belangrijke voorwaarde die erbij mag: verse gepasteuriseerde melk werkt,
   houdbare (UHT) melk niet; die is te heet verhit geweest en vormt geen
   goede wrongel. Dat scheelt een mislukte middag.~~ *(opgelost.)*
@@ -929,8 +936,8 @@ staat er al.
 
 ### Brood & basis
 
-**Brood.** Eerlijke mix-aanpak; de zout-en-gist-uit-elkaar-tip en de warme
-rijsplek zijn nuttig.
+**Brood.** ~~Eerlijke mix-aanpak; de zout-en-gist-uit-elkaar-tip en de warme
+rijsplek zijn nuttig.~~ *(alle punten opgelost.)*
 - ~~Vervang "20 minuten kneden" door een doel: kneed tot je een dun vliesje
   kunt trekken zonder dat het deeg scheurt (het vliesjestest). Sommige mixen
   zijn er in 10 minuten, andere hebben 20 nodig; de test is betrouwbaarder
@@ -951,13 +958,15 @@ wat een bakker zou aanraden.
 - Snijd vlak voor de oven een sneetje in de dikke buik van elke pretzel:
   traditie én het voorkomt willekeurig openscheuren.
 
-**Puffy pita.** Vrolijk geschreven en technisch juist: plakkerig deeg, lange
-voorverwarming, hete steen. De shakshuka-verwijzing maakt het rond.
+**Puffy pita.** ~~Vrolijk geschreven en technisch juist: plakkerig deeg, lange
+voorverwarming, hete steen. De shakshuka-verwijzing maakt het rond.~~ *(volledig
+beoordeeld, geen actie nodig.)*
 - ~~Niets nodig. Hooguit: rol gelijkmatig dik; een plek die dunner is dan de
   rest is precies waar de pita niet opbolt.~~ *(geen actie nodig.)*
 
-**Shoarmabroodjes.** Zacht deeg, hete steen, kort bakken: dezelfde goede
-aanpak als de pita, en de lange rijs als smaakmaker is een terechte tip.
+**Shoarmabroodjes.** ~~Zacht deeg, hete steen, kort bakken: dezelfde goede
+aanpak als de pita, en de lange rijs als smaakmaker is een terechte tip.~~
+*(volledig beoordeeld, geen actie nodig.)*
 - ~~Weinig nodig; de hydratatie zit op hetzelfde niveau als de pita en de
   vijf broodjes van 100 g passen precies bij wat de shoarma-, falafel- en
   dönerrecepten vragen.~~ *(geen actie nodig.)*
@@ -975,8 +984,8 @@ deeg geaccepteerd) en de kleur-waarschuwing klopt.
   dag invriezen en later 5 minuten opbakken is beter dan een zakje op het
   aanrecht.
 
-**Wraps.** Kort en kloppend: rust voor het uitrollen, droge hete pan, onder
-een doek houden.
+**Wraps.** ~~Kort en kloppend: rust voor het uitrollen, droge hete pan, onder
+een doek houden.~~ *(volledig beoordeeld, geen actie nodig.)*
 - ~~Precies goed zo; hooguit vermelden dat te lang bakken ze krokant in
   plaats van soepel maakt, de 30 tot 60 seconden per kant zijn echt de max.~~
   *(geen actie nodig.)*
@@ -1017,8 +1026,8 @@ en de spateltip staat er al.
 - Wafelijzer echt goed voorverwarmen en de eerste wafel als offer
   beschouwen, net als de eerste pannenkoek.
 
-**Eierkoeken.** De hete bakplaat als rijsmotor is een leuk en correct
-inzicht.
+**Eierkoeken.** ~~De hete bakplaat als rijsmotor is een leuk en correct
+inzicht.~~ *(alle punten opgelost.)*
 - ~~Het luchtig kloppen van ei en suiker is hier de structuur (er zit weinig
   bakpoeder in): klop tot de massa echt bleek en dik is en van de garde in
   een lint valt. "Een paar minuten" mag die lint-omschrijving krijgen, dan
@@ -1037,8 +1046,9 @@ inventief en het ondersteboven afkoelen sluit er logisch op aan.
 - Een paar druppels citroensap in het frambozenglazuur: het breekt de
   zoetheid en de framboos gaat er feller van smaken én kleuren.
 
-**Drollenkoekjes.** Doet precies wat het belooft en de koud-deeg-tip is de
-juiste (koud deeg houdt zijn vorm, dat is bij vormkoekjes alles).
+**Drollenkoekjes.** ~~Doet precies wat het belooft en de koud-deeg-tip is de
+juiste (koud deeg houdt zijn vorm, dat is bij vormkoekjes alles).~~ *(volledig
+beoordeeld, geen actie nodig.)*
 - ~~Niets aan doen; dit recept weet wat het is.~~ *(geen actie nodig.)*
 
 **Basiskoekjes.** Goed peuterproject, en de uitleg waarom het deeg koud
@@ -1098,9 +1108,9 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 1. **Limoen en citroen structureel inzetten.** Kokos vis, chili, burrito's,
    lahmacun, kibbeling en de paella missen allemaal hetzelfde: een kneep
    zuur op het eind. Partjes op tafel is al genoeg.
-2. **Falafel: weken, niet koken.** Alleen geweekte kikkererwten malen; dat
+2. ~~**Falafel: weken, niet koken.** Alleen geweekte kikkererwten malen; dat
    lost meteen het natte-mengsel-probleem op dat het recept nu met bloem
-   repareert.
+   repareert.~~ *(opgelost.)*
 3. **Rollade eerst rondom aanbraden.** Eén extra pan, en het feestgerecht
    krijgt de korst die het verdient.
 4. ~~**Paella niet roeren.** Bouillon in één keer erbij en met rust laten; dat
