@@ -206,12 +206,12 @@ genoemd.
 **Pasta met venkelworst en kool.** Lekkere, rustieke combinatie in de geest
 van de Zuid-Italiaanse pasta met salsiccia en venkel; de tip over echte
 Italiaanse venkelworst is terecht.
-- Kneus of rooster het venkelzaad even voor het de pan in gaat: gekneusd
-  zaad geeft veel meer af dan heel zaad.
+- ~~Kneus of rooster het venkelzaad even voor het de pan in gaat: gekneusd
+  zaad geeft veel meer af dan heel zaad.~~ *(opgelost.)*
 - ~~Bewaar bij het afgieten een kop pastakookvocht om de saus mee te binden
   (rode draad 3).~~ *(opgelost.)*
-- De kool en worst zijn zoet en rijk; een scheutje witte wijn bij het stoven
-  of een kneepje citroen op het eind zet het gerecht rechtop.
+- ~~De kool en worst zijn zoet en rijk; een scheutje witte wijn bij het stoven
+  of een kneepje citroen op het eind zet het gerecht rechtop.~~ *(opgelost.)*
 
 **Pasta allo scarpariello.** Mooie techniek, goed uitgelegd (tomaatjes met de
 snijkant naar beneden, saus dik houden, kaas erdoor bewegen). De
@@ -222,36 +222,39 @@ bronzo-tip is een echte kennerstip.
 **Pasta amatriciana.** Degelijke versie met de juiste prioriteit: het vet
 langzaam uit de guanciale bakken. De afronding in de saus met kookvocht is
 precies goed.
-- Voor de liefhebber van het origineel: de Romeinse canon is streng
+- ~~Voor de liefhebber van het origineel: de Romeinse canon is streng
   (guanciale, tomaat, pecorino, chili; geen ui, geen knoflook, nauwelijks
   olie omdat de guanciale zijn eigen vet levert). De ui hier maakt de saus
   zoeter en dat is een geldige gezinskeuze, maar het is leuk om één keer de
-  kale versie te proeven naast deze.
-- Meng de pecorino er pas van het vuur af door of rasp hem alleen aan tafel:
-  pecorino schift en wordt draderig in een te hete saus.
-- Zuurkoolspek als guanciale-vervanger is trouwens een slimme vondst:
+  kale versie te proeven naast deze.~~ *(opgelost: ui verwijderd, recept volgt
+  nu de Romeinse canon.)*
+- ~~Meng de pecorino er pas van het vuur af door of rasp hem alleen aan tafel:
+  pecorino schift en wordt draderig in een te hete saus.~~ *(opgelost.)*
+- ~~Zuurkoolspek als guanciale-vervanger is trouwens een slimme vondst:
   ongerookt gezouten buikspek zit dichter bij het origineel dan gerookte
-  spekjes.
+  spekjes.~~ *(geen wijziging nodig, stond al in het recept.)*
 
 **Pasta carbonara.** Technisch het beste pastarecept van het boek: dooiers
 temperen met kookvocht, vuur uit voor het mengen, restwarmte doet het werk.
-- Traditioneel is pecorino romano de kaas (of half om half met Parmezaan);
-  het zoutere, schapige randje is kenmerkend voor het gerecht.
+- ~~Traditioneel is pecorino romano de kaas (of half om half met Parmezaan);
+  het zoutere, schapige randje is kenmerkend voor het gerecht.~~ *(opgelost.)*
 - Serveer op voorverwarmde diepe borden: carbonarasaus trekt op een koud bord
   binnen een minuut dicht.
-- Rooster de peper 30 seconden in een droog pannetje voor je hem maalt of
-  mengt, dat is het verschil tussen peper als prikkel en peper als smaak.
+- ~~Rooster de peper 30 seconden in een droog pannetje voor je hem maalt of
+  mengt, dat is het verschil tussen peper als prikkel en peper als smaak.~~
+  *(opgelost.)*
 
 **Pasta met blauwe kaas en champignons.** Goede basis, champignons eerst hard
 bruinen is het juiste instinct.
-- De klassieke maat hierbij: walnoten. Grof gehakt en kort geroosterd erover
+- ~~De klassieke maat hierbij: walnoten. Grof gehakt en kort geroosterd erover
   geven ze de crunch en bitterheid die de romige saus nodig heeft
-  (gorgonzola met walnoot is een Noord-Italiaans standaardpaar).
+  (gorgonzola met walnoot is een Noord-Italiaans standaardpaar).~~ *(opgelost.)*
 - ~~Bewaar ook hier een kop pastakookvocht: crème fraîche en gorgonzola worden
   samen snel dik, met kookvocht houd je de saus zijdeachtig in plaats van
   plakkerig.~~ *(opgelost.)*
-- Zoete twist die het gerecht optilt: een halve peer in blokjes, rauw erdoor
-  op het eind. Peer, blauwe kaas en walnoot is een bewezen trio.
+- ~~Zoete twist die het gerecht optilt: een halve peer in blokjes, rauw erdoor
+  op het eind. Peer, blauwe kaas en walnoot is een bewezen trio.~~ *(opgelost:
+  genoemd als tip.)*
 
 **Pasta bolognese.** Doordacht recept: soffrito apart, gehakt echt bruin,
 puree ontzuren, zout via het bouillonblokje uitgelegd. Dit is er een om
@@ -259,18 +262,18 @@ trots op te zijn.
 - De Bolognese canon (en Marcella Hazan) stooft er ook melk in mee: een
   scheut melk in het laatste half uur maakt het vlees zachter en de saus
   ronder. Kleine moeite, echt verschil.
-- Traditioneel gaat ragù op brede pasta (tagliatelle) of in lasagne;
+- ~~Traditioneel gaat ragù op brede pasta (tagliatelle) of in lasagne;
   spaghetti houdt zo'n stevige saus slecht vast. "Pasta naar keuze" mag een
-  duwtje richting breed lint krijgen.
+  duwtje richting breed lint krijgen.~~ *(opgelost.)*
 
 **Pasta met chorizo en andijvie.** Eerlijke fusion, en het recept weet het
 zelf ("absoluut niet traditioneel"). De droge pan voor de chorizo is juist.
-- De slagroom plus chorizovet maakt het rijk; de zongedroogde tomaten erop
+- ~~De slagroom plus chorizovet maakt het rijk; de zongedroogde tomaten erop
   zijn nu het enige tegenwicht. Een kneepje citroen door de saus of wat rasp
-  erover maakt het geheel minder zwaar (rode draad 1).
-- De andijvie mag echt maar net slinken: roer hem er als laatste door en zet
+  erover maakt het geheel minder zwaar (rode draad 1).~~ *(opgelost.)*
+- ~~De andijvie mag echt maar net slinken: roer hem er als laatste door en zet
   dan meteen het vuur uit, dan houdt hij zijn lichte bitter en beet als
-  contrast tegen de vette worst.
+  contrast tegen de vette worst.~~ *(opgelost.)*
 
 **Pasta met prei, hamblokjes en zwarte olijven.** Prima voorraadkastpasta.
 - Laat de prei in wat boter op laag vuur echt zacht smelten (10 minuten) in
@@ -296,10 +299,10 @@ niet te veel bloem, deeg niet overwerken).
   doet dit al goed, houd dat tempo erin.
 
 **Gnocchi met broccoli en spek.** Vlot en compleet, en de citroentip staat er
-al: die mag van tip naar hoofdtekst promoveren.
-- Textuurtwist: schep de gekookte gnocchi eerst 2 minuten in een hete pan met
+al: ~~die mag van tip naar hoofdtekst promoveren.~~ *(opgelost.)*
+- ~~Textuurtwist: schep de gekookte gnocchi eerst 2 minuten in een hete pan met
   een beetje boter of spekvet tot ze goudbruine vlekjes hebben, en dan pas
-  door de saus. Krokant randje buiten, zacht binnen.
+  door de saus. Krokant randje buiten, zacht binnen.~~ *(opgelost.)*
 
 **Gnocchi met zongedroogde tomatensaus en spinazie.** Slimme saus zonder
 room, en de ricotta gaat er terecht pas van het vuur af door (ricotta die
@@ -310,18 +313,19 @@ kookt wordt korrelig, dat zit hier al goed).
 
 **Gnocchi met salie-roomboter.** Klassieker (burro e salvia), kort en goed,
 met de juiste waarschuwing over het bruinen.
-- Schep een lepel gnocchi-kookvocht door de bruine boter voor je de gnocchi
+- ~~Schep een lepel gnocchi-kookvocht door de bruine boter voor je de gnocchi
   erin doet en beweeg de pan: boter en zetmeelwater emulgeren tot een glanzend
-  sausje in plaats van een laagje vet.
-- Een paar druppels citroensap in de bruine boter is de klassieke maat: het
-  nootachtige vet krijgt er een frisse rand van.
+  sausje in plaats van een laagje vet.~~ *(opgelost.)*
+- ~~Een paar druppels citroensap in de bruine boter is de klassieke maat: het
+  nootachtige vet krijgt er een frisse rand van.~~ *(opgelost.)*
 
 **Gnocchi alla sorrentina.** Trouw aan het origineel uit Sorrento, met de
 juiste volgorde (saus eerst rustig, gnocchi erin zodra ze drijven).
-- Laat de mozzarella goed uitlekken en dep hem droog voor hij erop gaat:
-  natte mozzarella maakt van de bovenkant soep in plaats van gratin.
-- Basilicum die mee de oven in gaat wordt zwart; doe de helft erin en bewaar
-  de mooiste blaadjes voor erna, zoals stap 5 al half doet.
+- ~~Laat de mozzarella goed uitlekken en dep hem droog voor hij erop gaat:
+  natte mozzarella maakt van de bovenkant soep in plaats van gratin.~~
+  *(opgelost.)*
+- ~~Basilicum die mee de oven in gaat wordt zwart; doe de helft erin en bewaar
+  de mooiste blaadjes voor erna, zoals stap 5 al half doet.~~ *(opgelost.)*
 
 ### Ovenschotels
 
@@ -401,14 +405,17 @@ hier één keer:
   zakken pas echt niet meer als je het deeg bekleedt met bakpapier en vult
   met blindbakvulling (of droge bonen of rijst) voor de voorbaktijd. De
   folie-tip bij de bloemkoolquiche lost hetzelfde probleem op; dit is de
-  robuustere standaardmethode.
+  robuustere standaardmethode. *(deels opgelost: de folietip staat nu bij
+  alle quiches met een voorbakstap; de robuustere bakpapier-en-bonenmethode
+  is nog niet doorgevoerd.)*
 - **Custard rustiger garen.** De lorraine-tip ("eruit zodra het midden nog
   net trilt") is de belangrijkste zin van het hele hoofdstuk en geldt voor
   álle quiches: een custard die doorbakt tot hij overal stijf is, wordt
   rubberig en gaat lekken (schiften). Wie het nog zijdiger wil: 160 tot 170
   graden en iets langer.
-- **Rust voor het aansnijden.** 10 minuten laten staan (staat bij de
-  lorraine) mag overal bij: de vulling zet op en de punten blijven heel.
+- ~~**Rust voor het aansnijden.** 10 minuten laten staan (staat bij de
+  lorraine) mag overal bij: de vulling zet op en de punten blijven heel.~~
+  *(opgelost: alle quiches hebben nu 10 minuten rust voor het aansnijden.)*
 
 **Quiche Lorraine.** De belangrijkste quiche-technieklessen staan precies
 hier, goed zo.
@@ -922,14 +929,14 @@ wat een bakker zou aanraden.
 
 **Puffy pita.** Vrolijk geschreven en technisch juist: plakkerig deeg, lange
 voorverwarming, hete steen. De shakshuka-verwijzing maakt het rond.
-- Niets nodig. Hooguit: rol gelijkmatig dik; een plek die dunner is dan de
-  rest is precies waar de pita niet opbolt.
+- ~~Niets nodig. Hooguit: rol gelijkmatig dik; een plek die dunner is dan de
+  rest is precies waar de pita niet opbolt.~~ *(geen actie nodig.)*
 
 **Shoarmabroodjes.** Zacht deeg, hete steen, kort bakken: dezelfde goede
 aanpak als de pita, en de lange rijs als smaakmaker is een terechte tip.
-- Weinig nodig; de hydratatie zit op hetzelfde niveau als de pita en de
+- ~~Weinig nodig; de hydratatie zit op hetzelfde niveau als de pita en de
   vijf broodjes van 100 g passen precies bij wat de shoarma-, falafel- en
-  dönerrecepten vragen.
+  dönerrecepten vragen.~~ *(geen actie nodig.)*
 
 **Focaccia.** Technisch het beste bakrecept van het boek: hydratatie
 benoemd, koude vertraging als optie, kuiltjes met natte vingers.
@@ -946,8 +953,9 @@ deeg geaccepteerd) en de kleur-waarschuwing klopt.
 
 **Wraps.** Kort en kloppend: rust voor het uitrollen, droge hete pan, onder
 een doek houden.
-- Precies goed zo; hooguit vermelden dat te lang bakken ze krokant in
-  plaats van soepel maakt, de 30 tot 60 seconden per kant zijn echt de max.
+- ~~Precies goed zo; hooguit vermelden dat te lang bakken ze krokant in
+  plaats van soepel maakt, de 30 tot 60 seconden per kant zijn echt de max.~~
+  *(geen actie nodig.)*
 
 ### Gebak & koek
 
@@ -1007,7 +1015,7 @@ inventief en het ondersteboven afkoelen sluit er logisch op aan.
 
 **Drollenkoekjes.** Doet precies wat het belooft en de koud-deeg-tip is de
 juiste (koud deeg houdt zijn vorm, dat is bij vormkoekjes alles).
-- Niets aan doen; dit recept weet wat het is.
+- ~~Niets aan doen; dit recept weet wat het is.~~ *(geen actie nodig.)*
 
 **Basiskoekjes.** Goed peuterproject, en de uitleg waarom het deeg koud
 moet klopt.
