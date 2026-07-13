@@ -106,6 +106,7 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 - **`\meta{...}`** — what cooking it takes. Up to three `\dvd`-separated segments, in order: bereidingstijd, optional portie-opbrengst (omit "Voor 5 personen" — that's the book's default), and an optional effort/method tag (Eén pan, Snel, Eenvoudig, an oven temperature). Example: `\meta{40 minuten \dvd Voor 6 porties \dvd Eén pan}`.
 - Cuisine belongs only in `\kicker`, never repeated in `\meta`.
 - Diet/allergen tags (glutenvrij, lactosevrij, notenvrij) are intentionally not part of this scheme — mislabeling those is a food-safety risk, not just a style slip.
+- Bereidingstijd is written purely in minutes, not a mixed "uur + minuten" combo: `100 minuten`, not `1 uur 40`; `70 minuten`, not `1 uur 10`. A clean round hour count (`1 uur`, `2 uur`, `1{,}5 uur`) is fine as-is — it's the mixed notation that gets converted.
 
 ## Ingredient ordering
 

@@ -991,6 +991,21 @@ async function downloadRecipe() {
   }, { passive: true });
 }());
 
+// ── Keyboard arrow navigation ────────────────────────────────────────────
+
+document.addEventListener('keydown', function (e) {
+  if (!pdf) return;
+  const active = document.activeElement;
+  if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    navigate(-1);
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    navigate(1);
+  }
+});
+
 // ── Search ────────────────────────────────────────────────────────────────
 
 document.getElementById('search').addEventListener('input', function () {
