@@ -73,10 +73,18 @@
       text-overflow: ellipsis;
     }
 
-    #dl-full {
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #dl-full, #dl-recipe-btn {
       color: #fff;
       text-decoration: none;
       border: 1px solid rgba(255,255,255,0.35);
+      background: none;
       padding: 5px 14px;
       font-family: Georgia, serif;
       font-size: 0.8rem;
@@ -85,8 +93,13 @@
       transition: background 0.18s;
       white-space: nowrap;
       flex-shrink: 0;
+      cursor: pointer;
     }
-    #dl-full:hover { background: rgba(255,255,255,0.14); }
+    #dl-full:hover, #dl-recipe-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+
+    #dl-recipe-btn { display: none; }
+    #dl-recipe-btn:disabled { opacity: 0.5; cursor: wait; }
+    #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
 
     #sidebar-toggle {
       color: #fff;
@@ -400,16 +413,6 @@
     }
     .nav-btn:disabled { opacity: 0.3; cursor: default; }
 
-    #dl-recipe-btn {
-      display: none;
-      margin-left: 6px;
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-    #dl-recipe-btn:hover:not(:disabled) { background: var(--accent2); border-color: var(--accent2); }
-    #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
-
     #page-label {
       font-size: 0.8rem;
       color: var(--muted);
@@ -430,7 +433,7 @@
       .header-title .sep { display: none; }
       .header-title .sub { display: none; }
 
-      #dl-full { padding: 5px 10px; font-size: 0.72rem; }
+      #dl-full, #dl-recipe-btn { padding: 5px 10px; font-size: 0.72rem; }
 
       aside {
         position: absolute;
@@ -463,8 +466,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-
-      #dl-recipe-btn { margin-left: 0; }
     }
   </style>
 </head>
@@ -477,7 +478,10 @@
     <span class="sep">♦</span>
     <span class="sub">Familie Spoor</span>
   </div>
-  <a id="dl-full" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Volledig boek</a>
+  <div class="header-actions">
+    <a id="dl-full" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Volledig boek</a>
+    <button id="dl-recipe-btn" onclick="downloadRecipe()">↓ Recept</button>
+  </div>
 </header>
 
 <div class="layout">
@@ -533,7 +537,6 @@
       <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Vorige</button>
       <span id="page-label"></span>
       <button class="nav-btn" id="next-btn" onclick="navigate(1)">Volgende →</button>
-      <button class="nav-btn" id="dl-recipe-btn" onclick="downloadRecipe()">↓ Recept</button>
     </div>
   </main>
 
@@ -910,6 +913,32 @@ function navigate(dir) {
   const total = pdf.numPages;
   curPage = Math.max(1, Math.min(total, curPage + dir * step));
   renderSpread(curPage);
+  syncRecipeSelectionToPage(curPage);
+}
+
+// Paging with the nav arrows/keyboard/swipe moves curPage without going
+// through openRecipe(), so the ↓ Recept button would otherwise keep
+// pointing at whichever recipe was last opened from the sidebar — e.g.
+// always the first recipe in the book if that's the first one ever clicked.
+function syncRecipeSelectionToPage(page) {
+  const idx = recipes.findIndex(r => page >= r.page && page <= r.endPage);
+  const newIdx = idx === -1 ? null : idx;
+  if (newIdx === currentRecipeIdx) return;
+
+  currentRecipeIdx = newIdx;
+  document.querySelectorAll('.recipe-row.active').forEach(e => e.classList.remove('active'));
+
+  const btn = document.getElementById('dl-recipe-btn');
+  if (currentRecipeIdx === null) {
+    btn.style.display = 'none';
+    document.title = pageTitle;
+    return;
+  }
+
+  const row = document.querySelector(`.recipe-row[data-idx="${currentRecipeIdx}"]`);
+  if (row) row.classList.add('active');
+  btn.style.display = 'inline-block';
+  document.title = recipes[currentRecipeIdx].title + ' · ' + pageTitle;
 }
 
 // ── Recipe download ───────────────────────────────────────────────────────
