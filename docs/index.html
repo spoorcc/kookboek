@@ -770,6 +770,7 @@ function buildRegister(list) {
 function openRecipe(idx, rowEl, updateUrl = true) {
   document.querySelectorAll('.recipe-row.active').forEach(e => e.classList.remove('active'));
   rowEl.classList.add('active');
+  rowEl.scrollIntoView({ block: 'nearest' });
   currentRecipeIdx = idx;
   curPage = recipes[idx].page;
   renderSpread(curPage);
@@ -936,7 +937,10 @@ function syncRecipeSelectionToPage(page) {
   }
 
   const row = document.querySelector(`.recipe-row[data-idx="${currentRecipeIdx}"]`);
-  if (row) row.classList.add('active');
+  if (row) {
+    row.classList.add('active');
+    row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
   btn.style.display = 'inline-block';
   document.title = recipes[currentRecipeIdx].title + ' · ' + pageTitle;
 }
