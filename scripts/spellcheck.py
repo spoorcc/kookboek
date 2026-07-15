@@ -26,7 +26,7 @@ DEFAULT_WORDLIST = REPO_ROOT / "scripts" / "spellcheck-wordlist.txt"
 # Commands whose arguments are not prose and should be dropped entirely.
 DROP_WITH_ARGS = (
     "label", "ref", "pageref", "nameref", "eqref", "autoref", "cref", "Cref",
-    "cite", "includegraphics", "index", "heroimagefade",
+    "cite", "includegraphics", "index", "heroimagefade", "marginimage",
     "input", "usepackage", "documentclass", "setmainfont", "geometry",
     "pagestyle", "thispagestyle", "color", "textcolor",
 )
@@ -49,10 +49,8 @@ def strip_latex(text: str) -> str:
     # reunite it before stripping braces, or the first letter is lost.
     text = re.sub(r"\\lettrine\{([^}]*)\}\{([^}]*)\}", r"\1\2", text)
 
-    # \heroimage{file}{caption} / \marginimage{file}{caption}: the file
-    # path isn't prose, the caption is.
+    # \heroimage{file}{caption}: the file path isn't prose, the caption is.
     text = re.sub(r"\\heroimage\{[^}]*\}\{([^}]*)\}", r"\1", text)
-    text = re.sub(r"\\marginimage\{[^}]*\}\{([^}]*)\}", r"\1", text)
 
     # \begin{env}/\end{env}: the environment name isn't prose.
     text = re.sub(r"\\(begin|end)\{[^}]*\}", " ", text)
