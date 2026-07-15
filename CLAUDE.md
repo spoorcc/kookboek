@@ -137,11 +137,13 @@ This ordering applies to a dish's main ingredient list. It does **not** apply to
 
 When several ingredients qualify as protein (e.g. two meats, or meat plus egg), group them together at the front in their original relative order rather than picking just one.
 
-**A small splash of water never needs an ingredient line.** If a step just needs "een scheutje water", "wat water", or "een klein scheutje water" to deglaze a pan, loosen a mixture, or adjust consistency, mention it inline in that step and don't add it to the `\begin{ingredients}` block at all (see `pasta-bolognese`, `worstjes-rode-rijst-salade`, `shakshuka`, `roti` for the existing pattern). This only covers casual, unmeasured splashes. Any water that's actually measured and matters for the recipe to work — dough hydration (`\ing{275 ml}{lauwwarm water}`), cooking/soaking liquid (couscous, rice, risotto), a soup or sauce base, a dip bath — stays a normal `\ing{amount}{water}` line like any other ingredient.
+**A small splash of water never needs an ingredient line.** If a step just needs "een scheutje water", "wat water", or "een klein scheutje water" to deglaze a pan, loosen a mixture, or adjust consistency, mention it inline in that step and don't add it to the `\begin{ingredients}` block at all (see `pasta-bolognese`, `worstjes-rode-rijst-salade`, `shakshuka`, `roti` for the existing pattern). This only covers casual, unmeasured splashes — a "scheutje" is roughly 50 ml; once a step needs meaningfully more than that, it's no longer a casual splash. Any water that's actually measured and matters for the recipe to work — dough hydration (`\ing{275 ml}{lauwwarm water}`), cooking/soaking liquid (couscous, rice, risotto), a soup or sauce base, a dip bath — stays a normal `\ing{amount}{water}` line like any other ingredient.
 
 ## Units
 
 Use abbreviated units in `\ing{amount}{...}`, matching the overwhelming convention already in `recipes/*.tex`: `g` (not "gram" or "gr"), `el` (not "eetlepel(s)"), `tl` (not "theelepel(s)"), `ml`, `kg`. The one exception is liter, which stays spelled out as `liter` (not abbreviated to `l`) since that's how the handful of existing recipes using it write it.
+
+**Strong ground spice powders are measured in `tl`, not `el`.** An `el` (eetlepel) of a potent powder like kerrie, komijn, kaneel, kurkuma, gember(poeder) or chilipoeder is roughly 6--8 g and overpowers most home-portion dishes; a `tl` (theelepel) at roughly 2--3 g is the right scale, matching how these spices already appear elsewhere in the book. This doesn't apply to a bulk spice-mix sub-recipe meant to be portioned out a spoonful at a time (e.g. the cajunkruiden mix in `jambalaya`, only 1--2 el of which goes into the dish itself), nor to milder dried herbs (Provençaalse kruiden, oregano) or paprikapoeder, which are conventionally used more generously.
 
 ## Explicit cooking technique cues
 
@@ -151,6 +153,10 @@ Every stovetop step in `\begin{steps}` that puts something in a pan to actively 
 - **Duration or doneness cue**: a concrete time (`2 tot 3 minuten`) and/or a sensory cue for when it's done (`tot de ui glazig is`, `tot ze goudbruin zijn`, `tot hij geurig is`, `tot het vet is uitgebakken`). Vague words like `kort` or `even` on their own, with no time and no cue, aren't enough — a reader who's never made the dish has no way to judge "kort".
 
 This doesn't apply to oven-baking steps (the `°C` already tells you the heat) or to plain boiling-water steps that defer to packaging (`kook de pasta volgens de verpakking`) — those aren't a technique judgment call.
+
+## Washing skin-on produce
+
+Any vegetable or fruit that goes into the dish with its skin/peel still on must be washed before it's cut, and the step should say so explicitly rather than leaving it implied: `was & snij de tomaat`, not just `snij de tomaat`. This covers produce like tomaat, komkommer, courgette, aubergine, paprika, appel, peer, wortel (unpeeled), radijs, citroen/limoen, druiven, pruim, perzik, and unpeeled aardappel. It doesn't apply once the skin itself is removed and discarded (a peeled ui, knoflook, or geschilde aardappel/wortel), or to produce already covered by an earlier wash in the same recipe (don't repeat the instruction for every vegetable in a single wash-and-chop step — one `was` covering the group is enough).
 
 ## Writing style for recipe text
 
