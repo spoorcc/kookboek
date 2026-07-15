@@ -143,6 +143,8 @@ When several ingredients qualify as protein (e.g. two meats, or meat plus egg), 
 
 Use abbreviated units in `\ing{amount}{...}`, matching the overwhelming convention already in `recipes/*.tex`: `g` (not "gram" or "gr"), `el` (not "eetlepel(s)"), `tl` (not "theelepel(s)"), `ml`, `kg`. The one exception is liter, which stays spelled out as `liter` (not abbreviated to `l`) since that's how the handful of existing recipes using it write it.
 
+**Strong ground spice powders are measured in `tl`, not `el`.** An `el` (eetlepel) of a potent powder like kerrie, komijn, kaneel, kurkuma, gember(poeder) or chilipoeder is roughly 6--8 g and overpowers most home-portion dishes; a `tl` (theelepel) at roughly 2--3 g is the right scale, matching how these spices already appear elsewhere in the book. This doesn't apply to a bulk spice-mix sub-recipe meant to be portioned out a spoonful at a time (e.g. the cajunkruiden mix in `jambalaya`, only 1--2 el of which goes into the dish itself), nor to milder dried herbs (Provençaalse kruiden, oregano) or paprikapoeder, which are conventionally used more generously.
+
 ## Explicit cooking technique cues
 
 Every stovetop step in `\begin{steps}` that puts something in a pan to actively cook (bakken, fruiten, roosteren, verhitten in a koekenpan/hapjespan/wokpan/pannetje) should be explicit about two things, not left implicit:
