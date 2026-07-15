@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install spellcheck tools
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends hunspell hunspell-nl
+
+      - name: Dutch spelling check
+        run: python3 scripts/spellcheck.py
+
       - name: Build PDF
         uses: xu-cheng/latex-action@v3
         with:

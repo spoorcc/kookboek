@@ -60,6 +60,16 @@ python3 scripts/lulu_lint.py KookboekFamilieSpoor.pdf
 
 Every source path (`--sty`, `--main-tex`, `--cover-tex`, `--recipes-dir`) defaults from `--repo-root` but can be overridden individually. In PDF-only mode (no sources available) the linter prints an explicit skip note per source-dependent check and falls back to an empirical PDF-side margin measurement so Lulu's 12.7mm safety zone still gets checked. The linter auto-detects the sibling wraparound cover PDF (`KookboekFamilieSpoor-cover.pdf` alongside the interior) and runs cover-specific checks on it when it exists; pass `--cover none` to skip cover-PDF checks explicitly. Trim-size, font-embedding, encryption, bleed, margin, and over-cap page-count problems are reported as errors and fail the build. Unfinished-recipe placeholders, low- or high-DPI art, odd page counts, single-step widow pages, a below-recommendation inner margin, and a stale cover `\interiorpagecount`/`\spinew` are reported as warnings and don't fail the build — pass `--strict` to also fail on those (e.g. right before uploading to Lulu). The interior trim-size, bleed and margin checks target the interior file's text-block trim; the wraparound cover (see below) is deliberately sized larger for the hardcover case and has its own separate cover checks.
 
+## Dutch spelling check
+
+`scripts/spellcheck.py` checks the Dutch prose in `main.tex`, `frontmatter/*.tex`, and `recipes/*.tex` against hunspell's `nl_NL` dictionary. It strips this project's LaTeX macros (`\ing`, `\kicker`, `\lettrine`, `\tip`, TikZ diagrams, cross-references, etc.) down to plain prose first — the generic hunspell TeX filter doesn't know these custom macros and mangles them — then runs the result through `hunspell`. Words that are correct but missing from the dictionary (recipe/dish names, loanwords like *prosciutto* or *cacio e pepe*, brand names, Dutch elision-hyphen fragments like `boven-` in "boven- en onderwarmte") live in `scripts/spellcheck-wordlist.txt`, matched case-insensitively. CI (`.github/workflows/build-pdf.yml`) installs `hunspell`/`hunspell-nl` and runs this before the build; it fails the build on any word outside the dictionary and wordlist. Run it locally with:
+
+```sh
+python3 scripts/spellcheck.py
+```
+
+New recipe vocabulary that's correct but unrecognised should be added to `scripts/spellcheck-wordlist.txt` (one word per line, lowercase) rather than worked around — only add a word after confirming it isn't actually a typo.
+
 ## Wraparound cover (`cover/cover.tex`)
 
 `cover/cover.tex` is a standalone LaTeX document (not `\input` by `main.tex`) producing Lulu's wraparound cover: back cover, spine, and front cover as one page, sized to the hardcover case size (195.33 × 258.57mm, larger than the interior's 189×246mm text-block trim — see "Project" above) plus Lulu's 15.87mm wrap area on every outer edge. It reuses the same fonts and colours as `kookboek.sty` and the front cover's photo and title block from `main.tex`. The cover's `\trimw`/`\trimh` intentionally do **not** match `kookboek.sty`'s `paperwidth`/`paperheight` — don't "fix" that.
