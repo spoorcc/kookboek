@@ -259,7 +259,7 @@
 %
 % Usage: \heroimagefade[<keys>]{file}, e.g.
 %   \heroimagefade{images/roti}                     recto, default fade width
-%   \heroimagefade[verso]{images/kalkoen_spek}       verso, default fade width
+%   \heroimagefade[verso]{images/kalkoen-in-spek}    verso, default fade width
 %   \heroimagefade[verso, fadewidth=2.5cm]{images/x} verso, wider fade
 %   \heroimagefade[fadewidth=0.6cm]{images/y}        recto, thinner fade
 %
@@ -346,6 +346,15 @@
     \node[draw=terracotta, dashed, line width=0.3pt, minimum width=\marginparwidth,
           minimum height=2.5cm, inner sep=0, text=terracotta, font=\handfont] {#1};
   \end{tikzpicture}}}
+
+% A small real photo in the margin: \marginimage{file}{caption}. Unlike
+% \heroimagefade (full-width, spills into the margin column) this stays
+% inside \marginparwidth, so it doesn't cost any vertical space in the main
+% text column — useful for keeping a short recipe on a single page while
+% still showing a photo.
+\newcommand{\marginimage}[2]{\marginpar{\centering
+  \fcolorbox{terracotta}{paper}{\includegraphics[width=\dimexpr\marginparwidth-2\fboxsep-2\fboxrule\relax, keepaspectratio]{#1}}\\[3pt]
+  {\footnotesize\itshape\color{terracotta}#2}}}
 
 % Margin tip: \tip{...}
 \newcommand{\tip}[1]{\marginpar{\raggedright
