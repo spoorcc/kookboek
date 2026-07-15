@@ -105,6 +105,7 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 | `\heroplaceholder{caption}` | Dashed placeholder box for the hero illustration |
 | `\heroimage{file}{caption}` | Real hero illustration (swap in when art is ready) |
 | `\ingredientsketch{label}` | Dashed margin sketch placeholder |
+| `\marginimage{file}{caption}` | Small real photo confined to the margin column (unlike `\heroimage`/`\heroimagefade`, costs no vertical space in the main text column — keeps a short recipe on one page) |
 | `\writelines{n}` | Ruled lines for recipes whose method hasn't been written yet |
 | `\lettrine{X}{rest}` | Terracotta drop cap opening a paragraph |
 
