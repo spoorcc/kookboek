@@ -15,6 +15,22 @@ Open the repo in VS Code and choose **Reopen in Container**. The devcontainer (`
 - **LaTeX Workshop** VS Code extension (auto-builds on save)
 - **Claude Code** VS Code extension
 
+### Claude Code on the web (cloud environments)
+
+Claude Code on the web's default cloud environment has no LaTeX. Two mechanisms cooperate to fix that; both install the same package set (`texlive-xetex`, `texlive-latex-extra`, `texlive-fonts-extra`, `texlive-fonts-recommended`, `texlive-plain-generic`, `texlive-lang-european`, `latexmk`, `qpdf`, `ghostscript`, `hunspell`, `hunspell-nl`, `python3-pip`, `python3-venv`) — mirroring the devcontainer's `texlive/texlive` image and `.github/workflows/build-pdf.yml`'s apt installs:
+
+- **Primary — the environment's Setup script.** Configured in the cloud environment settings dialog (the cloud icon wherever you start a session or configure a routine on claude.ai/code), *not* in this repo — there's no file for it to live in. It runs once per environment, before Claude Code launches, and the filesystem is snapshotted afterward, so later sessions on that environment skip the install entirely (cache lasts ~7 days, or until the script/allowed-hosts change). This is what actually removes the multi-minute install cost from every session. Paste:
+  ```bash
+  #!/bin/bash
+  apt-get update -qq
+  apt-get install -y --no-install-recommends \
+    texlive-xetex texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended \
+    texlive-plain-generic texlive-lang-european latexmk qpdf ghostscript hunspell hunspell-nl \
+    python3-pip python3-venv
+  ```
+  Claude Code has no API access to environment config, so this has to be pasted in by hand and re-applied to any new environment created for this repo.
+- **Fallback — `.claude/hooks/session-start.sh`.** Committed to the repo, runs every cloud session (`CLAUDE_CODE_REMOTE=true` guarded, so it's a no-op locally/in the devcontainer). Installs the same packages via `apt-get`, which is a fast no-op once they're already on disk from the setup script above. Exists so a build still works if the environment cache has expired, or a fresh environment was created without the setup script configured. Registered via `.claude/settings.json`'s `SessionStart` hook.
+
 ## Build
 
 ```sh
