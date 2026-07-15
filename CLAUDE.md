@@ -152,6 +152,10 @@ Every stovetop step in `\begin{steps}` that puts something in a pan to actively 
 
 This doesn't apply to oven-baking steps (the `°C` already tells you the heat) or to plain boiling-water steps that defer to packaging (`kook de pasta volgens de verpakking`) — those aren't a technique judgment call.
 
+## Washing skin-on produce
+
+Any vegetable or fruit that goes into the dish with its skin/peel still on must be washed before it's cut, and the step should say so explicitly rather than leaving it implied: `was & snij de tomaat`, not just `snij de tomaat`. This covers produce like tomaat, komkommer, courgette, aubergine, paprika, appel, peer, wortel (unpeeled), radijs, citroen/limoen, druiven, pruim, perzik, and unpeeled aardappel. It doesn't apply once the skin itself is removed and discarded (a peeled ui, knoflook, or geschilde aardappel/wortel), or to produce already covered by an earlier wash in the same recipe (don't repeat the instruction for every vegetable in a single wash-and-chop step — one `was` covering the group is enough).
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
