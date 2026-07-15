@@ -143,6 +143,15 @@ When several ingredients qualify as protein (e.g. two meats, or meat plus egg), 
 
 Use abbreviated units in `\ing{amount}{...}`, matching the overwhelming convention already in `recipes/*.tex`: `g` (not "gram" or "gr"), `el` (not "eetlepel(s)"), `tl` (not "theelepel(s)"), `ml`, `kg`. The one exception is liter, which stays spelled out as `liter` (not abbreviated to `l`) since that's how the handful of existing recipes using it write it.
 
+## Explicit cooking technique cues
+
+Every stovetop step in `\begin{steps}` that puts something in a pan to actively cook (bakken, fruiten, roosteren, verhitten in a koekenpan/hapjespan/wokpan/pannetje) should be explicit about two things, not left implicit:
+
+- **Heat level**: state it on the hob step itself (`op laag vuur`, `op middelhoog vuur`, `op hoog vuur`, or `zachtjes` as the low-heat equivalent), unless the immediately preceding step already set the pan's heat and this step is a direct continuation in the same pan with no pan-swap in between — in that case the level carries over and doesn't need repeating.
+- **Duration or doneness cue**: a concrete time (`2 tot 3 minuten`) and/or a sensory cue for when it's done (`tot de ui glazig is`, `tot ze goudbruin zijn`, `tot hij geurig is`, `tot het vet is uitgebakken`). Vague words like `kort` or `even` on their own, with no time and no cue, aren't enough — a reader who's never made the dish has no way to judge "kort".
+
+This doesn't apply to oven-baking steps (the `°C` already tells you the heat) or to plain boiling-water steps that defer to packaging (`kook de pasta volgens de verpakking`) — those aren't a technique judgment call.
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
