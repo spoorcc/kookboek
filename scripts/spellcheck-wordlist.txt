@@ -10,6 +10,7 @@
 
 'n
 aangebruind
+aardappel-
 aardappel-bloemlaag
 aardappel-groente-vlees
 aardappelbakjes
@@ -88,6 +89,8 @@ forno
 four
 freddo
 freeeedo
+fris-zure
+fris-zuur
 gehakt-tomaat
 geitenkaasmousse
 geitenkaasschijfjes
@@ -104,6 +107,7 @@ guanciale
 hamburgerbolletjes
 hazans
 holy
+horiatiki
 ingeolied
 italiaans-hollands
 italian
