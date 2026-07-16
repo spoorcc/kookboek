@@ -17,11 +17,13 @@
 %  casewrap covers — spine width comes from an internal lookup table keyed
 %  on page count, and is only known for certain once you generate a cover
 %  template from Lulu's own Project Creation Tool after uploading the
-%  interior file. All the constants below (trim, wrap area, safety
-%  margin, and the spine width below) were read directly off one such
-%  template, q6qdvpe-cover-template.pdf, regenerated for the interior's
-%  current 176-page count (trim and wrap area are unchanged from the
-%  164-page version — only spine width moved, to 17.48mm).
+%  interior file. Trim, wrap area and safety margin below were read
+%  directly off one such template, q6qdvpe-cover-template.pdf (originally
+%  generated for a 164-page interior). \spinew has since been updated for
+%  the 208-page interior using the guide p14 hardcover spine-width table
+%  (the same table scripts/lulu_lint.py checks against), not a freshly
+%  regenerated Lulu template — reconfirm it against the real tool before
+%  ordering.
 %
 %  BEFORE ORDERING A REAL PROOF:
 %   - Set \interiorpagecount below to the actual page count of the built
@@ -41,10 +43,11 @@
 \newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
 \newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{176} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{208} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
-\setlength\spinew{17.48mm} % <-- Lulu's own spine width for 176 pages, per the
-% regenerated q6qdvpe-cover-template.pdf (see note above)
+\setlength\spinew{19mm} % <-- guide p14 hardcover spine-width table bucket for
+% 208 pages (195-222 pages -> 19mm); reconfirm against a regenerated Lulu
+% Project Creation Tool template before ordering a real proof (see note above)
 
 % Back and front cover panels are each trim width plus one outer bleed edge.
 \newlength\panelw \setlength\panelw{\dimexpr\bleed+\trimw\relax}
