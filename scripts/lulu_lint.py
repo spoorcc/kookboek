@@ -17,21 +17,32 @@ Usage:
     python3 scripts/lulu_lint.py [PDF] [--cover PDF|none] [--trim NAME]
                                  [--sty PATH] [--main-tex PATH]
                                  [--cover-tex PATH] [--recipes-dir PATH]
+                                 [--frontmatter-dir PATH] [--images-dir PATH]
+                                 [--log PATH] [--cover-log PATH]
                                  [--repo-root DIR] [--strict]
 
 Every source path defaults from --repo-root; supply the individual flags
 when your project's layout differs, or drop them entirely to run
 PDF-only. In PDF-only mode the linter prints a skip note for each
 source-dependent check and falls back to an empirical PDF-side margin
-measurement so Lulu's 12.7mm safety zone still gets checked.
+measurement so Lulu's 12.7mm safety zone still gets checked. --log and
+--cover-log likewise default to the interior/cover PDF path with a .log
+extension, and are skipped with a note if the latexmk/xelatex .log isn't
+there (e.g. a PDF-only run, or a build tool that doesn't keep .log files).
 
 Errors are things that will actually break a Lulu print job (wrong or
 unrecognized trim size, unembedded fonts, encrypted PDF, full-bleed art
 without a bleed margin, margins below Lulu's minimum, page count over
-Lulu's cap). Warnings are things worth knowing about but that are
-expected while the book is still a work in progress (unfinished recipes,
-low- or high-DPI art, an odd page count, an inner margin below the
-recommended gutter for the current page count). Pass --strict to also
+Lulu's cap, a recipe \\input-ing a file that doesn't exist, an images/...
+reference with no matching file, or a LaTeX log showing undefined
+references/citations, missing glyphs, or errors survived in nonstopmode).
+Warnings are things worth knowing about but that are expected while the
+book is still a work in progress (unfinished recipes, low- or high-DPI
+art, an odd page count, an inner margin below the recommended gutter for
+the current page count, a recipe file that exists but isn't \\input by
+main.tex, a recipe with no \\index[register]{...} entries, an unused
+images/ file, a multiply-defined LaTeX label, or overfull/underfull
+hboxes past the noticeable-on-the-page threshold). Pass --strict to also
 fail on warnings, e.g. right before uploading to Lulu.
 """
 
@@ -146,6 +157,22 @@ PLACEHOLDER_MACROS = {
     r"\ingredientsketch": "ingredient sketch not finished",
     r"\writelines": "method not written yet",
 }
+
+IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg")
+
+# TeX's badness scale runs 0 (perfect) to 10000 (impossible to break well).
+# Only the more severe half is visibly loose on the page; low-badness
+# underfull boxes are routine and not worth a human look.
+UNDERFULL_HBOX_BADNESS_WARN = 5000
+# Overfull hboxes under ~10pt are typographically invisible and appear in
+# almost every LaTeX document; only flag ones wide enough that text could
+# plausibly be running into the margin.
+OVERFULL_HBOX_WARN_PT = 10.0
+
+_UNDEFINED_REF_RE = re.compile(r"LaTeX Warning: (Reference|Citation) `([^']*)' on page (\d+) undefined")
+_MULTIPLY_DEFINED_RE = re.compile(r"LaTeX Warning: Label `([^']*)' multiply defined")
+_MISSING_CHAR_RE = re.compile(r"Missing character: There is no (.+?) in font ([^!]+)!")
+_FATAL_ERROR_RE = re.compile(r"^! (.+)$", re.MULTILINE)
 
 # Bookmark titles that mark front/back matter rather than a category chapter.
 NON_CHAPTER_TITLES = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
@@ -534,6 +561,112 @@ def check_transparency(pdf_path, report, name_prefix=""):
                 f"groups) — Lulu strongly recommends flattening all transparency before upload: "
                 f"{detail}. Run scripts/flatten_transparency.py on the PDF to fix it (build.sh "
                 "does this automatically before this check runs)"
+            )
+
+
+def _find_hbox_warnings(text, kind):
+    """Return [(metric, line_no), ...] for every 'Overfull'/'Underfull \\hbox'
+    warning in a LaTeX log. metric is pt-too-wide (float) for Overfull, or
+    badness (int) for Underfull. Covers all three forms latexmk emits: inside
+    a paragraph, inside a tabular/array alignment, or a bare box (e.g. from
+    \\parbox) reported by line number alone."""
+    if kind == "Overfull":
+        pattern = re.compile(
+            r"^Overfull \\hbox \(([\d.]+)pt too wide\) "
+            r"(?:in paragraph at lines (\d+)|in alignment at lines (\d+)|detected at line (\d+))",
+            re.MULTILINE,
+        )
+        cast = float
+    else:
+        pattern = re.compile(
+            r"^Underfull \\hbox \(badness (\d+)\) "
+            r"(?:in paragraph at lines (\d+)|in alignment at lines (\d+)|detected at line (\d+))",
+            re.MULTILINE,
+        )
+        cast = int
+    results = []
+    for m in pattern.finditer(text):
+        line = next(g for g in m.groups()[1:] if g is not None)
+        results.append((cast(m.group(1)), int(line)))
+    return results
+
+
+def check_latex_log(log_path, report, name_prefix=""):
+    """Parse a latexmk/xelatex .log for defects that a PDF-only check can't
+    see: undefined references/citations (render as literal "??" in print),
+    multiply-defined labels, missing glyphs, hboxes wide/loose enough to be
+    visible on the page, and LaTeX errors that a nonstopmode run may have
+    survived past. Genuinely print-breaking issues (undefined refs/cites,
+    missing glyphs, LaTeX errors) are errors; the rest are warnings."""
+    label = f"{name_prefix}LaTeX log" if name_prefix else "LaTeX log"
+    with report.check(label, "undefined refs/citations, multiply-defined labels, missing glyphs, box warnings") as ctx:
+        if not log_path.exists():
+            ctx.skip(f"no {log_path} — LaTeX log check skipped (run the build first)")
+            return
+        text = log_path.read_text(encoding="utf-8", errors="replace")
+
+        undefined = _UNDEFINED_REF_RE.findall(text)
+        if undefined:
+            names = sorted({f"{kind.lower()} `{name}'" for kind, name, _page in undefined})
+            report.error(
+                f"{log_path}: {len(undefined)} undefined reference(s)/citation(s) — these render "
+                f"as a literal \"??\" in the printed book: " + ", ".join(names[:8])
+            )
+
+        multiply = _MULTIPLY_DEFINED_RE.findall(text)
+        if multiply:
+            names = sorted(set(multiply))
+            report.warn(
+                f"{log_path}: {len(multiply)} multiply-defined label(s) — \\ref/\\pageref to these "
+                f"resolves to whichever definition happened to run last: " + ", ".join(names[:8])
+            )
+
+        missing_chars = _MISSING_CHAR_RE.findall(text)
+        if missing_chars:
+            detail = sorted({f"{ch!r} in {font.strip()}" for ch, font in missing_chars})
+            report.error(
+                f"{log_path}: {len(missing_chars)} missing-character warning(s) — these glyphs "
+                f"aren't in the embedded font and print as blank boxes: " + ", ".join(detail[:8])
+            )
+
+        overfull = _find_hbox_warnings(text, "Overfull")
+        big_overfull = [(amt, line) for amt, line in overfull if amt > OVERFULL_HBOX_WARN_PT]
+        if big_overfull:
+            worst = sorted(big_overfull, key=lambda t: -t[0])[:5]
+            detail = ", ".join(f"line {l} ({amt:.1f}pt)" for amt, l in worst)
+            report.warn(
+                f"{log_path}: {len(big_overfull)} overfull hbox(es) wider than "
+                f"{OVERFULL_HBOX_WARN_PT:.0f}pt (of {len(overfull)} total) — text running this far "
+                f"past the text-block edge can visibly spill into the margin: {detail}"
+            )
+        elif overfull:
+            report.note(
+                f"{log_path}: {len(overfull)} minor overfull hbox(es), all under "
+                f"{OVERFULL_HBOX_WARN_PT:.0f}pt (typographically invisible)"
+            )
+
+        underfull = _find_hbox_warnings(text, "Underfull")
+        bad_underfull = [(b, line) for b, line in underfull if b >= UNDERFULL_HBOX_BADNESS_WARN]
+        if bad_underfull:
+            worst = sorted(bad_underfull, key=lambda t: -t[0])[:5]
+            detail = ", ".join(f"line {l} (badness {b})" for b, l in worst)
+            report.warn(
+                f"{log_path}: {len(bad_underfull)} underfull hbox(es) with badness >= "
+                f"{UNDERFULL_HBOX_BADNESS_WARN} (of {len(underfull)} total) — visibly loose, gappy "
+                f"spacing: {detail}"
+            )
+        elif underfull:
+            report.note(
+                f"{log_path}: {len(underfull)} minor underfull hbox(es), all under badness "
+                f"{UNDERFULL_HBOX_BADNESS_WARN}"
+            )
+
+        fatal = _FATAL_ERROR_RE.findall(text)
+        if fatal:
+            uniq = list(dict.fromkeys(msg.strip() for msg in fatal))
+            report.error(
+                f"{log_path}: {len(fatal)} LaTeX error(s) found in the log (a nonstopmode run can "
+                f"continue past these and still produce a PDF): " + "; ".join(uniq[:5])
             )
 
 
@@ -934,6 +1067,106 @@ def check_placeholders(recipes_dir, report):
             )
 
 
+def check_recipe_inclusion(recipes_dir, main_tex_path, report):
+    """Every recipes/*.tex should be \\input by main.tex (per CLAUDE.md's
+    "Adding a recipe" steps) — a file left out never makes it into the book,
+    and a reference to a file that's gone would break the build before this
+    linter is even reached, but is worth flagging with a clear message
+    instead of a raw LaTeX trace if it's ever run standalone."""
+    with report.check("Recipe inclusion", "every recipes/*.tex is \\input by main.tex, and vice versa") as ctx:
+        if not recipes_dir.exists() or not main_tex_path.exists():
+            ctx.skip(f"needs both {recipes_dir}/ and {main_tex_path} — recipe-inclusion check skipped")
+            return
+        input_re = re.compile(r"\\input\{recipes/([^}]+)\}")
+        referenced = []
+        for line in main_tex_path.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("%"):
+                continue
+            m = input_re.search(line)
+            if m:
+                referenced.append(m.group(1))
+
+        missing_files = sorted(r for r in referenced if not (recipes_dir / f"{r}.tex").exists())
+        if missing_files:
+            report.error(
+                f"{main_tex_path}: \\input{{recipes/...}} references file(s) that don't exist: "
+                + ", ".join(f"recipes/{r}.tex" for r in missing_files)
+            )
+
+        on_disk_stems = {p.stem for p in recipes_dir.glob("*.tex")}
+        orphaned = sorted(on_disk_stems - set(referenced))
+        if orphaned:
+            report.warn(
+                f"{len(orphaned)} recipe file(s) exist in {recipes_dir}/ but aren't \\input by "
+                f"{main_tex_path} — they won't appear in the book: "
+                + ", ".join(f"{o}.tex" for o in orphaned)
+            )
+
+
+def check_recipe_index_entries(recipes_dir, report):
+    with report.check("Recipe index entries", "every recipe has at least one \\index[register]{...}") as ctx:
+        if not recipes_dir.exists():
+            ctx.skip(f"no {recipes_dir}/ — recipe index-entry check skipped")
+            return
+        missing = [
+            path.name
+            for path in sorted(recipes_dir.glob("*.tex"))
+            if r"\index[register]{" not in path.read_text(encoding="utf-8")
+        ]
+        if missing:
+            report.warn(
+                f"{len(missing)} recipe file(s) have no \\index[register]{{...}} entries — the "
+                f"dish won't be findable in the Register: " + ", ".join(missing)
+            )
+
+
+_IMAGE_REF_RE = re.compile(r"images/([\w-]+)")
+
+
+def check_images(images_dir, tex_paths, report):
+    """Cross-check images/*.{png,jpg,jpeg} against every images/... reference
+    in the LaTeX sources. Referenced names are matched without their
+    extension — [\\w-]+ stops at the '.', so this works whether a reference
+    spells out an extension (rare direct \\includegraphics use) or, as is
+    the norm here, leaves the extension for LaTeX's graphics-extension
+    search to resolve (\\heroimage{images/foo}, \\marginimage{images/foo})."""
+    with report.check("Image references", "every images/ file is used; every reference resolves to a file") as ctx:
+        if not images_dir.exists():
+            ctx.skip(f"no {images_dir}/ — image-reference check skipped")
+            return
+        existing = [p for p in tex_paths if p.exists()]
+        if not existing:
+            ctx.skip("none of the LaTeX sources exist — image-reference check skipped")
+            return
+
+        referenced = set()
+        for tex_path in existing:
+            for line in tex_path.read_text(encoding="utf-8").splitlines():
+                if line.strip().startswith("%"):
+                    continue
+                referenced.update(_IMAGE_REF_RE.findall(line))
+
+        on_disk = {
+            p.stem: p.name
+            for p in images_dir.iterdir()
+            if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
+        }
+
+        missing = sorted(referenced - on_disk.keys())
+        if missing:
+            report.error(
+                f"{len(missing)} image reference(s) have no matching file in {images_dir}/: "
+                + ", ".join(f"images/{m}" for m in missing)
+            )
+
+        unused = sorted(on_disk.keys() - referenced)
+        if unused:
+            report.warn(
+                f"{len(unused)} file(s) in {images_dir}/ are never referenced from any LaTeX "
+                f"source: " + ", ".join(on_disk[u] for u in unused)
+            )
+
+
 def _resolve_expected_trim(cli_trim, sty_path, report):
     """Decide which Lulu p11 trim the PDF is supposed to be at. Priority:
     (1) explicit --trim CLI flag, (2) the .sty file's geometry
@@ -1002,7 +1235,28 @@ def main():
     parser.add_argument(
         "--recipes-dir", default=None, dest="recipes_dir",
         help="directory containing individual recipe .tex files (default: "
-             "<repo-root>/recipes). Used for the unfinished-placeholder check.",
+             "<repo-root>/recipes). Used for the unfinished-placeholder, "
+             "recipe-inclusion, and index-entry checks.",
+    )
+    parser.add_argument(
+        "--frontmatter-dir", default=None, dest="frontmatter_dir",
+        help="directory containing front-matter .tex files (default: "
+             "<repo-root>/frontmatter). Used for the image-reference check.",
+    )
+    parser.add_argument(
+        "--images-dir", default=None, dest="images_dir",
+        help="directory containing recipe artwork (default: <repo-root>/images). "
+             "Used for the image-reference check.",
+    )
+    parser.add_argument(
+        "--log", default=None,
+        help="path to the interior's latexmk/xelatex .log (default: the PDF path "
+             "with a .log extension). Used for the LaTeX-log check.",
+    )
+    parser.add_argument(
+        "--cover-log", default=None, dest="cover_log",
+        help="path to the cover's latexmk/xelatex .log (default: the cover PDF "
+             "path with a .log extension). Used for the LaTeX-log check.",
     )
     parser.add_argument("--repo-root", default=".", help="fallback root for defaulting the source paths above (default: current directory)")
     parser.add_argument(
@@ -1020,6 +1274,8 @@ def main():
     main_tex_path = Path(args.main_tex) if args.main_tex else root / "main.tex"
     cover_tex_path = Path(args.cover_tex) if args.cover_tex else root / "cover" / "cover.tex"
     recipes_dir = Path(args.recipes_dir) if args.recipes_dir else root / "recipes"
+    frontmatter_dir = Path(args.frontmatter_dir) if args.frontmatter_dir else root / "frontmatter"
+    images_dir = Path(args.images_dir) if args.images_dir else root / "images"
 
     if args.cover is None:
         # Auto-detect the sibling cover PDF alongside the interior file.
@@ -1028,6 +1284,14 @@ def main():
         cover_pdf_path = None
     else:
         cover_pdf_path = Path(args.cover)
+
+    log_path = Path(args.log) if args.log else pdf_path.with_suffix(".log")
+    if args.cover_log:
+        cover_log_path = Path(args.cover_log)
+    elif cover_pdf_path is not None:
+        cover_log_path = cover_pdf_path.with_suffix(".log")
+    else:
+        cover_log_path = None
 
     report = Report()
     expected_trim = _resolve_expected_trim(args.trim, sty_path, report)
@@ -1043,9 +1307,19 @@ def main():
     check_pdf_margins(pdf_path, report)
     check_orphan_pages(pdf_path, main_tex_path, report)
     check_placeholders(recipes_dir, report)
+    check_recipe_inclusion(recipes_dir, main_tex_path, report)
+    check_recipe_index_entries(recipes_dir, report)
+    check_images(
+        images_dir,
+        [main_tex_path, cover_tex_path] + sorted(recipes_dir.glob("*.tex")) + sorted(frontmatter_dir.glob("*.tex")),
+        report,
+    )
+    check_latex_log(log_path, report)
     if cover_pdf_path is not None:
         check_cover_pdf(cover_pdf_path, report)
         check_transparency(cover_pdf_path, report, name_prefix="Cover ")
+    if cover_log_path is not None:
+        check_latex_log(cover_log_path, report, name_prefix="Cover ")
     check_cover_spine(cover_tex_path, page_count, report)
     check_spine_text(cover_tex_path, page_count, report)
 
