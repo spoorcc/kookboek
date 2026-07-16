@@ -70,6 +70,17 @@ python3 scripts/spellcheck.py
 
 New recipe vocabulary that's correct but unrecognised should be added to `scripts/spellcheck-wordlist.txt` (one word per line, lowercase) rather than worked around — only add a word after confirming it isn't actually a typo.
 
+## Image background normalization
+
+`scripts/normalize_background.py` whitens off-white (yellowish or greyish) backgrounds in `images/*.png`/`.jpg`/`.jpeg`. It finds the near-white region connected to each image's border (via a colour-distance flood fill from the border, not a naive brightness threshold, so it doesn't bleed into white elements that are part of the subject itself, like a plate or bowl), pushes just that region to pure white, and feathers the mask edge so the transition into the subject stays smooth. Images whose background is already close to pure white are left untouched. Run it with:
+
+```sh
+python3 scripts/normalize_background.py [FILE ...]   # defaults to all of images/
+python3 scripts/normalize_background.py --dry-run    # report only, no writes
+```
+
+Needs `pillow`, `numpy`, and `scipy` (see `scripts/requirements.txt`). Not wired into `build.sh` or CI — this is a one-off/as-needed cleanup tool for new or re-generated illustrations, not a check that should run on every build. Re-run it after adding new hero/margin art if the generated background comes out with a visible cast.
+
 ## Wraparound cover (`cover/cover.tex`)
 
 `cover/cover.tex` is a standalone LaTeX document (not `\input` by `main.tex`) producing Lulu's wraparound cover: back cover, spine, and front cover as one page, sized to the hardcover case size (195.33 × 258.57mm, larger than the interior's 189×246mm text-block trim — see "Project" above) plus Lulu's 15.87mm wrap area on every outer edge. It reuses the same fonts and colours as `kookboek.sty` and the front cover's photo and title block from `main.tex`. The cover's `\trimw`/`\trimh` intentionally do **not** match `kookboek.sty`'s `paperwidth`/`paperheight` — don't "fix" that.
