@@ -137,6 +137,12 @@ spuitzak en het vooraf maken zijn precies hoe een restaurant het zou doen.
 - Twist die erbij past: rooster een halve theelepel venkelzaad kort mee met
   de ui. Het versterkt de anijstoon van de venkel zonder een nieuw ingrediënt
   te introduceren dat er niet al in zit.
+- ~~Verplaats het raspen/persen van de citroen en het verkruimelen van de
+  geitenkaas naar de voorbereidingsstap, in plaats van "ondertussen" tijdens
+  de 20 minuten continu roeren en bouillon bijgieten.~~ *(opgelost: de intro
+  waarschuwt zelf al dat deze risotto "iets meer aandacht" vraagt dan een
+  gewone pasta, dus mise en place hoort hier eerder klaar te staan, niet
+  halverwege het roeren.)*
 
 **Spinazierisotto met Parmezaanse kaas.** De mantecatura wordt hier goed
 uitgelegd, en spinazie pas op het eind is juist.
@@ -225,6 +231,11 @@ erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
 - Serveertwist die erbij hoort: schaaltjes met banaan, kokos en chutney op
   tafel, zoals in Zuid-Afrika. Kinderen vinden het samenstellen vaak het
   leukste deel.
+- ~~Voeg de peper apart en later toe in plaats van met de andere specerijen op
+  hoog vuur.~~ *(geen wijziging nodig: peper zit hier in dezelfde stap als de
+  kerrie, kurkuma en abrikozenjam die juist bewust samen even meebakken om op
+  te bloeien, en het geheel gaat daarna nog 30 tot 40 minuten de oven in; een
+  aparte stap voor alleen de peper zou dat blok breken voor weinig winst.)*
 
 ### Quiches, taarten & platte broden
 
@@ -255,6 +266,8 @@ lagen.
   oven met wat olie in plaats van ze te koken. Geroosterde bloemkool blijft
   droog (beter voor de custard) en smaakt nootachtig; het bakken met spek en
   ui dat er al in zit wordt dan nog lekkerder.
+- ~~Breng pas op smaak met peper nadat de pan van het vuur is, in plaats van
+  terwijl de bloemkool nog actief meebakt.~~ *(opgelost.)*
 
 **Spinaziequiche.** Goede vochtbeheersing (uitknijpen en droogbakken staat er
 allebei in), dat is bij spinazie het halve werk.
@@ -384,6 +397,13 @@ draait.
   voor de natte tomaat erbij gaat, in plaats van alles tegelijk te mengen
   (rode draad 6).~~ *(opgelost.)*
 
+**Nasi goreng.** Verspakket boemboe maakt dit een snel doordeweeks recept,
+en dat is eerlijk toegelicht.
+- ~~Breng het spiegelei pas op smaak met peper en zout nadat het uit de hete
+  olie is.~~ *(geen wijziging nodig: dit is een ei dat zachtjes op middelhoog
+  vuur in ruime olie bakt, geen droge hete pan; peper en zout erover terwijl
+  het bakt is hoe een spiegelei doorgaans gekruid wordt.)*
+
 **Kip madras.** Verspakket, en het recept is daar eerlijk over; de tips
 hieronder respecteren dat gemak.
 - Kipdijfilet in plaats van kipfilet is bij stoofcurry's altijd de betere
@@ -432,6 +452,8 @@ stel, met een goede gelaagdheid (kerrie, mosterd, brie op het laatst).
   plaats van (alleen) koken. Gekaramelliseerde snijkanten maken spruiten
   zoet en nootachtig; koken haalt juist het zwavelige naar boven waar
   kinderen op afhaken. De pan met spekvet staat er al, gebruik die.
+- ~~Verplaats de peper van de hete koekenpan met kerrie en uienpoeder naar het
+  moment dat de puree op smaak wordt gebracht.~~ *(opgelost.)*
 
 **Andijviestamp met spekjes.** Canoniek uitgevoerd: rauwe andijvie door hete
 puree, en de timing-tip (pas vlak voor het serveren) is precies het goede
@@ -446,6 +468,13 @@ orde, inclusief de niet-koken-tip voor de worst.
   jus-kuil is traditie én smaak.
 - Knipoog naar de intro: roggebrood in blokjes knapperig bakken in boter en
   erover strooien. Zelfde nostalgie, nieuwe textuur.
+
+**Aardappelen, groente en vlees.** Geen vast recept maar een flexibele
+combinatie, en dat is precies de kracht ervan voor een doordeweekse avond.
+- ~~Was en snijd de rauwe groente voor het vlees de pan in gaat, niet
+  "ondertussen" terwijl het al bakt.~~ *(opgelost: het was sowieso raar
+  geformuleerd, "was" en dan "snijd ondertussen" dezelfde groente; nu is het
+  gewoon de eerste stap.)*
 
 ### Overig
 
@@ -490,6 +519,8 @@ roer-zo-min-mogelijk-tip voor de rijst is correct.
   in dat worstvet (de worstjes bakken verder in de koekenpan zoals nu). De
   rijst gaart dan op het fond van de worst en de drie onderdelen worden één
   gerecht.
+- ~~Snipper de ui en pers de knoflook voor de worstjes de pan in gaan, niet
+  "ondertussen" terwijl ze al bakken.~~ *(opgelost.)*
 
 **Parmezaan-knoflook-rozemarijn kipfilet in bakpapier.** Origineel en
 kindvriendelijk, met vlinderen en platslaan netjes uitgelegd; de rust van 2
@@ -737,6 +768,19 @@ pommes fondante, lahmacun, pide) en staan met de reden hierboven bij het
 recept. De rest van de tips matchte niet met een concreet recept: het boek
 doet de techniek al goed, of er is nog geen recept waar hij op van
 toepassing is. Voor de volgende ronde, per categorie:
+
+**Vervolgcheck (zelfde dag): peper-timing en mise en place.** Beide zijn nu
+specifiek tegen alle 114 recepten nagelopen. Peper-timing: van de ruim 50
+recepten die met peper werken, kruidt de overgrote meerderheid al op het
+juiste moment (bij het serveren, in een saus, of op rauw vlees voor het de
+pan in gaat). Vier gevallen kwamen echt in een droge of hete pan terecht;
+twee daarvan zijn aangepast (bloemkoolquiche, spruitenstamp met brie en
+spekjes), de andere twee bleken bij nader inzien geen wijziging nodig te
+hebben (bobotie, nasi goreng, zie de redenen bij het recept). Mise en
+place: de meeste recepten zetten hun prep netjes vooraf klaar; drie
+recepten lieten niet-triviaal snijwerk pas halverwege het actieve koken
+vallen en zijn aangepast (venkelrisotto met geitenkaas, aardappelen groente
+en vlees, worstjes met rode rijst en salade).
 
 **Mise en place & messwerk.** Alles klaarzetten voor je begint te koken
 (groente gesneden, blik tomaten al opengemaakt en afgewogen); de klauwgreep;
