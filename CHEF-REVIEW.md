@@ -451,16 +451,6 @@ staat er al.
 
 ### Brood & basis
 
-**Pretzels.** Goed thuisrecept, en het zuiveringszout-bad met honing is de
-juiste veilige vervanger voor loog; de nacht-in-de-koelkast-tip is precies
-wat een bakker zou aanraden.
-- Wie de korst donkerder en "echter" wil: spreid het zuiveringszout een uur
-  op een bakplaat in een oven van 120 graden voor je het oplost. Gebakken
-  zuiveringszout is alkalischer en kleurt dieper, zonder de risico's van
-  echte loog (Beierse laugenbrezel is het voorbeeld waar dit naartoe werkt).
-- Snijd vlak voor de oven een sneetje in de dikke buik van elke pretzel:
-  traditie én het voorkomt willekeurig openscheuren.
-
 **Focaccia.** Technisch het beste bakrecept van het boek: hydratatie
 benoemd, koude vertraging als optie, kuiltjes met natte vingers.
 - De Ligurische finishing touch: meng vlak voor het bakken 2 eetlepels water
