@@ -547,6 +547,10 @@ tot 3 minuten staat er al.
   meer maar noodzaak.
 - Citroenpartjes erbij: knoflook, Parmezaan en rozemarijn zijn alle drie
   rond en hartig, het zuur zet het bord open.
+- ~~Noem de vleesthermometer expliciet bij de 75 graden kerntemperatuur, net
+  als bij de kalkoen en de rollade.~~ *(opgelost: dit was de enige
+  vleestemperatuur in het boek met een exact getal maar zonder het
+  meetinstrument te noemen; kalkoen en rollade deden dat al wel.)*
 
 **Asperges.** Sympathiek streekgerecht met een goede pannenlogistiek (alles
 tegelijk op, alles tegelijk klaar).
@@ -818,6 +822,17 @@ rijst. **Aardappelen, groente en vlees** voegde tijm en rozemarijn pas op
 het allerlaatste moment toe, puur om verbranden te voorkomen, waardoor ze
 geen tijd kregen om op te trekken in de boter; nu gaan ze er de laatste
 paar minuten van het bakken bij.
+
+**Vervolgcheck (zelfde dag): thermometer/exacte temperatuur.** Alle grote
+stukken vlees die op kerntemperatuur gaar zijn, gebruiken die al: kalkoen in
+spek (74\,°C, op drie plekken gemeten) en de gevulde varkensrollade
+(63\,°C) noemen allebei expliciet de vleesthermometer. Zelfgemaakte
+mozzarella (46\,°C voor de melk, 65\,°C voor de wei) en zelfgemaakte
+ricotta (precies 85\,°C) hebben dat ook al, inclusief de waarschuwing dat
+UHT-melk niet werkt. Eén gat gevonden en gedicht: de kipfilet in
+bakpapier gaf al een exact getal (75\,°C) maar noemde het meetinstrument
+niet; dat staat er nu bij. Geen andere gerechten in het boek claimen een
+exacte kerntemperatuur zonder een manier om die te meten.
 
 **Mise en place & messwerk.** Alles klaarzetten voor je begint te koken
 (groente gesneden, blik tomaten al opengemaakt en afgewogen); de klauwgreep;
