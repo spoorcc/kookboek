@@ -263,16 +263,6 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Prak een derde van de bonen fijn voor je ze toevoegt: de geplette bonen
   binden de vulling zodat hij niet uit de wrap valt, de hele geven beet.
 
-**Fajita's.** Gezellig tafelgerecht met een verstandige marinade en een
-uitgeschreven vouwinstructie, dat laatste is goud voor kinderen.
-- Guacamole vraagt om limoen in plaats van citroen: dat is niet alleen
-  traditie (Mexico), limoen is aromatischer tegen het vette van de avocado.
-  Meteen ook de bruinwording opgelost, dat doet het zuur.
-- Fajita's zijn van oorsprong grillvlees: bak de kip in een gloeiend hete
-  pan met wat donkere randjes, en gril de paprika en wat uiringen kort mee
-  in plaats van alles rauw te houden. Die geblakerde rand is de smaak van
-  het gerecht.
-
 **Roerbak met kip en cashewnoten.** Snel en praktisch; het droog roosteren
 van de cashewnoten is netjes.
 - Eén pro-techniek die hier veel oplevert: meng de kipreepjes 10 minuten met
