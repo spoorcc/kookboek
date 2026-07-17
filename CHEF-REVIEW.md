@@ -273,17 +273,6 @@ uitgeschreven vouwinstructie, dat laatste is goud voor kinderen.
   in plaats van alles rauw te houden. Die geblakerde rand is de smaak van
   het gerecht.
 
-**Chili con carne.** Stevige gezinsversie met een eigen kruidenmix, en de
-volgende-dag-tip is helemaal waar.
-- Proef de nootmuskaat kritisch: 1 theelepel is veel voor dit volume en
-  nootmuskaat dringt snel naar de voorgrond. Halveren en op het eind
-  bijstellen is veiliger.
-- Twee klassieke verdiepers die geen exotische inkopen vragen: een blokje
-  pure chocolade of een halve kop koffie mee laten sudderen. Allebei maken
-  ze de saus donkerder en ronder zonder herkenbaar te zijn.
-- En de vaste afsluiter van het genre: limoenpartjes op tafel. Zure room
-  doet al iets, limoen maakt het af.
-
 **Roerbak met kip en cashewnoten.** Snel en praktisch; het droog roosteren
 van de cashewnoten is netjes.
 - Eén pro-techniek die hier veel oplevert: meng de kipreepjes 10 minuten met
