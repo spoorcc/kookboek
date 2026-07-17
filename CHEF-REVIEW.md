@@ -292,14 +292,6 @@ volgende-dag-tip is helemaal waar.
 - En de vaste afsluiter van het genre: limoenpartjes op tafel. Zure room
   doet al iets, limoen maakt het af.
 
-**Kip madras.** Verspakket, en het recept is daar eerlijk over; de tips
-hieronder respecteren dat gemak.
-- Kipdijfilet in plaats van kipfilet is bij stoofcurry's altijd de betere
-  keuze: dijvlees wordt in saus zachter, filet wordt droger. Zelfde werk.
-- Til het pakket op met een kneep citroen en verse koriander (of een lepel
-  garam masala op het eind, uit hetzelfde kruidenrek): curry's uit pakketten
-  missen vrijwel altijd de verse toplaag, niet de basis.
-
 **Roerbak met kip en cashewnoten.** Snel en praktisch; het droog roosteren
 van de cashewnoten is netjes.
 - Eén pro-techniek die hier veel oplevert: meng de kipreepjes 10 minuten met
