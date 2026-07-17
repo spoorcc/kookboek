@@ -130,12 +130,6 @@ spuitzak en het vooraf maken zijn precies hoe een restaurant het zou doen.
 
 ### Pasta & risotto
 
-**Venkelrisotto met geitenkaas.** Sterk recept, en de tip over citroensap
-("risotto heeft meer zuur nodig dan je verwacht") is precies de juiste les.
-- Twist die erbij past: rooster een halve theelepel venkelzaad kort mee met
-  de ui. Het versterkt de anijstoon van de venkel zonder een nieuw ingrediënt
-  te introduceren dat er niet al in zit.
-
 **Spinazierisotto met Parmezaanse kaas.** De mantecatura wordt hier goed
 uitgelegd, en spinazie pas op het eind is juist.
 - Citroenrasp als afmaker doet hier hetzelfde werk als bij de venkelrisotto:
