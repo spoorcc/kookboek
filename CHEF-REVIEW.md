@@ -168,10 +168,6 @@ fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
   proberen, het zout tegen de zoete tomaat en aubergine is waar het gerecht
   om draait.
 
-**Pasta bolognese.** Het soffrito-inzicht (bleekselderij, winterpeen en ui in
-gelijke hoeveelheden voor body) staat er al goed uitgelegd, en de tip is
-terecht gericht op de vriezer-logistiek van dit gerecht.
-
 **Pasta met prei, hamblokjes en zwarte olijven.** Prima voorraadkastpasta.
 - 235 g olijven is fors; begin met de helft en proef. Olijven en ham brengen
   allebei zout, dus wees zuinig met extra zout tot het eind.
@@ -190,12 +186,6 @@ kookt wordt korrelig, dat zit hier al goed).
   spanning kan geven.
 
 ### Ovenschotels
-
-**Moussaka.** Serieus recept dat de Griekse smaakbasis (kaneel, piment,
-laurier) goed te pakken heeft, inclusief het ontvetten van het gehakt.
-
-**Mac 'n cheese.** Amerikaanse comfort food met een zelfgemaakte bechamel in
-plaats van kant-en-klare kaassaus, dat geeft meer diepte.
 
 **Bobotie.** Goed gebalanceerd recept dat zelf al uitlegt waarom het zuur
 erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
@@ -259,10 +249,6 @@ kennis dat dit boek leuk maakt.
   in de lahmacun. Citroen bij het serveren is sowieso de grootste smaakwinst:
   het gekruide gehakt vraagt om dat zuur.
 
-**Turkse pide.** Twee vullingen in één recept, praktisch voor een gezin met
-verschillende smaken, en de ei-in-plaats-van-olijfolie-tip voor glimmende
-randen klopt.
-
 ### Wereldkeukens
 
 **Shakshuka.** Compact en correct (specerijen meebakken, deksel op de pan
@@ -289,10 +275,6 @@ slim campingdenken.
 rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
-
-**Kofta.** Het kruiden van het gehakt zelf (niet alleen de saus) is precies
-wat kofta onderscheidt van gewone gehaktballetjes, en dat legt het recept
-zelf al goed uit.
 
 **Shoarma.** Doet wat het moet doen: tafelgerecht, iedereen bouwt zelf.
 - Kleine upgrade zonder extra werk: schep de kipshoarma een half uur van
@@ -344,16 +326,6 @@ volgende-dag-tip is helemaal waar.
 - En de vaste afsluiter van het genre: limoenpartjes op tafel. Zure room
   doet al iets, limoen maakt het af.
 
-**Jambalaya.** Cajun familie van de paella, met een eigen kruidenmix op de
-gram; de proef-voor-je-meer-toevoegt-tip voor de cajunkruiden is terecht.
-
-**Paella.** De socarrat-uitleg (bouillon in één keer erbij, daarna niet meer
-roeren) staat er al goed in, dat is exact de techniek waar dit gerecht om
-draait.
-
-**Nasi goreng.** Verspakket boemboe maakt dit een snel doordeweeks recept,
-en dat is eerlijk toegelicht.
-
 **Kip madras.** Verspakket, en het recept is daar eerlijk over; de tips
 hieronder respecteren dat gemak.
 - Kipdijfilet in plaats van kipfilet is bij stoofcurry's altijd de betere
@@ -368,9 +340,6 @@ van de cashewnoten is netjes.
   een eetlepel sojasaus en een theelepel maizena voor het bakken
   ("velveting"). De maizena beschermt het vlees tegen de hitte en de kip
   blijft zijdezacht, precies zoals bij de Chinees.
-
-**Kokos vis.** Snel doordeweeks wokgerecht, en de tip om de vis niet te lang
-te bakken raakt precies de valkuil bij witvis.
 
 ### Stamppot
 
@@ -411,9 +380,6 @@ orde, inclusief de niet-koken-tip voor de worst.
   jus-kuil is traditie én smaak.
 - Knipoog naar de intro: roggebrood in blokjes knapperig bakken in boter en
   erover strooien. Zelfde nostalgie, nieuwe textuur.
-
-**Aardappelen, groente en vlees.** Geen vast recept maar een flexibele
-combinatie, en dat is precies de kracht ervan voor een doordeweekse avond.
 
 ### Overig
 
@@ -592,9 +558,6 @@ maakt het een format, dat is precies wat zo'n recept moet zijn.
 en de spateltip staat er al.
 - Wafelijzer echt goed voorverwarmen en de eerste wafel als offer
   beschouwen, net als de eerste pannenkoek.
-
-**Eierkoeken.** Het luchtig kloppen van ei en suiker tot een lint (ruban) is
-hier terecht de hele structuur, en dat wordt goed uitgelegd.
 
 **Meringues.** Compact en juist: vetvrije kom, suiker lepel voor lepel, in
 de oven laten afkoelen.
