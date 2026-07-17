@@ -256,14 +256,6 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
-**Shoarma.** Doet wat het moet doen: tafelgerecht, iedereen bouwt zelf.
-- Kleine upgrade zonder extra werk: schep de kipshoarma een half uur van
-  tevoren om met een lepel olie, het sap van een halve citroen en een teen
-  knoflook. Zelfs kant-en-klaar gekruid vlees wordt daar merkbaar sappiger
-  en frisser van.
-- Bak in twee porties in een echt hete pan: een volle pan shoarma stooft in
-  zijn eigen vocht, een halve pan bakt en krijgt randjes.
-
 **Burrito's.** Vlot ovengerecht dat vooral om de vulling draait.
 - Het mist de frisse kant van het genre: een kneep limoen over de vulling
   voor het rollen, en verse koriander erbij op tafel voor wie wil. Tex-Mex
