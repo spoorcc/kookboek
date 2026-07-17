@@ -485,11 +485,6 @@ maakt het een format, dat is precies wat zo'n recept moet zijn.
 - Smeer de saus dun en laat een rand vrij: te veel saus maakt de onderste
   rondjes klef en lekt bij het snijden.
 
-**Wafels.** Klassieke methode (romig kloppen, eiwit apart, luchtig spatelen)
-en de spateltip staat er al.
-- Wafelijzer echt goed voorverwarmen en de eerste wafel als offer
-  beschouwen, net als de eerste pannenkoek.
-
 **Meringues.** Compact en juist: vetvrije kom, suiker lepel voor lepel, in
 de oven laten afkoelen.
 - Wrijf een beetje schuim tussen duim en wijsvinger voor de oven in gaat:
