@@ -162,6 +162,9 @@ emulsie van kookvocht en zetmeel wordt goed uitgelegd, de groenten gaan er in
 fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
 - Enige toevoeging: wat citroenrasp of een paar blaadjes munt naast de
   Parmezaan, lente op het bord wordt er nog net iets frisser van.
+- ~~Spoel de geblancheerde broccoli na het afgieten kort onder koud water: zo
+  blijft hij fris groen in de tijd dat hij apart staat te wachten.~~
+  *(opgelost.)*
 
 **Pasta alla Norma.** Goede versie, met de juiste aandacht voor de aubergine
 (zouten, in porties bakken).
@@ -204,6 +207,12 @@ laurier) goed te pakken heeft, inclusief het ontvetten van het gehakt.
 - ~~De bechamel moet hier dikker zijn dan een gewone saus, hij is een deksel.
   Laat hem koken tot hij echt lobbig van de lepel valt voor de dooiers erin
   gaan, anders zakt hij tussen de lagen.~~ *(opgelost.)*
+
+**Mac 'n cheese.** Amerikaanse comfort food met een zelfgemaakte bechamel in
+plaats van kant-en-klare kaassaus, dat geeft meer diepte.
+- ~~Voeg lauwwarme in plaats van koude melk aan de roux toe.~~ *(geen
+  wijziging nodig: de melk gaat er al geleidelijk en al roerend bij, dat is
+  de techniek die klontjes voorkomt, koude melk is daarmee al veilig.)*
 
 **Bobotie.** Goed gebalanceerd recept dat zelf al uitlegt waarom het zuur
 erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
@@ -268,7 +277,18 @@ kennis dat dit boek leuk maakt.
   het gekruide gehakt vraagt om dat zuur.
 - ~~Smeer de gehaktlaag echt dun uit tot op de rand; waar het dik ligt blijft
   het onder de dekselstoom grijs in plaats van geroosterd.~~ *(opgelost.)*
+- ~~Bak het tomatenpureemengsel apart aan voor het door het gehakt gaat, zodat
+  de puree ontzuurt (rode draad 6).~~ *(geen wijziging nodig: de topping
+  wordt bewust rauw uitgesmeerd en gaart samen met het deeg in de hete pan;
+  een aparte bakstap zou de bereidingsmethode veranderen.)*
 
+**Turkse pide.** Twee vullingen in één recept, praktisch voor een gezin met
+verschillende smaken, en de ei-in-plaats-van-olijfolie-tip voor glimmende
+randen klopt.
+- ~~Bak bij de gehakt-tomaatvulling de ui en specerijen eerst apart aan voor
+  de tomatenblokjes erbij gaan (rode draad 6).~~ *(geen wijziging nodig: de
+  gevouwen pides gaan nog 20 tot 25 minuten de oven in, genoeg tijd om dat in
+  te halen.)*
 
 ### Wereldkeukens
 
@@ -351,6 +371,19 @@ volgende-dag-tip is helemaal waar.
 
 
 
+**Jambalaya.** Cajun familie van de paella, met een eigen kruidenmix op de
+gram; de proef-voor-je-meer-toevoegt-tip voor de cajunkruiden is terecht.
+- ~~Laat de cajunkruiden meebakken met de tomatenpuree in plaats van ze pas
+  bij de bouillon te voegen, zo bloeien ze even op in het vet (rode draad
+  6).~~ *(opgelost.)*
+
+**Paella.** De socarrat-uitleg (bouillon in één keer erbij, daarna niet meer
+roeren) staat er al goed in, dat is exact de techniek waar dit gerecht om
+draait.
+- ~~Laat het gerookte paprikapoeder een halve minuut meebakken met de rijst
+  voor de natte tomaat erbij gaat, in plaats van alles tegelijk te mengen
+  (rode draad 6).~~ *(opgelost.)*
+
 **Kip madras.** Verspakket, en het recept is daar eerlijk over; de tips
 hieronder respecteren dat gemak.
 - Kipdijfilet in plaats van kipfilet is bij stoofcurry's altijd de betere
@@ -367,6 +400,12 @@ van de cashewnoten is netjes.
   blijft zijdezacht, precies zoals bij de Chinees.
 - ~~Wok in twee porties: eerst de kip, dan de groente. Een volle wok zakt in
   temperatuur en dan stooft alles in plaats van dat het bakt.~~ *(opgelost.)*
+
+**Kokos vis.** Snel doordeweeks wokgerecht, en de tip om de vis niet te lang
+te bakken raakt precies de valkuil bij witvis.
+- ~~Dep de vis droog met keukenpapier voor hij de hete pan in gaat.~~
+  *(opgelost: vocht op de vis stoomt in de pan in plaats van dat hij mooi
+  dichtschroeit.)*
 
 ### Stamppot
 
@@ -520,6 +559,11 @@ naar thuis (inclusief het alternatief zonder ovenvaste pan).
 - Serveerdetail: lepel bij het opdienen wat van het ingekookte
   boter-bouillonvocht over de aardappelen; dat glanzende laagje is waar
   "fondant" om draait.
+- ~~Bak de knoflook eerst apart aan voor de bouillon erbij gaat, rauwe
+  knoflook in vocht kan bitter worden.~~ *(geen wijziging nodig: de teentjes
+  trekken 25 tot 35 minuten mee in de oven, dat is precies de bedoelde
+  langzame infusie in de bouillon, geen haastige rauwe-knoflook-in-saus
+  situatie.)*
 
 **Pommes Anna Kubusjes.** Sterk voorbereidingsgerecht met een echt
 restauranttrucje (persen, nacht koelen, portioneren); de zware-pan-tip
@@ -593,6 +637,11 @@ maakt het een format, dat is precies wat zo'n recept moet zijn.
 en de spateltip staat er al.
 - Wafelijzer echt goed voorverwarmen en de eerste wafel als offer
   beschouwen, net als de eerste pannenkoek.
+
+**Eierkoeken.** Het luchtig kloppen van ei en suiker tot een lint (ruban) is
+hier terecht de hele structuur, en dat wordt goed uitgelegd.
+- ~~Eieren op kamertemperatuur.~~ *(opgelost: koude eieren kloppen trager en
+  minder luchtig op tot het lint-stadium.)*
 
 **Meringues.** Compact en juist: vetvrije kom, suiker lepel voor lepel, in
 de oven laten afkoelen.
@@ -674,3 +723,59 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 5. **Bloemkool, pompoen en spruiten roosteren of bakken in plaats van
    koken.** Vier recepten (bloemkoolpasta, bloemkoolquiche, pompoenstamp,
    spruitenstamp) worden er direct dieper van.
+
+---
+
+## Kooktips uit een chef-video (2026-07-17)
+
+Een losse batch praktische chef-tips (mise en place, pantechniek, bakbasis,
+opslag) is doorgenomen tegen alle recepten. Vijf ervan pasten direct in een
+bestaand recept en staan hierboven als opgelost genoteerd (kokos vis,
+jambalaya, paella, pasta primavera, eierkoeken); een paar andere kandidaten
+bleken bij nader inzien geen wijziging nodig te hebben (mac 'n cheese,
+pommes fondante, lahmacun, pide) en staan met de reden hierboven bij het
+recept. De rest van de tips matchte niet met een concreet recept: het boek
+doet de techniek al goed, of er is nog geen recept waar hij op van
+toepassing is. Voor de volgende ronde, per categorie:
+
+**Mise en place & messwerk.** Alles klaarzetten voor je begint te koken
+(groente gesneden, blik tomaten al opengemaakt en afgewogen); de klauwgreep;
+een fijne rasp in plaats van het mes voor heel fijn gesneden knoflook of
+gember; een bankschraper om gesneden groente mee te verplaatsen.
+
+**Pantechniek.** Een pan met dikke bodem, en die goed voorverwarmen; nooit te
+vol bakken, liever in porties; vlees voor een stoofpot juist met rust laten
+zodat er een korst op komt (het tegenovergestelde van een biefstuk vaak
+keren); eten dat aan roestvrij staal plakt laat vanzelf los zodra het gaar
+genoeg is; een kernthermometer in plaats van gokken; braadstukken regelmatig
+bedruipen én verplaatsen tegen hete plekken in de oven; het vel van
+eendenborst, -bout of buikspek inkerven zodat het vet beter uitbakt.
+
+**Stoven, sudderen, bouillon.** Parmezaankorstjes bewaren voor in de ragù of
+saus; bouillon in kleine porties invriezen; goede blikjes tomaat maken
+merkbaar verschil; een saus inkoken in een brede pan in plaats van een hoge;
+koude boter er op het laatst doorzwenken voor glans (monter au beurre); een
+stoofpot eerst een paar uur laten afkoelen voor hij de koelkast in gaat;
+gestoofd of geconfijt vlees laten rusten in het eigen kook- of braadvet.
+
+**Bewaren.** Citroengras en pepers gaan prima in de vriezer, rechtstreeks te
+raspen; verse kruiden in een glas water in de koelkast net als bloemen
+(behalve basilicum, die blijft buiten de koelkast); rauw vlees en vis
+onderin de koelkast; alles in de vriezer labelen en dateren.
+
+**Bakken.** Ingrediënten afwegen in grammen in plaats van kopjes of lepels;
+bloem zeven voor cake en biscuit; de vorm een paar keer op het aanrecht
+tikken om luchtbelletjes eruit te krijgen; bakpapier in plaats van invetten
+en bebloemen.
+
+**Op smaak brengen & afwerken.** Peper pas later in de bereiding toevoegen,
+vroeg en op hoog vuur kan hij bitter worden; verse zachte kruiden
+(peterselie, basilicum) pas helemaal op het eind, harde kruiden (rozemarijn,
+tijm, laurier) juist aan het begin; citrus eerst raspen, dan pas persen (het
+boek doet dit al overal waar het van toepassing is); vlees laten rusten op
+een rooster boven een schaal, niet plat op een bord, anders stoomt de korst
+zacht; borden voorverwarmen; het bord even afvegen voor het naar tafel gaat.
+
+*Kanttekening: er was geen LaTeX/hunspell-toolchain beschikbaar in de sessie
+waarin de vijf wijzigingen hierboven zijn doorgevoerd; een `./build.sh` en
+`python3 scripts/spellcheck.py` erna is nog niet gedaan.*
