@@ -330,6 +330,16 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
+**Kofta.** Het kruiden van het gehakt zelf (niet alleen de saus) is precies
+wat kofta onderscheidt van gewone gehaktballetjes, en dat legt het recept
+zelf al goed uit.
+- ~~Het grootste deel van de verse peterselie ging nu vóór de 10 minuten
+  sudderen de saus in, met alleen "het laatste beetje" fris bewaard voor het
+  einde.~~ *(opgelost: de peterselie in de saus is er nu helemaal uit, alles
+  wat niet al door het gehakt is gemengd gaat als frisse garnering over de
+  rijst. Zo'n lange sudder is precies waar zachte kruiden hun kleur en
+  frisheid verliezen.)*
+
 **Shoarma.** Doet wat het moet doen: tafelgerecht, iedereen bouwt zelf.
 - Kleine upgrade zonder extra werk: schep de kipshoarma een half uur van
   tevoren om met een lepel olie, het sap van een halve citroen en een teen
@@ -475,6 +485,11 @@ combinatie, en dat is precies de kracht ervan voor een doordeweekse avond.
   "ondertussen" terwijl het al bakt.~~ *(opgelost: het was sowieso raar
   geformuleerd, "was" en dan "snijd ondertussen" dezelfde groente; nu is het
   gewoon de eerste stap.)*
+- ~~Tijm en rozemarijn gingen nu pas op het allerlaatste moment door de
+  krieltjes, puur om verbranden te voorkomen.~~ *(opgelost: de harde kruiden
+  gaan er nu de laatste paar minuten van het bakken bij, zodat ze nog kort in
+  de hete boter kunnen trekken; zout en knoflook(poeder) blijven wel tot vlak
+  voor het serveren, dat voorkomt verbranden en vocht uittrekken.)*
 
 ### Overig
 
@@ -781,6 +796,28 @@ place: de meeste recepten zetten hun prep netjes vooraf klaar; drie
 recepten lieten niet-triviaal snijwerk pas halverwege het actieve koken
 vallen en zijn aangepast (venkelrisotto met geitenkaas, aardappelen groente
 en vlees, worstjes met rode rijst en salade).
+
+**Vervolgcheck (zelfde dag): harde en zachte kruiden.** Van de ruim 45
+recepten die met rozemarijn, tijm, laurier, salie, peterselie, basilicum,
+munt, dille, bieslook of verse koriander werken, timet de overgrote
+meerderheid dit al goed: harde kruiden vroeg in een lange stoof, braad of
+bakstap (moussaka's laurier, bobotie's laurier, kalkoen-in-spek's tijm en
+salie in de kruidenboter, de quiches en pommes fondante met tijm), zachte
+kruiden vlak voor het serveren of rauw als garnering (jambalaya, shakshuka,
+paella, quiche-lorraine's bieslook). Een paar recepten splitsen een zacht
+kruid bewust in een vroege en een late portie en dat is een goed patroon:
+tomatensoep roostert een deel van de basilicum mee en bewaart de rest vers,
+en parmigiana-melanzane en pasta-scarpariello laten hele basilicumtakjes in
+de saus meesudderen als smaakmaker en verwijderen ze voor het serveren,
+waarna er verse blaadjes bij gaan (een bouquet-garnitechniek, geen
+achteloos vergeten kruid). Twee gevallen waren wel een echte mismatch en
+zijn aangepast: **kofta** liet het grootste deel van de verse peterselie
+10 minuten meesudderen in de saus met maar een klein restje vers bewaard;
+nu gaat alles wat niet door het gehakt is gemengd als garnering over de
+rijst. **Aardappelen, groente en vlees** voegde tijm en rozemarijn pas op
+het allerlaatste moment toe, puur om verbranden te voorkomen, waardoor ze
+geen tijd kregen om op te trekken in de boter; nu gaan ze er de laatste
+paar minuten van het bakken bij.
 
 **Mise en place & messwerk.** Alles klaarzetten voor je begint te koken
 (groente gesneden, blik tomaten al opengemaakt en afgewogen); de klauwgreep;
