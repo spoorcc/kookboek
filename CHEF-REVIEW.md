@@ -423,14 +423,6 @@ deeg geaccepteerd) en de kleur-waarschuwing klopt.
 
 ### Gebak & koek
 
-**Saucijzenbroodjes.** De eigen kruidenmix op de gram is heerlijk nerdy en
-het resultaat is er ook naar; de eiwit/eigeel-logica is netjes uitgelegd.
-- Kneed een eetlepel ijskoud water door het gehaktmengsel: gehakt dat in
-  bladerdeeg 30 minuten meebakt droogt uit, en dat lepeltje water is de
-  goedkoopste sappigheidsverzekering.
-- Snijd twee of drie schuine sneetjes in de bovenkant van elk broodje: stoom
-  kan eruit zonder de naad open te duwen, en het staat meteen bakkerij-echt.
-
 **Basismuffins.** De muffinmethode ("mag best klonterig") wordt goed
 uitgelegd, dat is bij muffins de hele wedstrijd.
 - Bij fruitvullingen: wentel bessen of fruitblokjes eerst door een lepel
