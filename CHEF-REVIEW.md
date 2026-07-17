@@ -641,13 +641,12 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 
 Een losse batch praktische chef-tips (mise en place, pantechniek, bakbasis,
 opslag) is doorgenomen tegen alle recepten. Vijf ervan pasten direct in een
-bestaand recept en staan hierboven als opgelost genoteerd (kokos vis,
-jambalaya, paella, pasta primavera, eierkoeken); een paar andere kandidaten
-bleken bij nader inzien geen wijziging nodig te hebben (mac 'n cheese,
-pommes fondante, lahmacun, pide) en staan met de reden hierboven bij het
-recept. De rest van de tips matchte niet met een concreet recept: het boek
-doet de techniek al goed, of er is nog geen recept waar hij op van
-toepassing is. Voor de volgende ronde, per categorie:
+bestaand recept, waarvan de wijziging bij pasta primavera nog hierboven
+genoteerd staat; een paar andere kandidaten bleken bij nader inzien geen
+wijziging nodig te hebben, waarvan pommes fondante en lahmacun nog met de
+reden hierboven staan. De rest van de tips matchte niet met een concreet
+recept: het boek doet de techniek al goed, of er is nog geen recept waar hij
+op van toepassing is. Voor de volgende ronde, per categorie:
 
 **Vervolgcheck (zelfde dag): peper-timing en mise en place.** Beide zijn nu
 specifiek tegen alle 114 recepten nagelopen. Peper-timing: van de ruim 50
@@ -655,8 +654,8 @@ recepten die met peper werken, kruidt de overgrote meerderheid al op het
 juiste moment (bij het serveren, in een saus, of op rauw vlees voor het de
 pan in gaat). Vier gevallen kwamen echt in een droge of hete pan terecht;
 twee daarvan zijn aangepast (bloemkoolquiche, spruitenstamp met brie en
-spekjes), de andere twee bleken bij nader inzien geen wijziging nodig te
-hebben (bobotie, nasi goreng, zie de redenen bij het recept). Mise en
+spekjes), de andere twee (bobotie, nasi goreng) bleken bij nader inzien geen
+wijziging nodig te hebben; de reden staat bij bobotie nog hierboven. Mise en
 place: de meeste recepten zetten hun prep netjes vooraf klaar; drie
 recepten lieten niet-triviaal snijwerk pas halverwege het actieve koken
 vallen en zijn aangepast (venkelrisotto met geitenkaas, aardappelen groente
