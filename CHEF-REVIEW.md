@@ -301,15 +301,6 @@ van de cashewnoten is netjes.
 
 ### Stamppot
 
-**Hutspot.** Klassiek en pragmatisch (bouillonblokje in het kookvocht is een
-prima moderne kortere weg naar de klapstuksmaak).
-- Laat de afgegoten groente een minuut droogstomen in de pan op het vuur
-  voor het stampen: hutspot wordt waterig van het vocht dat nu meegestampt
-  wordt, niet van te veel melk.
-- Zuur erbij: een scheutje azijn in de stamp of gewoon augurken en
-  zilveruitjes op tafel. Wortel en ui zijn zoet; het zuur maakt de hap
-  compleet (dit geldt voor het hele stamppothoofdstuk).
-
 **Pompoenstamp met rookworst.** Zelfde degelijke methode als de hutspot.
 - Pompoen kookt zich vol water. Wie een keer tijd heeft: rooster de
   pompoen-wortelmix 25 minuten in de oven en stamp hem dan door de
