@@ -256,13 +256,6 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
-**Burrito's.** Vlot ovengerecht dat vooral om de vulling draait.
-- Het mist de frisse kant van het genre: een kneep limoen over de vulling
-  voor het rollen, en verse koriander erbij op tafel voor wie wil. Tex-Mex
-  zonder zuur wordt snel een warme deken.
-- Prak een derde van de bonen fijn voor je ze toevoegt: de geplette bonen
-  binden de vulling zodat hij niet uit de wrap valt, de hele geven beet.
-
 **Roerbak met kip en cashewnoten.** Snel en praktisch; het droog roosteren
 van de cashewnoten is netjes.
 - Eén pro-techniek die hier veel oplevert: meng de kipreepjes 10 minuten met
