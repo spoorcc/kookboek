@@ -415,13 +415,6 @@ staat er al.
 
 ### Brood & basis
 
-**Focaccia.** Technisch het beste bakrecept van het boek: hydratatie
-benoemd, koude vertraging als optie, kuiltjes met natte vingers.
-- De Ligurische finishing touch: meng vlak voor het bakken 2 eetlepels water
-  met 2 eetlepels olijfolie en een snuf zout (salamoia) en giet dat over de
-  kuiltjes. Het water verdampt, de olie frituurt de bovenkant licht en de
-  kuiltjes blijven sappig; dit is het verschil met "brood met olie erop".
-
 **Hamburgerbolletjes.** Goede briochemethode (boter pas na de gluten, zachte
 deeg geaccepteerd) en de kleur-waarschuwing klopt.
 - Bewaar-tip die erbij hoort: brioche droogt snel uit; wat over is dezelfde
