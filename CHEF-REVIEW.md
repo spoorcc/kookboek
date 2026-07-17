@@ -287,14 +287,6 @@ uitgeschreven vouwinstructie, dat laatste is goud voor kinderen.
   in plaats van alles rauw te houden. Die geblakerde rand is de smaak van
   het gerecht.
 
-**Quesadilla's.** Goede campingoplossing, en het bord-omdraai-trucje is
-precies hoe je het zonder toestel doet.
-- Kaas tegen beide wraps en de vulling in het midden (zoals het recept
-  opbouwt) is juist: kaas is de lijm. Druk na het keren even aan met een
-  spatel, dan smelt hij overal dicht.
-- Ook hier: limoen of een lepel zure room met wat zuur erbij; bonen en kaas
-  vragen erom.
-
 **Chili con carne.** Stevige gezinsversie met een eigen kruidenmix, en de
 volgende-dag-tip is helemaal waar.
 - Proef de nootmuskaat kritisch: 1 theelepel is veel voor dit volume en
