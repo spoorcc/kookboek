@@ -185,20 +185,6 @@ kookt wordt korrelig, dat zit hier al goed).
   een lepeltje van het tomatenvocht of een druppel azijn de saus wat
   spanning kan geven.
 
-### Ovenschotels
-
-**Bobotie.** Goed gebalanceerd recept dat zelf al uitlegt waarom het zuur
-erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
-- Traditioneel gaat er in de Kaapse versie in melk geweekt brood door het
-  gehakt: dat maakt de vleeslaag zacht en luchtig in plaats van compact. Een
-  snee witbrood, even geweekt en uitgeknepen, is genoeg.
-- Rooster de kerrie met de andere specerijen echt even mee in het vet (het
-  recept doet dit al kort); kerriepoeder dat alleen meestooft blijft grondig
-  van smaak.
-- Serveertwist die erbij hoort: schaaltjes met banaan, kokos en chutney op
-  tafel, zoals in Zuid-Afrika. Kinderen vinden het samenstellen vaak het
-  leukste deel.
-
 ### Quiches, taarten & platte broden
 
 Voor alle quiches met zelfgemaakt deeg geldt hetzelfde setje verbeteringen,
@@ -283,12 +269,6 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
   en frisser van.
 - Bak in twee porties in een echt hete pan: een volle pan shoarma stooft in
   zijn eigen vocht, een halve pan bakt en krijgt randjes.
-
-**Döner kebab.** Uitgebreid en goed uitgelegd, van het kleverig kneden tot
-het rusten en de krokante tweede bak. Weinig aan toe te voegen.
-- Bewaar het afgegoten vet van de bakplaat en gebruik daarvan een lepel bij
-  het krokant bakken van de plakjes; eigen vet geeft meer smaak dan een
-  droge pan.
 
 **Burrito's.** Vlot ovengerecht dat vooral om de vulling draait.
 - Het mist de frisse kant van het genre: een kneep limoen over de vulling
@@ -655,7 +635,7 @@ juiste moment (bij het serveren, in een saus, of op rauw vlees voor het de
 pan in gaat). Vier gevallen kwamen echt in een droge of hete pan terecht;
 twee daarvan zijn aangepast (bloemkoolquiche, spruitenstamp met brie en
 spekjes), de andere twee (bobotie, nasi goreng) bleken bij nader inzien geen
-wijziging nodig te hebben; de reden staat bij bobotie nog hierboven. Mise en
+wijziging nodig te hebben. Mise en
 place: de meeste recepten zetten hun prep netjes vooraf klaar; drie
 recepten lieten niet-triviaal snijwerk pas halverwege het actieve koken
 vallen en zijn aangepast (venkelrisotto met geitenkaas, aardappelen groente
