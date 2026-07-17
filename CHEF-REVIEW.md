@@ -180,6 +180,14 @@ fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
   proberen, het zout tegen de zoete tomaat en aubergine is waar het gerecht
   om draait.
 
+**Pasta bolognese.** Het soffrito-inzicht (bleekselderij, winterpeen en ui in
+gelijke hoeveelheden voor body) staat er al goed uitgelegd, en de tip is
+terecht gericht op de vriezer-logistiek van dit gerecht.
+- ~~Vermeld bij de blikje-tomaten dat een goed merk hier merkbaar verschil
+  maakt.~~ *(opgelost: net als bij Marcella Hazans tomatensaus — die al "bij
+  voorkeur San Marzano" bij de tomaten zet — staat dit nu direct bij het
+  ingrediënt, aangezien de `\tip{}`-slot al bezet is met de vriestip.)*
+
 **Pasta met prei, hamblokjes en zwarte olijven.** Prima voorraadkastpasta.
 - ~~Laat de prei in wat boter op laag vuur echt zacht smelten (10 minuten) in
   plaats van roerbakken: gesmolten prei wordt zoet en romig en dat is de saus.~~
