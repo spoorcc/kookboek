@@ -151,6 +151,13 @@
 % Usage: \subchapter{Pasta \& risotto}
 \newcommand{\subchapter}[1]{\clearpage\subsection{#1}}
 
+% Mirror of the book class's own \cleardoublepage (which bumps to the next
+% odd/recto page, inserting a blank page if needed): bumps to the next
+% even/verso page instead. Used to line up a left/right spread in the
+% backmatter (e.g. Seizoenskalender's groente/fruit tables).
+\newcommand{\cleartoevenpage}{\clearpage\if@twoside\ifodd\value{page}
+    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+
 % Left to the book class default, a \subchapter's Inhoud entry is set in
 % the same plain roman as every recipe title around it, so group dividers
 % like "Pasta & risotto" disappear into the list instead of reading as a
@@ -190,6 +197,7 @@
 % ----------------------------------------------------------------------------
 \RequirePackage{multicol}
 \RequirePackage{longtable}
+\RequirePackage{needspace}
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
 \usetikzlibrary{fadings}
@@ -235,8 +243,12 @@
   \foreach \metaterm in {#1} {\index[register]{\metaterm}}%
   {\footnotesize\scshape\color{terracotta}#2}\par\vspace{1.2em}}
 
-% Labelled rule used before Ingrediënten / Bereiding.
-\newcommand{\blockrule}[1]{\par\vspace{1.0em}%
+% Labelled rule used before Ingrediënten / Bereiding (and appendix
+% sub-blocks like Basisvoorraad's "Basis voorraadkast"). \Needspace reserves
+% room for the heading plus a couple of lines of what follows it, so a page
+% break lands before the heading rather than stranding it alone at the
+% bottom of a page with its content pushed to the next one.
+\newcommand{\blockrule}[1]{\par\Needspace{6\baselineskip}\vspace{1.0em}%
   \noindent{\scshape\color{ink}\addfontfeatures{LetterSpace=16.0}#1}\par
   \vspace{-0.2em}{\color{terracotta}\rule{\dimexpr\textwidth-0.4cm\relax}{0.4pt}}\par\vspace{0.7em}}
 

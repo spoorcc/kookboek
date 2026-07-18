@@ -191,7 +191,9 @@
 
   % ------------------------------------------------------------- SPINE -----
   % Panel occupies x in [\spinex, \spinex+\spinew].
-  \node[rotate=90, anchor=center, align=center] at
+  % rotate=-90 (not 90) so the title reads right-side up when the finished
+  % book lies flat on a table: with rotate=90 it came out upside down.
+  \node[rotate=-90, anchor=center, align=center] at
       ([shift={(\spinex+0.5\spinew,0.5\spreadh)}]current page.south west) {%
     {\color{ink}\labelcaps{8.0}{Kookboek}}%
     \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%

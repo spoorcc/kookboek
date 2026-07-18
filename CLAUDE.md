@@ -100,7 +100,7 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 | `cover/cover.tex` | Lulu wraparound cover (back + spine + front), built and uploaded separately |
 | `frontmatter/voorwoord.tex` | Foreword |
 | `backmatter/seizoenskalender.tex` | Groente- en fruitkalender appendix, `\input` after `\backmatter`, before the Register |
-| `backmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), placed after the Register |
+| `backmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), `\input` after the seizoenskalender, before the Register |
 | `recipes/*.tex` | Individual recipes, one file each |
 
 **Chapters = categories** (e.g. `\chapter{Hoofdgerechten}`), **sections = recipes** (created by the `recipe` environment), **subsections = groups of recipes within a chapter** (created by `\subchapter{…}`, e.g. `\subchapter{Pasta \& risotto}`). The Inhoud and Register rebuild automatically on the next LaTeX run.
