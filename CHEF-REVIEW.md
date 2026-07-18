@@ -114,8 +114,6 @@ inzicht staat er al in.
 - Frisheid ontbreekt nog: een handje verse peterselie of dille erover bij het
   serveren, of een kneepje citroen per kom, maakt het verschil tussen bouillon
   en soep.
-- ~~Kipdijfilet is hier de juiste keuze (blijft mals), houd dat zo.~~ *(geen
-  wijziging nodig.)*
 
 **Hartige tompouce met geitenkaasmousse.** Feestelijk en goed doordacht, de
 spuitzak en het vooraf maken zijn precies hoe een restaurant het zou doen.
@@ -132,25 +130,12 @@ spuitzak en het vooraf maken zijn precies hoe een restaurant het zou doen.
 
 ### Pasta & risotto
 
-**Venkelrisotto met geitenkaas.** Sterk recept, en de tip over citroensap
-("risotto heeft meer zuur nodig dan je verwacht") is precies de juiste les.
-- Twist die erbij past: rooster een halve theelepel venkelzaad kort mee met
-  de ui. Het versterkt de anijstoon van de venkel zonder een nieuw ingrediënt
-  te introduceren dat er niet al in zit.
-- ~~Verplaats het raspen/persen van de citroen en het verkruimelen van de
-  geitenkaas naar de voorbereidingsstap, in plaats van "ondertussen" tijdens
-  de 20 minuten continu roeren en bouillon bijgieten.~~ *(opgelost: de intro
-  waarschuwt zelf al dat deze risotto "iets meer aandacht" vraagt dan een
-  gewone pasta, dus mise en place hoort hier eerder klaar te staan, niet
-  halverwege het roeren.)*
-
 **Spinazierisotto met Parmezaanse kaas.** De mantecatura wordt hier goed
 uitgelegd, en spinazie pas op het eind is juist.
 - Citroenrasp als afmaker doet hier hetzelfde werk als bij de venkelrisotto:
   spinazie en Parmezaan zijn allebei rond en vol, het rasp maakt het fris.
 - Wie een groenere risotto wil: hak de helft van de spinazie fijn (of pureer
   hem met een lepel bouillon) en roer die erdoor, de rest als blad.
-
 
 **Bloemkoolpasta.** Prima doordeweekse pasta, met het pastawater-inzicht al
 in de tip.
@@ -168,9 +153,6 @@ emulsie van kookvocht en zetmeel wordt goed uitgelegd, de groenten gaan er in
 fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
 - Enige toevoeging: wat citroenrasp of een paar blaadjes munt naast de
   Parmezaan, lente op het bord wordt er nog net iets frisser van.
-- ~~Spoel de geblancheerde broccoli na het afgieten kort onder koud water: zo
-  blijft hij fris groen in de tijd dat hij apart staat te wachten.~~
-  *(opgelost.)*
 
 **Pasta alla Norma.** Goede versie, met de juiste aandacht voor de aubergine
 (zouten, in porties bakken).
@@ -180,18 +162,7 @@ fases in, en de aspergepunten worden apart gehouden. Zo hoort het.
   proberen, het zout tegen de zoete tomaat en aubergine is waar het gerecht
   om draait.
 
-**Pasta bolognese.** Het soffrito-inzicht (bleekselderij, winterpeen en ui in
-gelijke hoeveelheden voor body) staat er al goed uitgelegd, en de tip is
-terecht gericht op de vriezer-logistiek van dit gerecht.
-- ~~Vermeld bij de blikje-tomaten dat een goed merk hier merkbaar verschil
-  maakt.~~ *(opgelost: net als bij Marcella Hazans tomatensaus — die al "bij
-  voorkeur San Marzano" bij de tomaten zet — staat dit nu direct bij het
-  ingrediënt, aangezien de `\tip{}`-slot al bezet is met de vriestip.)*
-
 **Pasta met prei, hamblokjes en zwarte olijven.** Prima voorraadkastpasta.
-- ~~Laat de prei in wat boter op laag vuur echt zacht smelten (10 minuten) in
-  plaats van roerbakken: gesmolten prei wordt zoet en romig en dat is de saus.~~
-  *(opgelost.)*
 - 235 g olijven is fors; begin met de helft en proef. Olijven en ham brengen
   allebei zout, dus wees zuinig met extra zout tot het eind.
 
@@ -200,9 +171,6 @@ zorgt voor het zout" is precies het soort aanwijzing dat thuiskoks helpt.
 - Meng het paneermeel met een beetje gesmolten boter of olijfolie voor het
   erover gaat: droog paneermeel blijft in de oven bleek en stoffig, vet
   paneermeel wordt een goudbruine krokante korst.
-- ~~Geef de courgette in stap 4 echt kleur op hoog vuur; lichtbruin is smaak,
-  bleek is vulling.~~ *(opgelost.)*
-
 
 **Gnocchi met zongedroogde tomatensaus en spinazie.** Slimme saus zonder
 room, en de ricotta gaat er terecht pas van het vuur af door (ricotta die
@@ -210,40 +178,6 @@ kookt wordt korrelig, dat zit hier al goed).
 - De zongedroogde tomaten zijn zoet en geconcentreerd; proef op het eind of
   een lepeltje van het tomatenvocht of een druppel azijn de saus wat
   spanning kan geven.
-
-### Ovenschotels
-
-**Moussaka.** Serieus recept dat de Griekse smaakbasis (kaneel, piment,
-laurier) goed te pakken heeft, inclusief het ontvetten van het gehakt.
-- ~~Laat de moussaka 15 tot 30 minuten rusten in plaats van een paar minuten:
-  de lagen zetten dan op en je snijdt nette blokken in plaats van een
-  gleuf vol saus. Grieken eten hem niet voor niets lauw.~~ *(opgelost.)*
-- ~~De bechamel moet hier dikker zijn dan een gewone saus, hij is een deksel.
-  Laat hem koken tot hij echt lobbig van de lepel valt voor de dooiers erin
-  gaan, anders zakt hij tussen de lagen.~~ *(opgelost.)*
-
-**Mac 'n cheese.** Amerikaanse comfort food met een zelfgemaakte bechamel in
-plaats van kant-en-klare kaassaus, dat geeft meer diepte.
-- ~~Voeg lauwwarme in plaats van koude melk aan de roux toe.~~ *(geen
-  wijziging nodig: de melk gaat er al geleidelijk en al roerend bij, dat is
-  de techniek die klontjes voorkomt, koude melk is daarmee al veilig.)*
-
-**Bobotie.** Goed gebalanceerd recept dat zelf al uitlegt waarom het zuur
-erin zit; de langzaam gekaramelliseerde ui is een sterke basis.
-- Traditioneel gaat er in de Kaapse versie in melk geweekt brood door het
-  gehakt: dat maakt de vleeslaag zacht en luchtig in plaats van compact. Een
-  snee witbrood, even geweekt en uitgeknepen, is genoeg.
-- Rooster de kerrie met de andere specerijen echt even mee in het vet (het
-  recept doet dit al kort); kerriepoeder dat alleen meestooft blijft grondig
-  van smaak.
-- Serveertwist die erbij hoort: schaaltjes met banaan, kokos en chutney op
-  tafel, zoals in Zuid-Afrika. Kinderen vinden het samenstellen vaak het
-  leukste deel.
-- ~~Voeg de peper apart en later toe in plaats van met de andere specerijen op
-  hoog vuur.~~ *(geen wijziging nodig: peper zit hier in dezelfde stap als de
-  kerrie, kurkuma en abrikozenjam die juist bewust samen even meebakken om op
-  te bloeien, en het geheel gaat daarna nog 30 tot 40 minuten de oven in; een
-  aparte stap voor alleen de peper zou dat blok breken voor weinig winst.)*
 
 ### Quiches, taarten & platte broden
 
@@ -274,8 +208,6 @@ lagen.
   oven met wat olie in plaats van ze te koken. Geroosterde bloemkool blijft
   droog (beter voor de custard) en smaakt nootachtig; het bakken met spek en
   ui dat er al in zit wordt dan nog lekkerder.
-- ~~Breng pas op smaak met peper nadat de pan van het vuur is, in plaats van
-  terwijl de bloemkool nog actief meebakt.~~ *(opgelost.)*
 
 **Spinaziequiche.** Goede vochtbeheersing (uitknijpen en droogbakken staat er
 allebei in), dat is bij spinazie het halve werk.
@@ -296,20 +228,6 @@ kennis dat dit boek leuk maakt.
   dungesneden rode ui, een kneep citroen en (wie het vindt) sumak, opgerold
   in de lahmacun. Citroen bij het serveren is sowieso de grootste smaakwinst:
   het gekruide gehakt vraagt om dat zuur.
-- ~~Smeer de gehaktlaag echt dun uit tot op de rand; waar het dik ligt blijft
-  het onder de dekselstoom grijs in plaats van geroosterd.~~ *(opgelost.)*
-- ~~Bak het tomatenpureemengsel apart aan voor het door het gehakt gaat, zodat
-  de puree ontzuurt (rode draad 6).~~ *(geen wijziging nodig: de topping
-  wordt bewust rauw uitgesmeerd en gaart samen met het deeg in de hete pan;
-  een aparte bakstap zou de bereidingsmethode veranderen.)*
-
-**Turkse pide.** Twee vullingen in één recept, praktisch voor een gezin met
-verschillende smaken, en de ei-in-plaats-van-olijfolie-tip voor glimmende
-randen klopt.
-- ~~Bak bij de gehakt-tomaatvulling de ui en specerijen eerst apart aan voor
-  de tomatenblokjes erbij gaan (rode draad 6).~~ *(geen wijziging nodig: de
-  gevouwen pides gaan nog 20 tot 25 minuten de oven in, genoeg tijd om dat in
-  te halen.)*
 
 ### Wereldkeukens
 
@@ -338,123 +256,14 @@ rozijnenweektip: de balans zoet-zout-zuur is hier al goed doordacht.
 - Rooster de pittenmix even in een droge pan voor je hem erdoor schept; het
   is drie minuten werk en de noten gaan van vulling naar smaakmaker.
 
-**Kofta.** Het kruiden van het gehakt zelf (niet alleen de saus) is precies
-wat kofta onderscheidt van gewone gehaktballetjes, en dat legt het recept
-zelf al goed uit.
-- ~~Het grootste deel van de verse peterselie ging nu vóór de 10 minuten
-  sudderen de saus in, met alleen "het laatste beetje" fris bewaard voor het
-  einde.~~ *(opgelost: de peterselie in de saus is er nu helemaal uit, alles
-  wat niet al door het gehakt is gemengd gaat als frisse garnering over de
-  rijst. Zo'n lange sudder is precies waar zachte kruiden hun kleur en
-  frisheid verliezen.)*
-
-**Shoarma.** Doet wat het moet doen: tafelgerecht, iedereen bouwt zelf.
-- Kleine upgrade zonder extra werk: schep de kipshoarma een half uur van
-  tevoren om met een lepel olie, het sap van een halve citroen en een teen
-  knoflook. Zelfs kant-en-klaar gekruid vlees wordt daar merkbaar sappiger
-  en frisser van.
-- Bak in twee porties in een echt hete pan: een volle pan shoarma stooft in
-  zijn eigen vocht, een halve pan bakt en krijgt randjes.
-
-**Döner kebab.** Uitgebreid en goed uitgelegd, van het kleverig kneden tot
-het rusten en de krokante tweede bak. Weinig aan toe te voegen.
-- Bewaar het afgegoten vet van de bakplaat en gebruik daarvan een lepel bij
-  het krokant bakken van de plakjes; eigen vet geeft meer smaak dan een
-  droge pan.
-
-**Burrito's.** Vlot ovengerecht dat vooral om de vulling draait.
-- Het mist de frisse kant van het genre: een kneep limoen over de vulling
-  voor het rollen, en verse koriander erbij op tafel voor wie wil. Tex-Mex
-  zonder zuur wordt snel een warme deken.
-- Prak een derde van de bonen fijn voor je ze toevoegt: de geplette bonen
-  binden de vulling zodat hij niet uit de wrap valt, de hele geven beet.
-
-**Fajita's.** Gezellig tafelgerecht met een verstandige marinade en een
-uitgeschreven vouwinstructie, dat laatste is goud voor kinderen.
-- Guacamole vraagt om limoen in plaats van citroen: dat is niet alleen
-  traditie (Mexico), limoen is aromatischer tegen het vette van de avocado.
-  Meteen ook de bruinwording opgelost, dat doet het zuur.
-- Fajita's zijn van oorsprong grillvlees: bak de kip in een gloeiend hete
-  pan met wat donkere randjes, en gril de paprika en wat uiringen kort mee
-  in plaats van alles rauw te houden. Die geblakerde rand is de smaak van
-  het gerecht.
-
-**Quesadilla's.** Goede campingoplossing, en het bord-omdraai-trucje is
-precies hoe je het zonder toestel doet.
-- Kaas tegen beide wraps en de vulling in het midden (zoals het recept
-  opbouwt) is juist: kaas is de lijm. Druk na het keren even aan met een
-  spatel, dan smelt hij overal dicht.
-- Ook hier: limoen of een lepel zure room met wat zuur erbij; bonen en kaas
-  vragen erom.
-
-**Chili con carne.** Stevige gezinsversie met een eigen kruidenmix, en de
-volgende-dag-tip is helemaal waar.
-- Proef de nootmuskaat kritisch: 1 theelepel is veel voor dit volume en
-  nootmuskaat dringt snel naar de voorgrond. Halveren en op het eind
-  bijstellen is veiliger.
-- Twee klassieke verdiepers die geen exotische inkopen vragen: een blokje
-  pure chocolade of een halve kop koffie mee laten sudderen. Allebei maken
-  ze de saus donkerder en ronder zonder herkenbaar te zijn.
-- En de vaste afsluiter van het genre: limoenpartjes op tafel. Zure room
-  doet al iets, limoen maakt het af.
-
-
-
-
-
-**Jambalaya.** Cajun familie van de paella, met een eigen kruidenmix op de
-gram; de proef-voor-je-meer-toevoegt-tip voor de cajunkruiden is terecht.
-- ~~Laat de cajunkruiden meebakken met de tomatenpuree in plaats van ze pas
-  bij de bouillon te voegen, zo bloeien ze even op in het vet (rode draad
-  6).~~ *(opgelost.)*
-
-**Paella.** De socarrat-uitleg (bouillon in één keer erbij, daarna niet meer
-roeren) staat er al goed in, dat is exact de techniek waar dit gerecht om
-draait.
-- ~~Laat het gerookte paprikapoeder een halve minuut meebakken met de rijst
-  voor de natte tomaat erbij gaat, in plaats van alles tegelijk te mengen
-  (rode draad 6).~~ *(opgelost.)*
-
-**Nasi goreng.** Verspakket boemboe maakt dit een snel doordeweeks recept,
-en dat is eerlijk toegelicht.
-- ~~Breng het spiegelei pas op smaak met peper en zout nadat het uit de hete
-  olie is.~~ *(geen wijziging nodig: dit is een ei dat zachtjes op middelhoog
-  vuur in ruime olie bakt, geen droge hete pan; peper en zout erover terwijl
-  het bakt is hoe een spiegelei doorgaans gekruid wordt.)*
-
-**Kip madras.** Verspakket, en het recept is daar eerlijk over; de tips
-hieronder respecteren dat gemak.
-- Kipdijfilet in plaats van kipfilet is bij stoofcurry's altijd de betere
-  keuze: dijvlees wordt in saus zachter, filet wordt droger. Zelfde werk.
-- Til het pakket op met een kneep citroen en verse koriander (of een lepel
-  garam masala op het eind, uit hetzelfde kruidenrek): curry's uit pakketten
-  missen vrijwel altijd de verse toplaag, niet de basis.
-
 **Roerbak met kip en cashewnoten.** Snel en praktisch; het droog roosteren
 van de cashewnoten is netjes.
 - Eén pro-techniek die hier veel oplevert: meng de kipreepjes 10 minuten met
   een eetlepel sojasaus en een theelepel maizena voor het bakken
   ("velveting"). De maizena beschermt het vlees tegen de hitte en de kip
   blijft zijdezacht, precies zoals bij de Chinees.
-- ~~Wok in twee porties: eerst de kip, dan de groente. Een volle wok zakt in
-  temperatuur en dan stooft alles in plaats van dat het bakt.~~ *(opgelost.)*
-
-**Kokos vis.** Snel doordeweeks wokgerecht, en de tip om de vis niet te lang
-te bakken raakt precies de valkuil bij witvis.
-- ~~Dep de vis droog met keukenpapier voor hij de hete pan in gaat.~~
-  *(opgelost: vocht op de vis stoomt in de pan in plaats van dat hij mooi
-  dichtschroeit.)*
 
 ### Stamppot
-
-**Hutspot.** Klassiek en pragmatisch (bouillonblokje in het kookvocht is een
-prima moderne kortere weg naar de klapstuksmaak).
-- Laat de afgegoten groente een minuut droogstomen in de pan op het vuur
-  voor het stampen: hutspot wordt waterig van het vocht dat nu meegestampt
-  wordt, niet van te veel melk.
-- Zuur erbij: een scheutje azijn in de stamp of gewoon augurken en
-  zilveruitjes op tafel. Wortel en ui zijn zoet; het zuur maakt de hap
-  compleet (dit geldt voor het hele stamppothoofdstuk).
 
 **Pompoenstamp met rookworst.** Zelfde degelijke methode als de hutspot.
 - Pompoen kookt zich vol water. Wie een keer tijd heeft: rooster de
@@ -470,8 +279,6 @@ stel, met een goede gelaagdheid (kerrie, mosterd, brie op het laatst).
   plaats van (alleen) koken. Gekaramelliseerde snijkanten maken spruiten
   zoet en nootachtig; koken haalt juist het zwavelige naar boven waar
   kinderen op afhaken. De pan met spekvet staat er al, gebruik die.
-- ~~Verplaats de peper van de hete koekenpan met kerrie en uienpoeder naar het
-  moment dat de puree op smaak wordt gebracht.~~ *(opgelost.)*
 
 **Andijviestamp met spekjes.** Canoniek uitgevoerd: rauwe andijvie door hete
 puree, en de timing-tip (pas vlak voor het serveren) is precies het goede
@@ -487,18 +294,6 @@ orde, inclusief de niet-koken-tip voor de worst.
 - Knipoog naar de intro: roggebrood in blokjes knapperig bakken in boter en
   erover strooien. Zelfde nostalgie, nieuwe textuur.
 
-**Aardappelen, groente en vlees.** Geen vast recept maar een flexibele
-combinatie, en dat is precies de kracht ervan voor een doordeweekse avond.
-- ~~Was en snijd de rauwe groente voor het vlees de pan in gaat, niet
-  "ondertussen" terwijl het al bakt.~~ *(opgelost: het was sowieso raar
-  geformuleerd, "was" en dan "snijd ondertussen" dezelfde groente; nu is het
-  gewoon de eerste stap.)*
-- ~~Tijm en rozemarijn gingen nu pas op het allerlaatste moment door de
-  krieltjes, puur om verbranden te voorkomen.~~ *(opgelost: de harde kruiden
-  gaan er nu de laatste paar minuten van het bakken bij, zodat ze nog kort in
-  de hete boter kunnen trekken; zout en knoflook(poeder) blijven wel tot vlak
-  voor het serveren, dat voorkomt verbranden en vocht uittrekken.)*
-
 ### Overig
 
 **Broodje knakworst.** Doet precies wat het is, en de kookvocht-tip is het
@@ -509,8 +304,6 @@ enige techniekpunt dat er toe doet. Laten zoals het is.
 **Gehaktballetjes.** Het proefballetje is een professionele gewoonte die hier
 gewoon in een familieboek staat, mooi. Beschuit, ei en het garen in bouillon
 kloppen allemaal.
-- ~~Rol de balletjes losjes en rol ze niet langer dan nodig: hoe strakker de
-  bal, hoe stugger de beet na het garen.~~ *(opgelost.)*
 - De jus kan een smaakje hebben: een halve theelepel azijn, een scheutje
   ketjap of een drupje worcestersaus in het bakvocht voor de maizena erin
   gaat; jus is de plek waar het zuur en de diepte van dit gerecht wonen.
@@ -542,8 +335,6 @@ roer-zo-min-mogelijk-tip voor de rijst is correct.
   in dat worstvet (de worstjes bakken verder in de koekenpan zoals nu). De
   rijst gaart dan op het fond van de worst en de drie onderdelen worden één
   gerecht.
-- ~~Snipper de ui en pers de knoflook voor de worstjes de pan in gaan, niet
-  "ondertussen" terwijl ze al bakken.~~ *(opgelost.)*
 
 **Parmezaan-knoflook-rozemarijn kipfilet in bakpapier.** Origineel en
 kindvriendelijk, met vlinderen en platslaan netjes uitgelegd; de rust van 2
@@ -555,10 +346,6 @@ tot 3 minuten staat er al.
   meer maar noodzaak.
 - Citroenpartjes erbij: knoflook, Parmezaan en rozemarijn zijn alle drie
   rond en hartig, het zuur zet het bord open.
-- ~~Noem de vleesthermometer expliciet bij de 75 graden kerntemperatuur, net
-  als bij de kalkoen en de rollade.~~ *(opgelost: dit was de enige
-  vleestemperatuur in het boek met een exact getal maar zonder het
-  meetinstrument te noemen; kalkoen en rollade deden dat al wel.)*
 
 **Asperges.** Sympathiek streekgerecht met een goede pannenlogistiek (alles
 tegelijk op, alles tegelijk klaar).
@@ -566,9 +353,6 @@ tegelijk op, alles tegelijk klaar).
   mayonaise: een pannetje boter smelten, eventueel licht laten bruinen, met
   wat van het gehakte ei en nootmuskaat erdoor. Mayonaise mag ernaast blijven
   staan, maar de boter hoort erbij.
-- ~~Laat de asperges na 8 minuten koken nog 5 tot 10 minuten in het hete water
-  staan met het vuur uit: ze garen na zonder ooit slap te koken, de veiligste
-  cuisson voor witte asperges.~~ *(opgelost.)*
 
 **Barbecue.** Meer draaiboek dan recept, en als draaiboek klopt het
 (volgorde op gaartijd staat er al).
@@ -594,7 +378,6 @@ tatin nodig heeft.
   geitenkaas erover zodra hij omgekeerd is; smelt licht op de warme wortels
   en maakt er met de groene salade een complete lunch van.
 
-
 **Bonensalade met bleekselderij en citrus.** Verstandig recept, en de
 een-dag-eerder-tip klopt: bonen drinken dressing.
 - Laat de gesnipperde rode ui eerst 10 minuten in het citroensap of de azijn
@@ -617,11 +400,6 @@ naar thuis (inclusief het alternatief zonder ovenvaste pan).
 - Serveerdetail: lepel bij het opdienen wat van het ingekookte
   boter-bouillonvocht over de aardappelen; dat glanzende laagje is waar
   "fondant" om draait.
-- ~~Bak de knoflook eerst apart aan voor de bouillon erbij gaat, rauwe
-  knoflook in vocht kan bitter worden.~~ *(geen wijziging nodig: de teentjes
-  trekken 25 tot 35 minuten mee in de oven, dat is precies de bedoelde
-  langzame infusie in de bouillon, geen haastige rauwe-knoflook-in-saus
-  situatie.)*
 
 **Pommes Anna Kubusjes.** Sterk voorbereidingsgerecht met een echt
 restauranttrucje (persen, nacht koelen, portioneren); de zware-pan-tip
@@ -637,23 +415,6 @@ staat er al.
 
 ### Brood & basis
 
-**Pretzels.** Goed thuisrecept, en het zuiveringszout-bad met honing is de
-juiste veilige vervanger voor loog; de nacht-in-de-koelkast-tip is precies
-wat een bakker zou aanraden.
-- Wie de korst donkerder en "echter" wil: spreid het zuiveringszout een uur
-  op een bakplaat in een oven van 120 graden voor je het oplost. Gebakken
-  zuiveringszout is alkalischer en kleurt dieper, zonder de risico's van
-  echte loog (Beierse laugenbrezel is het voorbeeld waar dit naartoe werkt).
-- Snijd vlak voor de oven een sneetje in de dikke buik van elke pretzel:
-  traditie én het voorkomt willekeurig openscheuren.
-
-**Focaccia.** Technisch het beste bakrecept van het boek: hydratatie
-benoemd, koude vertraging als optie, kuiltjes met natte vingers.
-- De Ligurische finishing touch: meng vlak voor het bakken 2 eetlepels water
-  met 2 eetlepels olijfolie en een snuf zout (salamoia) en giet dat over de
-  kuiltjes. Het water verdampt, de olie frituurt de bovenkant licht en de
-  kuiltjes blijven sappig; dit is het verschil met "brood met olie erop".
-
 **Hamburgerbolletjes.** Goede briochemethode (boter pas na de gluten, zachte
 deeg geaccepteerd) en de kleur-waarschuwing klopt.
 - Bewaar-tip die erbij hoort: brioche droogt snel uit; wat over is dezelfde
@@ -662,20 +423,10 @@ deeg geaccepteerd) en de kleur-waarschuwing klopt.
 
 ### Gebak & koek
 
-**Saucijzenbroodjes.** De eigen kruidenmix op de gram is heerlijk nerdy en
-het resultaat is er ook naar; de eiwit/eigeel-logica is netjes uitgelegd.
-- Kneed een eetlepel ijskoud water door het gehaktmengsel: gehakt dat in
-  bladerdeeg 30 minuten meebakt droogt uit, en dat lepeltje water is de
-  goedkoopste sappigheidsverzekering.
-- Snijd twee of drie schuine sneetjes in de bovenkant van elk broodje: stoom
-  kan eruit zonder de naad open te duwen, en het staat meteen bakkerij-echt.
-
 **Basismuffins.** De muffinmethode ("mag best klonterig") wordt goed
 uitgelegd, dat is bij muffins de hele wedstrijd.
 - Bij fruitvullingen: wentel bessen of fruitblokjes eerst door een lepel
   bloem, dan zakken ze niet naar de bodem.
-- ~~Oven de eerste 15 minuten dicht laten; muffins die inzakken zijn bijna
-  altijd te vroeg bekeken.~~ *(opgelost.)*
 
 **Kaneelrolletjes.** Prima gemaksrecept en de vierkant-in-plaats-van-
 driehoeken-tip is slim.
@@ -690,16 +441,6 @@ driehoeken-tip is slim.
 maakt het een format, dat is precies wat zo'n recept moet zijn.
 - Smeer de saus dun en laat een rand vrij: te veel saus maakt de onderste
   rondjes klef en lekt bij het snijden.
-
-**Wafels.** Klassieke methode (romig kloppen, eiwit apart, luchtig spatelen)
-en de spateltip staat er al.
-- Wafelijzer echt goed voorverwarmen en de eerste wafel als offer
-  beschouwen, net als de eerste pannenkoek.
-
-**Eierkoeken.** Het luchtig kloppen van ei en suiker tot een lint (ruban) is
-hier terecht de hele structuur, en dat wordt goed uitgelegd.
-- ~~Eieren op kamertemperatuur.~~ *(opgelost: koude eieren kloppen trager en
-  minder luchtig op tot het lint-stadium.)*
 
 **Meringues.** Compact en juist: vetvrije kom, suiker lepel voor lepel, in
 de oven laten afkoelen.
@@ -771,14 +512,9 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 1. **Limoen en citroen structureel inzetten.** Kokos vis, chili, burrito's,
    lahmacun, kibbeling en de paella missen allemaal hetzelfde: een kneep
    zuur op het eind. Partjes op tafel is al genoeg.
-2. ~~**Falafel: weken, niet koken.** Alleen geweekte kikkererwten malen; dat
-   lost meteen het natte-mengsel-probleem op dat het recept nu met bloem
-   repareert.~~ *(opgelost.)*
-3. **Rollade eerst rondom aanbraden.** Eén extra pan, en het feestgerecht
+2. **Rollade eerst rondom aanbraden.** Eén extra pan, en het feestgerecht
    krijgt de korst die het verdient.
-4. ~~**Paella niet roeren.** Bouillon in één keer erbij en met rust laten; dat
-   levert precies de socarrat die de inleiding belooft.~~ *(opgelost.)*
-5. **Bloemkool, pompoen en spruiten roosteren of bakken in plaats van
+3. **Bloemkool, pompoen en spruiten roosteren of bakken in plaats van
    koken.** Vier recepten (bloemkoolpasta, bloemkoolquiche, pompoenstamp,
    spruitenstamp) worden er direct dieper van.
 
@@ -788,13 +524,12 @@ De ingrepen met het grootste effect voor het minste werk, over het hele boek:
 
 Een losse batch praktische chef-tips (mise en place, pantechniek, bakbasis,
 opslag) is doorgenomen tegen alle recepten. Vijf ervan pasten direct in een
-bestaand recept en staan hierboven als opgelost genoteerd (kokos vis,
-jambalaya, paella, pasta primavera, eierkoeken); een paar andere kandidaten
-bleken bij nader inzien geen wijziging nodig te hebben (mac 'n cheese,
-pommes fondante, lahmacun, pide) en staan met de reden hierboven bij het
-recept. De rest van de tips matchte niet met een concreet recept: het boek
-doet de techniek al goed, of er is nog geen recept waar hij op van
-toepassing is. Voor de volgende ronde, per categorie:
+bestaand recept, waarvan de wijziging bij pasta primavera nog hierboven
+genoteerd staat; een paar andere kandidaten bleken bij nader inzien geen
+wijziging nodig te hebben, waarvan pommes fondante en lahmacun nog met de
+reden hierboven staan. De rest van de tips matchte niet met een concreet
+recept: het boek doet de techniek al goed, of er is nog geen recept waar hij
+op van toepassing is. Voor de volgende ronde, per categorie:
 
 **Vervolgcheck (zelfde dag): peper-timing en mise en place.** Beide zijn nu
 specifiek tegen alle 114 recepten nagelopen. Peper-timing: van de ruim 50
@@ -802,8 +537,8 @@ recepten die met peper werken, kruidt de overgrote meerderheid al op het
 juiste moment (bij het serveren, in een saus, of op rauw vlees voor het de
 pan in gaat). Vier gevallen kwamen echt in een droge of hete pan terecht;
 twee daarvan zijn aangepast (bloemkoolquiche, spruitenstamp met brie en
-spekjes), de andere twee bleken bij nader inzien geen wijziging nodig te
-hebben (bobotie, nasi goreng, zie de redenen bij het recept). Mise en
+spekjes), de andere twee (bobotie, nasi goreng) bleken bij nader inzien geen
+wijziging nodig te hebben. Mise en
 place: de meeste recepten zetten hun prep netjes vooraf klaar; drie
 recepten lieten niet-triviaal snijwerk pas halverwege het actieve koken
 vallen en zijn aangepast (venkelrisotto met geitenkaas, aardappelen groente
