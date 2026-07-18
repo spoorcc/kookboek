@@ -134,6 +134,14 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 - Diet/allergen tags (glutenvrij, lactosevrij, notenvrij) are intentionally not part of this scheme — mislabeling those is a food-safety risk, not just a style slip.
 - Bereidingstijd is written purely in minutes, not a mixed "uur + minuten" combo: `100 minuten`, not `1 uur 40`; `70 minuten`, not `1 uur 10`. A clean round hour count (`1 uur`, `2 uur`, `1{,}5 uur`) is fine as-is — it's the mixed notation that gets converted.
 
+## Reuse existing Register and kicker terms
+
+Before adding a new `\index[register]{...}` entry or picking a `\kicker` cuisine/context term, grep `recipes/*.tex` for how the same concept is already spelled elsewhere in the book and reuse that exact term rather than inventing a synonym or a different grammatical form. The Register and the kicker cuisine tags are flat lists with no synonym-merging, so any drift creates a duplicate heading or an inconsistent tag between otherwise-similar recipes:
+
+- **Register entries**: match existing singular/plural and spelling choices (`Tomaat` not `Tomaten`, `Maïs` with the trema, plain `Kip` rather than splitting into `Kipfilet`/`Kipdijfilet`) so the same ingredient always collects under one Register heading instead of splitting across near-duplicates.
+- **Kicker cuisine tags**: reuse the term already used by other recipes from the same cuisine/region (`Midden-Oosters`, not `Arabisch`, to match falafel/kofta/shoarma/shoarmabroodjes) rather than a synonym, and match the specificity level of comparable dishes (if a sibling dish from another region of the same country gets the region-specific tag — e.g. `Elzassisch` for flammkuchen — a dish whose intro text names its own specific region, like quiche lorraine's "Lotharingse", should get equally specific treatment rather than falling back to the generic country name).
+- **Bakken/Dessert sweet dishes**: use `Zoet` in the protein/diet kicker slot like their sibling recipes in the same chapter, rather than substituting an unrelated tag or dropping the slot entirely.
+
 ## Ingredient ordering
 
 Within a `\begin{ingredients}` … `\end{ingredients}` block, order matters:
@@ -186,4 +194,4 @@ When writing or editing recipe prose (introductions, tips, foreword), follow the
 
 1. Create `recipes/yourdish.tex` following the pattern in any existing recipe file.
 2. Add `\input{recipes/yourdish}` under the appropriate `\chapter{…}` in `main.tex`.
-3. Use `\index[register]{…}` on the dish name and key ingredients so they appear in the Register.
+3. Use `\index[register]{…}` on the dish name and key ingredients so they appear in the Register, reusing existing Register and kicker terms (see "Reuse existing Register and kicker terms" above) rather than introducing a new spelling or synonym for something already in the book.
