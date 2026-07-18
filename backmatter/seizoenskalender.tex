@@ -1,5 +1,8 @@
 % Groente- en fruitkalender
-\cleardoublepage
+% Starts on a left/verso page (not \cleardoublepage's usual right/recto) so
+% the Groente table below and the Fruit table after it (page break via
+% \clearpage further down) land on facing pages of the same spread.
+\cleartoevenpage
 \par\noindent{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Seizoens-\\kalender\par}
  \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
  {\vspace{6pt}\itshape\small\color{inkfaint}Wanneer onze groente en al het fruit op hun best zijn.\par}\vspace{1.2em}

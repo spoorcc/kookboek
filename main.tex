@@ -236,7 +236,11 @@
 \backmatter
 \input{backmatter/seizoenskalender}
 
-\cleardoublepage
+% Plain \clearpage, not \cleardoublepage: Seizoenskalender ends its Fruit
+% table on a right/recto page (see backmatter/seizoenskalender.tex), so the
+% very next page is already left/verso — forcing to odd here would insert
+% an unwanted blank page and break that alignment.
+\clearpage
 \input{backmatter/basisvoorraad}
 
 % ----------------------------------------------------------------- REGISTER ---
