@@ -61,6 +61,7 @@ chipolataworstjes
 chorizovet
 chorizoworst
 coeur
+coleslaw
 comfortfood
 cooking
 croissantdeeg
@@ -184,10 +185,12 @@ pizzastand
 pompoenstamp
 poolish
 porchetta
+pork
 pretzelvorm
 primavera
 prosciutto
 provençaalse
+pulled
 puffy
 quesadilla
 quesadilla's
@@ -252,11 +255,13 @@ voordeeg
 warmhoudstand
 whisky-cocktailsaus
 winterstamp
+wittekool
 wokgerecht
 woksaus
 wortel-
 wortel/pompoen
 wortel/pompoengroente
+yogonaise
 zeezeilrace
 ziplock
 ziplockzakjes
