@@ -22,8 +22,8 @@ The book is printed on demand via [Lulu.com](https://www.lulu.com). To order one
 1. Go to [lulu.com/create](https://www.lulu.com/create) and start a new print book.
 2. Pick **Hardcover Casewrap** binding. The interior text block is typeset at
    **189 × 246 mm (7.44 × 9.68 in, Crown Quarto)** — `KookboekFamilieSpoor.pdf`.
-   The case itself is physically larger (**438.27 × 290.31 mm** wrapped sheet,
-   for a 164-page block) since a hardcover case wraps around the block with a
+   The case itself is physically larger (**443.05 × 290.32 mm** wrapped sheet,
+   for a 223-page block) since a hardcover case wraps around the block with a
    small overhang — that's `KookboekFamilieSpoor-cover.pdf`. The two files are
    sized independently on purpose; they aren't meant to match.
 3. Upload both files.

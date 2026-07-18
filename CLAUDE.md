@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A vintage, two-color family cookbook (*Kookboek — Familie Spoor*) typeset in LaTeX, printed via Lulu as a **hardcover casewrap**. Output is `main.pdf` at Lulu Crown Quarto trim (189 × 246 mm / 7.44 × 9.68 in) — this is the interior *text-block* trim. The case (cover) is physically larger (438.27 × 290.31 mm wrapped sheet, per `q6qdvpe-cover-template.pdf`) since a hardcover case wraps around the block with a small overhang; see "Wraparound cover" below.
+A vintage, two-color family cookbook (*Kookboek — Familie Spoor*) typeset in LaTeX, printed via Lulu as a **hardcover casewrap**. Output is `main.pdf` at Lulu Crown Quarto trim (189 × 246 mm / 7.44 × 9.68 in) — this is the interior *text-block* trim. The case (cover) is physically larger (443.05 × 290.32 mm wrapped sheet, per `q6qdvpe-cover-template.pdf`) since a hardcover case wraps around the block with a small overhang; see "Wraparound cover" below.
 
 ## Development environment
 
@@ -89,7 +89,7 @@ Needs `pillow`, `numpy`, and `scipy` (see `scripts/requirements.txt`). Not wired
 
 `cover/cover.tex` is a standalone LaTeX document (not `\input` by `main.tex`) producing Lulu's wraparound cover: back cover, spine, and front cover as one page, sized to the hardcover case size (195.33 × 258.57mm, larger than the interior's 189×246mm text-block trim — see "Project" above) plus Lulu's 15.87mm wrap area on every outer edge. It reuses the same fonts and colours as `kookboek.sty` and the front cover's photo and title block from `main.tex`. The cover's `\trimw`/`\trimh` intentionally do **not** match `kookboek.sty`'s `paperwidth`/`paperheight` — don't "fix" that.
 
-Hardcover casewrap spine width is **not** a formula — Lulu computes it from an internal lookup table keyed on page count, and the true value is only known once you generate a cover template from Lulu's Project Creation Tool after uploading the interior file. `\spinew` in `cover/cover.tex` is hardcoded from one such template (generated for 164 pages, matching the interior's current page count) and must be reconfirmed (and `\interiorpagecount` updated to match) whenever the interior's page count changes, before ordering a real proof.
+Hardcover casewrap spine width is **not** a formula — Lulu computes it from an internal lookup table keyed on page count, and the true value is only known once you generate a cover template from Lulu's Project Creation Tool after uploading the interior file. `\spinew` in `cover/cover.tex` is hardcoded from one such template (generated for 223 pages, matching the interior's current page count) and must be reconfirmed (and `\interiorpagecount` updated to match) whenever the interior's page count changes, before ordering a real proof.
 
 ## Architecture
 
