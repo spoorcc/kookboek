@@ -30,11 +30,8 @@ staat de volledige lijst erbij.
       \draw[line width=0.3pt, color=inkfaint] (\i,-1) -- (\i,1);
     }
     \foreach \start/\eind in {#1} {
-      % 0.08 = half the 3.4pt line width, converted to local x units
-      % (x=0.75cm), so the round cap's outer edge lands on the tick
-      % instead of the line's endpoint (which would overshoot it).
       \draw[line width=3.4pt, color=terracotta, line cap=round]
-        (\start-1+0.08,0) -- (\eind-0.08,0);
+        (\start-1,0) -- (\eind,0);
     }
   \end{tikzpicture}}
 \newcommand{\seizoenrij}[2]{#1 & \seizoenbalk{#2} \\}
