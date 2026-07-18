@@ -133,15 +133,6 @@
     ]
   },
   {
-    "entry": "Arabisch",
-    "pages": [
-      {
-        "label": "90",
-        "page": 100
-      }
-    ]
-  },
-  {
     "entry": "Artisjok",
     "pages": [
       {
@@ -2339,42 +2330,12 @@
     "entry": "Kip",
     "pages": [
       {
-        "label": "101",
-        "page": 111
-      },
-      {
-        "label": "107",
-        "page": 117
-      },
-      {
-        "label": "113",
-        "page": 123
-      },
-      {
-        "label": "115",
-        "page": 125
-      },
-      {
-        "label": "116",
-        "page": 126
-      }
-    ]
-  },
-  {
-    "entry": "Kip madras",
-    "pages": [
-      {
-        "label": "115",
-        "page": 125
-      }
-    ]
-  },
-  {
-    "entry": "Kipdijfilet",
-    "pages": [
-      {
         "label": "6",
         "page": 16
+      },
+      {
+        "label": "101",
+        "page": 111
       },
       {
         "label": "107",
@@ -2387,19 +2348,31 @@
       {
         "label": "111",
         "page": 121
-      }
-    ]
-  },
-  {
-    "entry": "Kipfilet",
-    "pages": [
+      },
       {
-        "label": "101",
-        "page": 111
+        "label": "113",
+        "page": 123
+      },
+      {
+        "label": "115",
+        "page": 125
+      },
+      {
+        "label": "116",
+        "page": 126
       },
       {
         "label": "140",
         "page": 150
+      }
+    ]
+  },
+  {
+    "entry": "Kip madras",
+    "pages": [
+      {
+        "label": "115",
+        "page": 125
       }
     ]
   },
@@ -2756,6 +2729,10 @@
   {
     "entry": "Midden-Oosters",
     "pages": [
+      {
+        "label": "90",
+        "page": 100
+      },
       {
         "label": "93",
         "page": 103
@@ -4173,27 +4150,6 @@
     "entry": "Tomaat",
     "pages": [
       {
-        "label": "48",
-        "page": 58
-      },
-      {
-        "label": "95",
-        "page": 105
-      },
-      {
-        "label": "138",
-        "page": 148
-      },
-      {
-        "label": "151",
-        "page": 161
-      }
-    ]
-  },
-  {
-    "entry": "Tomaten",
-    "pages": [
-      {
         "label": "3",
         "page": 13
       },
@@ -4210,12 +4166,20 @@
         "page": 44
       },
       {
+        "label": "48",
+        "page": 58
+      },
+      {
         "label": "89",
         "page": 99
       },
       {
         "label": "90",
         "page": 100
+      },
+      {
+        "label": "95",
+        "page": 105
       },
       {
         "label": "100",
@@ -4236,6 +4200,10 @@
       {
         "label": "138",
         "page": 148
+      },
+      {
+        "label": "151",
+        "page": 161
       }
     ]
   },
