@@ -35,13 +35,13 @@ tot december (rechts); het opgevulde stuk is het seizoen.
         (\start-1+0.11,0) -- (\eind-0.11,0);
     }
   \end{tikzpicture}}
-\newcommand{\seizoenrij}[2]{#1 & \seizoenbalk{#2} \\[0.3em]}
+\newcommand{\seizoenrij}[2]{#1 & \seizoenbalk{#2} \\}
 \newcommand{\seizoenkop}{%
-  & \seizoenmaanden \\[2pt]
-  \multicolumn{2}{@{}l@{}}{\textcolor{terracotta}{\rule{\linewidth}{0.4pt}}} \\[0.3em]}
+  & \seizoenmaanden \\
+  \multicolumn{2}{@{}l@{}}{\textcolor{terracotta}{\rule{\linewidth}{0.4pt}}} \\[0.1em]}
 
 \blockrule{Groente}
-{\footnotesize
+{\scriptsize\renewcommand{\arraystretch}{0.8}
 \begin{longtable}{r@{\hspace{0.45em}}l}
 \seizoenkop
 \endhead
@@ -108,8 +108,9 @@ tot december (rechts); het opgevulde stuk is het seizoen.
 % \seizoenrij{Winterpostelein}{1/3,10/12}
 % \seizoenrij{Witte kool}{1/3,7/12}
 
+\clearpage
 \blockrule{Fruit}
-{\footnotesize
+{\scriptsize\renewcommand{\arraystretch}{0.8}
 \begin{longtable}{r@{\hspace{0.45em}}l}
 \seizoenkop
 \endhead
