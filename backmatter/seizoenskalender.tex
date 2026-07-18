@@ -4,102 +4,134 @@
  \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
  {\vspace{6pt}\itshape\small\color{inkfaint}Wanneer onze groente en al het fruit op hun best zijn.\par}\vspace{1.2em}
 
-\lettrine{G}{roente} en fruit smaken het best, en zijn meestal ook goedkoper,
-als je koopt wat toevallig in seizoen is. Bij de groente heb ik me beperkt tot
-wat in dit boek ook echt gebruikt wordt, anders wordt het een lijstje waar je
-toch niets aan hebt. Fruit eten we het hele jaar door gewoon los, dus daarvan
-staat de volledige lijst erbij.
+\lettrine{G}{roente} kopen in het seizoen is meestal lekkerder, en ook nog
+goedkoper. Hieronder staan alleen de groenten die we in dit boek ook echt
+gebruiken, anders wordt het een lijstje waar je toch niets aan hebt. Fruit
+eten we het hele jaar door gewoon los, dus daarvan staat de volledige lijst
+erbij.
 
-% Local, appendix-only helper: keeps the 45 near-identical entries below from
-% being hand-formatted one by one.
-\newcommand{\seizoenitem}[2]{\noindent#1: #2\par\vspace{0.4em}}
+% Local, appendix-only helpers: draw one repeatable timeline row per
+% groente/fruit instead of hand-typing a description for each. \seizoenbalk
+% draws the J-D month grid with the in-season stretch(es) filled in;
+% \seizoenrij wraps that into one table row so adding a new item is a
+% single line, with no manual row/column bookkeeping. \seizoenmaanden draws
+% the matching J F M A M J J A S O N D header, repeated automatically by
+% longtable on every page the table spans.
+\newcommand{\seizoenmaanden}{%
+  \begin{tikzpicture}[x=0.75cm]
+    \foreach \m [count=\i from 0] in {J,F,M,A,M,J,J,A,S,O,N,D} {
+      \node[font=\tiny\itshape, text=inkfaint] at (\i+0.5,0) {\m};
+    }
+  \end{tikzpicture}}
+\newcommand{\seizoenbalk}[1]{%
+  \begin{tikzpicture}[x=0.75cm, y=0.045cm]
+    \draw[line width=0.3pt, color=inkfaint] (0,0) -- (12,0);
+    \foreach \i in {0,...,12} {
+      \draw[line width=0.3pt, color=inkfaint] (\i,-1) -- (\i,1);
+    }
+    \foreach \start/\eind in {#1} {
+      \draw[line width=3.4pt, color=terracotta, line cap=round]
+        (\start-1,0) -- (\eind,0);
+    }
+  \end{tikzpicture}}
+\newcommand{\seizoenrij}[2]{#1 & \seizoenbalk{#2} \\}
+\newcommand{\seizoenkop}{%
+  & \seizoenmaanden \\
+  \multicolumn{2}{@{}l@{}}{\textcolor{terracotta}{\rule{\linewidth}{0.4pt}}} \\[0.1em]}
 
 \blockrule{Groente}
-\begin{multicols}{2}
-\small
-\seizoenitem{Andijvie}{april tot en met december}
-\seizoenitem{Artisjok}{juni tot en met oktober}
-\seizoenitem{Asperge}{april tot en met juni}
-\seizoenitem{Aubergine}{juli tot en met oktober}
-\seizoenitem{Bleekselderij}{juli tot en met november}
-\seizoenitem{Bloemkool}{maart tot en met november}
-\seizoenitem{Boerenkool}{januari tot en met maart, oktober tot en met december}
-\seizoenitem{Broccoli}{juni tot en met november}
-\seizoenitem{Courgette}{juli tot en met november}
-\seizoenitem{Doperwt}{mei tot en met juli}
-\seizoenitem{Komkommer}{juli tot en met oktober}
-\seizoenitem{Maïs}{augustus tot en met september}
-\seizoenitem{Paddenstoelen}{het hele jaar door}
-\seizoenitem{Paprika}{juli tot en met oktober}
-\seizoenitem{Pastinaak}{januari tot en met maart, oktober tot en met december}
-\seizoenitem{Peultjes}{mei tot en met juli}
-\seizoenitem{Pompoen}{januari tot en met april, augustus tot en met december}
-\seizoenitem{Prei}{het hele jaar door}
-\seizoenitem{Sperzieboon}{juni tot en met oktober}
-\seizoenitem{Spinazie}{maart tot en met oktober}
-\seizoenitem{Spitskool}{mei tot en met oktober}
-\seizoenitem{Spruiten}{januari tot en met maart, oktober tot en met december}
-\seizoenitem{Tomaat}{juni tot en met oktober}
-\seizoenitem{Ui}{het hele jaar door}
-\seizoenitem{Venkel}{juni tot en met november}
-\seizoenitem{Witlof}{januari tot en met april, oktober tot en met december}
-\seizoenitem{Wortel}{het hele jaar door}
-\end{multicols}
+{\scriptsize\renewcommand{\arraystretch}{0.8}
+\begin{longtable}{r@{\hspace{0.45em}}l}
+\seizoenkop
+\endhead
+\seizoenrij{Andijvie}{4/12}
+\seizoenrij{Artisjok}{6/10}
+\seizoenrij{Asperge}{4/6}
+\seizoenrij{Aubergine}{7/10}
+\seizoenrij{Bleekselderij}{7/11}
+\seizoenrij{Bloemkool}{3/11}
+\seizoenrij{Boerenkool}{1/3,10/12}
+\seizoenrij{Broccoli}{6/11}
+\seizoenrij{Courgette}{7/11}
+\seizoenrij{Doperwten}{5/7}
+\seizoenrij{Komkommer}{7/10}
+\seizoenrij{Ma\"is}{8/9}
+\seizoenrij{Paddenstoelen}{1/12}
+\seizoenrij{Paprika}{7/10}
+\seizoenrij{Pastinaak}{1/3,10/12}
+\seizoenrij{Peultjes}{5/7}
+\seizoenrij{Pompoen}{1/4,8/12}
+\seizoenrij{Prei}{1/12}
+\seizoenrij{Sperzieboon}{6/10}
+\seizoenrij{Spinazie}{3/10}
+\seizoenrij{Spitskool}{5/10}
+\seizoenrij{Spruiten}{1/3,10/12}
+\seizoenrij{Tomaat}{6/10}
+\seizoenrij{Ui}{1/12}
+\seizoenrij{Venkel}{6/11}
+\seizoenrij{Witlof}{1/4,10/12}
+\seizoenrij{Wortel}{1/12}
+\end{longtable}}
 
 % Nog niet in dit boek gebruikt, dus hier alleen als commentaar. Zodra een
 % nieuw recept (/add-recipe) zo'n groente gebruikt, haal de bijbehorende
 % regel hierboven uit commentaar en zet 'm op alfabet tussen de actieve
-% \seizoenitem-regels in de Groente-lijst, en verwijder 'm hieronder.
+% \seizoenrij-regels in de Groente-tabel, en verwijder 'm hieronder. De
+% regel staat hieronder al in tabelvorm, dus uitcommentariëren + verplaatsen
+% is genoeg.
 % Seizoenen zijn uit dezelfde Voedingscentrum-kalender als hierboven.
-% \seizoenitem{Aardpeer}{januari, november tot en met december}
-% \seizoenitem{Chinese kool}{juli tot en met november}
-% \seizoenitem{Groene selderij}{het hele jaar door}
-% \seizoenitem{Knolselderij}{januari tot en met maart, augustus tot en met december}
-% \seizoenitem{Koolraap}{januari, november tot en met december}
-% \seizoenitem{Koolrabi}{mei tot en met oktober}
-% \seizoenitem{Kropsla}{mei tot en met oktober}
-% \seizoenitem{Meiraap}{januari tot en met juni}
-% \seizoenitem{Paksoi}{april tot en met oktober}
-% \seizoenitem{Raap}{september tot en met december}
-% \seizoenitem{Raapsteel}{maart tot en met mei, augustus tot en met oktober}
-% \seizoenitem{Rabarber}{maart tot en met juli}
-% \seizoenitem{Radijs}{maart tot en met oktober}
-% \seizoenitem{Rammenas}{januari tot en met maart, september tot en met december}
-% \seizoenitem{Rode biet}{het hele jaar door}
-% \seizoenitem{Rodekool}{januari tot en met maart, juli tot en met december}
-% \seizoenitem{Roodlof}{maart tot en met mei, oktober}
-% \seizoenitem{Savooikool}{januari tot en met maart, juni tot en met december}
-% \seizoenitem{Schorseneer}{januari tot en met maart, september tot en met december}
-% \seizoenitem{Snijbiet}{maart tot en met november}
-% \seizoenitem{Snijboon}{juli tot en met oktober}
-% \seizoenitem{Tuinboon}{juni tot en met juli}
-% \seizoenitem{Veldsla}{januari tot en met maart, oktober tot en met december}
-% \seizoenitem{Waterkers}{januari, april tot en met december}
-% \seizoenitem{Winterpostelein}{januari tot en met maart, oktober tot en met december}
-% \seizoenitem{Witte kool}{januari tot en met maart, juli tot en met december}
+% \seizoenrij{Aardpeer}{1/1,11/12}
+% \seizoenrij{Chinese kool}{7/11}
+% \seizoenrij{Groene selderij}{1/12}
+% \seizoenrij{Knolselderij}{1/3,8/12}
+% \seizoenrij{Koolraap}{1/1,11/12}
+% \seizoenrij{Koolrabi}{5/10}
+% \seizoenrij{Kropsla}{5/10}
+% \seizoenrij{Meiraap}{1/6}
+% \seizoenrij{Paksoi}{4/10}
+% \seizoenrij{Raap}{9/12}
+% \seizoenrij{Raapsteel}{3/5,8/10}
+% \seizoenrij{Rabarber}{3/7}
+% \seizoenrij{Radijs}{3/10}
+% \seizoenrij{Rammenas}{1/3,9/12}
+% \seizoenrij{Rode biet}{1/12}
+% \seizoenrij{Rodekool}{1/3,7/12}
+% \seizoenrij{Roodlof}{3/5,10/10}
+% \seizoenrij{Savooikool}{1/3,6/12}
+% \seizoenrij{Schorseneer}{1/3,9/12}
+% \seizoenrij{Snijbiet}{3/11}
+% \seizoenrij{Snijboon}{7/10}
+% \seizoenrij{Tuinboon}{6/7}
+% \seizoenrij{Veldsla}{1/3,10/12}
+% \seizoenrij{Waterkers}{1/1,4/12}
+% \seizoenrij{Winterpostelein}{1/3,10/12}
+% \seizoenrij{Witte kool}{1/3,7/12}
 
+\clearpage
 \blockrule{Fruit}
-\begin{multicols}{2}
-\small
-\seizoenitem{Aardbei}{april tot en met augustus}
-\seizoenitem{Abrikoos}{juni tot en met augustus}
-\seizoenitem{Appel}{januari tot en met mei, augustus tot en met december}
-\seizoenitem{Blauwe bes}{juni tot en met september}
-\seizoenitem{Braam}{juli tot en met oktober}
-\seizoenitem{Druif}{augustus tot en met november}
-\seizoenitem{Framboos}{juni tot en met oktober}
-\seizoenitem{Kers}{juni tot en met augustus}
-\seizoenitem{Kiwibes}{september tot en met oktober}
-\seizoenitem{Kweepeer}{september tot en met oktober}
-\seizoenitem{Meloen}{augustus tot en met november}
-\seizoenitem{Nectarine}{juni tot en met september}
-\seizoenitem{Peer}{januari tot en met mei, augustus tot en met december}
-\seizoenitem{Perzik}{juni tot en met september}
-\seizoenitem{Pruim}{augustus tot en met september}
-\seizoenitem{Rode bes}{juni tot en met juli}
-\seizoenitem{Vijg}{augustus tot en met september}
-\seizoenitem{Zwarte bes}{juni tot en met augustus}
-\end{multicols}
+{\scriptsize\renewcommand{\arraystretch}{0.8}
+\begin{longtable}{r@{\hspace{0.45em}}l}
+\seizoenkop
+\endhead
+\seizoenrij{Aardbei}{4/8}
+\seizoenrij{Abrikoos}{6/8}
+\seizoenrij{Appel}{1/5,8/12}
+\seizoenrij{Blauwe bes}{6/9}
+\seizoenrij{Braam}{7/10}
+\seizoenrij{Druif}{8/11}
+\seizoenrij{Framboos}{6/10}
+\seizoenrij{Kers}{6/8}
+\seizoenrij{Kiwibes}{9/10}
+\seizoenrij{Kweepeer}{9/10}
+\seizoenrij{Meloen}{8/11}
+\seizoenrij{Nectarine}{6/9}
+\seizoenrij{Peer}{1/5,8/12}
+\seizoenrij{Perzik}{6/9}
+\seizoenrij{Pruim}{8/9}
+\seizoenrij{Rode bes}{6/7}
+\seizoenrij{Vijg}{8/9}
+\seizoenrij{Zwarte bes}{6/8}
+\end{longtable}}
 
 \vspace{0.8em}
 {\footnotesize\itshape\color{terracotta}Bron: Voedingscentrum, \emph{Seizoengroente- en
