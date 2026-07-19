@@ -1,0 +1,156 @@
+% Kooktemperaturen
+% Not a real \chapter (it's a hand-styled heading like Register's), so it
+% needs its own Inhoud/PDF-bookmark entry, same as imakeidx's intoc=true
+% does for Register.
+\phantomsection\addcontentsline{toc}{chapter}{Kooktemperaturen}
+\vspace*{0.4cm}
+{\handfont\fontsize{54}{52}\selectfont\color{terracotta}Kook-\\temperaturen\par}
+\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+\vspace{1.4em}
+
+\lettrine{A}{ls} eten warmer wordt, gebeurt dat niet geleidelijk aan: bij
+een aantal vaste temperaturen gaat er telkens iets anders om, van eiwit dat
+stolt tot suiker die bruin wordt. Hieronder staat, van koud naar heet, wat
+er ongeveer bij welke temperatuur gebeurt. Het zijn richtwaarden uit de
+keukenscheikunde, geen exacte meetpunten: de precieze grens hangt af van
+het ingrediënt zelf.
+
+% Verticale tijdlijn, deel 1 (4-85 °C): zelfde opzet als de matenlijn in
+% Kleine maten, maar hier telkens één temperatuur in plaats van een
+% gewichtsbereik. Loopt in twee delen over een paginabreuk heen (zie
+% \clearpage verderop), elk met zijn eigen middenlijn.
+\begin{center}
+\begin{tikzpicture}[y=1cm]
+\draw[color=terracotta, line width=0.6pt, {Stealth[length=1.8mm,width=1.1mm]}-] (0,0.4) -- (0,-8.8);
+
+\node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,0)
+  {\textbf{\textcolor{terracotta}{4\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Enzymen vertragen, bederf gaat trager.}}};
+
+\node at (0,-0.95) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-0.95) -- (0.5,-0.95);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.95)
+  {\textbf{\textcolor{terracotta}{15\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Boter wordt zacht, aroma's komen los.}}};
+
+\node at (0,-1.9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-1.9) -- (-0.5,-1.9);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.9)
+  {\textbf{\textcolor{terracotta}{30\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Cacaoboter in chocolade smelt.}}};
+
+\node at (0,-2.85) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-2.85) -- (0.5,-2.85);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.85)
+  {\textbf{\textcolor{terracotta}{40\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Vis-eiwit stolt, verliest zijn glazigheid.}}};
+
+\node at (0,-3.8) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3.8) -- (-0.5,-3.8);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.8)
+  {\textbf{\textcolor{terracotta}{50\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Vlees-eiwit begint te stollen.}}};
+
+\node at (0,-4.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-4.75) -- (0.5,-4.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-4.75)
+  {\textbf{\textcolor{terracotta}{60\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Eiwit van een ei stolt en wordt wit.}}};
+
+\node at (0,-5.7) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-5.7) -- (-0.5,-5.7);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-5.7)
+  {\textbf{\textcolor{terracotta}{65\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Eigeel stolt, zetmeel bindt vocht.}}};
+
+\node at (0,-6.65) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6.65) -- (0.5,-6.65);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.65)
+  {\textbf{\textcolor{terracotta}{70\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Taai bindweefsel wordt zachte gelatine.}}};
+
+\node at (0,-7.6) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-7.6) -- (-0.5,-7.6);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-7.6)
+  {\textbf{\textcolor{terracotta}{80\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Vrijwel alle eiwit is nu gestold.}}};
+
+\node at (0,-8.55) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-8.55) -- (0.5,-8.55);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-8.55)
+  {\textbf{\textcolor{terracotta}{85\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Pectine breekt af, groente wordt snel zacht.}}};
+\end{tikzpicture}
+\end{center}
+
+\clearpage
+{\footnotesize\itshape\color{inkfaint}Vervolg: 95 tot 230\,°C en hoger.\par}
+\vspace{0.6em}
+
+% Verticale tijdlijn, deel 2 (95-230+ °C).
+\begin{center}
+\begin{tikzpicture}[y=1cm]
+\draw[color=terracotta, line width=0.6pt, -{Stealth[length=1.8mm,width=1.1mm]}] (0,0.25) -- (0,-8.0);
+
+\node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,0)
+  {\textbf{\textcolor{terracotta}{95\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Water suddert, net onder de kook.}}};
+
+\node at (0,-0.95) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-0.95) -- (0.5,-0.95);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.95)
+  {\textbf{\textcolor{terracotta}{100\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Water kookt.}}};
+
+\node at (0,-1.9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-1.9) -- (-0.5,-1.9);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.9)
+  {\textbf{\textcolor{terracotta}{120\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Maillard-reactie begint, zodra het oppervlak droog is: het begin van bruinen.}}};
+
+\node at (0,-2.85) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-2.85) -- (0.5,-2.85);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.85)
+  {\textbf{\textcolor{terracotta}{140\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Maillard-reactie op zijn sterkst.}}};
+
+\node at (0,-3.8) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3.8) -- (-0.5,-3.8);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.8)
+  {\textbf{\textcolor{terracotta}{160\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Karamellisatie van suiker begint.}}};
+
+\node at (0,-4.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-4.75) -- (0.5,-4.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-4.75)
+  {\textbf{\textcolor{terracotta}{180\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Risico op acrylamide bij hard gebakken zetmeel.}}};
+
+\node at (0,-5.7) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-5.7) -- (-0.5,-5.7);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-5.7)
+  {\textbf{\textcolor{terracotta}{200\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Rookpunt van de meeste bakolie.}}};
+
+\node at (0,-6.65) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6.65) -- (0.5,-6.65);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.65)
+  {\textbf{\textcolor{terracotta}{Vanaf 230\,°C}}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Eten verkoolt en wordt bitter.}}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.6em}
+{\footnotesize\itshape\color{inkfaint}De zelfgemaakte mozzarella in dit boek laat de melk rond 46\,°C stremmen
+en rekt de kaas bij 65\,°C in hete wei; de ricotta stolt bij precies
+85\,°C, dezelfde eiwitovergang als hierboven, maar dan van melk in plaats
+van ei of vlees.\par}
+
+\vspace{0.4em}
+{\footnotesize\itshape\color{inkfaint}Dit zijn algemene vuistregels, geen
+exacte omslagpunten: het echte moment hangt af van wat je precies
+bereidt.\par}

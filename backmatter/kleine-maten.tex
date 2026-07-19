@@ -1,0 +1,93 @@
+% Kleine maten
+% Not a real \chapter (it's a hand-styled heading like Register's), so it
+% needs its own Inhoud/PDF-bookmark entry, same as imakeidx's intoc=true
+% does for Register.
+\phantomsection\addcontentsline{toc}{chapter}{Kleine maten}
+\vspace*{0.4cm}
+{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Kleine\\maten\par}
+\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+\vspace{1.4em}
+
+\lettrine{E}{en} kookboek gebruikt weleens een maat zonder vaste
+hoeveelheid: een scheutje water, een snufje zout, een klontje boter.
+Hieronder staan ze van klein naar groot met een indicatie in gram, een
+schatting, geen exacte maat uit dit boek.
+
+% Verticale tijdlijn: één middenlijn met een terracotta ruitje per term, en
+% de naam plus een korte omschrijving afwisselend links en rechts ervan. De
+% afstand tussen de termen staat niet op schaal (dat zou de tekstblokjes
+% van de kleinste termen te dicht op elkaar duwen); de volgorde van klein
+% naar groot en het grammage in elk tekstblokje geven de verhouding weer.
+\begin{center}
+\begin{tikzpicture}[y=1cm]
+\draw[color=terracotta, line width=0.6pt, {Stealth[length=1.8mm,width=1.1mm]}-{Stealth[length=1.8mm,width=1.1mm]}] (0,0.4) -- (0,-8.95);
+
+\node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,0)
+  {\textbf{\textcolor{terracotta}{Mespunt}} \textcolor{inkfaint}{(± 0,3--0,5 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Het beetje op de punt van een mes.}}};
+
+\node at (0,-0.95) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-0.95) -- (0.5,-0.95);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.95)
+  {\textbf{\textcolor{terracotta}{Snufje}} \textcolor{inkfaint}{(± 0,5--1 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Tussen duim en twee vingers.}}};
+
+\node at (0,-1.9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-1.9) -- (-0.5,-1.9);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.9)
+  {\textbf{\textcolor{terracotta}{Takje}} \textcolor{inkfaint}{(± 1--2 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Eén twijgje van een houtig kruid.}}};
+
+\node at (0,-2.85) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-2.85) -- (0.5,-2.85);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.85)
+  {\textbf{\textcolor{terracotta}{Theelepel}} \textcolor{inkfaint}{(± 2--3 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Van een gemalen specerij.}}};
+
+\node at (0,-3.8) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3.8) -- (-0.5,-3.8);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.8)
+  {\textbf{\textcolor{terracotta}{Eetlepel}} \textcolor{inkfaint}{(± 6--8 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Van een gemalen specerij, afgestreken.}}};
+
+\node at (0,-4.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-4.75) -- (0.5,-4.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-4.75)
+  {\textbf{\textcolor{terracotta}{Flinke lepel}} \textcolor{inkfaint}{(± 10--12 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Een eetlepel, maar dan gehoopt.}}};
+
+\node at (0,-5.7) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-5.7) -- (-0.5,-5.7);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-5.7)
+  {\textbf{\textcolor{terracotta}{Klontje boter}} \textcolor{inkfaint}{(± 10--15 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Zo groot als een dobbelsteen.}}};
+
+\node at (0,-6.65) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6.65) -- (0.5,-6.65);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.65)
+  {\textbf{\textcolor{terracotta}{Bosje kruiden}} \textcolor{inkfaint}{(± 15--30 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Bosje van de groenteboer.}}};
+
+\node at (0,-7.6) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-7.6) -- (-0.5,-7.6);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-7.6)
+  {\textbf{\textcolor{terracotta}{Handje}} \textcolor{inkfaint}{(± 30--50 g)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Wat je losjes in één hand houdt.}}};
+
+\node at (0,-8.55) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-8.55) -- (0.5,-8.55);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-8.55)
+  {\textbf{\textcolor{terracotta}{Scheutje}} \textcolor{inkfaint}{(± 40--60 ml)}\\[0pt]
+   {\footnotesize\textcolor{inkfaint}{Bijvoorbeeld water om af te blussen.}}};
+\end{tikzpicture}
+\end{center}
+
+Sterke gemalen specerijen zoals kerrie, komijn, kaneel en kurkuma rekenen
+we daarom in theelepels, niet in eetlepels: een eetlepel is al snel twee
+tot drie keer zoveel.
+
+\vspace{0.6em}
+{\footnotesize\itshape\color{inkfaint}Bij twijfel geldt: liever een beetje
+minder dan te veel. Je kunt op het eind altijd bijproeven en bijkruiden.\par}
