@@ -22,13 +22,13 @@ Some sessions (e.g. Claude Code on the web) run in a plain Ubuntu container with
 ```sh
 apt-get update
 apt-get install -y --no-install-recommends \
-  texlive-xetex texlive-latex-extra texlive-fonts-extra texlive-lang-european texlive-pictures latexmk \
+  texlive-xetex texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-european texlive-pictures latexmk \
   hunspell hunspell-nl \
   qpdf ghostscript python3-pip
 pip3 install --no-cache-dir pymupdf || pip3 install --no-cache-dir --break-system-packages pymupdf
 ```
 
-This installs enough of TeX Live (xetex + latex-extra + fonts-extra + lang-european + pictures, not the multi-GB `texlive-full`) to build `main.tex` and `cover/cover.tex`, plus `hunspell`/`hunspell-nl` for `scripts/spellcheck.py` and `qpdf`/`ghostscript`/`pymupdf` for `scripts/flatten_transparency.py` and `scripts/lulu_lint.py`. Takes a few minutes and roughly 1–2 GB of disk; check available space first (`df -h /`) since some remote sessions have a fixed disk allowance. Fonts are already vendored in `fonts/`, no separate font install needed.
+This installs enough of TeX Live (xetex + latex-extra + fonts-extra + fonts-recommended + lang-european + pictures, not the multi-GB `texlive-full`) to build `main.tex` and `cover/cover.tex`, plus `hunspell`/`hunspell-nl` for `scripts/spellcheck.py` and `qpdf`/`ghostscript`/`pymupdf` for `scripts/flatten_transparency.py` and `scripts/lulu_lint.py`. Takes a few minutes and roughly 1–2 GB of disk; check available space first (`df -h /`) since some remote sessions have a fixed disk allowance. `texlive-fonts-recommended` specifically is needed for `hyperref`'s `pzdr` (Zapf Dingbats) metric — without it XeLaTeX fails with `Font \XeTeXLink@font=pzdr ... not loadable`. Fonts for the book's own typefaces are already vendored in `fonts/`, no separate font install needed for those.
 
 ## Build
 
