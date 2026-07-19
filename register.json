@@ -1,16 +1,11 @@
 [
   {
-    "entry": "Aardappel",
+    "entry": "Aardappelen",
     "pages": [
       {
         "label": "4",
         "page": 14
-      }
-    ]
-  },
-  {
-    "entry": "Aardappelen",
-    "pages": [
+      },
       {
         "label": "7",
         "page": 17
@@ -419,15 +414,6 @@
       {
         "label": "188",
         "page": 198
-      }
-    ]
-  },
-  {
-    "entry": "Bevroren",
-    "pages": [
-      {
-        "label": "199",
-        "page": 209
       }
     ]
   },
@@ -1647,20 +1633,15 @@
     ]
   },
   {
-    "entry": "Half om half",
-    "pages": [
-      {
-        "label": "183",
-        "page": 193
-      }
-    ]
-  },
-  {
     "entry": "Half-om-half gehakt",
     "pages": [
       {
         "label": "103",
         "page": 113
+      },
+      {
+        "label": "183",
+        "page": 193
       }
     ]
   },
@@ -2778,27 +2759,6 @@
     ]
   },
   {
-    "entry": "Mais",
-    "pages": [
-      {
-        "label": "105",
-        "page": 115
-      },
-      {
-        "label": "107",
-        "page": 117
-      },
-      {
-        "label": "109",
-        "page": 119
-      },
-      {
-        "label": "111",
-        "page": 121
-      }
-    ]
-  },
-  {
     "entry": "Mediterraans",
     "pages": [
       {
@@ -3091,6 +3051,10 @@
         "page": 97
       },
       {
+        "label": "94",
+        "page": 104
+      },
+      {
         "label": "97",
         "page": 107
       },
@@ -3133,36 +3097,6 @@
     ]
   },
   {
-    "entry": "Paprika, rode",
-    "pages": [
-      {
-        "label": "94",
-        "page": 104
-      }
-    ]
-  },
-  {
-    "entry": "Parmezaan",
-    "pages": [
-      {
-        "label": "13",
-        "page": 23
-      },
-      {
-        "label": "20",
-        "page": 30
-      },
-      {
-        "label": "27",
-        "page": 37
-      },
-      {
-        "label": "42",
-        "page": 52
-      }
-    ]
-  },
-  {
     "entry": "Parmezaan-knoflook kipfilet",
     "pages": [
       {
@@ -3175,12 +3109,24 @@
     "entry": "Parmezaanse kaas",
     "pages": [
       {
+        "label": "13",
+        "page": 23
+      },
+      {
         "label": "17",
         "page": 27
       },
       {
+        "label": "20",
+        "page": 30
+      },
+      {
         "label": "22",
         "page": 32
+      },
+      {
+        "label": "27",
+        "page": 37
       },
       {
         "label": "31",
@@ -3197,6 +3143,10 @@
       {
         "label": "40",
         "page": 50
+      },
+      {
+        "label": "42",
+        "page": 52
       },
       {
         "label": "46",
@@ -4723,10 +4673,6 @@
       {
         "label": "166",
         "page": 176
-      },
-      {
-        "label": "200",
-        "page": 210
       }
     ]
   },
@@ -5173,6 +5119,10 @@
     "entry": "Zoet",
     "pages": [
       {
+        "label": "186",
+        "page": 196
+      },
+      {
         "label": "188",
         "page": 198
       },
@@ -5197,8 +5147,20 @@
         "page": 204
       },
       {
+        "label": "196",
+        "page": 206
+      },
+      {
         "label": "197",
         "page": 207
+      },
+      {
+        "label": "199",
+        "page": 209
+      },
+      {
+        "label": "200",
+        "page": 210
       },
       {
         "label": "201",
