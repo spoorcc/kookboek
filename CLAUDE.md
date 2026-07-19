@@ -116,6 +116,11 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 | `frontmatter/voorwoord.tex` | Foreword |
 | `backmatter/seizoenskalender.tex` | Groente- en fruitkalender appendix, `\input` after `\backmatter`, before the Register |
 | `backmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), `\input` after the seizoenskalender, before the Register |
+| `backmatter/aannames.tex` | Aannames appendix (default portie count, hoeveelheden per persoon, oven, basisingrediënten), `\input` after basisvoorraad, before the Register |
+| `backmatter/kleine-maten.tex` | Kleine maten appendix: vertical timeline of vague quantity terms (mespunt to scheutje), `\input` after aannames, before the Register |
+| `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after kleine-maten, before the Register |
+| `backmatter/kooktemperaturen.tex` | Kooktemperaturen appendix: vertical timeline of cooking-chemistry temperature milestones (4 °C to 230+ °C), `\input` after kerntemperatuur, before the Register |
+| `backmatter/bibliografie.tex` | Bibliografie: every external source/link used anywhere in the book, `\input` after `\printindex[register]`, the literal last thing before `\end{document}` — see "Bibliografie" below |
 | `recipes/*.tex` | Individual recipes, one file each |
 
 **Chapters = categories** (e.g. `\chapter{Hoofdgerechten}`), **sections = recipes** (created by the `recipe` environment), **subsections = groups of recipes within a chapter** (created by `\subchapter{…}`, e.g. `\subchapter{Pasta \& risotto}`). The Inhoud and Register rebuild automatically on the next LaTeX run.
@@ -158,6 +163,16 @@ Before adding a new `\index[register]{...}` entry or picking a `\kicker` cuisine
 - **Register entries**: match existing singular/plural and spelling choices (`Tomaat` not `Tomaten`, `Maïs` with the trema, plain `Kip` rather than splitting into `Kipfilet`/`Kipdijfilet`) so the same ingredient always collects under one Register heading instead of splitting across near-duplicates.
 - **Kicker cuisine tags**: reuse the term already used by other recipes from the same cuisine/region (`Midden-Oosters`, not `Arabisch`, to match falafel/kofta/shoarma/shoarmabroodjes) rather than a synonym, and match the specificity level of comparable dishes (if a sibling dish from another region of the same country gets the region-specific tag — e.g. `Elzassisch` for flammkuchen — a dish whose intro text names its own specific region, like quiche lorraine's "Lotharingse", should get equally specific treatment rather than falling back to the generic country name).
 - **Bakken/Dessert sweet dishes**: use `Zoet` in the protein/diet kicker slot like their sibling recipes in the same chapter, rather than substituting an unrelated tag or dropping the slot entirely.
+
+## Bibliografie
+
+`backmatter/bibliografie.tex` is the single place for every external source or link used anywhere in the book — recipe attributions (e.g. "Met dank aan ... naar haar recept") as well as sourced facts in the appendices (e.g. the Kerntemperatuur richttabel's USDA/FDA sources). It's `\input` after `\printindex[register]` in `main.tex`, deliberately the very last thing in the book, after the Register.
+
+When a recipe or appendix cites an external source:
+- Don't embed the raw URL or a bare domain in the recipe/appendix text. Instead write a short in-text pointer ("zie de bibliografie achterin") and add the full citation as a new entry in `backmatter/bibliografie.tex`, following the existing `\textbf{Auteur/organisatie.} \emph{Titel}, korte context.` + `\href{url}{korte leesbare linktekst}` pattern.
+- Use `\href{url}{short display text}` rather than `\url{url}` for anything but a short, plain domain — hyperref renders `\url` in monospace, and a long URL (especially one with encoded `%20` spaces) often won't break cleanly and overflows the page margin. A short display text (e.g. `ah.nl/r/1055570`, `voedingscentrum.nl/...`) avoids that and is more useful in print anyway, since nobody retypes a 150-character URL from a page.
+- Order entries by where the source is first used in the book (recipes before backmatter appendices, earlier recipes/appendices before later ones), matching the existing entries.
+- Double-check names and titles against the actual source (a misspelled author name is worse than no attribution) — see the Rachel Khoo/Miljuschka Witzenhausen entries for the pattern.
 
 ## Ingredient ordering
 
@@ -212,3 +227,4 @@ When writing or editing recipe prose (introductions, tips, foreword), follow the
 1. Create `recipes/yourdish.tex` following the pattern in any existing recipe file.
 2. Add `\input{recipes/yourdish}` under the appropriate `\chapter{…}` in `main.tex`.
 3. Use `\index[register]{…}` on the dish name and key ingredients so they appear in the Register, reusing existing Register and kicker terms (see "Reuse existing Register and kicker terms" above) rather than introducing a new spelling or synonym for something already in the book.
+4. If the recipe is based on someone else's published recipe, credit them in the intro or in a closing note, and add the source to `backmatter/bibliografie.tex` rather than embedding the link inline (see "Bibliografie" above).
