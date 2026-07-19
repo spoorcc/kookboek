@@ -15,6 +15,21 @@ Open the repo in VS Code and choose **Reopen in Container**. The devcontainer (`
 - **LaTeX Workshop** VS Code extension (auto-builds on save)
 - **Claude Code** VS Code extension
 
+### Installing the toolchain outside the devcontainer
+
+Some sessions (e.g. Claude Code on the web) run in a plain Ubuntu container without the devcontainer image, so `xelatex`/`latexmk` aren't preinstalled there. Install the same toolchain the devcontainer's `Dockerfile` and `.github/workflows/build-pdf.yml` use, via `apt-get` (needs root/sudo):
+
+```sh
+apt-get update
+apt-get install -y --no-install-recommends \
+  texlive-xetex texlive-latex-extra texlive-fonts-extra texlive-lang-european texlive-pictures latexmk \
+  hunspell hunspell-nl \
+  qpdf ghostscript python3-pip
+pip3 install --no-cache-dir pymupdf || pip3 install --no-cache-dir --break-system-packages pymupdf
+```
+
+This installs enough of TeX Live (xetex + latex-extra + fonts-extra + lang-european + pictures, not the multi-GB `texlive-full`) to build `main.tex` and `cover/cover.tex`, plus `hunspell`/`hunspell-nl` for `scripts/spellcheck.py` and `qpdf`/`ghostscript`/`pymupdf` for `scripts/flatten_transparency.py` and `scripts/lulu_lint.py`. Takes a few minutes and roughly 1–2 GB of disk; check available space first (`df -h /`) since some remote sessions have a fixed disk allowance. Fonts are already vendored in `fonts/`, no separate font install needed.
+
 ## Build
 
 ```sh
