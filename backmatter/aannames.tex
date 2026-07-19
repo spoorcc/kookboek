@@ -70,58 +70,82 @@ al gauw de rest van het gerecht.
 
 \blockrule{Maten op een lijn}
 Om te laten zien hoe deze termen zich tot elkaar verhouden, staan ze
-hieronder nog eens op een lijn in gram, van een mespunt tot een handvol.
-Omdat de kleinste en de grootste term een factor 100 uit elkaar liggen, is
-de lijn logaritmisch: elke stap tussen de gemarkeerde waarden (0,5, 1, 2, 5,
-10, 20 en 50 g) neemt evenveel ruimte in. Het zijn algemene kookschattingen
-om de termen naast elkaar te kunnen zetten, geen exacte maten uit dit boek.
+hieronder nog eens op een rijtje: van klein naar groot langs een lijn, met
+bij elke term een korte omschrijving en een indicatie in gram. Het zijn
+algemene kookschattingen om de termen naast elkaar te kunnen zetten, geen
+exacte maten uit dit boek.
 
-% Local, appendix-only helpers voor de matenlijn: dezelfde aanpak als de
-% seizoenskalender hierboven, maar met een logaritmische as in gram in
-% plaats van maanden, omdat de termen van een kwart gram (mespunt) tot een
-% handvol (50 g) lopen en een gewone lineaire as de kleine termen
-% onleesbaar zou maken. De x-posities zijn vooraf met de hand uitgerekend
-% (x = 5{,}2151 * (log10(gram) - log10(0{,}3))) op een as van 0,3 tot 60 g,
-% zodat hier alleen platte coördinaten staan, geen TikZ-wiskunde.
-\newcommand{\matenas}{%
-  \begin{tikzpicture}[x=0.75cm]
-    \node[font=\tiny\itshape, text=inkfaint] at (1.157,0) {0,5};
-    \node[font=\tiny\itshape, text=inkfaint] at (2.727,0) {1};
-    \node[font=\tiny\itshape, text=inkfaint] at (4.297,0) {2};
-    \node[font=\tiny\itshape, text=inkfaint] at (6.373,0) {5};
-    \node[font=\tiny\itshape, text=inkfaint] at (7.942,0) {10};
-    \node[font=\tiny\itshape, text=inkfaint] at (9.512,0) {20};
-    \node[font=\tiny\itshape, text=inkfaint] at (11.587,0) {50};
-    \node[font=\tiny\itshape, text=inkfaint] at (12.6,0) {g};
-  \end{tikzpicture}}
-\newcommand{\matenbalk}[2]{%
-  \begin{tikzpicture}[x=0.75cm, y=0.045cm]
-    \draw[line width=0.3pt, color=inkfaint] (0,0) -- (12,0);
-    \foreach \x in {1.157,2.727,4.297,6.373,7.942,9.512,11.587} {
-      \draw[line width=0.3pt, color=inkfaint] (\x,-1) -- (\x,1);
-    }
-    \draw[line width=3.4pt, color=terracotta, line cap=round] (#1,0) -- (#2,0);
-  \end{tikzpicture}}
-\newcommand{\matenrij}[3]{#1 & \matenbalk{#2}{#3} \\}
-\newcommand{\matenkop}{%
-  & \matenas \\
-  \multicolumn{2}{@{}l@{}}{\textcolor{terracotta}{\rule{\linewidth}{0.4pt}}} \\[0.1em]}
+% Verticale tijdlijn: één middenlijn met een terracotta ruitje per term, en
+% de naam plus een korte omschrijving afwisselend links en rechts ervan.
+% Anders dan de horizontale matenlijn hierboven staat de afstand tussen de
+% termen hier niet op schaal (dat zou de tekstblokjes van de kleinste
+% termen te dicht op elkaar duwen); de volgorde van klein naar groot en het
+% grammage in elk tekstblokje geven de verhouding weer.
+\begin{center}
+\begin{tikzpicture}[y=1cm]
+\draw[color=terracotta, line width=0.6pt] (0,0.3) -- (0,-13.8);
 
-{\scriptsize\renewcommand{\arraystretch}{0.8}
-\begin{longtable}{r@{\hspace{0.45em}}l}
-\matenkop
-\endhead
-\matenrij{Mespunt (0,3--0,5 g)}{0.000}{1.157}
-\matenrij{Snufje (0,5--1 g)}{1.157}{2.727}
-\matenrij{Takje (1--2 g)}{2.727}{4.297}
-\matenrij{Theelepel (2--3 g)}{4.297}{5.215}
-\matenrij{Eetlepel (6--8 g)}{6.786}{7.437}
-\matenrij{Flinke lepel (10--12 g)}{7.942}{8.355}
-\matenrij{Klontje boter (10--15 g)}{7.942}{8.860}
-\matenrij{Bosje kruiden (15--30 g)}{8.860}{10.430}
-\matenrij{Handje (30--50 g)}{10.430}{11.587}
-\matenrij{Scheutje (40--60 ml)}{11.082}{12.000}
-\end{longtable}}
+\node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
+\node[align=right, text width=4.2cm, anchor=east] at (-0.6,0)
+  {\textbf{\textcolor{terracotta}{Mespunt}} \textcolor{inkfaint}{(± 0,3--0,5 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Het beetje dat op de punt van een mes blijft liggen.}}};
+
+\node at (0,-1.5) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-1.5) -- (0.5,-1.5);
+\node[align=left, text width=4.2cm, anchor=west] at (0.6,-1.5)
+  {\textbf{\textcolor{terracotta}{Snufje}} \textcolor{inkfaint}{(± 0,5--1 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Wat er tussen duim en twee vingers past.}}};
+
+\node at (0,-3) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3) -- (-0.5,-3);
+\node[align=right, text width=4.2cm, anchor=east] at (-0.6,-3)
+  {\textbf{\textcolor{terracotta}{Takje}} \textcolor{inkfaint}{(± 1--2 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Eén twijgje van een houtig kruid.}}};
+
+\node at (0,-4.5) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-4.5) -- (0.5,-4.5);
+\node[align=left, text width=4.2cm, anchor=west] at (0.6,-4.5)
+  {\textbf{\textcolor{terracotta}{Theelepel}} \textcolor{inkfaint}{(± 2--3 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Van een gemalen specerij.}}};
+
+\node at (0,-6) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6) -- (-0.5,-6);
+\node[align=right, text width=4.2cm, anchor=east] at (-0.6,-6)
+  {\textbf{\textcolor{terracotta}{Eetlepel}} \textcolor{inkfaint}{(± 6--8 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Van een gemalen specerij, afgestreken.}}};
+
+\node at (0,-7.5) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-7.5) -- (0.5,-7.5);
+\node[align=left, text width=4.2cm, anchor=west] at (0.6,-7.5)
+  {\textbf{\textcolor{terracotta}{Flinke lepel}} \textcolor{inkfaint}{(± 10--12 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Een eetlepel, maar dan gehoopt.}}};
+
+\node at (0,-9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-9) -- (-0.5,-9);
+\node[align=right, text width=4.2cm, anchor=east] at (-0.6,-9)
+  {\textbf{\textcolor{terracotta}{Klontje boter}} \textcolor{inkfaint}{(± 10--15 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Ongeveer zo groot als een dobbelsteen.}}};
+
+\node at (0,-10.5) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-10.5) -- (0.5,-10.5);
+\node[align=left, text width=4.2cm, anchor=west] at (0.6,-10.5)
+  {\textbf{\textcolor{terracotta}{Bosje kruiden}} \textcolor{inkfaint}{(± 15--30 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Een standaardbosje, zoals bij de groenteboer.}}};
+
+\node at (0,-12) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-12) -- (-0.5,-12);
+\node[align=right, text width=4.2cm, anchor=east] at (-0.6,-12)
+  {\textbf{\textcolor{terracotta}{Handje}} \textcolor{inkfaint}{(± 30--50 g)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Wat je losjes in één hand houdt.}}};
+
+\node at (0,-13.5) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-13.5) -- (0.5,-13.5);
+\node[align=left, text width=4.2cm, anchor=west] at (0.6,-13.5)
+  {\textbf{\textcolor{terracotta}{Scheutje}} \textcolor{inkfaint}{(± 40--60 ml)}\\[1pt]
+   {\footnotesize\textcolor{inkfaint}{Bijvoorbeeld water om af te blussen.}}};
+\end{tikzpicture}
+\end{center}
 
 \vspace{0.6em}
 {\footnotesize\itshape\color{inkfaint}Dit zijn de vuistregels die we zelf
