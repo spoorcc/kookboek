@@ -1,0 +1,31 @@
+% Bibliografie
+% Not a real \chapter (it's a hand-styled heading like Register's), so it
+% needs its own Inhoud/PDF-bookmark entry, same as imakeidx's intoc=true
+% does for Register. This is deliberately the very last thing in the book,
+% after the Register, so every external link used anywhere in the book
+% lives in one place instead of scattered through the running text.
+\phantomsection\addcontentsline{toc}{chapter}{Bibliografie}
+\vspace*{0.4cm}
+{\handfont\fontsize{60}{60}\selectfont\color{terracotta}Bibliografie\par}
+\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+\vspace{1.4em}
+
+\lettrine{D}{it} boek verwijst op een paar plekken naar een externe bron.
+Die links staan hier allemaal verzameld, in plaats van verspreid door de
+tekst.
+
+\blockrule{Bronnen}
+\textbf{Voedingscentrum.} \emph{Seizoengroente- en fruitkalender}, gebruikt
+voor de groente- en fruitkalender in de bijlage Seizoenskalender.\\
+{\footnotesize\color{inkfaint}\href{https://www.voedingscentrum.nl/Assets/Uploads/voedingscentrum/Documents/Consumenten/Veelgestelde%20vragen/Voedingscentrum%20seizoengroente-%20en%20fruitkalender.pdf}{voedingscentrum.nl}\par}
+
+\vspace{0.8em}
+\textbf{USDA FSIS.} \emph{Appendix A: Compliance Guidelines for Meeting
+Lethality Performance Standards for Certain Meat and Poultry Products},
+gebruikt voor de richttabel in de bijlage Kerntemperatuur.\\
+{\footnotesize\color{inkfaint}\href{https://www.fsis.usda.gov/guidelines/2021-0014}{fsis.usda.gov/guidelines/2021-0014}\par}
+
+\vspace{0.8em}
+\textbf{FDA.} \emph{Food Code}, gebruikt voor de richttabel in de bijlage
+Kerntemperatuur.\\
+{\footnotesize\color{inkfaint}\href{https://www.fda.gov/food/retail-food-protection/fda-food-code}{fda.gov/food/retail-food-protection/fda-food-code}\par}
