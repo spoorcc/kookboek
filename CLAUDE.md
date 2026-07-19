@@ -116,8 +116,9 @@ Hardcover casewrap spine width is **not** a formula — Lulu computes it from an
 | `frontmatter/voorwoord.tex` | Foreword |
 | `backmatter/seizoenskalender.tex` | Groente- en fruitkalender appendix, `\input` after `\backmatter`, before the Register |
 | `backmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), `\input` after the seizoenskalender, before the Register |
-| `backmatter/aannames.tex` | Aannames appendix (default portie count, hoeveelheden per persoon, oven, basisingrediënten), `\input` after basisvoorraad, before the Register |
-| `backmatter/kleine-maten.tex` | Kleine maten appendix: vertical timeline of vague quantity terms (mespunt to scheutje), `\input` after aannames, before the Register |
+| `backmatter/aannames.tex` | Aannames appendix (oven, basisingrediënten), `\input` after basisvoorraad, before the Register |
+| `backmatter/portiegrootte.tex` | Portiegrootte appendix (default portie count, hoeveelheden per persoon), `\input` after aannames, before the Register |
+| `backmatter/kleine-maten.tex` | Kleine maten appendix: vertical timeline of vague quantity terms (mespunt to scheutje), `\input` after portiegrootte, before the Register |
 | `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after kleine-maten, before the Register |
 | `backmatter/kooktemperaturen.tex` | Kooktemperaturen appendix: vertical timeline of cooking-chemistry temperature milestones (4 °C to 230+ °C), `\input` after kerntemperatuur, before the Register |
 | `backmatter/bibliografie.tex` | Bibliografie: every external source/link used anywhere in the book, `\input` after `\printindex[register]`, the literal last thing before `\end{document}` — see "Bibliografie" below |
