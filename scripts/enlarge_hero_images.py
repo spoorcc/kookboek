@@ -31,7 +31,10 @@ cropped directly without a rebuild.
 A tier is also rejected outright, with no rebuild needed, if it would
 render taller than --max-height-frac of the physical page height
 (default 0.4, computed from kookboek.sty's own geometry — a hero image
-is never meant to dominate the page over the recipe text).
+is never meant to dominate the page over the recipe text), or if it
+would leave content filling more than --max-content-fraction of its own
+crop box (default 0.75) — a crop clipped hard against the canvas edge
+can end up cramped/edge-to-edge even while staying under the height cap.
 
 Usage:
     python3 scripts/enlarge_hero_images.py                    # scan + report only
@@ -72,6 +75,7 @@ TITLE_RE = re.compile(r"\\begin\{recipe\}\{([^}]+)\}")
 DEFAULT_MIN_FRACTION = 0.6
 DEFAULT_TIERS = "0.15,0.25,0.4,0.6"
 DEFAULT_MAX_HEIGHT_FRAC = 0.4
+DEFAULT_MAX_CONTENT_FRACTION = 0.75
 
 
 def _geometry_mm(sty_path=STY_PATH):
@@ -157,6 +161,16 @@ def cropped_box(bbox, canvas_size, padding_frac):
     r = min(w, int(round(cx + half_w)))
     b = min(h, int(round(cy + half_h)))
     return l, t, r, b
+
+
+def content_fraction_in_box(bbox, box):
+    """What fraction of `box`'s width is real content (bbox), after
+    clipping to the canvas edge may have squeezed out some of the
+    requested padding. A crop that leaves little to no breathing room on
+    the sides reads as cramped/zoomed-in even when it's not too tall."""
+    left, _top, right, _bottom = bbox
+    box_left, _box_top, box_right, _box_bottom = box
+    return (right - left) / (box_right - box_left)
 
 
 def build_image_maps():
@@ -263,7 +277,7 @@ def apply_margin_images(rows, tiers):
         print(f"cropped {row['path'].name} (marginimage, padding {frac:g}, no page-count risk)")
 
 
-def apply_hero_images(rows, tiers, max_height_frac):
+def apply_hero_images(rows, tiers, max_height_frac, max_content_fraction):
     """`\\heroimagefade` crops can push a recipe onto an extra page. Try
     tiers from tightest to loosest, rebuilding and checking each affected
     recipe's page count after every tier; keep whichever tier is the
@@ -273,8 +287,10 @@ def apply_hero_images(rows, tiers, max_height_frac):
     skipped without a rebuild — it wouldn't change the file at all, so it
     would trivially "pass" the page-count check without enlarging anything.
     A tier that would render taller than max_height_frac of the physical
-    page is rejected the same cheap way, before any rebuild: a bigger dish
-    isn't worth it if it starts dominating the page over the recipe text."""
+    page, or that would leave content filling more than max_content_fraction
+    of its own crop box (edge-to-edge, cramped, no breathing room — this can
+    happen even below the height cap if the box gets clipped hard against
+    the canvas edge), is rejected the same cheap way, before any rebuild."""
     candidates = [r for r in rows if r["kind"] == "heroimagefade" and r["candidate"]]
     if not candidates:
         return
@@ -291,10 +307,11 @@ def apply_hero_images(rows, tiers, max_height_frac):
     locked = {}
     exhausted = []  # every tier was a no-op for this image: nothing to crop
     too_tall = set()  # at least one tier existed but all were over the height cap
+    too_tight = set()  # at least one tier existed but all left content edge-to-edge
     for frac in tiers:
         if not remaining:
             break
-        to_build, noop_this_tier, tall_this_tier = [], [], []
+        to_build, noop_this_tier, disqualified_this_tier = [], [], []
         for row in remaining:
             box = cropped_box(row["bbox"], row["size"], frac)
             if is_noop_box(box, row["size"]):
@@ -302,18 +319,23 @@ def apply_hero_images(rows, tiers, max_height_frac):
                 continue
             box_size = (box[2] - box[0], box[3] - box[1])
             if rendered_height_mm(box_size) > max_height_mm:
-                tall_this_tier.append(row)
+                disqualified_this_tier.append(row)
                 too_tall.add(row["path"])
+                continue
+            if content_fraction_in_box(row["bbox"], box) > max_content_fraction:
+                disqualified_this_tier.append(row)
+                too_tight.add(row["path"])
                 continue
             Image.open(row["path"]).crop(box).save(row["path"])
             to_build.append(row)
 
         # A no-op at this tier is a no-op at every looser tier too (the box
-        # only ever grows), so these images are done for good. A too-tall
-        # tier might still succeed at a looser one (looser padding keeps
-        # more margin, which renders shorter), so those stay in the running.
+        # only ever grows), so these images are done for good. A tier
+        # disqualified by height or tightness might still succeed at a
+        # looser one (looser padding keeps more margin, renders shorter and
+        # less cramped), so those stay in the running.
         exhausted.extend(noop_this_tier)
-        remaining = to_build + tall_this_tier
+        remaining = to_build + disqualified_this_tier
         if not to_build:
             continue
 
@@ -326,6 +348,7 @@ def apply_hero_images(rows, tiers, max_height_frac):
             if after.get(title) == baseline.get(title):
                 locked[row["path"]] = frac
                 too_tall.discard(row["path"])
+                too_tight.discard(row["path"])
                 remaining.remove(row)
             else:
                 row["path"].write_bytes(backups[row["path"]])
@@ -341,6 +364,8 @@ def apply_hero_images(rows, tiers, max_height_frac):
             print(f"skipped {path.name}  (content already too close to full width; no tier gives a real crop)")
         elif path in too_tall:
             print(f"skipped {path.name}  (every remaining tier renders over {max_height_mm:.0f}mm, {max_height_frac:.2g} of the page height)")
+        elif path in too_tight:
+            print(f"skipped {path.name}  (every remaining tier leaves content over {max_content_fraction:.0%} of its own crop box — too cramped)")
         else:
             print(f"skipped {path.name}  (every crop that changed the file also changed '{titles[path]}''s page count from {baseline[titles[path]]})")
 
@@ -375,6 +400,13 @@ def main():
         help=f"reject any crop that would render taller than this fraction of the physical page height "
         f"(default {DEFAULT_MAX_HEIGHT_FRAC:.2g}, i.e. {PAGE_HEIGHT_MM * DEFAULT_MAX_HEIGHT_FRAC:.0f}mm)",
     )
+    parser.add_argument(
+        "--max-content-fraction",
+        type=float,
+        default=DEFAULT_MAX_CONTENT_FRACTION,
+        help=f"reject any crop that leaves content filling more than this fraction of its own crop box — "
+        f"keeps some breathing room instead of cropping edge-to-edge (default {DEFAULT_MAX_CONTENT_FRACTION:.0%})",
+    )
     args = parser.parse_args()
 
     files = args.files or default_files()
@@ -406,7 +438,7 @@ def main():
             print(f"cropped {row['path'].name} (padding {tightest:g}, UNVERIFIED — page count and height cap not checked)")
         return 0
 
-    apply_hero_images(rows, tiers, args.max_height_frac)
+    apply_hero_images(rows, tiers, args.max_height_frac, args.max_content_fraction)
     return 0
 
 
