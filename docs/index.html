@@ -996,17 +996,9 @@ async function downloadRecipe() {
     const font   = await newDoc.embedFont(StandardFonts.Helvetica);
     const ref    = versionInfo ? versionInfo.ref  : 'onbekend';
     const date   = versionInfo ? versionInfo.date : '';
-    // recipe.page is the raw (1-based) PDF page index, which isn't what's
-    // printed on the page itself — front-matter roman numerals and the
-    // \mainmatter reset shift it (see extract_register in extract_index.py).
-    // pdf.js resolves the PDF's embedded page-label table for the number
-    // that actually appears in the page footer.
-    const pageLabels = (await pdf.getPageLabels()) || [];
-    copied.forEach((p, i) => {
+    copied.forEach(p => {
       newDoc.addPage(p);
-      const rawIdx      = from + i;
-      const printedPage = pageLabels[rawIdx] || String(rawIdx + 1);
-      const label   = `Pagina ${printedPage} · ${ref}${date ? ' · ' + date : ''}`;
+      const label   = `versie ${ref}${date ? ' · ' + date : ''}`;
       const size    = 6;
       const { width } = p.getSize();
       p.drawText(label, {

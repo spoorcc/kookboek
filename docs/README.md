@@ -40,7 +40,7 @@ On load, `index.html` fetches `recipes.json` to build the sidebar, then fetches 
 
 - **Search** — filters the recipe list in real time by title
 - **Two-page spread** — renders the recipe's PDF pages side by side on wide screens, single page on mobile
-- **↓ Recept** — downloads only the current recipe's pages as a standalone PDF (uses pdf-lib in the browser, no server needed). Each page gets a tiny light-gray "Pagina *n* · *versie* · *datum*" stamp in the bottom-right corner, using `version.json`'s git ref/build date, so a printed-out recipe can be traced back to the book build it came from.
+- **↓ Recept** — downloads only the current recipe's pages as a standalone PDF (uses pdf-lib in the browser, no server needed). Each page gets a tiny light-gray "versie *ref* · *datum*" stamp in the bottom-right corner, using `version.json`'s git ref/build date, so a printed-out recipe can be traced back to the book build it came from.
 - **↓ Volledig boek** — downloads the complete cookbook PDF
 - **Shareable links** — opening a recipe updates the URL to `?recept=<slug>` (e.g. `?recept=hollandse-appeltaart`); sharing that link opens the same recipe directly, and the browser's back/forward buttons move between previously opened recipes
 
