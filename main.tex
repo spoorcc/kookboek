@@ -74,6 +74,9 @@
 
 \cleardoublepage
 \renewcommand{\contentsname}{Inhoud}
+% PDF-bookmark only (no \addcontentsline — Inhoud shouldn't list itself);
+% marks where Voorwoord ends for scripts/extract_index.py's page-range math.
+\pdfbookmark[0]{Inhoud}{inhoud}
 \par\vspace*{0.4cm}{\handfont\fontsize{60}{60}\selectfont\color{terracotta}Inhoud\par}
  \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
  {\vspace{6pt}\itshape\small\color{inkfaint}Onze gerechten, geordend per categorie.\par}\vspace{1.2em}

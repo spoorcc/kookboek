@@ -7,7 +7,28 @@ import subprocess
 import sys
 from pathlib import Path
 
-SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
+SKIP = {"Inhoud", "Register", "Kookboek", "Index"}
+
+# Front/back matter that isn't a recipe but is still worth a clickable entry
+# in the docs site's sidebar (Voorwoord, and the backmatter appendices ahead
+# of the Register). Mapped to a synthetic "chapter" label so the existing
+# recipe-list grouping in docs/index.html can render them without any
+# special-casing beyond that label. Register itself already has its own
+# sidebar tab, so it stays excluded via SKIP above.
+FRONTMATTER_EXTRAS = {"Voorwoord": "Voorwoord"}
+BACKMATTER_EXTRAS = {
+    title: "Bijlagen"
+    for title in (
+        "Seizoenskalender",
+        "Basisvoorraad",
+        "Portiegrootte",
+        "Kleine maten",
+        "Kerntemperatuur",
+        "Kooktemperaturen",
+        "Bibliografie",
+    )
+}
+EXTRAS = {**FRONTMATTER_EXTRAS, **BACKMATTER_EXTRAS}
 
 
 def get_git_ref() -> str:
@@ -78,7 +99,12 @@ def extract_recipes(pdf_path: Path, main_tex_path: Path) -> list[dict]:
                 if page:
                     boundaries.append(page)
                 subchapter = None
-                if title not in SKIP:
+                if title in EXTRAS:
+                    if page:
+                        recipes.append(
+                            {"title": title, "chapter": EXTRAS[title], "subchapter": None, "page": page}
+                        )
+                elif title not in SKIP:
                     chapter = title
             elif depth >= 1 and chapter and page:
                 kind = next(kinds, "recipe")
