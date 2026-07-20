@@ -556,6 +556,7 @@ let pdf              = null;
 let pdfBytes         = null;
 let recipes          = [];
 let registerData     = [];
+let versionInfo       = null;
 let curPage          = 1;
 let currentRecipeIdx = null;
 let activeTab        = 'recepten';
@@ -617,6 +618,16 @@ async function init() {
   } catch {
     document.getElementById('register-list').innerHTML =
       '<div style="padding:16px;color:var(--muted);font-style:italic;font-size:.88rem">Register niet beschikbaar.</div>';
+  }
+
+  // Load build version (git ref + date), stamped onto downloaded recipe PDFs.
+  // Absent in a plain local preview that skipped extract_index.py — the
+  // download falls back to an "onbekend" ref rather than failing.
+  try {
+    const res = await fetch('version.json', { cache: 'no-cache' });
+    if (res.ok) versionInfo = await res.json();
+  } catch {
+    // no-op — downloadRecipe() falls back to a placeholder
   }
 
   // Fetch PDF; share bytes with pdf.js and keep original for pdf-lib
@@ -957,7 +968,7 @@ async function downloadRecipe() {
   btn.disabled = true;
 
   try {
-    const { PDFDocument } = PDFLib;
+    const { PDFDocument, StandardFonts, rgb } = PDFLib;
     let srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
 
     // recipes.json and the in-memory PDF bytes must agree on page count. If
@@ -982,7 +993,30 @@ async function downloadRecipe() {
     const indices = Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
     const copied = await newDoc.copyPages(srcDoc, indices);
-    copied.forEach(p => newDoc.addPage(p));
+    const font   = await newDoc.embedFont(StandardFonts.Helvetica);
+    const ref    = versionInfo ? versionInfo.ref  : 'onbekend';
+    const date   = versionInfo ? versionInfo.date : '';
+    // recipe.page is the raw (1-based) PDF page index, which isn't what's
+    // printed on the page itself — front-matter roman numerals and the
+    // \mainmatter reset shift it (see extract_register in extract_index.py).
+    // pdf.js resolves the PDF's embedded page-label table for the number
+    // that actually appears in the page footer.
+    const pageLabels = (await pdf.getPageLabels()) || [];
+    copied.forEach((p, i) => {
+      newDoc.addPage(p);
+      const rawIdx      = from + i;
+      const printedPage = pageLabels[rawIdx] || String(rawIdx + 1);
+      const label   = `Pagina ${printedPage} · ${ref}${date ? ' · ' + date : ''}`;
+      const size    = 6;
+      const { width } = p.getSize();
+      p.drawText(label, {
+        x: width - font.widthOfTextAtSize(label, size) - 24,
+        y: 14,
+        size,
+        font,
+        color: rgb(0.75, 0.75, 0.75),
+      });
+    });
 
     const bytes = await newDoc.save();
     const blob  = new Blob([bytes], { type: 'application/pdf' });

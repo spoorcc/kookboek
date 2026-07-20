@@ -1,11 +1,31 @@
 #!/usr/bin/env python3
 """Generate docs/recipes.json and docs/register.json from the PDF and LaTeX index."""
+import datetime
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 SKIP = {"Inhoud", "Register", "Voorwoord", "Kookboek", "Index"}
+
+
+def get_git_ref() -> str:
+    """Tag name if HEAD is exactly tagged, else a short commit SHA."""
+    try:
+        return subprocess.run(
+            ["git", "describe", "--tags", "--exact-match"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except Exception:
+        pass
+    try:
+        return subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except Exception:
+        return "onbekend"
 
 
 def extract_depth1_kinds(main_tex_path: Path) -> list[str]:
@@ -188,3 +208,8 @@ if __name__ == "__main__":
     for r in register:
         pages = ", ".join(f"{p['label']} (p.{p['page']})" for p in r["pages"])
         print(f"  {r['entry']}: {pages}")
+
+    version = {"ref": get_git_ref(), "date": datetime.date.today().isoformat()}
+    version_out = out_dir / "version.json"
+    version_out.write_text(json.dumps(version, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Wrote version {version['ref']} ({version['date']}) to {version_out}")
