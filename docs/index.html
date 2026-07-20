@@ -1031,9 +1031,10 @@ async function downloadRecipe() {
     const blob  = new Blob([bytes], { type: 'application/pdf' });
     const url   = URL.createObjectURL(blob);
 
+    const dateCompact = date.replace(/-/g, '');
     const a = document.createElement('a');
     a.href     = url;
-    a.download = recipe.title + '.pdf';
+    a.download = `${dateCompact ? dateCompact + '-' : ''}${recipe.title}-${ref}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
