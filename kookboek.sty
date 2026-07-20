@@ -279,26 +279,14 @@
 %
 % side (recto/verso, default: auto-detected): since the tip column sits on
 % a different physical side on recto/verso pages (twoside geometry mirrors
-% inner/outer), the extra width must go on the correct side. This is
-% auto-detected via a \label/\getpagerefnumber round-trip: each
-% \heroimagefade instance gets its own numbered label, written *after* the
-% image (not before) so that if the image is wide enough to start a fresh
-% page on its own, the page-break decision has already been made by the
-% time the label is written — the label then always lands on the same
-% page as the image itself. The side is read from that label's page
-% number as resolved by the *previous* compile (hence \getpagerefnumber,
-% not \ifodd\value{page}, which would read today's not-yet-finalised
-% page), so this needs the usual rerun-for-cross-references pass —
-% latexmk (what build.sh uses) already reruns automatically until labels
-% stabilise, and switching side never changes the vertical space an image
-% takes, so it can't itself cause the page numbers to keep moving.
-% First pass, before any label exists yet, falls back to recto. Belt and
-% braces: scripts/lulu_lint.py's full-bleed check samples actual pixel
-% colour at the page edge on the built PDF and fails loudly if a wrong
-% guess ever pushes real artwork to the trim, so a bad guess can't pass
-% silently — it was exactly this check that caught the three recto/verso
-% mismatches this auto-detection replaces. Force a side explicitly with
-% [recto] / [verso] if the auto-detection ever needs overriding.
+% inner/outer), the extra width must go on the correct side. See the
+% \heroimagefade definition below for how the side is auto-detected
+% (single-pass, via \pagegoal/\pagetotal — no dependency on other pages).
+% Belt and braces: scripts/lulu_lint.py's full-bleed check samples actual
+% pixel colour at the page edge on the built PDF and fails loudly if a
+% wrong guess ever pushes real artwork to the trim, so a bad guess can't
+% pass silently. Force a side explicitly with [recto] / [verso] if the
+% auto-detection ever needs overriding.
 %
 % fadewidth (default \heroimagefadewidth): how wide a band along each edge
 % fades toward the paper colour, tweakable per image — a photo with a lot
@@ -308,8 +296,11 @@
 \def\heroimgfadeauto{auto}
 \newlength{\heroimagefadewidth}
 \setlength{\heroimagefadewidth}{0.8cm}
-\newcounter{heroimagefadenum}
+\newsavebox{\heroimgfadebox}
+\newlength{\heroimgfadeneed}
+\newlength{\heroimgfaderemain}
 \newcount\heroimgfadepagenum
+\newif\ifheroimgfadefits
 \pgfkeys{
   /heroimagefade/side/.store in=\heroimgfadeside,
   /heroimagefade/side/.default=recto,
@@ -317,31 +308,64 @@
   /heroimagefade/verso/.style={/heroimagefade/side=verso},
   /heroimagefade/fadewidth/.store in=\heroimgfadewidthval,
 }
+% side (recto/verso, default: auto-detected): since the tip column sits on
+% a different physical side on recto/verso pages (twoside geometry mirrors
+% inner/outer), the extra width must go on the correct side. This used to
+% be guessed via a \label/\getpagerefnumber round-trip reading the *previous*
+% compile's resolved page number — but that guess is only as fresh as the
+% last full run, and it depends on the page numbers of the *entire* ~230
+% page document, so an edit to any recipe (even pages away) can leave a
+% stale guess for one more compile, and in rare cases the guess and the
+% document's own reflow can chase each other and never settle (latexmk
+% reports "needed too many passes"). Pinning the side by hand side-steps
+% that, but then silently goes wrong the next time an unrelated edit shifts
+% this recipe onto the other parity — exactly the kind of fragility a
+% cookbook that keeps getting new recipes will hit again.
+%
+% Instead, decide the side from *this* compile's own state, with no
+% dependency on any other page in the document: measure the artwork's real
+% height, then ask TeX's page builder — via \pagegoal/\pagetotal, the same
+% "how much room is left on the current page" primitives \needspace-style
+% packages use — whether it still fits in what's left of the page. If it
+% does, it lands on the page being built right now (\value{page}); if not,
+% it spills to the next one. Either way the parity is known immediately,
+% correctly, in a single pass, and is immune to anything happening
+% elsewhere in the book.
 \newcommand{\heroimagefade}[2][]{%
-  \stepcounter{heroimagefadenum}%
-  \edef\heroimgfadelabel{heroimagefade@\theheroimagefadenum}%
   \def\heroimgfadeside{auto}%
   \edef\heroimgfadewidthval{\the\heroimagefadewidth}%
   \pgfkeys{/heroimagefade/.cd, #1}%
+  \sbox{\heroimgfadebox}{\includegraphics[width=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax]{#2}}%
+  \par
   \ifx\heroimgfadeside\heroimgfadeauto
-    \heroimgfadepagenum=\getpagerefnumber{\heroimgfadelabel}\relax
-    \ifnum\heroimgfadepagenum=0
-      \def\heroimgfadeside{recto}% no data yet (first pass): safe default
+    \heroimgfadeneed=\ht\heroimgfadebox
+    \advance\heroimgfadeneed by \dp\heroimgfadebox
+    \advance\heroimgfadeneed by \baselineskip % safety margin for interline glue
+    \ifdim\pagegoal=\maxdimen
+      \heroimgfadefitstrue % nothing contributed to this page yet: always fits
     \else
-      \ifodd\heroimgfadepagenum
-        \def\heroimgfadeside{recto}%
+      \heroimgfaderemain=\pagegoal
+      \advance\heroimgfaderemain by -\pagetotal
+      \ifdim\heroimgfaderemain>\heroimgfadeneed
+        \heroimgfadefitstrue
       \else
-        \def\heroimgfadeside{verso}%
+        \heroimgfadefitsfalse
       \fi
     \fi
+    \heroimgfadepagenum=\value{page}
+    \ifheroimgfadefits\else\advance\heroimgfadepagenum by 1\fi
+    \ifodd\heroimgfadepagenum
+      \def\heroimgfadeside{recto}%
+    \else
+      \def\heroimgfadeside{verso}%
+    \fi
   \fi
-  \par\noindent
+  \noindent
   \ifx\heroimgfadeside\heroimgfaderecto\else
     \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
   \fi
   \begin{tikzpicture}
-    \node[inner sep=0, outer sep=0] (heroimgfade)
-      {\includegraphics[width=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax]{#2}};
+    \node[inner sep=0, outer sep=0] (heroimgfade) {\usebox{\heroimgfadebox}};
     \fill[paper, path fading=fade-vanish-bottom]
       (heroimgfade.north west) rectangle ([yshift=-\heroimgfadewidthval]heroimgfade.north east);
     \fill[paper, path fading=fade-vanish-top]
@@ -351,7 +375,6 @@
     \fill[paper, path fading=fade-vanish-left]
       ([xshift=-\heroimgfadewidthval]heroimgfade.south east) rectangle (heroimgfade.north east);
   \end{tikzpicture}
-  \label{\heroimgfadelabel}%
   \par\vspace{1.0em}}
 
 % A loose, hand-labelled ingredient sketch in the margin.
