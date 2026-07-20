@@ -383,6 +383,7 @@
 
     /* ── Viewer footer ────────────────────────── */
     #viewer-bar {
+      position: relative;
       display: none;
       align-items: center;
       justify-content: center;
@@ -392,6 +393,16 @@
       background: var(--bg);
       flex-shrink: 0;
       padding: 0 14px;
+    }
+
+    #version-label {
+      position: absolute;
+      right: 14px;
+      font-size: 0.68rem;
+      color: var(--muted);
+      opacity: 0.6;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     .nav-btn {
@@ -466,6 +477,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+      #version-label { display: none; }
     }
   </style>
 </head>
@@ -537,6 +550,7 @@
       <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Vorige</button>
       <span id="page-label"></span>
       <button class="nav-btn" id="next-btn" onclick="navigate(1)">Volgende →</button>
+      <span id="version-label"></span>
     </div>
   </main>
 
@@ -620,15 +634,18 @@ async function init() {
       '<div style="padding:16px;color:var(--muted);font-style:italic;font-size:.88rem">Register niet beschikbaar.</div>';
   }
 
-  // Load build version (git ref + date), stamped onto downloaded recipe PDFs.
-  // Absent in a plain local preview that skipped extract_index.py — the
-  // download falls back to an "onbekend" ref rather than failing.
+  // Load build version (git ref + date), shown in the viewer footer and
+  // stamped onto downloaded recipe PDFs. Absent in a plain local preview
+  // that skipped extract_index.py — both fall back to a placeholder rather
+  // than failing.
   try {
     const res = await fetch('version.json', { cache: 'no-cache' });
     if (res.ok) versionInfo = await res.json();
   } catch {
-    // no-op — downloadRecipe() falls back to a placeholder
+    // no-op — downloadRecipe() and the footer label fall back to a placeholder
   }
+  document.getElementById('version-label').textContent =
+    `versie ${versionInfo ? versionInfo.ref : 'onbekend'}${versionInfo && versionInfo.date ? ' · ' + versionInfo.date : ''}`;
 
   // Fetch PDF; share bytes with pdf.js and keep original for pdf-lib
   try {
