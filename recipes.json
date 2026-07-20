@@ -1,5 +1,12 @@
 [
   {
+    "title": "Voorwoord",
+    "chapter": "Voorwoord",
+    "subchapter": null,
+    "page": 3,
+    "endPage": 4
+  },
+  {
     "title": "Riso freddo",
     "chapter": "Voorgerechten",
     "subchapter": null,
@@ -838,5 +845,54 @@
     "subchapter": null,
     "page": 210,
     "endPage": 211
+  },
+  {
+    "title": "Seizoenskalender",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 212,
+    "endPage": 213
+  },
+  {
+    "title": "Basisvoorraad",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 214,
+    "endPage": 215
+  },
+  {
+    "title": "Portiegrootte",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 216,
+    "endPage": 217
+  },
+  {
+    "title": "Kleine maten",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 218,
+    "endPage": 218
+  },
+  {
+    "title": "Kerntemperatuur",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 219,
+    "endPage": 221
+  },
+  {
+    "title": "Kooktemperaturen",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 222,
+    "endPage": 225
+  },
+  {
+    "title": "Bibliografie",
+    "chapter": "Bijlagen",
+    "subchapter": null,
+    "page": 233,
+    "endPage": 233
   }
 ]
