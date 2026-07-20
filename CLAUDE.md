@@ -186,7 +186,7 @@ Within a `\begin{ingredients}` … `\end{ingredients}` block, order matters:
 5. `\ingb{…}` items always last, in their existing relative order — these are bullet ingredients without a fixed amount (to taste, a splash, a garnish) and stay at the back regardless of category.
 
 This ordering applies to a dish's main ingredient list. It does **not** apply to:
-- Pastry/dough sub-blocks (a quiche crust, bread dough, pizza dough) — keep the standard baking order (bloem, vet, ei, zout, ...) since there's no protein/starch/vegetable split to make.
+- Pastry/dough sub-blocks (a quiche crust, bread dough, pizza dough) — keep the standard baking order (bloem, vet, ei, zout, ...) since there's no protein/starch/vegetable split to make. When ingredients in the block carry a baker's-percentage annotation relative to flour (`(56\%)`, `(2\%)`, ...), bloem/broodmix still leads, then the other percentage-annotated ingredients follow in descending order of their stated percentage, then the remaining unannotated ingredients in whatever order already reads naturally, with `\ingb{}` bullet ingredients still last as always (see `brood`, `focaccia`, `hamburgerbolletjes`, `pretzels` for the pattern).
 - Puff pastry (bladerdeeg) used as a wrapper or crust — treat it as a structural component, not as "zetmeel".
 - Desserts, sauces, spice-mix sub-recipes, and dishes with several vegetables of genuinely equal weight (a primavera, a ratatouille-style quiche) — don't force a single "hoofdgroente" pick where none exists.
 
