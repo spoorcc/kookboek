@@ -28,6 +28,11 @@ is left at its original image. `\\marginimage` images never affect
 pagination (they live entirely in the margin column), so those are
 cropped directly without a rebuild.
 
+A tier is also rejected outright, with no rebuild needed, if it would
+render taller than --max-height-frac of the physical page height
+(default 0.4, computed from kookboek.sty's own geometry — a hero image
+is never meant to dominate the page over the recipe text).
+
 Usage:
     python3 scripts/enlarge_hero_images.py                    # scan + report only
     python3 scripts/enlarge_hero_images.py --apply             # crop candidates, verified by rebuild
@@ -57,6 +62,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 IMAGES_DIR = REPO_ROOT / "images"
 RECIPES_DIR = REPO_ROOT / "recipes"
 MAIN_TEX = REPO_ROOT / "main.tex"
+STY_PATH = REPO_ROOT / "kookboek.sty"
 PDF_PATH = REPO_ROOT / "KookboekFamilieSpoor.pdf"
 
 HERO_RE = re.compile(r"\\heroimagefade(?:\[[^\]]*\])?\{images/([^}]+)\}")
@@ -65,6 +71,36 @@ TITLE_RE = re.compile(r"\\begin\{recipe\}\{([^}]+)\}")
 
 DEFAULT_MIN_FRACTION = 0.6
 DEFAULT_TIERS = "0.15,0.25,0.4,0.6"
+DEFAULT_MAX_HEIGHT_FRAC = 0.4
+
+
+def _geometry_mm(sty_path=STY_PATH):
+    """Parse kookboek.sty's geometry options into a dict of mm values.
+    Needed to compute (a) the fixed width \\heroimagefade always scales
+    to — \\textwidth plus the \\tip margin column — and (b) the physical
+    page height, so --max-height-frac can be enforced without needing a
+    LaTeX run."""
+    text = sty_path.read_text(encoding="utf-8")
+    opts = re.search(r"\\RequirePackage\[(.*?)\]\{geometry\}", text, re.S).group(1)
+
+    def get(name):
+        m = re.search(rf"{name}\s*=\s*([\d.]+)(mm|cm)", opts)
+        value, unit = float(m.group(1)), m.group(2)
+        return value * 10 if unit == "cm" else value
+
+    return {k: get(k) for k in ("paperwidth", "paperheight", "top", "bottom", "inner", "outer", "marginparwidth", "marginparsep")}
+
+
+_GEOM = _geometry_mm()
+PAGE_HEIGHT_MM = _GEOM["paperheight"]
+HEROIMAGEFADE_WIDTH_MM = (_GEOM["paperwidth"] - _GEOM["inner"] - _GEOM["outer"]) + _GEOM["marginparsep"] + _GEOM["marginparwidth"]
+
+
+def rendered_height_mm(canvas_size):
+    """The height (mm) a hero image of this pixel size renders at, once
+    \\heroimagefade scales it to its fixed target width."""
+    w, h = canvas_size
+    return HEROIMAGEFADE_WIDTH_MM / (w / h)
 
 
 def default_files():
@@ -194,7 +230,11 @@ def print_scan(rows):
     for row in rows:
         w, h = row["size"]
         tag = "candidate" if row["candidate"] else row["kind"]
-        print(f"{row['path'].name:38s} {w:5d}x{h:<5d}  content width {row['fraction']:5.0%}  {tag}")
+        if row["kind"] == "heroimagefade":
+            height_str = f"  renders {rendered_height_mm((w, h)):5.1f}mm tall"
+        else:
+            height_str = ""
+        print(f"{row['path'].name:38s} {w:5d}x{h:<5d}  content width {row['fraction']:5.0%}{height_str}  {tag}")
 
 
 def is_noop_box(box, size):
@@ -223,7 +263,7 @@ def apply_margin_images(rows, tiers):
         print(f"cropped {row['path'].name} (marginimage, padding {frac:g}, no page-count risk)")
 
 
-def apply_hero_images(rows, tiers):
+def apply_hero_images(rows, tiers, max_height_frac):
     """`\\heroimagefade` crops can push a recipe onto an extra page. Try
     tiers from tightest to loosest, rebuilding and checking each affected
     recipe's page count after every tier; keep whichever tier is the
@@ -231,11 +271,15 @@ def apply_hero_images(rows, tiers):
     original image for any recipe that can't be enlarged safely. A tier
     whose padding is so generous the crop box covers the whole canvas is
     skipped without a rebuild — it wouldn't change the file at all, so it
-    would trivially "pass" the page-count check without enlarging anything."""
+    would trivially "pass" the page-count check without enlarging anything.
+    A tier that would render taller than max_height_frac of the physical
+    page is rejected the same cheap way, before any rebuild: a bigger dish
+    isn't worth it if it starts dominating the page over the recipe text."""
     candidates = [r for r in rows if r["kind"] == "heroimagefade" and r["candidate"]]
     if not candidates:
         return
 
+    max_height_mm = PAGE_HEIGHT_MM * max_height_frac
     backups = {row["path"]: row["path"].read_bytes() for row in candidates}
     titles = {row["path"]: recipe_title(row["recipe"]) for row in candidates}
 
@@ -246,38 +290,45 @@ def apply_hero_images(rows, tiers):
     remaining = list(candidates)
     locked = {}
     exhausted = []  # every tier was a no-op for this image: nothing to crop
+    too_tall = set()  # at least one tier existed but all were over the height cap
     for frac in tiers:
         if not remaining:
             break
-        to_build, noop_this_tier = [], []
+        to_build, noop_this_tier, tall_this_tier = [], [], []
         for row in remaining:
             box = cropped_box(row["bbox"], row["size"], frac)
             if is_noop_box(box, row["size"]):
                 noop_this_tier.append(row)
                 continue
+            box_size = (box[2] - box[0], box[3] - box[1])
+            if rendered_height_mm(box_size) > max_height_mm:
+                tall_this_tier.append(row)
+                too_tall.add(row["path"])
+                continue
             Image.open(row["path"]).crop(box).save(row["path"])
             to_build.append(row)
 
         # A no-op at this tier is a no-op at every looser tier too (the box
-        # only ever grows), so these images are done for good.
+        # only ever grows), so these images are done for good. A too-tall
+        # tier might still succeed at a looser one (looser padding keeps
+        # more margin, which renders shorter), so those stay in the running.
         exhausted.extend(noop_this_tier)
-        remaining = to_build
-        if not remaining:
+        remaining = to_build + tall_this_tier
+        if not to_build:
             continue
 
-        print(f"building with padding {frac:g} for {len(remaining)} image(s) ...")
+        print(f"building with padding {frac:g} for {len(to_build)} image(s) ...")
         build_book()
-        after = recipe_page_counts([titles[row["path"]] for row in remaining])
+        after = recipe_page_counts([titles[row["path"]] for row in to_build])
 
-        still_remaining = []
-        for row in remaining:
+        for row in to_build:
             title = titles[row["path"]]
             if after.get(title) == baseline.get(title):
                 locked[row["path"]] = frac
+                too_tall.discard(row["path"])
+                remaining.remove(row)
             else:
                 row["path"].write_bytes(backups[row["path"]])
-                still_remaining.append(row)
-        remaining = still_remaining
 
     for row in remaining + exhausted:
         row["path"].write_bytes(backups[row["path"]])
@@ -288,6 +339,8 @@ def apply_hero_images(rows, tiers):
             print(f"kept    {path.name}  padding {locked[path]:g}  (page count unchanged: {baseline[titles[path]]})")
         elif row in exhausted:
             print(f"skipped {path.name}  (content already too close to full width; no tier gives a real crop)")
+        elif path in too_tall:
+            print(f"skipped {path.name}  (every remaining tier renders over {max_height_mm:.0f}mm, {max_height_frac:.2g} of the page height)")
         else:
             print(f"skipped {path.name}  (every crop that changed the file also changed '{titles[path]}''s page count from {baseline[titles[path]]})")
 
@@ -314,6 +367,13 @@ def main():
         "--tiers",
         default=DEFAULT_TIERS,
         help=f"comma-separated padding fractions, tightest first (default {DEFAULT_TIERS})",
+    )
+    parser.add_argument(
+        "--max-height-frac",
+        type=float,
+        default=DEFAULT_MAX_HEIGHT_FRAC,
+        help=f"reject any crop that would render taller than this fraction of the physical page height "
+        f"(default {DEFAULT_MAX_HEIGHT_FRAC:.2g}, i.e. {PAGE_HEIGHT_MM * DEFAULT_MAX_HEIGHT_FRAC:.0f}mm)",
     )
     args = parser.parse_args()
 
@@ -343,10 +403,10 @@ def main():
                 continue
             box = cropped_box(row["bbox"], row["size"], tightest)
             Image.open(row["path"]).crop(box).save(row["path"])
-            print(f"cropped {row['path'].name} (padding {tightest:g}, UNVERIFIED — page count not checked)")
+            print(f"cropped {row['path'].name} (padding {tightest:g}, UNVERIFIED — page count and height cap not checked)")
         return 0
 
-    apply_hero_images(rows, tiers)
+    apply_hero_images(rows, tiers, args.max_height_frac)
     return 0
 
 
