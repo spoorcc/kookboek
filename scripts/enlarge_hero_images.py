@@ -197,16 +197,30 @@ def print_scan(rows):
         print(f"{row['path'].name:38s} {w:5d}x{h:<5d}  content width {row['fraction']:5.0%}  {tag}")
 
 
+def is_noop_box(box, size):
+    """True if a crop box covers the whole canvas — i.e. the requested
+    padding was too generous to remove any margin at all, so cropping to
+    it would leave the file byte-for-byte the image it already is."""
+    l, t, r, b = box
+    w, h = size
+    return l <= 0 and t <= 0 and r >= w and b >= h
+
+
 def apply_margin_images(rows, tiers):
     """`\\marginimage` crops never affect pagination — apply the tightest
-    tier directly, no rebuild needed."""
-    tightest = min(tiers)
+    tier that actually crops anything, no rebuild needed."""
     for row in rows:
         if row["kind"] != "marginimage" or not row["candidate"]:
             continue
-        box = cropped_box(row["bbox"], row["size"], tightest)
+        for frac in tiers:
+            box = cropped_box(row["bbox"], row["size"], frac)
+            if not is_noop_box(box, row["size"]):
+                break
+        else:
+            print(f"skipped {row['path'].name}  (marginimage, content already fills the frame at every tier)")
+            continue
         Image.open(row["path"]).crop(box).save(row["path"])
-        print(f"cropped {row['path'].name} (marginimage, padding {tightest:g}, no page-count risk)")
+        print(f"cropped {row['path'].name} (marginimage, padding {frac:g}, no page-count risk)")
 
 
 def apply_hero_images(rows, tiers):
@@ -214,7 +228,10 @@ def apply_hero_images(rows, tiers):
     tiers from tightest to loosest, rebuilding and checking each affected
     recipe's page count after every tier; keep whichever tier is the
     tightest that leaves the page count unchanged, and revert to the
-    original image for any recipe that can't be enlarged safely."""
+    original image for any recipe that can't be enlarged safely. A tier
+    whose padding is so generous the crop box covers the whole canvas is
+    skipped without a rebuild — it wouldn't change the file at all, so it
+    would trivially "pass" the page-count check without enlarging anything."""
     candidates = [r for r in rows if r["kind"] == "heroimagefade" and r["candidate"]]
     if not candidates:
         return
@@ -228,12 +245,25 @@ def apply_hero_images(rows, tiers):
 
     remaining = list(candidates)
     locked = {}
+    exhausted = []  # every tier was a no-op for this image: nothing to crop
     for frac in tiers:
         if not remaining:
             break
+        to_build, noop_this_tier = [], []
         for row in remaining:
             box = cropped_box(row["bbox"], row["size"], frac)
+            if is_noop_box(box, row["size"]):
+                noop_this_tier.append(row)
+                continue
             Image.open(row["path"]).crop(box).save(row["path"])
+            to_build.append(row)
+
+        # A no-op at this tier is a no-op at every looser tier too (the box
+        # only ever grows), so these images are done for good.
+        exhausted.extend(noop_this_tier)
+        remaining = to_build
+        if not remaining:
+            continue
 
         print(f"building with padding {frac:g} for {len(remaining)} image(s) ...")
         build_book()
@@ -249,18 +279,19 @@ def apply_hero_images(rows, tiers):
                 still_remaining.append(row)
         remaining = still_remaining
 
-    for row in remaining:
+    for row in remaining + exhausted:
         row["path"].write_bytes(backups[row["path"]])
 
     for row in candidates:
         path = row["path"]
         if path in locked:
-            print(f"kept   {path.name}  padding {locked[path]:g}  (page count unchanged: {baseline[titles[path]]})")
+            print(f"kept    {path.name}  padding {locked[path]:g}  (page count unchanged: {baseline[titles[path]]})")
+        elif row in exhausted:
+            print(f"skipped {path.name}  (content already too close to full width; no tier gives a real crop)")
         else:
-            print(f"skipped {path.name}  (no crop tier kept '{titles[path]}' at {baseline[titles[path]]} page(s); left unchanged)")
+            print(f"skipped {path.name}  (every crop that changed the file also changed '{titles[path]}''s page count from {baseline[titles[path]]})")
 
-    if remaining:
-        print("re-run build.sh to get a PDF that matches the final images/ state.")
+    print("re-run build.sh to get a PDF that matches the final images/ state.")
 
 
 def main():
