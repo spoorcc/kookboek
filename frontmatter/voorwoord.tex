@@ -1,5 +1,9 @@
 % Voorwoord
 \thispagestyle{plain}
+% Not a real \chapter, so it has no PDF-bookmark entry by default. Give it
+% one (but deliberately no \addcontentsline — this is a docs-site navigation
+% aid, not a printed Inhoud entry) so the GitHub Pages sidebar can list it.
+\pdfbookmark[0]{Voorwoord}{voorwoord}
 \vspace*{0.4cm}
 {\handfont\fontsize{60}{60}\selectfont\color{terracotta}Voorwoord}\par
 \vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
