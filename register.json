@@ -896,15 +896,6 @@
     ]
   },
   {
-    "entry": "Cherry tomaten",
-    "pages": [
-      {
-        "label": "28",
-        "page": 38
-      }
-    ]
-  },
-  {
     "entry": "Chili con carne",
     "pages": [
       {
@@ -4121,6 +4112,10 @@
         "page": 17
       },
       {
+        "label": "21",
+        "page": 31
+      },
+      {
         "label": "32",
         "page": 42
       },
@@ -4145,6 +4140,14 @@
         "page": 92
       },
       {
+        "label": "125",
+        "page": 135
+      },
+      {
+        "label": "126",
+        "page": 136
+      },
+      {
         "label": "138",
         "page": 148
       }
@@ -4153,14 +4156,6 @@
   {
     "entry": "Spekjes",
     "pages": [
-      {
-        "label": "21",
-        "page": 31
-      },
-      {
-        "label": "125",
-        "page": 135
-      },
       {
         "label": "126",
         "page": 136
@@ -4360,6 +4355,10 @@
       {
         "label": "26",
         "page": 36
+      },
+      {
+        "label": "28",
+        "page": 38
       },
       {
         "label": "30",
