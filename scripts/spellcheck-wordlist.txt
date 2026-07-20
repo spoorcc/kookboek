@@ -74,6 +74,7 @@ crème-fraîchemengsel
 cuisson
 dekselstoom
 dikgesneden
+doorgebakken
 doorpruttelen
 droogstomen
 dumpert
@@ -97,6 +98,7 @@ freddo
 freeeedo
 fris-zure
 fris-zuur
+fudgy
 gebak-
 gehakt-tomaat
 geitenkaasmousse
@@ -135,6 +137,7 @@ kippenfond
 kipshoarma
 kipspiesjes
 knapperigere
+koek-
 kofta
 krokantheid
 lahmacun
