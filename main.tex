@@ -243,6 +243,17 @@
 
 % ----------------------------------------------------------------- APPENDIX ---
 \backmatter
+
+% Bijlagen: one chapter-level heading for the whole appendix section, same
+% hand-styled treatment as Register (not a real \chapter — see the note in
+% each backmatter/*.tex file). Each appendix below it is a \subchapter-level
+% (H2) heading instead of its own full chapter-sized title.
+\phantomsection\addcontentsline{toc}{chapter}{Bijlagen}
+\vspace*{0.4cm}
+{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Bijlagen\par}
+\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+\vspace{1.4em}
+
 \input{backmatter/seizoenskalender}
 
 % Plain \clearpage, not \cleardoublepage: Seizoenskalender ends its Fruit

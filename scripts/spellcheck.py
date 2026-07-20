@@ -28,7 +28,7 @@ DROP_WITH_ARGS = (
     "label", "ref", "pageref", "nameref", "eqref", "autoref", "cref", "Cref",
     "cite", "includegraphics", "index", "heroimagefade", "marginimage",
     "input", "usepackage", "documentclass", "setmainfont", "geometry",
-    "pagestyle", "thispagestyle", "color", "textcolor",
+    "pagestyle", "thispagestyle", "color", "textcolor", "addcontentsline",
 )
 
 # Environments that hold diagram/drawing code, not prose.
