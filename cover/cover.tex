@@ -13,24 +13,31 @@
 %  which is normal for hardcover binding, so the two files are sized
 %  independently on purpose; they don't need to (and shouldn't) match.
 %
-%  Unlike a paperback, Lulu does not publish a spine-width formula for
-%  casewrap covers — spine width comes from an internal lookup table keyed
-%  on page count, and is only known for certain once you generate a cover
-%  template from Lulu's own Project Creation Tool after uploading the
-%  interior file. Trim, wrap area and safety margin below were read
-%  directly off one such template, q6qdvpe-cover-template.pdf (originally
-%  generated for a 164-page interior). \spinew has since been updated to
-%  match a freshly regenerated Lulu template for the 223-page interior
-%  (0.813in / 20.65mm spine) — reconfirm it against the real tool again
-%  before ordering if the interior's page count changes further.
+%  Unlike a paperback, Lulu does not publish a continuous spine-width
+%  formula for hardcover casewrap covers — per Lulu's Developer Portal
+%  ("How is spine width calculated?", help.lulu.com), casewrap spine width
+%  comes from a fixed page-count bucket table (the same guide p14 table
+%  scripts/lulu_lint.py checks against), with every page count in a bucket
+%  getting the exact same spine width. Trim, wrap area and safety margin
+%  below were read directly off a real template generated through Lulu's
+%  Project Creation Tool, q6qdvpe-cover-template.pdf (originally for a
+%  164-page interior). \spinew was confirmed against a freshly regenerated
+%  template for a 223-page interior (0.813in / 20.65mm), which matches the
+%  documented bucket value (223-250 pages -> 0.8125in / 20.6375mm) almost
+%  exactly — confirming the bucket table, not per-page variation, is what
+%  determines it. The interior is now 231 pages, still inside that same
+%  223-250 bucket, so \spinew is unchanged and correct, not just an
+%  estimate.
 %
 %  BEFORE ORDERING A REAL PROOF:
 %   - Set \interiorpagecount below to the actual page count of the built
 %     interior PDF (KookboekFamilieSpoor.pdf) if it changes again.
-%   - Re-download the cover template from Lulu's Project Creation Tool for
-%     the current page count and confirm \spinew below still matches its
-%     reported spine width — don't assume the same lookup-table bucket
-%     still applies.
+%   - If the new page count falls in a different guide p14 bucket, update
+%     \spinew to that bucket's table value (see scripts/lulu_lint.py's
+%     HARDCOVER_SPINE_TABLE, or the Lulu Developer Portal spine-width
+%     article) — regenerating a template from Lulu's Project Creation Tool
+%     is the ultimate check before a real order, but no longer strictly
+%     needed just to know the number.
 % =============================================================================
 \documentclass[10pt]{article}
 
@@ -42,12 +49,14 @@
 \newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
 \newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{223} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{231} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
-\setlength\spinew{20.65mm} % <-- 0.813in, read directly off a regenerated Lulu
-% Project Creation Tool template (q6qdvpe-cover-template.pdf) for a 223-page
-% interior; reconfirm against a fresh template before ordering a real proof
-% if the interior's page count changes again (see note above)
+\setlength\spinew{20.65mm} % <-- 0.813in; Lulu guide p14 hardcover-spine bucket
+% value for 223-250 pages (0.8125in / 20.6375mm), confirmed against a real
+% Project Creation Tool template for a 223-page interior. The interior is
+% now 231 pages, still in this same bucket, so this value applies unchanged.
+% If the page count moves to a different bucket, update to that bucket's
+% value (see scripts/lulu_lint.py's HARDCOVER_SPINE_TABLE).
 
 % Back and front cover panels are each trim width plus one outer bleed edge.
 \newlength\panelw \setlength\panelw{\dimexpr\bleed+\trimw\relax}
