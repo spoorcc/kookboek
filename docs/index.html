@@ -940,13 +940,39 @@ function toggleFullscreen() {
   }
 }
 
+// Set only while this fullscreen session is the one that collapsed the
+// sidebar, so exiting fullscreen doesn't re-expand a sidebar the reader had
+// already collapsed manually beforehand.
+let sidebarCollapsedByFullscreen = false;
+
+function setSidebarCollapsed(collapsed) {
+  const aside = document.getElementById('sidebar');
+  const btn   = document.getElementById('sidebar-toggle');
+  const cls   = window.innerWidth <= 680 ? 'slide-out' : 'collapsed';
+  aside.classList.toggle(cls, collapsed);
+  btn.setAttribute('aria-pressed', String(collapsed));
+}
+
 function onFullscreenChange() {
   const btn = document.getElementById('fullscreen-toggle');
   const fs  = isFullscreen();
   btn.innerHTML = fs ? ICON_COMPRESS : ICON_EXPAND;
   btn.title = btn.ariaLabel = fs ? 'Volledig scherm afsluiten' : 'Volledig scherm';
   document.querySelector('header').style.display = fs ? 'none' : '';
-  if (pdf) renderSpread(curPage);
+
+  const aside = document.getElementById('sidebar');
+  const cls   = window.innerWidth <= 680 ? 'slide-out' : 'collapsed';
+  if (fs) {
+    sidebarCollapsedByFullscreen = !aside.classList.contains(cls);
+    if (sidebarCollapsedByFullscreen) setSidebarCollapsed(true);
+  } else if (sidebarCollapsedByFullscreen) {
+    setSidebarCollapsed(false);
+    sidebarCollapsedByFullscreen = false;
+  }
+
+  // Deferred past the sidebar's 0.26s width transition so the canvas-area
+  // measurement used for page scaling isn't taken mid-animation.
+  setTimeout(() => { if (pdf) renderSpread(curPage); }, 300);
 }
 
 document.getElementById('fullscreen-toggle').innerHTML = ICON_EXPAND;
