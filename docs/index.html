@@ -431,6 +431,12 @@
     }
     #zoom-controls button:hover:not(:disabled) { background: var(--accent2); }
     #zoom-controls button:disabled { opacity: 0.35; cursor: default; }
+    #zoom-controls input[type="range"] {
+      width: 110px;
+      margin: 0 4px;
+      accent-color: #fff;
+      cursor: pointer;
+    }
     #zoom-level {
       min-width: 48px;
       text-align: center;
@@ -605,6 +611,7 @@
       <canvas id="canvas-r" class="pdf-page"></canvas>
       <div id="zoom-controls">
         <button id="zoom-out" onclick="adjustZoom(-1)" title="Uitzoomen" aria-label="Uitzoomen">&minus;</button>
+        <input type="range" id="zoom-slider" min="0.5" max="3" step="0.05" value="1" aria-label="Zoomniveau">
         <span id="zoom-level">100%</span>
         <button id="zoom-in" onclick="adjustZoom(1)" title="Inzoomen" aria-label="Inzoomen">+</button>
       </div>
@@ -1026,10 +1033,10 @@ function onFullscreenChange() {
 }
 
 // ── Zoom control (fullscreen mode only) ─────────────────────────────────────
-// Independent of the browser's native pinch-zoom — a click-to-step zoom for
-// precise control. Past ZOOM_SINGLE_PAGE_THRESHOLD, a landscape spread drops
-// to a single page since two zoomed-in pages would no longer fit side by
-// side without heavy horizontal scrolling.
+// Independent of the browser's native pinch-zoom — buttons for a click-to-
+// step zoom, plus a slider for fine dragging. Past ZOOM_SINGLE_PAGE_THRESHOLD,
+// a landscape spread drops to a single page since two zoomed-in pages would
+// no longer fit side by side without heavy horizontal scrolling.
 
 const ZOOM_MIN = 0.5;
 const ZOOM_MAX = 3;
@@ -1042,12 +1049,19 @@ function updateZoomControls() {
   document.getElementById('zoom-level').textContent = Math.round(zoomLevel * 100) + '%';
   document.getElementById('zoom-out').disabled = zoomLevel <= ZOOM_MIN;
   document.getElementById('zoom-in').disabled  = zoomLevel >= ZOOM_MAX;
+  document.getElementById('zoom-slider').value = zoomLevel;
 }
 
-function adjustZoom(dir) {
-  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +(zoomLevel + dir * ZOOM_STEP).toFixed(2)));
+function setZoom(value) {
+  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +value.toFixed(2)));
   updateZoomControls();
   if (pdf) renderSpread(curPage);
+}
+
+document.getElementById('zoom-slider').addEventListener('input', (e) => setZoom(+e.target.value));
+
+function adjustZoom(dir) {
+  setZoom(zoomLevel + dir * ZOOM_STEP);
 }
 
 updateZoomControls();
