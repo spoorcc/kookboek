@@ -945,6 +945,7 @@ function onFullscreenChange() {
   const fs  = isFullscreen();
   btn.innerHTML = fs ? ICON_COMPRESS : ICON_EXPAND;
   btn.title = btn.ariaLabel = fs ? 'Volledig scherm afsluiten' : 'Volledig scherm';
+  document.querySelector('header').style.display = fs ? 'none' : '';
   if (pdf) renderSpread(curPage);
 }
 
@@ -953,7 +954,7 @@ document.addEventListener('fullscreenchange', onFullscreenChange);
 document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
 window.addEventListener('resize', () => {
-  if (pdf && document.getElementById('viewer-bar').style.display === 'flex') renderSpread(curPage);
+  if (pdf && document.getElementById('welcome').style.display === 'none') renderSpread(curPage);
 });
 
 // ── PDF rendering ─────────────────────────────────────────────────────────
@@ -975,7 +976,7 @@ async function renderSpread(leftPage) {
   lmsg.style.display    = 'block';
   cl.style.display      = 'none';
   cr.style.display      = 'none';
-  bar.style.display     = 'flex';
+  bar.style.display     = isFullscreen() ? 'none' : 'flex';
 
   const total     = pdf.numPages;
   const wide      = isFullscreen() ? window.innerWidth > window.innerHeight : area.clientWidth > 620;
