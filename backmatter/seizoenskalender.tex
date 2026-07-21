@@ -23,6 +23,11 @@ erbij.
 % longtable on every page the table spans.
 \newcommand{\seizoenmaanden}{%
   \begin{tikzpicture}[x=0.75cm]
+    % Pin the bounding box to the same 0--12 span as \seizoenbalk's grid;
+    % without this, the box is fit to the node text instead, whose default
+    % center anchor shifts the whole row left of the grid it's meant to
+    % label.
+    \useasboundingbox (0,-0.3) rectangle (12,0.3);
     \foreach \m [count=\i from 0] in {J,F,M,A,M,J,J,A,S,O,N,D} {
       \node[font=\tiny\itshape, text=inkfaint] at (\i+0.5,0) {\m};
     }
