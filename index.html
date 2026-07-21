@@ -1119,6 +1119,10 @@ async function renderSpread(leftPage) {
   cl.style.display      = 'none';
   cr.style.display      = 'none';
   bar.style.display     = isFullscreen() ? 'none' : 'flex';
+  // Clear the footer bar instead of sitting on top of it (and its own
+  // right:14px version label) when the footer is showing.
+  document.getElementById('fullscreen-toggle').style.bottom =
+    bar.style.display === 'flex' ? 'calc(var(--footer-h) + 14px)' : '14px';
 
   const total     = pdf.numPages;
   const wide      = isWideLayout(area);
