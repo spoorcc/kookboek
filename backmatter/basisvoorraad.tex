@@ -1,12 +1,6 @@
-% Basisvoorraad
-% Not a real \chapter (it's a hand-styled heading like Register's), so it
-% needs its own Inhoud/PDF-bookmark entry, same as imakeidx's intoc=true
-% does for Register.
-\phantomsection\addcontentsline{toc}{chapter}{Basisvoorraad}
-\vspace*{0.4cm}
-{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Basis-\\voorraad\par}
-\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
-\vspace{1.4em}
+% Basisvoorraad: a \subchapter-level (H2) heading grouped under the single
+% "Bijlagen" chapter-level heading in main.tex.
+\subchapter{Basisvoorraad}
 
 \lettrine{G}{een} boodschappenlijst voor één recept, maar wat ik zelf altijd
 in de kast heb staan. Met deze basis op voorraad kan ik bij de meeste
@@ -39,6 +33,7 @@ er apart bij.
 \ingb{Zout}
 \end{ingredients}
 
+\clearpage
 \blockrule{Olie, azijn \& vet}
 \begin{ingredients}
 \ingb{Extra vergine olijfolie}

@@ -3,13 +3,10 @@
 % the Groente table below and the Fruit table after it (page break via
 % \clearpage further down) land on facing pages of the same spread.
 \cleartoevenpage
-% Not a real \chapter (it's a hand-styled heading like Register's), so it
-% needs its own Inhoud/PDF-bookmark entry, same as imakeidx's intoc=true
-% does for Register.
-\phantomsection\addcontentsline{toc}{chapter}{Seizoenskalender}
-\par\noindent{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Seizoens-\\kalender\par}
- \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
- {\vspace{6pt}\itshape\small\color{inkfaint}Wanneer onze groente en al het fruit op hun best zijn.\par}\vspace{1.2em}
+% Seizoenskalender: a \subchapter-level (H2) heading grouped under the
+% single "Bijlagen" chapter-level heading in main.tex.
+\subchapter{Seizoenskalender}
+{\itshape\small\color{inkfaint}Wanneer onze groente en al het fruit op hun best zijn.\par}\vspace{1.2em}
 
 \lettrine{G}{roente} kopen in het seizoen is meestal lekkerder, en ook nog
 goedkoper. Hieronder staan alleen de groenten die we in dit boek ook echt
@@ -26,6 +23,11 @@ erbij.
 % longtable on every page the table spans.
 \newcommand{\seizoenmaanden}{%
   \begin{tikzpicture}[x=0.75cm]
+    % Pin the bounding box to the same 0--12 span as \seizoenbalk's grid;
+    % without this, the box is fit to the node text instead, whose default
+    % center anchor shifts the whole row left of the grid it's meant to
+    % label.
+    \useasboundingbox (0,-0.3) rectangle (12,0.3);
     \foreach \m [count=\i from 0] in {J,F,M,A,M,J,J,A,S,O,N,D} {
       \node[font=\tiny\itshape, text=inkfaint] at (\i+0.5,0) {\m};
     }
@@ -47,7 +49,7 @@ erbij.
   \multicolumn{2}{@{}l@{}}{\textcolor{terracotta}{\rule{\linewidth}{0.4pt}}} \\[0.1em]}
 
 \blockrule{Groente}
-{\scriptsize\renewcommand{\arraystretch}{0.8}
+{\footnotesize\renewcommand{\arraystretch}{1.05}
 \begin{longtable}{r@{\hspace{0.45em}}l}
 \seizoenkop
 \endhead
@@ -116,7 +118,7 @@ erbij.
 
 \clearpage
 \blockrule{Fruit}
-{\scriptsize\renewcommand{\arraystretch}{0.8}
+{\footnotesize\renewcommand{\arraystretch}{1.05}
 \begin{longtable}{r@{\hspace{0.45em}}l}
 \seizoenkop
 \endhead
