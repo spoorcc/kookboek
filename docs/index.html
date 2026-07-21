@@ -403,6 +403,43 @@
     #fullscreen-toggle:hover { background: var(--accent2); }
     #fullscreen-toggle svg { width: 19px; height: 19px; }
 
+    /* ── Zoom control (fullscreen mode only) ─────── */
+    #zoom-controls {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 5;
+      display: none;
+      align-items: center;
+      background: var(--accent);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    #zoom-controls.visible { display: flex; }
+    #zoom-controls button {
+      width: 34px;
+      height: 38px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.15rem;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #zoom-controls button:hover:not(:disabled) { background: var(--accent2); }
+    #zoom-controls button:disabled { opacity: 0.35; cursor: default; }
+    #zoom-level {
+      min-width: 48px;
+      text-align: center;
+      color: #fff;
+      font-size: 0.74rem;
+      font-style: italic;
+      user-select: none;
+    }
+
     /* ── Viewer footer ────────────────────────── */
     #viewer-bar {
       position: relative;
@@ -566,6 +603,11 @@
       <div id="loading-msg">Laden…</div>
       <canvas id="canvas-l" class="pdf-page"></canvas>
       <canvas id="canvas-r" class="pdf-page"></canvas>
+      <div id="zoom-controls">
+        <button id="zoom-out" onclick="adjustZoom(-1)" title="Uitzoomen" aria-label="Uitzoomen">&minus;</button>
+        <span id="zoom-level">100%</span>
+        <button id="zoom-in" onclick="adjustZoom(1)" title="Inzoomen" aria-label="Inzoomen">+</button>
+      </div>
       <button id="fullscreen-toggle" onclick="toggleFullscreen()" title="Volledig scherm" aria-label="Volledig scherm"></button>
     </div>
 
@@ -965,6 +1007,8 @@ function onFullscreenChange() {
   btn.innerHTML = fs ? ICON_COMPRESS : ICON_EXPAND;
   btn.title = btn.ariaLabel = fs ? 'Volledig scherm afsluiten' : 'Volledig scherm';
   document.querySelector('header').style.display = fs ? 'none' : '';
+  document.getElementById('zoom-controls').classList.toggle('visible', fs);
+  if (!fs) { zoomLevel = 1; updateZoomControls(); }
 
   const aside = document.getElementById('sidebar');
   const cls   = window.innerWidth <= 680 ? 'slide-out' : 'collapsed';
@@ -979,6 +1023,43 @@ function onFullscreenChange() {
   // Deferred past the sidebar's 0.26s width transition so the canvas-area
   // measurement used for page scaling isn't taken mid-animation.
   setTimeout(() => { if (pdf) renderSpread(curPage); }, 300);
+}
+
+// ── Zoom control (fullscreen mode only) ─────────────────────────────────────
+// Independent of the browser's native pinch-zoom — a click-to-step zoom for
+// precise control. Past ZOOM_SINGLE_PAGE_THRESHOLD, a landscape spread drops
+// to a single page since two zoomed-in pages would no longer fit side by
+// side without heavy horizontal scrolling.
+
+const ZOOM_MIN = 0.5;
+const ZOOM_MAX = 3;
+const ZOOM_STEP = 0.25;
+const ZOOM_SINGLE_PAGE_THRESHOLD = 1.2;
+
+let zoomLevel = 1;
+
+function updateZoomControls() {
+  document.getElementById('zoom-level').textContent = Math.round(zoomLevel * 100) + '%';
+  document.getElementById('zoom-out').disabled = zoomLevel <= ZOOM_MIN;
+  document.getElementById('zoom-in').disabled  = zoomLevel >= ZOOM_MAX;
+}
+
+function adjustZoom(dir) {
+  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +(zoomLevel + dir * ZOOM_STEP).toFixed(2)));
+  updateZoomControls();
+  if (pdf) renderSpread(curPage);
+}
+
+updateZoomControls();
+
+// True when a two-page spread should be shown: outside fullscreen this is a
+// plain width breakpoint; in fullscreen it's landscape orientation, unless
+// zoomed in far enough that a single page reads better.
+function isWideLayout(area) {
+  if (isFullscreen()) {
+    return window.innerWidth > window.innerHeight && zoomLevel < ZOOM_SINGLE_PAGE_THRESHOLD;
+  }
+  return area.clientWidth > 620;
 }
 
 document.getElementById('fullscreen-toggle').innerHTML = ICON_EXPAND;
@@ -1013,7 +1094,7 @@ async function renderSpread(leftPage) {
   bar.style.display     = isFullscreen() ? 'none' : 'flex';
 
   const total     = pdf.numPages;
-  const wide      = isFullscreen() ? window.innerWidth > window.innerHeight : area.clientWidth > 620;
+  const wide      = isWideLayout(area);
   const showRight = wide && leftPage + 1 <= total;
 
   const hPad = 36 * (showRight ? 2 : 1) + (showRight ? 10 : 0);
@@ -1043,7 +1124,8 @@ async function renderSpread(leftPage) {
 async function renderPage(pageNum, canvas, maxW, maxH) {
   const page = await pdf.getPage(pageNum);
   const base = page.getViewport({ scale: 1 });
-  const scale = Math.min(maxW / base.width, maxH / base.height, 3.0);
+  const fitScale = Math.min(maxW / base.width, maxH / base.height);
+  const scale = Math.min(fitScale * zoomLevel, 3.0);
   const vp    = page.getViewport({ scale });
   const dpr   = window.devicePixelRatio || 1;
 
@@ -1061,10 +1143,7 @@ async function renderPage(pageNum, canvas, maxW, maxH) {
 
 function navigate(dir) {
   if (!pdf) return;
-  const wide  = isFullscreen()
-    ? window.innerWidth > window.innerHeight
-    : document.getElementById('canvas-area').clientWidth > 620;
-  const step  = wide ? 2 : 1;
+  const step  = isWideLayout(document.getElementById('canvas-area')) ? 2 : 1;
   const total = pdf.numPages;
   curPage = Math.max(1, Math.min(total, curPage + dir * step));
   renderSpread(curPage);
