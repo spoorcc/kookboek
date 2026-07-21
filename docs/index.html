@@ -914,6 +914,14 @@ function toggleSidebar() {
 // Landscape shows a two-page spread at maximum width; portrait shows a
 // single page — see the width-based fallback in renderSpread() for the
 // non-fullscreen behaviour.
+//
+// This is a CSS/JS-driven "immersive" layout rather than the real Fullscreen
+// API (Element.requestFullscreen). Mobile browsers disable pinch-to-zoom
+// while an element is in true browser fullscreen — there's no way to
+// override that from page code — so real fullscreen would make the pages
+// unzoomable exactly where readers want to zoom in most. Reproducing the
+// same look (header/footer/sidebar hidden, page taking the full viewport)
+// without ever calling requestFullscreen keeps native pinch-zoom working.
 
 const ICON_EXPAND =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
@@ -927,17 +935,15 @@ const ICON_COMPRESS =
   '3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 ' +
   '15v4.5m0-4.5l5.25 5.25"/></svg>';
 
+let immersive = false;
+
 function isFullscreen() {
-  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  return immersive;
 }
 
 function toggleFullscreen() {
-  if (!isFullscreen()) {
-    const el = document.documentElement;
-    (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
-  } else {
-    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-  }
+  immersive = !immersive;
+  onFullscreenChange();
 }
 
 // Set only while this fullscreen session is the one that collapsed the
@@ -976,8 +982,10 @@ function onFullscreenChange() {
 }
 
 document.getElementById('fullscreen-toggle').innerHTML = ICON_EXPAND;
-document.addEventListener('fullscreenchange', onFullscreenChange);
-document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && immersive) toggleFullscreen();
+});
 
 window.addEventListener('resize', () => {
   if (pdf && document.getElementById('welcome').style.display === 'none') renderSpread(curPage);
