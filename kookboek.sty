@@ -449,6 +449,14 @@
 % Bulleted ingredient (when amounts are "op gevoel").
 \newcommand{\ingb}[1]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
   \makebox[1.7cm][r]{\textcolor{terracotta}{\raisebox{0.15ex}{$\scriptstyle\blacklozenge$}}}\hspace{0.5em}#1\par\vspace{0.35em}}
+% Bulleted ingredient with a trailing clause (a "voor ..."/"om ..." purpose
+% note, or a "(b.v. ...)" variant) set smaller and fainter than the item
+% name, so it reads as a subordinate aside instead of competing with it.
+% Usage: \ingbnote{Tarwebloem}{, voor hartig deeg zoals quiche} — the second
+% argument carries its own leading punctuation/space so the call site keeps
+% full control over how it joins the name.
+\newcommand{\ingbnote}[2]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
+  \makebox[1.7cm][r]{\textcolor{terracotta}{\raisebox{0.15ex}{$\scriptstyle\blacklozenge$}}}\hspace{0.5em}#1{\footnotesize\color{inkfaint}{}#2}\par\vspace{0.35em}}
 
 % Numbered preparation steps with terracotta numerals.
 \newlist{steps}{enumerate}{1}
