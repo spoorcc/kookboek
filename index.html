@@ -343,8 +343,13 @@
     #canvas-area {
       flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      /* "safe center": centers pages when they fit, but falls back to
+         start-alignment once zoomed-in content overflows — plain "center"
+         here would clip the overflow on the start side (top/left) out of
+         scroll range entirely, so you could never scroll up far enough to
+         reach the top of a zoomed-in page. */
+      align-items: safe center;
+      justify-content: safe center;
       gap: 10px;
       padding: 18px;
       overflow: auto;
@@ -382,8 +387,13 @@
     }
 
     /* ── Fullscreen toggle ────────────────────── */
+    /* position: fixed (viewport-relative), not absolute — #canvas-area
+       scrolls when a zoomed-in page overflows it, and an absolutely
+       positioned child factors into that container's scrollable area,
+       which was eating into the scroll range and capping how far up you
+       could scroll to reach the top of a tall zoomed page. */
     #fullscreen-toggle {
-      position: absolute;
+      position: fixed;
       right: 14px;
       bottom: 14px;
       z-index: 5;
@@ -406,8 +416,9 @@
     #fullscreen-toggle svg { width: 19px; height: 19px; }
 
     /* ── Zoom control (fullscreen mode only) ─────── */
+    /* position: fixed for the same reason as #fullscreen-toggle above. */
     #zoom-controls {
-      position: absolute;
+      position: fixed;
       left: 14px;
       bottom: 14px;
       z-index: 5;
