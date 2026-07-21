@@ -1281,21 +1281,30 @@ async function downloadRecipe() {
 }
 
 // ── Touch swipe navigation ────────────────────────────────────────────────
+// Distance alone isn't enough to tell a page-turn swipe from a slow drag
+// used to pan around a zoomed-in page — both can cover 50+ px. Requiring a
+// minimum speed (px/ms) as well lets a fast flick still turn the page while
+// a slow horizontal drag just scrolls #canvas-area natively.
+
+const SWIPE_MIN_VELOCITY = 0.35; // px/ms, roughly a deliberate flick
 
 (function () {
-  let tx0 = 0, ty0 = 0;
+  let tx0 = 0, ty0 = 0, t0 = 0;
   const area = document.getElementById('canvas-area');
 
   area.addEventListener('touchstart', function (e) {
     tx0 = e.changedTouches[0].clientX;
     ty0 = e.changedTouches[0].clientY;
+    t0  = e.timeStamp;
   }, { passive: true });
 
   area.addEventListener('touchend', function (e) {
     if (!pdf) return;
     const dx = e.changedTouches[0].clientX - tx0;
     const dy = e.changedTouches[0].clientY - ty0;
+    const dt = e.timeStamp - t0;
     if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (Math.abs(dx) / dt < SWIPE_MIN_VELOCITY) return;
     navigate(dx < 0 ? 1 : -1);
   }, { passive: true });
 }());
