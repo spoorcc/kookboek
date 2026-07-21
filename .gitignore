@@ -12,6 +12,8 @@
 *.synctex.gz
 *.bbl
 *.blg
+*.bcf
+*.run.xml
 *.xdv
 main.pdf
 KookboekFamilieSpoor.pdf

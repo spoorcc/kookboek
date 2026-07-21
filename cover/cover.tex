@@ -25,7 +25,7 @@
 %  template for a 223-page interior (0.813in / 20.65mm), which matches the
 %  documented bucket value (223-250 pages -> 0.8125in / 20.6375mm) almost
 %  exactly — confirming the bucket table, not per-page variation, is what
-%  determines it. The interior is now 231 pages, still inside that same
+%  determines it. The interior is now 232 pages, still inside that same
 %  223-250 bucket, so \spinew is unchanged and correct, not just an
 %  estimate.
 %
@@ -49,7 +49,7 @@
 \newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
 \newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{231} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{232} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
 \setlength\spinew{20.65mm} % <-- 0.813in; Lulu guide p14 hardcover-spine bucket
 % value for 223-250 pages (0.8125in / 20.6375mm), confirmed against a real

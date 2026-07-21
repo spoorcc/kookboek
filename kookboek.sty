@@ -217,6 +217,48 @@
 
 \makeindex[name=register, title=Register, intoc=true]
 
+% ----------------------------------------------------------------------------
+% Bibliografie — numbered references (biblatex/biber), listed in citation
+% order (sorting=none) to match the existing "order entries by where the
+% source is first used in the book" convention. Source data lives in
+% backmatter/bibliografie.bib; \cite{key} in the running text renders as a
+% terracotta [n] and backmatter/bibliografie.tex typesets the full list via
+% \printbibliography. See the Bibliografie section of CLAUDE.md.
+% ----------------------------------------------------------------------------
+% urldisplay (the short, print-friendly link text shown instead of the full
+% URL — a long URL, especially with encoded %20 spaces, often won't break
+% cleanly and overflows the page margin, see CLAUDE.md) is declared in
+% kookboek.dbx: biblatex data-model changes can't be issued directly in the
+% document preamble, only via a .dbx file loaded through this option.
+\RequirePackage[style=numeric, sorting=none, backend=biber, datamodel=kookboek,
+                giveninits=false, url=false, doi=false, isbn=false]{biblatex}
+\addbibresource{backmatter/bibliografie.bib}
+
+% Terracotta numeric labels, both inline (\cite) and in the printed list,
+% matching the book's existing accent colour.
+\DeclareFieldFormat{labelnumber}{\textcolor{terracotta}{#1}}
+\DeclareFieldFormat{citehyperref}{\textcolor{terracotta}{#1}}
+
+\newcommand{\kbbiburldisplay}{%
+  \iffieldundef{urldisplay}
+    {\iffieldundef{url}{}{\url{\thefield{url}}}}
+    {\href{\thefield{url}}{\thefield{urldisplay}}}}
+
+% Same "\textbf{Auteur.} \emph{Titel}, korte context." shape as the book's
+% former hand-formatted bibliography, now driven by the .bib data — one
+% driver per source type (a web page/video vs. a printed book).
+\DeclareBibliographyDriver{online}{%
+  \textbf{\printnames{author}.}\space\emph{\printfield{title}}%
+  \iffieldundef{note}{}{,\space\printfield{note}}.\\%
+  {\footnotesize\color{inkfaint}\kbbiburldisplay\par}}
+\DeclareBibliographyDriver{book}{%
+  \textbf{\printnames{author}.}\space\emph{\printfield{title}}%
+  \iffieldundef{note}{}{,\space\printfield{note}}.\\%
+  {\footnotesize\color{inkfaint}\printlist{publisher}%
+   \iffieldundef{year}{}{, \printfield{year}}.\par}}
+
+\setlength{\bibitemsep}{0.8em}
+
 % ---- Recipe building blocks -------------------------------------------------
 
 % Small-caps category line above the recipe title — properties of the dish
@@ -407,6 +449,14 @@
 % Bulleted ingredient (when amounts are "op gevoel").
 \newcommand{\ingb}[1]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
   \makebox[1.7cm][r]{\textcolor{terracotta}{\raisebox{0.15ex}{$\scriptstyle\blacklozenge$}}}\hspace{0.5em}#1\par\vspace{0.35em}}
+% Bulleted ingredient with a trailing clause (a "voor ..."/"om ..." purpose
+% note, or a "(b.v. ...)" variant) set smaller and fainter than the item
+% name, so it reads as a subordinate aside instead of competing with it.
+% Usage: \ingbnote{Tarwebloem}{, voor hartig deeg zoals quiche} — the second
+% argument carries its own leading punctuation/space so the call site keeps
+% full control over how it joins the name.
+\newcommand{\ingbnote}[2]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
+  \makebox[1.7cm][r]{\textcolor{terracotta}{\raisebox{0.15ex}{$\scriptstyle\blacklozenge$}}}\hspace{0.5em}#1{\footnotesize\color{inkfaint}{}#2}\par\vspace{0.35em}}
 
 % Numbered preparation steps with terracotta numerals.
 \newlist{steps}{enumerate}{1}

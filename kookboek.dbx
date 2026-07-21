@@ -1,0 +1,9 @@
+% biblatex data-model extension for kookboek.sty — loaded via the
+% `datamodel=kookboek` package option (see kookboek.sty). Adds the
+% `urldisplay` field: the short, print-friendly link text shown instead of
+% the full URL in backmatter/bibliografie.bib entries. Data-model changes
+% like \DeclareDatamodelEntryfields can't be issued directly in the
+% document preamble (biblatex requires them to come from a .dbx file), so
+% this small file exists solely to hold them.
+\DeclareDatamodelFields[type=field, datatype=verbatim]{urldisplay}
+\DeclareDatamodelEntryfields{urldisplay}

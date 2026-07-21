@@ -23,12 +23,13 @@ Some sessions (e.g. Claude Code on the web) run in a plain Ubuntu container with
 apt-get update
 apt-get install -y --no-install-recommends \
   texlive-xetex texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-european texlive-pictures latexmk \
+  texlive-bibtex-extra biber \
   hunspell hunspell-nl \
   qpdf ghostscript python3-pip
 pip3 install --no-cache-dir pymupdf || pip3 install --no-cache-dir --break-system-packages pymupdf
 ```
 
-This installs enough of TeX Live (xetex + latex-extra + fonts-extra + fonts-recommended + lang-european + pictures, not the multi-GB `texlive-full`) to build `main.tex` and `cover/cover.tex`, plus `hunspell`/`hunspell-nl` for `scripts/spellcheck.py` and `qpdf`/`ghostscript`/`pymupdf` for `scripts/flatten_transparency.py` and `scripts/lulu_lint.py`. Takes a few minutes and roughly 1–2 GB of disk; check available space first (`df -h /`) since some remote sessions have a fixed disk allowance. `texlive-fonts-recommended` specifically is needed for `hyperref`'s `pzdr` (Zapf Dingbats) metric — without it XeLaTeX fails with `Font \XeTeXLink@font=pzdr ... not loadable`. Fonts for the book's own typefaces are already vendored in `fonts/`, no separate font install needed for those.
+This installs enough of TeX Live (xetex + latex-extra + fonts-extra + fonts-recommended + lang-european + pictures, not the multi-GB `texlive-full`) to build `main.tex` and `cover/cover.tex`, plus `texlive-bibtex-extra`/`biber` for the Bibliografie (see "Bibliografie" below), `hunspell`/`hunspell-nl` for `scripts/spellcheck.py`, and `qpdf`/`ghostscript`/`pymupdf` for `scripts/flatten_transparency.py` and `scripts/lulu_lint.py`. Takes a few minutes and roughly 1–2 GB of disk; check available space first (`df -h /`) since some remote sessions have a fixed disk allowance. `texlive-fonts-recommended` specifically is needed for `hyperref`'s `pzdr` (Zapf Dingbats) metric — without it XeLaTeX fails with `Font \XeTeXLink@font=pzdr ... not loadable`. Fonts for the book's own typefaces are already vendored in `fonts/`, no separate font install needed for those.
 
 ## Build
 
@@ -166,13 +167,16 @@ Before adding a new `\index[register]{...}` entry or picking a `\kicker` cuisine
 
 ## Bibliografie
 
-`backmatter/bibliografie.tex` is the single place for every external source or link used anywhere in the book — recipe attributions (e.g. "Met dank aan ... naar haar recept") as well as sourced facts in the appendices (e.g. the Kerntemperatuur richttabel's USDA/FDA sources). It's `\input` after `\printindex[register]` in `main.tex`, deliberately the very last thing in the book, after the Register.
+Every external source or link used anywhere in the book — recipe attributions (e.g. "Met dank aan ... naar haar recept") as well as sourced facts in the appendices (e.g. the Kerntemperatuur richttabel's USDA/FDA sources) — is a BibTeX entry in `backmatter/bibliografie.bib`, cited from the running text with `\cite{key}` and typeset as a numbered list by `\printbibliography` in `backmatter/bibliografie.tex`. That file is `\input` after `\printindex[register]` in `main.tex`, deliberately the very last thing in the book, after the Register. Building requires `biber` (see the devcontainer/CI toolchain — `texlive-bibtex-extra` + `biber`); `latexmk` invokes it automatically, no separate build step needed.
+
+The bibliography is powered by `biblatex` (`style=numeric, sorting=none, backend=biber`), configured in `kookboek.sty`. `sorting=none` lists entries in citation order — i.e. wherever the source is first `\cite`'d in the book — which is what keeps entry numbers matching the "recipes before backmatter appendices, earlier before later" convention below without any manual reordering. `kookboek.dbx` declares one custom field, `urldisplay` (biblatex data-model changes can only come from a `.dbx` file, not the document preamble); it holds the short, print-friendly link text shown in place of the full URL. Custom `\DeclareBibliographyDriver` definitions for the `online` and `book` entry types in `kookboek.sty` reproduce the book's plain "Auteur. Titel, korte context." look rather than biblatex's academic defaults.
 
 When a recipe or appendix cites an external source:
-- Don't embed the raw URL or a bare domain in the recipe/appendix text. Instead write a short in-text pointer ("zie de bibliografie achterin") and add the full citation as a new entry in `backmatter/bibliografie.tex`, following the existing `\textbf{Auteur/organisatie.} \emph{Titel}, korte context.` + `\href{url}{korte leesbare linktekst}` pattern.
-- Use `\href{url}{short display text}` rather than `\url{url}` for anything but a short, plain domain — hyperref renders `\url` in monospace, and a long URL (especially one with encoded `%20` spaces) often won't break cleanly and overflows the page margin. A short display text (e.g. `ah.nl/r/1055570`, `voedingscentrum.nl/...`) avoids that and is more useful in print anyway, since nobody retypes a 150-character URL from a page.
-- Order entries by where the source is first used in the book (recipes before backmatter appendices, earlier recipes/appendices before later ones), matching the existing entries.
-- Double-check names and titles against the actual source (a misspelled author name is worse than no attribution) — see the Rachel Khoo/Miljuschka Witzenhausen entries for the pattern.
+- Add a new entry to `backmatter/bibliografie.bib` (`@online` for a web page/video, `@book` for a printed book) rather than embedding the raw URL or a bare domain in the recipe/appendix text. Fields: `author` (wrap an organisation name in double braces, e.g. `{{Voedingscentrum}}`, so BibTeX doesn't try to parse it as a personal name), `title`, `note` (the short "gebruikt voor .../de basis voor ..." context, no trailing period), `url` and `urldisplay` for `@online`; `publisher` and `year` instead of `url`/`urldisplay` for `@book`.
+- Cite it from the text with `\cite{key}` (renders as a terracotta `[n]`) — don't add a "zie de bibliografie achterin" pointer phrase, the numbered citation already does that job. Multiple sources for the same claim can share one call: `\cite{key-one,key-two}`.
+- Set `urldisplay` to a short, readable form of the URL (e.g. `ah.nl/r/1055570`, `voedingscentrum.nl/...`) rather than relying on the raw URL — a long URL, especially one with encoded `%20` spaces, often won't break cleanly and overflows the page margin, and nobody retypes a 150-character URL from a page anyway.
+- New entries just need to exist in the `.bib` file with a `\cite` pointing at them somewhere in citation order; there's no need to touch `backmatter/bibliografie.tex` itself or manually renumber anything — `sorting=none` handles ordering automatically.
+- Double-check names and titles against the actual source (a misspelled author name is worse than no attribution) — see the `khoo-tartetatin`/`witzenhausen-risotto` entries for the pattern.
 
 ## Ingredient ordering
 
