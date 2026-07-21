@@ -392,16 +392,63 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: var(--text);
+      border: 1px solid var(--border);
       border-radius: 3px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       transition: background 0.18s;
     }
-    #fullscreen-toggle:hover { background: var(--accent2); }
+    #fullscreen-toggle:hover { background: #fff; }
     #fullscreen-toggle svg { width: 19px; height: 19px; }
+
+    /* ── Zoom control (fullscreen mode only) ─────── */
+    #zoom-controls {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 5;
+      display: none;
+      align-items: center;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+    #zoom-controls.visible { display: flex; }
+    #zoom-controls button {
+      width: 34px;
+      height: 38px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.15rem;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #zoom-controls button:hover:not(:disabled) { background: rgba(0,0,0,0.08); }
+    #zoom-controls button:disabled { opacity: 0.3; cursor: default; }
+    #zoom-controls input[type="range"] {
+      width: 110px;
+      margin: 0 4px;
+      accent-color: var(--accent2);
+      cursor: pointer;
+    }
+    #zoom-level {
+      min-width: 48px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-style: italic;
+      user-select: none;
+    }
 
     /* ── Viewer footer ────────────────────────── */
     #viewer-bar {
@@ -566,6 +613,12 @@
       <div id="loading-msg">Laden…</div>
       <canvas id="canvas-l" class="pdf-page"></canvas>
       <canvas id="canvas-r" class="pdf-page"></canvas>
+      <div id="zoom-controls">
+        <button id="zoom-out" onclick="adjustZoom(-1)" title="Uitzoomen" aria-label="Uitzoomen">&minus;</button>
+        <input type="range" id="zoom-slider" min="0.5" max="3" step="0.05" value="1" aria-label="Zoomniveau">
+        <span id="zoom-level">100%</span>
+        <button id="zoom-in" onclick="adjustZoom(1)" title="Inzoomen" aria-label="Inzoomen">+</button>
+      </div>
       <button id="fullscreen-toggle" onclick="toggleFullscreen()" title="Volledig scherm" aria-label="Volledig scherm"></button>
     </div>
 
@@ -914,6 +967,14 @@ function toggleSidebar() {
 // Landscape shows a two-page spread at maximum width; portrait shows a
 // single page — see the width-based fallback in renderSpread() for the
 // non-fullscreen behaviour.
+//
+// This is a CSS/JS-driven "immersive" layout rather than the real Fullscreen
+// API (Element.requestFullscreen). Mobile browsers disable pinch-to-zoom
+// while an element is in true browser fullscreen — there's no way to
+// override that from page code — so real fullscreen would make the pages
+// unzoomable exactly where readers want to zoom in most. Reproducing the
+// same look (header/footer/sidebar hidden, page taking the full viewport)
+// without ever calling requestFullscreen keeps native pinch-zoom working.
 
 const ICON_EXPAND =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
@@ -927,17 +988,15 @@ const ICON_COMPRESS =
   '3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 ' +
   '15v4.5m0-4.5l5.25 5.25"/></svg>';
 
+let immersive = false;
+
 function isFullscreen() {
-  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  return immersive;
 }
 
 function toggleFullscreen() {
-  if (!isFullscreen()) {
-    const el = document.documentElement;
-    (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
-  } else {
-    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-  }
+  immersive = !immersive;
+  onFullscreenChange();
 }
 
 // Set only while this fullscreen session is the one that collapsed the
@@ -959,6 +1018,8 @@ function onFullscreenChange() {
   btn.innerHTML = fs ? ICON_COMPRESS : ICON_EXPAND;
   btn.title = btn.ariaLabel = fs ? 'Volledig scherm afsluiten' : 'Volledig scherm';
   document.querySelector('header').style.display = fs ? 'none' : '';
+  document.getElementById('zoom-controls').classList.toggle('visible', fs);
+  if (!fs) { zoomLevel = 1; updateZoomControls(); }
 
   const aside = document.getElementById('sidebar');
   const cls   = window.innerWidth <= 680 ? 'slide-out' : 'collapsed';
@@ -975,9 +1036,55 @@ function onFullscreenChange() {
   setTimeout(() => { if (pdf) renderSpread(curPage); }, 300);
 }
 
+// ── Zoom control (fullscreen mode only) ─────────────────────────────────────
+// Independent of the browser's native pinch-zoom — buttons for a click-to-
+// step zoom, plus a slider for fine dragging. Past ZOOM_SINGLE_PAGE_THRESHOLD,
+// a landscape spread drops to a single page since two zoomed-in pages would
+// no longer fit side by side without heavy horizontal scrolling.
+
+const ZOOM_MIN = 0.5;
+const ZOOM_MAX = 3;
+const ZOOM_STEP = 0.25;
+const ZOOM_SINGLE_PAGE_THRESHOLD = 1.2;
+
+let zoomLevel = 1;
+
+function updateZoomControls() {
+  document.getElementById('zoom-level').textContent = Math.round(zoomLevel * 100) + '%';
+  document.getElementById('zoom-out').disabled = zoomLevel <= ZOOM_MIN;
+  document.getElementById('zoom-in').disabled  = zoomLevel >= ZOOM_MAX;
+  document.getElementById('zoom-slider').value = zoomLevel;
+}
+
+function setZoom(value) {
+  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +value.toFixed(2)));
+  updateZoomControls();
+  if (pdf) renderSpread(curPage);
+}
+
+document.getElementById('zoom-slider').addEventListener('input', (e) => setZoom(+e.target.value));
+
+function adjustZoom(dir) {
+  setZoom(zoomLevel + dir * ZOOM_STEP);
+}
+
+updateZoomControls();
+
+// True when a two-page spread should be shown: outside fullscreen this is a
+// plain width breakpoint; in fullscreen it's landscape orientation, unless
+// zoomed in far enough that a single page reads better.
+function isWideLayout(area) {
+  if (isFullscreen()) {
+    return window.innerWidth > window.innerHeight && zoomLevel < ZOOM_SINGLE_PAGE_THRESHOLD;
+  }
+  return area.clientWidth > 620;
+}
+
 document.getElementById('fullscreen-toggle').innerHTML = ICON_EXPAND;
-document.addEventListener('fullscreenchange', onFullscreenChange);
-document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && immersive) toggleFullscreen();
+});
 
 window.addEventListener('resize', () => {
   if (pdf && document.getElementById('welcome').style.display === 'none') renderSpread(curPage);
@@ -1005,7 +1112,7 @@ async function renderSpread(leftPage) {
   bar.style.display     = isFullscreen() ? 'none' : 'flex';
 
   const total     = pdf.numPages;
-  const wide      = isFullscreen() ? window.innerWidth > window.innerHeight : area.clientWidth > 620;
+  const wide      = isWideLayout(area);
   const showRight = wide && leftPage + 1 <= total;
 
   const hPad = 36 * (showRight ? 2 : 1) + (showRight ? 10 : 0);
@@ -1035,7 +1142,8 @@ async function renderSpread(leftPage) {
 async function renderPage(pageNum, canvas, maxW, maxH) {
   const page = await pdf.getPage(pageNum);
   const base = page.getViewport({ scale: 1 });
-  const scale = Math.min(maxW / base.width, maxH / base.height, 3.0);
+  const fitScale = Math.min(maxW / base.width, maxH / base.height);
+  const scale = Math.min(fitScale * zoomLevel, 3.0);
   const vp    = page.getViewport({ scale });
   const dpr   = window.devicePixelRatio || 1;
 
@@ -1053,10 +1161,7 @@ async function renderPage(pageNum, canvas, maxW, maxH) {
 
 function navigate(dir) {
   if (!pdf) return;
-  const wide  = isFullscreen()
-    ? window.innerWidth > window.innerHeight
-    : document.getElementById('canvas-area').clientWidth > 620;
-  const step  = wide ? 2 : 1;
+  const step  = isWideLayout(document.getElementById('canvas-area')) ? 2 : 1;
   const total = pdf.numPages;
   curPage = Math.max(1, Math.min(total, curPage + dir * step));
   renderSpread(curPage);
