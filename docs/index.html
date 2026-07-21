@@ -392,15 +392,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: var(--text);
+      border: 1px solid var(--border);
       border-radius: 3px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       transition: background 0.18s;
     }
-    #fullscreen-toggle:hover { background: var(--accent2); }
+    #fullscreen-toggle:hover { background: #fff; }
     #fullscreen-toggle svg { width: 19px; height: 19px; }
 
     /* ── Zoom control (fullscreen mode only) ─────── */
@@ -411,10 +413,12 @@
       z-index: 5;
       display: none;
       align-items: center;
-      background: var(--accent);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
       border-radius: 3px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       overflow: hidden;
     }
     #zoom-controls.visible { display: flex; }
@@ -423,24 +427,24 @@
       height: 38px;
       background: none;
       border: none;
-      color: #fff;
+      color: var(--text);
       font-size: 1.15rem;
       font-family: Georgia, serif;
       cursor: pointer;
       transition: background 0.15s;
     }
-    #zoom-controls button:hover:not(:disabled) { background: var(--accent2); }
-    #zoom-controls button:disabled { opacity: 0.35; cursor: default; }
+    #zoom-controls button:hover:not(:disabled) { background: rgba(0,0,0,0.08); }
+    #zoom-controls button:disabled { opacity: 0.3; cursor: default; }
     #zoom-controls input[type="range"] {
       width: 110px;
       margin: 0 4px;
-      accent-color: #fff;
+      accent-color: var(--accent2);
       cursor: pointer;
     }
     #zoom-level {
       min-width: 48px;
       text-align: center;
-      color: #fff;
+      color: var(--muted);
       font-size: 0.74rem;
       font-style: italic;
       user-select: none;
