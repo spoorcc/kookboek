@@ -6,13 +6,11 @@
 van eiwit dat stolt tot suiker die bruin wordt. Hieronder staat, van koud
 naar heet, wat er ongeveer gebeurt.
 
-% Verticale tijdlijn, deel 1 (4-85 °C): zelfde opzet als de matenlijn in
-% Kleine maten, maar hier telkens één temperatuur in plaats van een
-% gewichtsbereik. Loopt in twee delen over een paginabreuk heen (zie
-% \clearpage verderop), elk met zijn eigen middenlijn.
+% Verticale tijdlijn (4-230+ °C): zelfde opzet als de matenlijn in Kleine
+% maten, maar hier telkens één temperatuur in plaats van een gewichtsbereik.
 \begin{center}
 \begin{tikzpicture}[y=1cm]
-\draw[color=terracotta, line width=0.6pt, {Stealth[length=1.8mm,width=1.1mm]}-] (0,0.4) -- (0,-8.8);
+\draw[color=terracotta, line width=0.6pt, {Stealth[length=1.8mm,width=1.1mm]}-{Stealth[length=1.8mm,width=1.1mm]}] (0,0.3) -- (0,-13.05);
 
 \node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
 \draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
@@ -20,116 +18,105 @@ naar heet, wat er ongeveer gebeurt.
   {\textbf{\textcolor{terracotta}{4\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Enzymen vertragen, bederf gaat trager.}}};
 
-\node at (0,-0.95) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-0.95) -- (0.5,-0.95);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.95)
+\node at (0,-0.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-0.75) -- (0.5,-0.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.75)
   {\textbf{\textcolor{terracotta}{15\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Boter wordt zacht, aroma's komen los.}}};
 
-\node at (0,-1.9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-1.9) -- (-0.5,-1.9);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.9)
+\node at (0,-1.50) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-1.50) -- (-0.5,-1.50);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.50)
   {\textbf{\textcolor{terracotta}{34\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Cacaoboter in chocolade smelt.}}};
 
-\node at (0,-2.85) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-2.85) -- (0.5,-2.85);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.85)
+\node at (0,-2.25) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-2.25) -- (0.5,-2.25);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.25)
   {\textbf{\textcolor{terracotta}{40\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Vis-eiwit stolt, verliest zijn glazigheid.}}};
 
-\node at (0,-3.8) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-3.8) -- (-0.5,-3.8);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.8)
+\node at (0,-3.00) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3.00) -- (-0.5,-3.00);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.00)
   {\textbf{\textcolor{terracotta}{50\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Vlees-eiwit begint te stollen.}}};
 
-\node at (0,-4.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-4.75) -- (0.5,-4.75);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-4.75)
+\node at (0,-3.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-3.75) -- (0.5,-3.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-3.75)
   {\textbf{\textcolor{terracotta}{60\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Eiwit van een ei stolt en wordt wit.}}};
 
-\node at (0,-5.7) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-5.7) -- (-0.5,-5.7);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-5.7)
+\node at (0,-4.50) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-4.50) -- (-0.5,-4.50);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-4.50)
   {\textbf{\textcolor{terracotta}{65\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Eigeel stolt, zetmeel bindt vocht.}}};
 
-\node at (0,-6.65) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-6.65) -- (0.5,-6.65);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.65)
+\node at (0,-5.25) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-5.25) -- (0.5,-5.25);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-5.25)
   {\textbf{\textcolor{terracotta}{70\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Taai bindweefsel wordt zachte gelatine.}}};
 
-\node at (0,-7.6) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-7.6) -- (-0.5,-7.6);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-7.6)
+\node at (0,-6.00) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6.00) -- (-0.5,-6.00);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-6.00)
   {\textbf{\textcolor{terracotta}{80\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Vrijwel alle eiwit is nu gestold.}}};
 
-\node at (0,-8.55) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-8.55) -- (0.5,-8.55);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-8.55)
+\node at (0,-6.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-6.75) -- (0.5,-6.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.75)
   {\textbf{\textcolor{terracotta}{85\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Pectine breekt af, groente wordt snel zacht.}}};
-\end{tikzpicture}
-\end{center}
 
-\clearpage
-{\footnotesize\itshape\color{inkfaint}Vervolg: 95 tot 230\,°C en hoger.\par}
-\vspace{0.6em}
-
-% Verticale tijdlijn, deel 2 (95-230+ °C).
-\begin{center}
-\begin{tikzpicture}[y=1cm]
-\draw[color=terracotta, line width=0.6pt, -{Stealth[length=1.8mm,width=1.1mm]}] (0,0.25) -- (0,-8.0);
-
-\node at (0,0) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,0) -- (-0.5,0);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,0)
+\node at (0,-7.50) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-7.50) -- (-0.5,-7.50);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-7.50)
   {\textbf{\textcolor{terracotta}{95\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Water suddert, net onder de kook.}}};
 
-\node at (0,-0.95) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-0.95) -- (0.5,-0.95);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-0.95)
+\node at (0,-8.25) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-8.25) -- (0.5,-8.25);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-8.25)
   {\textbf{\textcolor{terracotta}{100\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Water kookt.}}};
 
-\node at (0,-1.9) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-1.9) -- (-0.5,-1.9);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-1.9)
+\node at (0,-9.00) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-9.00) -- (-0.5,-9.00);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-9.00)
   {\textbf{\textcolor{terracotta}{120\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Maillard-reactie begint, zodra het oppervlak droog is: het begin van bruinen.}}};
 
-\node at (0,-2.85) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-2.85) -- (0.5,-2.85);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-2.85)
+\node at (0,-9.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-9.75) -- (0.5,-9.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-9.75)
   {\textbf{\textcolor{terracotta}{140\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Maillard-reactie op zijn sterkst.}}};
 
-\node at (0,-3.8) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-3.8) -- (-0.5,-3.8);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-3.8)
+\node at (0,-10.50) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-10.50) -- (-0.5,-10.50);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-10.50)
   {\textbf{\textcolor{terracotta}{160\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Karamellisatie van suiker begint.}}};
 
-\node at (0,-4.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-4.75) -- (0.5,-4.75);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-4.75)
+\node at (0,-11.25) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-11.25) -- (0.5,-11.25);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-11.25)
   {\textbf{\textcolor{terracotta}{180\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Risico op acrylamide bij hard gebakken zetmeel.}}};
 
-\node at (0,-5.7) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-5.7) -- (-0.5,-5.7);
-\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-5.7)
+\node at (0,-12.00) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-12.00) -- (-0.5,-12.00);
+\node[align=right, text width=4.8cm, anchor=east] at (-0.6,-12.00)
   {\textbf{\textcolor{terracotta}{200\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Rookpunt van de meeste bakolie.}}};
 
-\node at (0,-6.65) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
-\draw[color=inkfaint, line width=0.3pt] (0,-6.65) -- (0.5,-6.65);
-\node[align=left, text width=4.8cm, anchor=west] at (0.6,-6.65)
+\node at (0,-12.75) {\textcolor{terracotta}{\scriptsize$\blacklozenge$}};
+\draw[color=inkfaint, line width=0.3pt] (0,-12.75) -- (0.5,-12.75);
+\node[align=left, text width=4.8cm, anchor=west] at (0.6,-12.75)
   {\textbf{\textcolor{terracotta}{Vanaf 230\,°C}}\\[0pt]
    {\footnotesize\textcolor{inkfaint}{Eten verkoolt en wordt bitter.}}};
 \end{tikzpicture}
