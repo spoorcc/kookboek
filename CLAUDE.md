@@ -115,11 +115,11 @@ Hardcover casewrap spine width isn't a continuous formula — per Lulu's Develop
 | `kookboek.sty` | All styling and every recipe macro |
 | `cover/cover.tex` | Lulu wraparound cover (back + spine + front), built and uploaded separately |
 | `frontmatter/voorwoord.tex` | Foreword |
-| `backmatter/seizoenskalender.tex` | Groente- en fruitkalender appendix, `\input` after `\backmatter`, before the Register |
-| `backmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), `\input` after the seizoenskalender, before the Register |
-| `backmatter/portiegrootte.tex` | Portiegrootte appendix (default portie count, hoeveelheden per persoon), `\input` after basisvoorraad, before the Register |
-| `backmatter/kleine-maten.tex` | Kleine maten appendix: vertical timeline of vague quantity terms (mespunt to scheutje), `\input` after portiegrootte, before the Register |
-| `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after kleine-maten, before the Register |
+| `frontmatter/seizoenskalender.tex` | Groente- en fruitkalender, part of the Inleiding section, `\input` after `\frontmatter`/Voorwoord, before Inhoud |
+| `frontmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), part of the Inleiding section, `\input` after the seizoenskalender |
+| `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisvoorraad |
+| `frontmatter/kleine-maten.tex` | Kleine maten: vertical timeline of vague quantity terms (mespunt to scheutje), part of the Inleiding section, `\input` after portiegrootte, last thing before Inhoud |
+| `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after `\backmatter`, before the Register |
 | `backmatter/kooktemperaturen.tex` | Kooktemperaturen appendix: vertical timeline of cooking-chemistry temperature milestones (4 °C to 230+ °C), `\input` after kerntemperatuur, before the Register |
 | `backmatter/bibliografie.tex` | Bibliografie: every external source/link used anywhere in the book, `\input` after `\printindex[register]`, the literal last thing before `\end{document}` — see "Bibliografie" below |
 | `recipes/*.tex` | Individual recipes, one file each |
