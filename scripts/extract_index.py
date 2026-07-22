@@ -10,19 +10,27 @@ from pathlib import Path
 SKIP = {"Inhoud", "Register", "Kookboek", "Index"}
 
 # Front/back matter that isn't a recipe but is still worth a clickable entry
-# in the docs site's sidebar (Voorwoord, and the backmatter appendices ahead
-# of the Register). Mapped to a synthetic "chapter" label so the existing
-# recipe-list grouping in docs/index.html can render them without any
-# special-casing beyond that label. Register itself already has its own
-# sidebar tab, so it stays excluded via SKIP above.
-FRONTMATTER_EXTRAS = {"Voorwoord": "Voorwoord"}
+# in the docs site's sidebar (Voorwoord, the frontmatter Inleiding sections,
+# and the backmatter appendices ahead of the Register). Mapped to a synthetic
+# "chapter" label so the existing recipe-list grouping in docs/index.html can
+# render them without any special-casing beyond that label. Register itself
+# already has its own sidebar tab, so it stays excluded via SKIP above.
+FRONTMATTER_EXTRAS = {
+    "Voorwoord": "Voorwoord",
+    **{
+        title: "Inleiding"
+        for title in (
+            "Hoe dit boek te lezen",
+            "Seizoenskalender",
+            "Basisvoorraad",
+            "Portiegrootte",
+            "Kleine maten",
+        )
+    },
+}
 BACKMATTER_EXTRAS = {
     title: "Bijlagen"
     for title in (
-        "Seizoenskalender",
-        "Basisvoorraad",
-        "Portiegrootte",
-        "Kleine maten",
         "Kerntemperatuur",
         "Kooktemperaturen",
         "Bibliografie",

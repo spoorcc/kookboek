@@ -87,6 +87,36 @@
   \tableofcontents
 \endgroup
 
+\cleardoublepage
+% Inleiding: one chapter-level heading for the practical need-to-know
+% material ahead of the recipes, same hand-styled treatment as Bijlagen
+% (not a real \chapter — see the note in each frontmatter/*.tex file below).
+% Each section below it is a \subchapter-level (H2) heading instead of its
+% own full chapter-sized title.
+\phantomsection\addcontentsline{toc}{chapter}{Inleiding}
+\vspace*{0.4cm}
+{\handfont\fontsize{60}{58}\selectfont\color{terracotta}Inleiding\par}
+\vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+ {\vspace{6pt}\itshape\small\color{inkfaint}Een paar dingen die handig zijn om te weten voordat je aan een recept begint.\par}\vspace{1.4em}
+
+\input{frontmatter/hoe-dit-boek-te-lezen}
+
+\clearpage
+\input{frontmatter/seizoenskalender}
+
+% Plain \clearpage, not \cleardoublepage: Seizoenskalender ends its Fruit
+% table on a right/recto page (see frontmatter/seizoenskalender.tex), so the
+% very next page is already left/verso — forcing to odd here would insert
+% an unwanted blank page and break that alignment.
+\clearpage
+\input{frontmatter/basisvoorraad}
+
+\clearpage
+\input{frontmatter/portiegrootte}
+
+\clearpage
+\input{frontmatter/kleine-maten}
+
 % ----------------------------------------------------------------- RECIPES ----
 \mainmatter
 \pagestyle{fancy}
@@ -255,22 +285,6 @@
 \vspace{8pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
 \vspace{1.4em}
 
-\input{backmatter/seizoenskalender}
-
-% Plain \clearpage, not \cleardoublepage: Seizoenskalender ends its Fruit
-% table on a right/recto page (see backmatter/seizoenskalender.tex), so the
-% very next page is already left/verso — forcing to odd here would insert
-% an unwanted blank page and break that alignment.
-\clearpage
-\input{backmatter/basisvoorraad}
-
-\clearpage
-\input{backmatter/portiegrootte}
-
-\clearpage
-\input{backmatter/kleine-maten}
-
-\clearpage
 \input{backmatter/kerntemperatuur}
 
 \clearpage
