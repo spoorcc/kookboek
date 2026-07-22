@@ -13,9 +13,11 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
    - Preparation steps
    - Any tip worth calling out in a `\tip{}`
 
-2. **Derive a filename.** Use a short, lowercase, hyphenated Dutch name, e.g. `recipes/tomaten-soep.tex`.
+2. **Be critical about every ingredient — make each one explicit and specific.** Don't carry over a vague name from the source text as-is: not `bloem` but `tarwebloem` or `patentbloem` (whichever the recipe actually needs), not `boter` but `ongezouten roomboter`, not `gehakt` but e.g. `half-om-half gehakt` or `rundergehakt`, not `kaas` but the actual kind (`geraspte belegen kaas`, `Parmezaanse kaas`, ...). Grep `recipes/*.tex` for how the same ingredient is already named elsewhere in the book and match that instead of inventing a generic term.
 
-3. **Write the `.tex` file** using the macros from `kookboek.sty`:
+3. **Derive a filename.** Use a short, lowercase, hyphenated Dutch name, e.g. `recipes/tomaten-soep.tex`.
+
+4. **Write the `.tex` file** using the macros from `kookboek.sty`:
 
 ```latex
 \begin{recipe}{Naam van het gerecht}
@@ -48,8 +50,8 @@ The user will paste a recipe in freeform text (from a notes app, a website, or h
    - No emoticons or emoji
    - No overconfident language ("perfect", "iedereen zal dit geweldig vinden", etc.)
 
-4. **Update `main.tex`.** Add `\input{recipes/filename}` under the correct `\chapter{…}`. If no chapter fits, propose a new one and ask before adding it.
+5. **Update `main.tex`.** Add `\input{recipes/filename}` under the correct `\chapter{…}`. If no chapter fits, propose a new one and ask before adding it.
 
-5. **Check the seizoenskalender.** For each vegetable ingredient the recipe uses, check `backmatter/seizoenskalender.tex` for a commented-out `% \seizoenrij{Naam}{...}` line with that name. If one exists, uncomment it and move it into the active, alphabetically-sorted `\seizoenrij` table rows in the `Groente` block (and delete the now-empty comment line). Leave fruit and already-active vegetables alone.
+6. **Check the seizoenskalender.** For each vegetable ingredient the recipe uses, check `backmatter/seizoenskalender.tex` for a commented-out `% \seizoenrij{Naam}{...}` line with that name. If one exists, uncomment it and move it into the active, alphabetically-sorted `\seizoenrij` table rows in the `Groente` block (and delete the now-empty comment line). Leave fruit and already-active vegetables alone.
 
-6. **Report back.** Show the generated `.tex` content and confirm the line added to `main.tex` (and any vegetable moved out of the seizoenskalender comment block). Ask the user to verify the servings, cooking time, and category before considering the task done.
+7. **Report back.** Show the generated `.tex` content and confirm the line added to `main.tex` (and any vegetable moved out of the seizoenskalender comment block). Ask the user to verify the servings, cooking time, and category before considering the task done.
