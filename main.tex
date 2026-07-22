@@ -73,6 +73,21 @@
 \input{frontmatter/voorwoord}
 
 \cleardoublepage
+\renewcommand{\contentsname}{Inhoud}
+% PDF-bookmark only (no \addcontentsline — Inhoud shouldn't list itself);
+% marks where Voorwoord ends for scripts/extract_index.py's page-range math.
+\pdfbookmark[0]{Inhoud}{inhoud}
+\par\vspace*{0.4cm}{\handfont\fontsize{60}{60}\selectfont\color{terracotta}Inhoud\par}
+ \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
+ {\vspace{6pt}\itshape\small\color{inkfaint}Onze gerechten, geordend per categorie.\par}\vspace{1.2em}
+% The table of contents is the category lookup: chapters = categories,
+% sections = recipes. (\tableofcontents reads the .toc from the previous run.)
+\begingroup
+  \renewcommand{\contentsname}{}
+  \tableofcontents
+\endgroup
+
+\cleardoublepage
 % Inleiding: one chapter-level heading for the practical need-to-know
 % material ahead of the recipes, same hand-styled treatment as Bijlagen
 % (not a real \chapter — see the note in each frontmatter/*.tex file below).
@@ -98,22 +113,6 @@
 
 \clearpage
 \input{frontmatter/kleine-maten}
-
-\cleardoublepage
-\renewcommand{\contentsname}{Inhoud}
-% PDF-bookmark only (no \addcontentsline — Inhoud shouldn't list itself);
-% marks where the front matter (Voorwoord + Inleiding) ends for
-% scripts/extract_index.py's page-range math.
-\pdfbookmark[0]{Inhoud}{inhoud}
-\par\vspace*{0.4cm}{\handfont\fontsize{60}{60}\selectfont\color{terracotta}Inhoud\par}
- \vspace{6pt}{\color{terracotta}\rule{2.6cm}{0.5pt}\;\raisebox{-0.2ex}{$\scriptstyle\blacklozenge$}}\par
- {\vspace{6pt}\itshape\small\color{inkfaint}Onze gerechten, geordend per categorie.\par}\vspace{1.2em}
-% The table of contents is the category lookup: chapters = categories,
-% sections = recipes. (\tableofcontents reads the .toc from the previous run.)
-\begingroup
-  \renewcommand{\contentsname}{}
-  \tableofcontents
-\endgroup
 
 % ----------------------------------------------------------------- RECIPES ----
 \mainmatter
