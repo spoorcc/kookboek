@@ -20,6 +20,7 @@ FRONTMATTER_EXTRAS = {
     **{
         title: "Inleiding"
         for title in (
+            "Hoe dit boek te lezen",
             "Seizoenskalender",
             "Basisvoorraad",
             "Portiegrootte",

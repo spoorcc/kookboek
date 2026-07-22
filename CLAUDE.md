@@ -115,7 +115,8 @@ Hardcover casewrap spine width isn't a continuous formula — per Lulu's Develop
 | `kookboek.sty` | All styling and every recipe macro |
 | `cover/cover.tex` | Lulu wraparound cover (back + spine + front), built and uploaded separately |
 | `frontmatter/voorwoord.tex` | Foreword, `\input` first, right after `\frontmatter` |
-| `frontmatter/seizoenskalender.tex` | Groente- en fruitkalender, part of the Inleiding section, `\input` after Inhoud (the ToC), before `\mainmatter` |
+| `frontmatter/hoe-dit-boek-te-lezen.tex` | Hoe dit boek te lezen: book structure (Inhoud/Register) and bakkerspercentage explainer, part of the Inleiding section, `\input` first within it, right after Inhoud (the ToC) |
+| `frontmatter/seizoenskalender.tex` | Groente- en fruitkalender, part of the Inleiding section, `\input` after hoe-dit-boek-te-lezen |
 | `frontmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), part of the Inleiding section, `\input` after the seizoenskalender |
 | `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisvoorraad |
 | `frontmatter/kleine-maten.tex` | Kleine maten: vertical timeline of vague quantity terms (mespunt to scheutje), part of the Inleiding section, `\input` after portiegrootte, last thing before `\mainmatter` |
