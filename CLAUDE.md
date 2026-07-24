@@ -219,9 +219,15 @@ This doesn't apply to oven-baking steps (the `°C` already tells you the heat) o
 
 Any vegetable or fruit that goes into the dish with its skin/peel still on must be washed before it's cut, and the step should say so explicitly rather than leaving it implied: `was & snij de tomaat`, not just `snij de tomaat`. This covers produce like tomaat, komkommer, courgette, aubergine, paprika, appel, peer, wortel (unpeeled), radijs, citroen/limoen, druiven, pruim, perzik, and unpeeled aardappel. It doesn't apply once the skin itself is removed and discarded (a peeled ui, knoflook, or geschilde aardappel/wortel), or to produce already covered by an earlier wash in the same recipe (don't repeat the instruction for every vegetable in a single wash-and-chop step — one `was` covering the group is enough).
 
-## Pureren: staafmixer, niet blender of keukenmachine
+## Geen blender of keukenmachine: staafmixer en standmixer
 
-When a recipe purees a soup or similar mixture, use a staafmixer directly in the pan (see `tomatensoep`, `pastinaaksoep`, `broccolisoep-geitenkaas`) rather than a blender or keukenmachine in the main steps — it's the appliance most readers actually have, and it skips the ladle-into-a-jug-and-back step a countertop blender needs. A keukenmachine in particular gives a coarser result for a soup that's meant to be velvety smooth. This doesn't apply to recipes where a keukenmachine or blender is the right tool for something other than pureeing a soup (kneading dough, pulsing solids into a paste, blending frozen fruit) — see `ciabatta`, `falafel`, `kalkoen-in-spek`, `lahmacun`, `bananenijs`. For an extra-smooth result worth the effort (a festive occasion, a dinner-party starter), a `\tip{}` can mention pushing the pureed soup through a fine zeef with the back of a lepel, as in `tomatensoep` and `broccolisoep-geitenkaas`.
+This kitchen doesn't own a blender or a keukenmachine, only a staafmixer (with a hakmolen/chopper attachment for small batches) and a standmixer (KitchenAid Artisan) for kneading — see `frontmatter/basisapparatuur.tex`. Recipes should never call for a blender or keukenmachine; use whichever of these actually does the job:
+
+- **Pureeing a soup**: staafmixer directly in the pan (see `tomatensoep`, `pastinaaksoep`, `broccolisoep-geitenkaas`) — it skips the ladle-into-a-jug-and-back step a jug blender needs, and gives a smoother result than a keukenmachine would for a soup that's meant to be velvety. For an extra-smooth result worth the effort (a festive occasion, a dinner-party starter), a `\tip{}` can mention pushing the pureed soup through a fine zeef with the back of a lepel, as in `tomatensoep` and `broccolisoep-geitenkaas`.
+- **Kneading bread or pizza dough**: standmixer (see `ciabatta`), or by hand.
+- **Grinding or pulsing a small batch** (a falafelmix, a herb butter, a vegetable topping): the staafmixer's hakmolen attachment (see `falafel`, `kalkoen-in-spek`, `lahmacun`). If a mixture doesn't fit the hakmolen bowl in one go, process it in gedeeltes rather than reaching for a keukenmachine.
+- **Blending frozen fruit into a soft-serve texture**: the staafmixer directly, in a tall beker with a splash of liquid, letting fully frozen fruit soften a few minutes first (see `bananenijs`).
+- **Cooked aardappelpuree**: a staafmixer works against you here, it makes the puree gluey instead of light — use a pureeknijper instead.
 
 ## Writing style for recipe text
 
