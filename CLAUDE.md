@@ -221,11 +221,11 @@ Any vegetable or fruit that goes into the dish with its skin/peel still on must 
 
 ## Geen blender of keukenmachine: staafmixer en standmixer
 
-This kitchen doesn't own a blender or a keukenmachine, only a staafmixer (with a hakmolen/chopper attachment for small batches) and a standmixer (KitchenAid Artisan) for kneading — see `frontmatter/basisapparatuur.tex`. Recipes should never call for a blender or keukenmachine; use whichever of these actually does the job:
+This kitchen doesn't own a blender or a keukenmachine, only a staafmixer (no attachments — used directly in the pan or in a separate/loose kom) and a standmixer (KitchenAid Artisan) for kneading — see `frontmatter/basisapparatuur.tex`. Recipes should never call for a blender or keukenmachine; use whichever of these actually does the job:
 
 - **Pureeing a soup**: staafmixer directly in the pan (see `tomatensoep`, `pastinaaksoep`, `broccolisoep-geitenkaas`) — it skips the ladle-into-a-jug-and-back step a jug blender needs, and gives a smoother result than a keukenmachine would for a soup that's meant to be velvety. For an extra-smooth result worth the effort (a festive occasion, a dinner-party starter), a `\tip{}` can mention pushing the pureed soup through a fine zeef with the back of a lepel, as in `tomatensoep` and `broccolisoep-geitenkaas`.
 - **Kneading bread or pizza dough**: standmixer (see `ciabatta`), or by hand.
-- **Grinding or pulsing a small batch** (a falafelmix, a herb butter, a vegetable topping): the staafmixer's hakmolen attachment (see `falafel`, `kalkoen-in-spek`, `lahmacun`). If a mixture doesn't fit the hakmolen bowl in one go, process it in gedeeltes rather than reaching for a keukenmachine.
+- **Grinding or pureeing a small batch** (a falafelmix, a herb butter, a vegetable topping): the staafmixer in a separate kom (see `falafel`, `kalkoen-in-spek`, `lahmacun`), not a keukenmachine.
 - **Blending frozen fruit into a soft-serve texture**: the staafmixer directly, in a tall beker with a splash of liquid, letting fully frozen fruit soften a few minutes first (see `bananenijs`).
 - **Cooked aardappelpuree**: a staafmixer works against you here, it makes the puree gluey instead of light — use a pureeknijper instead.
 
