@@ -76,6 +76,7 @@ crudo
 crème-fraîchemengsel
 cuisson
 dekselstoom
+demeyere
 dikgesneden
 doorgebakken
 doorpruttelen
@@ -146,6 +147,7 @@ kitchenaid
 knapperigere
 koek-
 kofta
+koncis
 kookoliën
 krokantheid
 lahmacun
@@ -196,6 +198,7 @@ pastaprimavera
 pastinaaksoep
 penne
 pepe
+pfas-vrij
 pide
 pides
 pizzarolletjes
