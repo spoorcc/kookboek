@@ -118,7 +118,8 @@ Hardcover casewrap spine width isn't a continuous formula — per Lulu's Develop
 | `frontmatter/hoe-dit-boek-te-lezen.tex` | Hoe dit boek te lezen: book structure (Inhoud/Register) and bakkerspercentage explainer, part of the Inleiding section, `\input` first within it, right after Inhoud (the ToC) |
 | `frontmatter/seizoenskalender.tex` | Groente- en fruitkalender, part of the Inleiding section, `\input` after hoe-dit-boek-te-lezen |
 | `frontmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), part of the Inleiding section, `\input` after the seizoenskalender |
-| `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisvoorraad |
+| `frontmatter/basisapparatuur.tex` | Basisapparatuur checklist (pans, bakeware, small appliances, hand tools, measuring tools, with sizes/capacities), part of the Inleiding section, `\input` after basisvoorraad |
+| `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisapparatuur |
 | `frontmatter/kleine-maten.tex` | Kleine maten: vertical timeline of vague quantity terms (mespunt to scheutje), part of the Inleiding section, `\input` after portiegrootte, last thing before `\mainmatter` |
 | `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after `\backmatter`, before the Register |
 | `backmatter/kooktemperaturen.tex` | Kooktemperaturen appendix: vertical timeline of cooking-chemistry temperature milestones (4 °C to 230+ °C), `\input` after kerntemperatuur, before the Register |

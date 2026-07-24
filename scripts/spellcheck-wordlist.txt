@@ -22,6 +22,7 @@ andijviestamp
 angus
 arborio
 arretjescake
+artisan
 aspergepan
 aubergineblokjes
 aubergineplakken
@@ -141,6 +142,7 @@ kipdijfilets
 kippenfond
 kipshoarma
 kipspiesjes
+kitchenaid
 knapperigere
 koek-
 kofta
@@ -209,6 +211,7 @@ pulled
 puffy
 quesadilla
 quesadilla's
+quichevorm
 ragù
 ramsay
 reggiano
@@ -246,6 +249,7 @@ spinazierisotto
 spring-
 spruitenstamp
 spruitjes-spekmengsel
+standmixer
 t65
 tarte
 tatin
