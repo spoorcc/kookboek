@@ -118,7 +118,8 @@ Hardcover casewrap spine width isn't a continuous formula — per Lulu's Develop
 | `frontmatter/hoe-dit-boek-te-lezen.tex` | Hoe dit boek te lezen: book structure (Inhoud/Register) and bakkerspercentage explainer, part of the Inleiding section, `\input` first within it, right after Inhoud (the ToC) |
 | `frontmatter/seizoenskalender.tex` | Groente- en fruitkalender, part of the Inleiding section, `\input` after hoe-dit-boek-te-lezen |
 | `frontmatter/basisvoorraad.tex` | Basisvoorraad checklist (pantry staples), part of the Inleiding section, `\input` after the seizoenskalender |
-| `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisvoorraad |
+| `frontmatter/basisapparatuur.tex` | Basisapparatuur checklist (pans, bakeware, small appliances, hand tools, measuring tools, with sizes/capacities), part of the Inleiding section, `\input` after basisvoorraad |
+| `frontmatter/portiegrootte.tex` | Portiegrootte (default portie count, hoeveelheden per persoon), part of the Inleiding section, `\input` after basisapparatuur |
 | `frontmatter/kleine-maten.tex` | Kleine maten: vertical timeline of vague quantity terms (mespunt to scheutje), part of the Inleiding section, `\input` after portiegrootte, last thing before `\mainmatter` |
 | `backmatter/kerntemperatuur.tex` | Kerntemperatuur appendix: meat pasteurization time/temperature table and food-safety guidance, `\input` after `\backmatter`, before the Register |
 | `backmatter/kooktemperaturen.tex` | Kooktemperaturen appendix: vertical timeline of cooking-chemistry temperature milestones (4 °C to 230+ °C), `\input` after kerntemperatuur, before the Register |
@@ -218,6 +219,12 @@ This doesn't apply to oven-baking steps (the `°C` already tells you the heat) o
 
 Any vegetable or fruit that goes into the dish with its skin/peel still on must be washed before it's cut, and the step should say so explicitly rather than leaving it implied: `was & snij de tomaat`, not just `snij de tomaat`. This covers produce like tomaat, komkommer, courgette, aubergine, paprika, appel, peer, wortel (unpeeled), radijs, citroen/limoen, druiven, pruim, perzik, and unpeeled aardappel. It doesn't apply once the skin itself is removed and discarded (a peeled ui, knoflook, or geschilde aardappel/wortel), or to produce already covered by an earlier wash in the same recipe (don't repeat the instruction for every vegetable in a single wash-and-chop step — one `was` covering the group is enough).
 
+## Keukenapparatuur: check tegen basisapparatuur.tex, houd geen aparte lijst bij
+
+`frontmatter/basisapparatuur.tex` is the single source of truth for what's actually in this kitchen — pans, pots, bakvormen, small appliances, hand tools, measuring tools, all with sizes/capacities. Don't duplicate its contents into a separate equipment list here; it drifts out of sync the moment either one changes. Notably, this kitchen doesn't own a blender or a keukenmachine, only a staafmixer (no attachments — used directly in the pan or in a separate/loose kom) and a standmixer (KitchenAid Artisan) for kneading, so recipes should never call for a blender or keukenmachine.
+
+Whenever a recipe is added or edited, check every pan, pot, bakvorm, or apparaat it calls for against `frontmatter/basisapparatuur.tex` (see "Adding a recipe" below for the concrete step). If something's missing, add it there instead of just using it ad hoc in the recipe text.
+
 ## Writing style for recipe text
 
 When writing or editing recipe prose (introductions, tips, foreword), follow these rules:
@@ -233,3 +240,4 @@ When writing or editing recipe prose (introductions, tips, foreword), follow the
 2. Add `\input{recipes/yourdish}` under the appropriate `\chapter{…}` in `main.tex`.
 3. Use `\index[register]{…}` on the dish name and key ingredients so they appear in the Register, reusing existing Register and kicker terms (see "Reuse existing Register and kicker terms" above) rather than introducing a new spelling or synonym for something already in the book.
 4. If the recipe is based on someone else's published recipe, credit them in the intro or in a closing note, and add the source to `backmatter/bibliografie.tex` rather than embedding the link inline (see "Bibliografie" above).
+5. Check every pan, pot, bakvorm, or apparaat the recipe calls for against `frontmatter/basisapparatuur.tex`. Add a missing one to the right `\blockrule` category, alphabetically, with a specific size/capacity (see "Keukenapparatuur" above).
