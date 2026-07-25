@@ -21,12 +21,20 @@ The user will name a recipe (by dish title or filename). Your job is to output a
 4. **Output the prompt** in this exact shape — the fixed style instruction first, then the cleaned recipe text as inspiration, so the user can copy the whole block straight into nano banana:
 
    ```
-   Gebruik dit recept als inspiratie. Maak een verfijnde waterverfillustratie die de essentie van het gerecht weergeeft. Stijl: handgeschilderde aquarel, zachte natuurlijke kleuren, veel witruimte, witte achtergrond, geen tekst, geen rand, geschikt voor een professioneel kookboek
+   Gebruik dit recept als inspiratie. Maak een verfijnde waterverfillustratie die de essentie van het gerecht weergeeft, in dezelfde stijl als de andere illustraties in dit kookboek:
+   - Gezichtspunt: driekwart vanuit een licht verhoogde hoek, niet recht van boven en niet recht van opzij, zodat je in de kom, pan of op het bord kijkt.
+   - Compositie: het gerecht in zijn kom, pan of op zijn bord als hoofdbeeld, met ernaast een paar losse hoofdingrediënten uit het recept zelf — geen verzonnen extra ingrediënten of rekwisieten.
+   - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
+   - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
+   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht en de ingrediënten.
+   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
+   - Geen tekst, geen rand.
+   Geschikt voor een professioneel kookboek.
 
    <cleaned plain-text version of the recipe>
    ```
 
-   Put it in a single fenced code block so it's easy to copy in one go.
+   Put it in a single fenced code block so it's easy to copy in one go. This style block was derived by reviewing the existing illustrations in `images/`; if the book's visual style shifts, re-derive it from a fresh sample rather than hand-tweaking it out of sync with the actual art.
 
 5. **Don't otherwise summarize, translate, or embellish the recipe.** Keep every ingredient, amount, and step — only the LaTeX markup is removed, not the content.
 
