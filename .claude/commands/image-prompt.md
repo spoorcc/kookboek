@@ -23,7 +23,7 @@ The user will name a recipe (by dish title or filename). Your job is to output a
    ```
    Gebruik dit recept als inspiratie. Maak een verfijnde waterverfillustratie die de essentie van het gerecht weergeeft, in dezelfde stijl als de andere illustraties in dit kookboek:
    - Gezichtspunt: driekwart vanuit een licht verhoogde hoek, niet recht van boven en niet recht van opzij, zodat je in de kom, pan of op het bord kijkt.
-   - Compositie: het gerecht in zijn kom, pan of op zijn bord als hoofdbeeld, met ernaast een paar losse hoofdingrediënten uit het recept zelf — geen verzonnen extra ingrediënten of rekwisieten.
+   - Compositie: het gerecht in zijn kom, pan of op zijn bord als hoofdbeeld. Zet er alleen een paar losse hoofdingrediënten uit het recept zelf naast als die niet al duidelijk worden uit het opgediende gerecht (zoals bij een soep, saus, gevuld broodje of pastagerecht) — geen verzonnen extra ingrediënten of rekwisieten. Bij een ovenschotel of ander gerecht waarvan de vulling al zichtbaar is (lasagne, moussaka, quiche, gevulde rollade), laat het gerecht dan gewoon alleen staan, eventueel met een aangesneden punt of plak zodat de laagjes/vulling zichtbaar zijn, zonder losse ingrediënten erbij.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
    - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht en de ingrediënten.
