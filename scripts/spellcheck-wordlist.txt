@@ -45,7 +45,6 @@ bloemkoolmengsel
 bloemkoolpasta
 bloemkoolquiche
 boerenkoolstamp
-bologna
 bootvormig
 bosuiringetjes
 boter-
@@ -243,7 +242,6 @@ rundsbouillonblokje
 salamoia
 salie-roomboter
 salieboter
-sardijnse
 scarpariello
 semi-zongedroogde
 semifreddo
@@ -280,7 +278,6 @@ vastkomt
 venkelrisotto
 vergine
 verspakket
-vessalico
 vetdruppels
 viennetta
 vierge
