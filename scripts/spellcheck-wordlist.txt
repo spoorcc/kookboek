@@ -39,6 +39,7 @@ been-
 bieslookroom
 bijproeven
 binnen-
+bisi
 bite
 bladerdeegplakjes
 bloemkoolmengsel
@@ -194,6 +195,7 @@ opliggen
 original
 ovenrijs
 padano
+pancetta
 pangasiusfilet
 parmezaan-knoflook-rozemarijn
 parmezaanse
@@ -227,6 +229,7 @@ ramsay
 reggiano
 reuzenbonen
 rigatoni
+risi
 riso
 risoooo
 rodewijnazijn
@@ -275,10 +278,12 @@ uht
 uht-
 uipuree
 vastkomt
+venetiaans
 venkelrisotto
 vergine
 verspakket
 vetdruppels
+vialone
 viennetta
 vierge
 visgilde
