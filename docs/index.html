@@ -734,9 +734,13 @@ async function init() {
   document.getElementById('version-label').textContent =
     `versie ${versionInfo ? versionInfo.ref : 'onbekend'}${versionInfo && versionInfo.date ? ' · ' + versionInfo.date : ''}`;
 
-  // Fetch PDF; share bytes with pdf.js and keep original for pdf-lib
+  // Fetch the low-res web PDF; share bytes with pdf.js and keep original for
+  // pdf-lib. This is a downsampled copy of the print PDF (see
+  // scripts/make_web_pdf.py) so the viewer and "Recept" download load fast —
+  // only "Volledig boek" (see the dl-full link above) downloads the full
+  // print-resolution file.
   try {
-    const response = await fetch('KookboekFamilieSpoor.pdf', { cache: 'no-cache' });
+    const response = await fetch('KookboekFamilieSpoor-web.pdf', { cache: 'no-cache' });
     pdfBytes = await response.arrayBuffer();
     pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice() }).promise;
     renderCoverThumb();
@@ -1229,7 +1233,7 @@ async function downloadRecipe() {
     // right after a deploy), recipe.endPage can point past the end of this
     // PDF. Re-fetch a guaranteed-fresh copy once and retry before giving up.
     if (recipe.endPage > srcDoc.getPageCount()) {
-      const fresh = await fetch('KookboekFamilieSpoor.pdf', { cache: 'reload' });
+      const fresh = await fetch('KookboekFamilieSpoor-web.pdf', { cache: 'reload' });
       pdfBytes = await fresh.arrayBuffer();
       srcDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
       if (recipe.endPage > srcDoc.getPageCount()) {

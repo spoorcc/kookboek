@@ -44,7 +44,13 @@ jobs:
       - name: Generate recipe index
         run: python3 scripts/extract_index.py
 
-      - name: Copy PDF into docs
+      - name: Install Ghostscript
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ghostscript
+
+      - name: Build low-res web PDF
+        run: python3 scripts/make_web_pdf.py KookboekFamilieSpoor.pdf docs/KookboekFamilieSpoor-web.pdf
+
+      - name: Copy print PDF into docs
         run: cp KookboekFamilieSpoor.pdf docs/
 
       - name: Deploy to gh-pages
