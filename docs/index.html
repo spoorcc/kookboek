@@ -688,6 +688,15 @@ function assignSlugs(list) {
 // ── Init ──────────────────────────────────────────────────────────────────
 
 async function init() {
+  // Kick off the PDF fetch immediately, in parallel with the JSON index
+  // fetches below, instead of waiting for them to resolve one after another
+  // first. It's by far the largest download and doesn't depend on any of
+  // recipes.json/register.json/version.json, so starting it up front lets
+  // it be ready (or well underway) by the time a recipe is selected instead
+  // of only starting afterwards.
+  const pdfPromise = fetch('KookboekFamilieSpoor-web.pdf', { cache: 'no-cache' })
+    .then(res => res.arrayBuffer());
+
   // Load recipe index. `cache: 'no-cache'` forces revalidation with the
   // server on every load — recipes.json/register.json/the PDF are only
   // ever meaningful together (page numbers in one must match the others),
@@ -734,14 +743,13 @@ async function init() {
   document.getElementById('version-label').textContent =
     `versie ${versionInfo ? versionInfo.ref : 'onbekend'}${versionInfo && versionInfo.date ? ' · ' + versionInfo.date : ''}`;
 
-  // Fetch the low-res web PDF; share bytes with pdf.js and keep original for
-  // pdf-lib. This is a downsampled copy of the print PDF (see
-  // scripts/make_web_pdf.py) so the viewer and "Recept" download load fast —
-  // only "Volledig boek" (see the dl-full link above) downloads the full
-  // print-resolution file.
+  // Await the low-res web PDF fetch kicked off at the top of init(); share
+  // bytes with pdf.js and keep original for pdf-lib. This is a downsampled
+  // copy of the print PDF (see scripts/make_web_pdf.py) so the viewer and
+  // "Recept" download load fast — only "Volledig boek" (see the dl-full
+  // link above) downloads the full print-resolution file.
   try {
-    const response = await fetch('KookboekFamilieSpoor-web.pdf', { cache: 'no-cache' });
-    pdfBytes = await response.arrayBuffer();
+    pdfBytes = await pdfPromise;
     pdf = await pdfjsLib.getDocument({ data: pdfBytes.slice() }).promise;
     renderCoverThumb();
   } catch (e) {
