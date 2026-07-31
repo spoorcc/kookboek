@@ -17,6 +17,7 @@ aardappelbakjes
 aardbeiencoulis
 afbakstokbroden
 afbakstokbrood
+albetone
 amatriciana
 andijviestamp
 angus
@@ -197,11 +198,13 @@ ovenrijs
 padano
 pancetta
 pangasiusfilet
+panini's
 parmezaan-knoflook-rozemarijn
 parmezaanse
 parmigiana
 parmigiano
 passata
+passo
 pastaprimavera
 pastinaaksoep
 penne
