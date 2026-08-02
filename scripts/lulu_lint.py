@@ -1152,7 +1152,7 @@ def check_images(images_dir, tex_paths, report):
     extension — [\\w-]+ stops at the '.', so this works whether a reference
     spells out an extension (rare direct \\includegraphics use) or, as is
     the norm here, leaves the extension for LaTeX's graphics-extension
-    search to resolve (\\heroimage{images/foo}, \\marginimage{images/foo})."""
+    search to resolve (\\heroimagefade{images/foo}, \\marginimage{images/foo})."""
     with report.check("Image references", "every images/ file is used; every reference resolves to a file") as ctx:
         if not images_dir.exists():
             ctx.skip(f"no {images_dir}/ — image-reference check skipped")
