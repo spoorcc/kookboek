@@ -32,6 +32,35 @@
       color: var(--text);
     }
 
+    /* ── Page-load progress bar ──────────────────── */
+    /* Tracks the initial fetch of the (large) web PDF, the biggest thing
+       downloaded on page load. Fixed to the viewport top so it stays visible
+       regardless of scroll/sidebar state, and fades out once loaded. */
+    #page-load-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: rgba(0,0,0,0.08);
+      z-index: 100;
+      opacity: 1;
+      transition: opacity 0.35s ease 0.1s;
+    }
+    #page-load-bar.done { opacity: 0; pointer-events: none; }
+    #page-load-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.15s ease;
+    }
+    #page-load-bar.indeterminate #page-load-fill {
+      width: 35%;
+      animation: page-load-indeterminate 1.1s ease-in-out infinite;
+    }
+    @keyframes page-load-indeterminate {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(285%); }
+    }
+
     /* ── Header ───────────────────────────────── */
     header {
       height: var(--header-h);
@@ -81,6 +110,8 @@
     }
 
     #dl-full, #dl-recipe-btn {
+      position: relative;
+      overflow: hidden;
       color: #fff;
       text-decoration: none;
       border: 1px solid rgba(255,255,255,0.35);
@@ -94,12 +125,26 @@
       white-space: nowrap;
       flex-shrink: 0;
       cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
     }
-    #dl-full:hover, #dl-recipe-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+    #dl-full:hover:not(:disabled), #dl-recipe-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+    #dl-full:disabled { cursor: wait; }
 
     #dl-recipe-btn { display: none; }
     #dl-recipe-btn:disabled { opacity: 0.5; cursor: wait; }
-    #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
+    #dl-full.busy, #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
+
+    /* Fills left-to-right as the fetch progresses; sits behind the label. */
+    #dl-full .dl-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background: rgba(255,255,255,0.3);
+      transition: width 0.12s linear;
+      pointer-events: none;
+    }
+    #dl-full .dl-label { position: relative; }
 
     #sidebar-toggle {
       color: #fff;
@@ -564,6 +609,8 @@
 </head>
 <body>
 
+<div id="page-load-bar"><div id="page-load-fill"></div></div>
+
 <header>
   <div class="header-title">
     <button id="sidebar-toggle" onclick="toggleSidebar()" title="Receptenlijst in-/uitklappen" aria-label="Receptenlijst in-/uitklappen" aria-pressed="false">☰</button>
@@ -572,7 +619,7 @@
     <span class="sub">Familie Spoor</span>
   </div>
   <div class="header-actions">
-    <a id="dl-full" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Volledig boek</a>
+    <button id="dl-full" onclick="downloadFull()"><span class="dl-fill"></span><span class="dl-label">↓ Volledig boek</span></button>
     <button id="dl-recipe-btn" onclick="downloadRecipe()">↓ Recept</button>
   </div>
 </header>
@@ -685,6 +732,45 @@ function assignSlugs(list) {
   });
 }
 
+// ── Page-load progress bar ──────────────────────────────────────────────
+// Fetches a URL via a ReadableStream instead of a plain fetch().then(res =>
+// res.arrayBuffer()) so #page-load-fill can track bytes received against
+// Content-Length. Falls back to an indeterminate sliding animation when the
+// server doesn't send a Content-Length (so there's no total to divide by).
+
+async function fetchWithProgress(url) {
+  const bar  = document.getElementById('page-load-bar');
+  const fill = document.getElementById('page-load-fill');
+
+  try {
+    const res = await fetch(url, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(res.statusText);
+    if (!res.body) return await res.arrayBuffer(); // no streaming support — skip progress
+
+    const total = +res.headers.get('Content-Length') || 0;
+    bar.classList.toggle('indeterminate', !total);
+
+    const reader = res.body.getReader();
+    const chunks = [];
+    let received = 0;
+
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.length;
+      if (total) fill.style.width = Math.min(100, Math.round(received / total * 100)) + '%';
+    }
+
+    const blob = new Blob(chunks);
+    return await blob.arrayBuffer();
+  } finally {
+    fill.style.width = '100%';
+    bar.classList.remove('indeterminate');
+    bar.classList.add('done');
+  }
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────
 
 async function init() {
@@ -694,8 +780,7 @@ async function init() {
   // recipes.json/register.json/version.json, so starting it up front lets
   // it be ready (or well underway) by the time a recipe is selected instead
   // of only starting afterwards.
-  const pdfPromise = fetch('KookboekFamilieSpoor-web.pdf', { cache: 'no-cache' })
-    .then(res => res.arrayBuffer());
+  const pdfPromise = fetchWithProgress('KookboekFamilieSpoor-web.pdf');
 
   // Load recipe index. `cache: 'no-cache'` forces revalidation with the
   // server on every load — recipes.json/register.json/the PDF are only
@@ -1219,6 +1304,65 @@ function syncRecipeSelectionToPage(page) {
   }
   btn.style.display = 'inline-block';
   document.title = recipes[currentRecipeIdx].title + ' · ' + pageTitle;
+}
+
+// ── Full book download ───────────────────────────────────────────────────
+// A plain <a download> gives the browser no way to report progress inside
+// the page, so this fetches the full print-resolution PDF with a
+// ReadableStream and fills the button itself as bytes arrive. Still nothing
+// is fetched until the reader actually clicks — this only runs on demand.
+
+async function downloadFull() {
+  const btn   = document.getElementById('dl-full');
+  const fill  = btn.querySelector('.dl-fill');
+  const label = btn.querySelector('.dl-label');
+  if (btn.disabled) return;
+
+  const idleLabel = label.textContent;
+  btn.disabled = true;
+  btn.classList.add('busy');
+
+  try {
+    const res = await fetch('KookboekFamilieSpoor.pdf', { cache: 'no-cache' });
+    if (!res.ok || !res.body) throw new Error(res.statusText || 'download mislukt');
+
+    const total  = +res.headers.get('Content-Length') || 0;
+    const reader = res.body.getReader();
+    const chunks = [];
+    let received = 0;
+
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.length;
+      if (total) {
+        const pct = Math.min(100, Math.round(received / total * 100));
+        fill.style.width = pct + '%';
+        label.textContent = `↓ ${pct}%`;
+      } else {
+        label.textContent = `↓ ${(received / 1e6).toFixed(1)} MB`;
+      }
+    }
+
+    const blob = new Blob(chunks, { type: 'application/pdf' });
+    const url  = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href     = url;
+    a.download = 'KookboekFamilieSpoor.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  } catch (err) {
+    console.error('Download mislukt:', err);
+    alert(`Downloaden mislukt (${err.message || err}).`);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('busy');
+    fill.style.width = '0%';
+    label.textContent = idleLabel;
+  }
 }
 
 // ── Recipe download ───────────────────────────────────────────────────────
