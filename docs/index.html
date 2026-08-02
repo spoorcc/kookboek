@@ -81,6 +81,8 @@
     }
 
     #dl-full, #dl-recipe-btn {
+      position: relative;
+      overflow: hidden;
       color: #fff;
       text-decoration: none;
       border: 1px solid rgba(255,255,255,0.35);
@@ -94,12 +96,26 @@
       white-space: nowrap;
       flex-shrink: 0;
       cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
     }
-    #dl-full:hover, #dl-recipe-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+    #dl-full:hover:not(:disabled), #dl-recipe-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+    #dl-full:disabled { cursor: wait; }
 
     #dl-recipe-btn { display: none; }
     #dl-recipe-btn:disabled { opacity: 0.5; cursor: wait; }
-    #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
+    #dl-full.busy, #dl-recipe-btn.busy { opacity: 0.6; cursor: wait; }
+
+    /* Fills left-to-right as the fetch progresses; sits behind the label. */
+    #dl-full .dl-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background: rgba(255,255,255,0.3);
+      transition: width 0.12s linear;
+      pointer-events: none;
+    }
+    #dl-full .dl-label { position: relative; }
 
     #sidebar-toggle {
       color: #fff;
@@ -572,7 +588,7 @@
     <span class="sub">Familie Spoor</span>
   </div>
   <div class="header-actions">
-    <a id="dl-full" href="KookboekFamilieSpoor.pdf" download="KookboekFamilieSpoor.pdf">↓ Volledig boek</a>
+    <button id="dl-full" onclick="downloadFull()"><span class="dl-fill"></span><span class="dl-label">↓ Volledig boek</span></button>
     <button id="dl-recipe-btn" onclick="downloadRecipe()">↓ Recept</button>
   </div>
 </header>
@@ -1219,6 +1235,65 @@ function syncRecipeSelectionToPage(page) {
   }
   btn.style.display = 'inline-block';
   document.title = recipes[currentRecipeIdx].title + ' · ' + pageTitle;
+}
+
+// ── Full book download ───────────────────────────────────────────────────
+// A plain <a download> gives the browser no way to report progress inside
+// the page, so this fetches the full print-resolution PDF with a
+// ReadableStream and fills the button itself as bytes arrive. Still nothing
+// is fetched until the reader actually clicks — this only runs on demand.
+
+async function downloadFull() {
+  const btn   = document.getElementById('dl-full');
+  const fill  = btn.querySelector('.dl-fill');
+  const label = btn.querySelector('.dl-label');
+  if (btn.disabled) return;
+
+  const idleLabel = label.textContent;
+  btn.disabled = true;
+  btn.classList.add('busy');
+
+  try {
+    const res = await fetch('KookboekFamilieSpoor.pdf', { cache: 'no-cache' });
+    if (!res.ok || !res.body) throw new Error(res.statusText || 'download mislukt');
+
+    const total  = +res.headers.get('Content-Length') || 0;
+    const reader = res.body.getReader();
+    const chunks = [];
+    let received = 0;
+
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.length;
+      if (total) {
+        const pct = Math.min(100, Math.round(received / total * 100));
+        fill.style.width = pct + '%';
+        label.textContent = `↓ ${pct}%`;
+      } else {
+        label.textContent = `↓ ${(received / 1e6).toFixed(1)} MB`;
+      }
+    }
+
+    const blob = new Blob(chunks, { type: 'application/pdf' });
+    const url  = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href     = url;
+    a.download = 'KookboekFamilieSpoor.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  } catch (err) {
+    console.error('Download mislukt:', err);
+    alert(`Downloaden mislukt (${err.message || err}).`);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('busy');
+    fill.style.width = '0%';
+    label.textContent = idleLabel;
+  }
 }
 
 // ── Recipe download ───────────────────────────────────────────────────────
