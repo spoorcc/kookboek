@@ -7,48 +7,6 @@
     "endPage": 4
   },
   {
-    "title": "Hoe dit boek te lezen",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 12,
-    "endPage": 13
-  },
-  {
-    "title": "Seizoenskalender",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 14,
-    "endPage": 15
-  },
-  {
-    "title": "Basisvoorraad",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 16,
-    "endPage": 17
-  },
-  {
-    "title": "Basisapparatuur",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 18,
-    "endPage": 19
-  },
-  {
-    "title": "Portiegrootte",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 20,
-    "endPage": 20
-  },
-  {
-    "title": "Kleine maten",
-    "chapter": "Inleiding",
-    "subchapter": null,
-    "page": 21,
-    "endPage": 22
-  },
-  {
     "title": "Riso freddo",
     "chapter": "Voorgerechten",
     "subchapter": null,
@@ -77,597 +35,597 @@
     "endPage": 28
   },
   {
+    "title": "Simpele kippensoep",
+    "chapter": "Voorgerechten",
+    "subchapter": null,
+    "page": 29,
+    "endPage": 29
+  },
+  {
     "title": "Mini-aardappelquiches",
     "chapter": "Voorgerechten",
-    "subchapter": "Simpele kippensoep",
+    "subchapter": null,
     "page": 30,
     "endPage": 30
   },
   {
     "title": "Hartige tompouce met geitenkaasmousse",
     "chapter": "Voorgerechten",
-    "subchapter": "Simpele kippensoep",
+    "subchapter": null,
     "page": 31,
     "endPage": 32
   },
   {
     "title": "Salade caprese",
     "chapter": "Voorgerechten",
-    "subchapter": "Simpele kippensoep",
+    "subchapter": null,
     "page": 33,
     "endPage": 33
   },
   {
     "title": "Bruschetta",
     "chapter": "Voorgerechten",
-    "subchapter": "Simpele kippensoep",
+    "subchapter": null,
     "page": 34,
     "endPage": 34
   },
   {
     "title": "Blini's met vier toppings",
     "chapter": "Voorgerechten",
-    "subchapter": "Simpele kippensoep",
+    "subchapter": null,
     "page": 35,
     "endPage": 36
   },
   {
-    "title": "Pasta & risotto",
-    "chapter": "Hoofdgerechten",
-    "subchapter": null,
-    "page": 38,
-    "endPage": 38
-  },
-  {
     "title": "Tomaten-pestorisotto",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 39,
     "endPage": 40
   },
   {
     "title": "Venkelrisotto met geitenkaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 41,
     "endPage": 42
   },
   {
     "title": "Spinazierisotto met Parmezaanse kaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 43,
     "endPage": 43
   },
   {
     "title": "Risi e bisi",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 44,
     "endPage": 44
   },
   {
     "title": "Verse pasta",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 45,
     "endPage": 45
   },
   {
     "title": "Bloemkoolpasta",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 46,
     "endPage": 47
   },
   {
     "title": "Pasta Primavera",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 48,
     "endPage": 49
   },
   {
     "title": "Pasta alla Norma",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 50,
     "endPage": 50
   },
   {
     "title": "Pasta met Marcella Hazans tomatensaus",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 51,
     "endPage": 51
   },
   {
     "title": "Pasta met venkelworst en kool",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 52,
     "endPage": 52
   },
   {
     "title": "Pasta allo scarpariello",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 53,
     "endPage": 54
   },
   {
     "title": "Pasta amatriciana",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 55,
     "endPage": 56
   },
   {
     "title": "Pasta carbonara",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 57,
     "endPage": 57
   },
   {
     "title": "Pasta met blauwe kaas en champignons",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 58,
     "endPage": 59
   },
   {
     "title": "Pasta bolognese",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 60,
     "endPage": 61
   },
   {
     "title": "Pasta met chorizo en andijvie",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 62,
     "endPage": 62
   },
   {
     "title": "Pasta met prei, hamblokjes en zwarte olijven",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 63,
     "endPage": 64
   },
   {
     "title": "Broccolipasta met witvis, olijven en rode ui",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 65,
     "endPage": 66
   },
   {
     "title": "Tortellini al forno met courgette en spek",
     "chapter": "Hoofdgerechten",
-    "subchapter": null,
+    "subchapter": "Pasta & risotto",
     "page": 67,
     "endPage": 68
   },
   {
+    "title": "Gnocchi",
+    "chapter": "Hoofdgerechten",
+    "subchapter": "Pasta & risotto",
+    "page": 69,
+    "endPage": 70
+  },
+  {
     "title": "Gnocchi met broccoli en spek",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
+    "subchapter": "Pasta & risotto",
     "page": 71,
     "endPage": 71
   },
   {
     "title": "Gnocchi met zongedroogde tomatensaus en spinazie",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
+    "subchapter": "Pasta & risotto",
     "page": 72,
     "endPage": 73
   },
   {
     "title": "Gnocchi met salie-roomboter",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
+    "subchapter": "Pasta & risotto",
     "page": 74,
     "endPage": 74
   },
   {
     "title": "Gnocchi alla sorrentina",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
+    "subchapter": "Pasta & risotto",
     "page": 75,
     "endPage": 76
   },
   {
     "title": "Gnocchi met sperziebonen en pesto",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
+    "subchapter": "Pasta & risotto",
     "page": 77,
     "endPage": 77
   },
   {
-    "title": "Ovenschotels",
+    "title": "Moussaka",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Gnocchi",
-    "page": 78,
-    "endPage": 78
+    "subchapter": "Ovenschotels",
+    "page": 79,
+    "endPage": 80
   },
   {
     "title": "Parmigiana di Melanzane",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Ovenschotels",
     "page": 81,
     "endPage": 82
   },
   {
     "title": "Mac 'n cheese",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Ovenschotels",
     "page": 83,
     "endPage": 84
   },
   {
     "title": "Bobotie",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Ovenschotels",
     "page": 85,
     "endPage": 86
   },
   {
     "title": "Mini-lasagne met asperges, ham en geitenkaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Ovenschotels",
     "page": 87,
     "endPage": 88
   },
   {
     "title": "Simpele lasagne met gehakt",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Ovenschotels",
     "page": 89,
     "endPage": 90
   },
   {
-    "title": "Quiches, taarten & platte broden",
-    "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
-    "page": 91,
-    "endPage": 91
-  },
-  {
     "title": "Quiche Lorraine",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 92,
     "endPage": 93
   },
   {
     "title": "Quiche met ham en prei",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 94,
     "endPage": 95
   },
   {
     "title": "Bloemkoolquiche",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 96,
     "endPage": 97
   },
   {
     "title": "Spinaziequiche",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 98,
     "endPage": 99
   },
   {
     "title": "Quiche met groente in een cirkel",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Moussaka",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 100,
     "endPage": 101
   },
   {
+    "title": "Quiche met geroosterde groente en geitenkaas",
+    "chapter": "Hoofdgerechten",
+    "subchapter": "Quiches, taarten & platte broden",
+    "page": 102,
+    "endPage": 103
+  },
+  {
     "title": "Quiche met chorizo en geitenkaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 104,
     "endPage": 105
   },
   {
     "title": "Pizza uit de reguliere oven",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 106,
     "endPage": 107
   },
   {
     "title": "Flammkuchen",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 108,
     "endPage": 109
   },
   {
     "title": "Lahmacun",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 110,
     "endPage": 111
   },
   {
     "title": "Turkse pide",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Quiches, taarten & platte broden",
     "page": 112,
     "endPage": 113
   },
   {
-    "title": "Wereldkeukens",
-    "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
-    "page": 114,
-    "endPage": 114
-  },
-  {
     "title": "Shakshuka",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 115,
     "endPage": 116
   },
   {
     "title": "Couscous met geroosterde tomaten en witte kaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 117,
     "endPage": 118
   },
   {
     "title": "Couscous met feta, groenten en rozijntjes",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 119,
     "endPage": 119
   },
   {
     "title": "Kofta",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 120,
     "endPage": 121
   },
   {
     "title": "Falafel",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 122,
     "endPage": 123
   },
   {
     "title": "Shoarma",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 124,
     "endPage": 124
   },
   {
     "title": "Döner kebab",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 125,
     "endPage": 126
   },
   {
     "title": "Burrito's",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 127,
     "endPage": 128
   },
   {
     "title": "Fajita's",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 129,
     "endPage": 130
   },
   {
     "title": "Quesadilla's",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 131,
     "endPage": 132
   },
   {
     "title": "Chili con carne",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 133,
     "endPage": 134
   },
   {
     "title": "Roti met kip",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Quiche met geroosterde groente en geitenkaas",
+    "subchapter": "Wereldkeukens",
     "page": 135,
     "endPage": 136
   },
   {
+    "title": "Jambalaya",
+    "chapter": "Hoofdgerechten",
+    "subchapter": "Wereldkeukens",
+    "page": 137,
+    "endPage": 138
+  },
+  {
     "title": "Paella",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
+    "subchapter": "Wereldkeukens",
     "page": 139,
     "endPage": 140
   },
   {
     "title": "Nasi goreng",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
+    "subchapter": "Wereldkeukens",
     "page": 141,
     "endPage": 142
   },
   {
     "title": "Kip madras",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
+    "subchapter": "Wereldkeukens",
     "page": 143,
     "endPage": 143
   },
   {
     "title": "Roerbak met kip en cashewnoten",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
+    "subchapter": "Wereldkeukens",
     "page": 144,
     "endPage": 144
   },
   {
     "title": "Kokos vis",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
+    "subchapter": "Wereldkeukens",
     "page": 145,
     "endPage": 146
   },
   {
-    "title": "Stamppot",
+    "title": "Hutspot",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Jambalaya",
-    "page": 147,
-    "endPage": 147
+    "subchapter": "Stamppot",
+    "page": 148,
+    "endPage": 148
   },
   {
     "title": "Pompoenstamp met rookworst",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Stamppot",
     "page": 149,
     "endPage": 149
   },
   {
     "title": "Spruitenstamp met brie en spekjes",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Stamppot",
     "page": 150,
     "endPage": 150
   },
   {
     "title": "Andijviestamp met spekjes",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Stamppot",
     "page": 151,
     "endPage": 151
   },
   {
     "title": "Boerenkoolstamp met rookworst",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Stamppot",
     "page": 152,
     "endPage": 152
   },
   {
     "title": "Aardappelen, groente en vlees",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Stamppot",
     "page": 153,
     "endPage": 154
   },
   {
-    "title": "Overig",
-    "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
-    "page": 155,
-    "endPage": 155
-  },
-  {
     "title": "Pannenkoeken",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 156,
     "endPage": 156
   },
   {
     "title": "Broodje hamburger",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 157,
     "endPage": 158
   },
   {
     "title": "Broodje knakworst",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 159,
     "endPage": 159
   },
   {
     "title": "Panini caprese",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 160,
     "endPage": 160
   },
   {
     "title": "Gehaktballetjes",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 161,
     "endPage": 161
   },
   {
     "title": "Gevulde varkensrollade met pesto en roomkaas",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 162,
     "endPage": 162
   },
   {
     "title": "Saltimbocca alla Romana",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 163,
     "endPage": 164
   },
   {
     "title": "Kalkoen in spek",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 165,
     "endPage": 166
   },
   {
     "title": "Kibbeling, aardappelkroketjes en sla",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 167,
     "endPage": 167
   },
   {
     "title": "Worstjes, rode rijst en salade",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 168,
     "endPage": 169
   },
   {
     "title": "Parmezaan-knoflook-rozemarijn kipfilet in bakpapier",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 170,
     "endPage": 171
   },
   {
     "title": "Asperges",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 172,
     "endPage": 172
   },
   {
     "title": "Barbecue",
     "chapter": "Hoofdgerechten",
-    "subchapter": "Hutspot",
+    "subchapter": "Overig",
     "page": 173,
     "endPage": 173
   },
@@ -728,184 +686,184 @@
     "endPage": 183
   },
   {
+    "title": "Zelfgemaakte mozzarella",
+    "chapter": "Bijgerechten",
+    "subchapter": null,
+    "page": 184,
+    "endPage": 184
+  },
+  {
     "title": "Zelfgemaakte ricotta",
     "chapter": "Bijgerechten",
-    "subchapter": "Zelfgemaakte mozzarella",
+    "subchapter": null,
     "page": 185,
     "endPage": 185
   },
   {
     "title": "Pesto genovese",
     "chapter": "Bijgerechten",
-    "subchapter": "Zelfgemaakte mozzarella",
+    "subchapter": null,
     "page": 186,
     "endPage": 186
   },
   {
     "title": "Pommes Fondante",
     "chapter": "Bijgerechten",
-    "subchapter": "Zelfgemaakte mozzarella",
+    "subchapter": null,
     "page": 187,
     "endPage": 187
   },
   {
     "title": "Pommes Anna Kubusjes",
     "chapter": "Bijgerechten",
-    "subchapter": "Zelfgemaakte mozzarella",
+    "subchapter": null,
     "page": 188,
     "endPage": 188
   },
   {
     "title": "Frituursnacks uit de diepvries",
     "chapter": "Bijgerechten",
-    "subchapter": "Zelfgemaakte mozzarella",
+    "subchapter": null,
     "page": 189,
     "endPage": 189
   },
   {
-    "title": "Brood & basis",
-    "chapter": "Bakken",
-    "subchapter": null,
-    "page": 191,
-    "endPage": 191
-  },
-  {
     "title": "Brood",
     "chapter": "Bakken",
-    "subchapter": null,
+    "subchapter": "Brood & basis",
     "page": 192,
     "endPage": 193
   },
   {
     "title": "Pretzels",
     "chapter": "Bakken",
-    "subchapter": null,
+    "subchapter": "Brood & basis",
     "page": 194,
     "endPage": 195
   },
   {
+    "title": "Puffy pita",
+    "chapter": "Bakken",
+    "subchapter": "Brood & basis",
+    "page": 196,
+    "endPage": 197
+  },
+  {
     "title": "Shoarmabroodjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Brood & basis",
     "page": 198,
     "endPage": 198
   },
   {
     "title": "Focaccia",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Brood & basis",
     "page": 199,
     "endPage": 200
   },
   {
     "title": "Ciabatta",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Brood & basis",
     "page": 201,
     "endPage": 202
   },
   {
     "title": "Hamburgerbolletjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Brood & basis",
     "page": 203,
     "endPage": 204
   },
   {
     "title": "Wraps",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Brood & basis",
     "page": 205,
     "endPage": 205
   },
   {
-    "title": "Gebak & koek",
-    "chapter": "Bakken",
-    "subchapter": "Puffy pita",
-    "page": 206,
-    "endPage": 206
-  },
-  {
     "title": "Saucijzenbroodjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 207,
     "endPage": 208
   },
   {
     "title": "Basismuffins",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 209,
     "endPage": 209
   },
   {
     "title": "Kaneelrolletjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 210,
     "endPage": 210
   },
   {
     "title": "Pizzarolletjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 211,
     "endPage": 211
   },
   {
     "title": "Wafels",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 212,
     "endPage": 212
   },
   {
     "title": "Eierkoeken",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 213,
     "endPage": 213
   },
   {
     "title": "Meringues",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 214,
     "endPage": 214
   },
   {
     "title": "Roze koeken",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 215,
     "endPage": 216
   },
   {
     "title": "Drollenkoekjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 217,
     "endPage": 217
   },
   {
     "title": "Basiskoekjes",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 218,
     "endPage": 218
   },
   {
     "title": "Pepernoten",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 219,
     "endPage": 219
   },
   {
     "title": "Brownies",
     "chapter": "Bakken",
-    "subchapter": "Puffy pita",
+    "subchapter": "Gebak & koek",
     "page": 220,
     "endPage": 220
   },
@@ -957,20 +915,6 @@
     "subchapter": null,
     "page": 230,
     "endPage": 230
-  },
-  {
-    "title": "Kerntemperatuur",
-    "chapter": "Bijlagen",
-    "subchapter": null,
-    "page": 232,
-    "endPage": 232
-  },
-  {
-    "title": "Kooktemperaturen",
-    "chapter": "Bijlagen",
-    "subchapter": null,
-    "page": 233,
-    "endPage": 235
   },
   {
     "title": "Bibliografie",
