@@ -780,18 +780,41 @@ def _recipe_kinds(main_tex_path):
     for each \\subchapter{...} and \\input{recipes/...} line. Mirrors
     scripts/extract_index.py's extract_depth1_kinds — needed because the PDF
     bookmark tree doesn't itself distinguish a subchapter divider from a
-    recipe, both showing up as depth-1 (level-2) entries under a chapter."""
+    recipe, both showing up as depth-1 (level-2) entries under a chapter.
+
+    Several frontmatter/backmatter files (e.g. basisapparatuur.tex,
+    kerntemperatuur.tex) contain their own \\subchapter{...} call, invisible
+    to a scan of main.tex's own text alone. Skipping those desyncs this
+    list against the PDF's bookmark order for every recipe that follows, so
+    \\input{frontmatter/...}/\\input{backmatter/...} lines recurse one level
+    to pick those up too, in position."""
     kinds = []
     if not main_tex_path.exists():
         return kinds
+    repo_root = main_tex_path.parent
     for line in main_tex_path.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
         if stripped.startswith("%"):
             continue
         if re.search(r"\\subchapter\{", stripped):
             kinds.append("subchapter")
-        elif re.search(r"\\input\{recipes/", stripped):
+            continue
+        m = re.search(r"\\input\{(recipes|frontmatter|backmatter)/([^}]+)\}", stripped)
+        if not m:
+            continue
+        section, name = m.group(1), m.group(2)
+        if section == "recipes":
             kinds.append("recipe")
+            continue
+        sub_path = repo_root / section / f"{name}.tex"
+        if not sub_path.exists():
+            continue
+        for sub_line in sub_path.read_text(encoding="utf-8").splitlines():
+            sub_stripped = sub_line.strip()
+            if sub_stripped.startswith("%"):
+                continue
+            if re.search(r"\\subchapter\{", sub_stripped):
+                kinds.append("subchapter")
     return kinds
 
 
@@ -1129,7 +1152,7 @@ def check_images(images_dir, tex_paths, report):
     extension — [\\w-]+ stops at the '.', so this works whether a reference
     spells out an extension (rare direct \\includegraphics use) or, as is
     the norm here, leaves the extension for LaTeX's graphics-extension
-    search to resolve (\\heroimage{images/foo}, \\marginimage{images/foo})."""
+    search to resolve (\\heroimagefade{images/foo}, \\marginimage{images/foo})."""
     with report.check("Image references", "every images/ file is used; every reference resolves to a file") as ctx:
         if not images_dir.exists():
             ctx.skip(f"no {images_dir}/ — image-reference check skipped")

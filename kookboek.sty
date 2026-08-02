@@ -296,7 +296,7 @@
   \vspace{-0.2em}{\color{terracotta}\rule{\dimexpr\textwidth-0.4cm\relax}{0.4pt}}\par\vspace{0.7em}}
 
 % Hero illustration placeholder (compiles with no image). Replace with
-% \heroimage{file}{caption} when you have the drawing.
+% \heroimagefade{file} when you have the drawing.
 \newcommand{\heroplaceholder}[1]{\par\noindent
   \begin{tikzpicture}
     \node[draw=terracotta, line width=0.4pt, rounded corners=1pt,
@@ -304,9 +304,6 @@
           align=center, text=terracotta, font=\itshape] {hero-tekening van het gerecht};
   \end{tikzpicture}\\[3pt]
   {\footnotesize\itshape\color{terracotta}#1}\par\vspace{1.0em}}
-\newcommand{\heroimage}[2]{\par\noindent
-  \fcolorbox{terracotta}{paper}{\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax, height=4.8cm, keepaspectratio]{#1}}\\[3pt]
-  {\footnotesize\itshape\color{terracotta}#2}\par\vspace{1.0em}}
 
 % Full-width, borderless, uncaptioned photo (e.g. a closing shot after a
 % recipe's steps). Spans the full margin-to-margin width — \textwidth plus

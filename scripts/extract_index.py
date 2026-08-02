@@ -65,18 +65,41 @@ def extract_depth1_kinds(main_tex_path: Path) -> list[str]:
     child of the \\section (recipe) immediately before it. pypdf still visits
     every one of these nodes in document order regardless of nesting depth, so
     zipping this list against that visiting order (see extract_recipes) stays
-    correct without having to model the exact bookmark tree shape."""
+    correct without having to model the exact bookmark tree shape.
+
+    Several frontmatter/backmatter files (e.g. basisapparatuur.tex,
+    kerntemperatuur.tex) contain their own \\subchapter{...} call, invisible
+    to a scan of main.tex's own text alone. Skipping those desyncs this list
+    against pypdf's visiting order for every recipe that follows, so
+    \\input{frontmatter/...}/\\input{backmatter/...} lines recurse one level
+    to pick those up too, in position."""
     kinds: list[str] = []
     if not main_tex_path.exists():
         return kinds
+    repo_root = main_tex_path.parent
     for line in main_tex_path.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
         if stripped.startswith("%"):
             continue
         if re.search(r"\\subchapter\{", stripped):
             kinds.append("subchapter")
-        elif re.search(r"\\input\{recipes/", stripped):
+            continue
+        m = re.search(r"\\input\{(recipes|frontmatter|backmatter)/([^}]+)\}", stripped)
+        if not m:
+            continue
+        section, name = m.group(1), m.group(2)
+        if section == "recipes":
             kinds.append("recipe")
+            continue
+        sub_path = repo_root / section / f"{name}.tex"
+        if not sub_path.exists():
+            continue
+        for sub_line in sub_path.read_text(encoding="utf-8").splitlines():
+            sub_stripped = sub_line.strip()
+            if sub_stripped.startswith("%"):
+                continue
+            if re.search(r"\\subchapter\{", sub_stripped):
+                kinds.append("subchapter")
     return kinds
 
 
