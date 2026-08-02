@@ -48,11 +48,11 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
 
 6. **Two-page case: output two separate prompts**, each in its own fenced code block, clearly labeled so the user knows which is which.
 
-   **6a. Ingredients prompt** (for the page-one `\marginimage`) — ask directly for a narrow, vertical arrangement so it drops into the margin column with no further rearranging needed:
+   **6a. Ingredients prompt** (for the page-one `\marginimage`) — ask directly for a narrow, vertical, playfully-arranged composition so it drops into the margin column with no further rearranging needed:
 
    ```
    Gebruik dit recept als inspiratie. Maak een verfijnde waterverfillustratie van alleen de losse, rauwe ingrediënten uit dit recept (geen bereid of opgediend gerecht), in dezelfde stijl als de andere illustraties in dit kookboek:
-   - Compositie: een smalle, verticale compositie (portretformaat, veel hoger dan breed) met de hoofdingrediënten los onder elkaar geplaatst, van boven naar beneden, met duidelijke witruimte tussen elk item. Geen bord, kom, pan of ander kookgerei — alleen de ingrediënten zelf. Sla generieke, niet-visuele items over (zout, peper, water, bouillon) en beperk je tot de ingrediënten die je ook echt zou herkennen op een plaatje.
+   - Compositie: een smalle, verticale compositie (portretformaat, veel hoger dan breed) met de hoofdingrediënten los onder elkaar geplaatst, van boven naar beneden. Houd het speels en organisch in plaats van netjes gecentreerd: wissel linkse en rechtse uitlijning af tussen de items in plaats van alles op één lijn te zetten, en draai een aantal items een beetje scheef, alsof ze losjes neergelegd zijn. Uitzondering: als een ingrediënt in een kommetje, op een bordje of in een ander vaatwerk zit, houd dat vaatwerk dan wel recht/level — alleen losse ingrediënten zelf mogen schuin liggen, een scheef bord of kommetje oogt als een fout perspectief. Zorg voor duidelijke witruimte tussen elk item. Geen bord, kom, pan of ander kookgerei tenzij een ingrediënt dat nodig heeft (bijv. een sausje of dressing) — verder alleen de ingrediënten zelf. Sla generieke, niet-visuele items over (zout, peper, water, bouillon) en beperk je tot de ingrediënten die je ook echt zou herkennen op een plaatje.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
    - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder elk ingrediënt.
