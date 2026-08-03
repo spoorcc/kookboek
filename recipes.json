@@ -770,157 +770,164 @@
     "endPage": 202
   },
   {
-    "title": "Hamburgerbolletjes",
+    "title": "Schiacciata",
     "chapter": "Bakken",
     "subchapter": "Brood & basis",
     "page": 203,
     "endPage": 204
   },
   {
-    "title": "Wraps",
+    "title": "Hamburgerbolletjes",
     "chapter": "Bakken",
     "subchapter": "Brood & basis",
     "page": 205,
-    "endPage": 205
+    "endPage": 206
+  },
+  {
+    "title": "Wraps",
+    "chapter": "Bakken",
+    "subchapter": "Brood & basis",
+    "page": 207,
+    "endPage": 207
   },
   {
     "title": "Saucijzenbroodjes",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
-    "page": 207,
-    "endPage": 208
-  },
-  {
-    "title": "Basismuffins",
-    "chapter": "Bakken",
-    "subchapter": "Gebak & koek",
     "page": 209,
-    "endPage": 209
-  },
-  {
-    "title": "Kaneelrolletjes",
-    "chapter": "Bakken",
-    "subchapter": "Gebak & koek",
-    "page": 210,
     "endPage": 210
   },
   {
-    "title": "Pizzarolletjes",
+    "title": "Basismuffins",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 211,
     "endPage": 211
   },
   {
-    "title": "Wafels",
+    "title": "Kaneelrolletjes",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 212,
     "endPage": 212
   },
   {
-    "title": "Eierkoeken",
+    "title": "Pizzarolletjes",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 213,
     "endPage": 213
   },
   {
-    "title": "Meringues",
+    "title": "Wafels",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 214,
     "endPage": 214
   },
   {
-    "title": "Roze koeken",
+    "title": "Eierkoeken",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 215,
+    "endPage": 215
+  },
+  {
+    "title": "Meringues",
+    "chapter": "Bakken",
+    "subchapter": "Gebak & koek",
+    "page": 216,
     "endPage": 216
   },
   {
-    "title": "Drollenkoekjes",
+    "title": "Roze koeken",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 217,
-    "endPage": 217
-  },
-  {
-    "title": "Basiskoekjes",
-    "chapter": "Bakken",
-    "subchapter": "Gebak & koek",
-    "page": 218,
     "endPage": 218
   },
   {
-    "title": "Pepernoten",
+    "title": "Drollenkoekjes",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 219,
     "endPage": 219
   },
   {
-    "title": "Brownies",
+    "title": "Basiskoekjes",
     "chapter": "Bakken",
     "subchapter": "Gebak & koek",
     "page": 220,
     "endPage": 220
   },
   {
+    "title": "Pepernoten",
+    "chapter": "Bakken",
+    "subchapter": "Gebak & koek",
+    "page": 221,
+    "endPage": 221
+  },
+  {
+    "title": "Brownies",
+    "chapter": "Bakken",
+    "subchapter": "Gebak & koek",
+    "page": 222,
+    "endPage": 222
+  },
+  {
     "title": "Tiramisu met ricotta",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 222,
-    "endPage": 222
+    "page": 224,
+    "endPage": 224
   },
   {
     "title": "Semifreddo met aardbeien",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 223,
-    "endPage": 224
-  },
-  {
-    "title": "IJstaart met karamel en chocolade",
-    "chapter": "Dessert",
-    "subchapter": null,
     "page": 225,
-    "endPage": 225
-  },
-  {
-    "title": "Bananenijs",
-    "chapter": "Dessert",
-    "subchapter": null,
-    "page": 226,
     "endPage": 226
   },
   {
-    "title": "Zelfgemaakte vla",
+    "title": "IJstaart met karamel en chocolade",
     "chapter": "Dessert",
     "subchapter": null,
     "page": 227,
     "endPage": 227
   },
   {
-    "title": "Arretjescake",
+    "title": "Bananenijs",
     "chapter": "Dessert",
     "subchapter": null,
     "page": 228,
+    "endPage": 228
+  },
+  {
+    "title": "Zelfgemaakte vla",
+    "chapter": "Dessert",
+    "subchapter": null,
+    "page": 229,
     "endPage": 229
+  },
+  {
+    "title": "Arretjescake",
+    "chapter": "Dessert",
+    "subchapter": null,
+    "page": 230,
+    "endPage": 231
   },
   {
     "title": "Appelbollen",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 230,
-    "endPage": 230
+    "page": 232,
+    "endPage": 232
   },
   {
     "title": "Bibliografie",
     "chapter": "Bijlagen",
     "subchapter": null,
-    "page": 243,
-    "endPage": 244
+    "page": 245,
+    "endPage": 246
   }
 ]
