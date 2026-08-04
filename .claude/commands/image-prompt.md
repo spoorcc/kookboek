@@ -38,9 +38,9 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    - Compositie: alleen het gerecht in zijn kom, pan of op zijn bord, verder niets — geen losse ingrediënten, geen rekwisieten. Bij een ovenschotel of ander gerecht waarvan de vulling al zichtbaar is (lasagne, moussaka, quiche, gevulde rollade), eventueel met een aangesneden punt of plak zodat de laagjes/vulling zichtbaar zijn.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als klein bijschrift-formaat plaatje in de marge.
 
    <cleaned plain-text version of the recipe>
@@ -60,9 +60,9 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    - Compositie: een smalle, verticale compositie (portretformaat, veel hoger dan breed) met de hoofdingrediënten los onder elkaar geplaatst, van boven naar beneden. Houd het speels en organisch in plaats van netjes gecentreerd: wissel linkse en rechtse uitlijning af tussen de items in plaats van alles op één lijn te zetten, en draai een aantal items een beetje scheef, alsof ze losjes neergelegd zijn. Uitzondering: als een ingrediënt in een kommetje, op een bordje of in een ander vaatwerk zit, houd dat vaatwerk dan wel recht/level — alleen losse ingrediënten zelf mogen schuin liggen, een scheef bord of kommetje oogt als een fout perspectief. Zorg voor duidelijke witruimte tussen elk item. Geen bord, kom, pan of ander kookgerei tenzij een ingrediënt dat nodig heeft (bijv. een sausje of dressing) — verder alleen de ingrediënten zelf.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder elk ingrediënt.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder elk ingrediënt.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als smalle illustratie in de marge naast de inleidende tekst.
 
    <cleaned plain-text version of the recipe, with the Ingrediënten: list replaced by the curated shortlist>
@@ -76,9 +76,9 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    - Compositie: alleen het gerecht in zijn kom, pan of op zijn bord, verder niets — geen losse ingrediënten, geen rekwisieten, die staan al in een apart plaatje. Bij een ovenschotel of ander gerecht waarvan de vulling al zichtbaar is (lasagne, moussaka, quiche, gevulde rollade), eventueel met een aangesneden punt of plak zodat de laagjes/vulling zichtbaar zijn. Geef het gerecht ruim baan: een bredere, landschapsgerichte compositie past beter bij een pagina-brede illustratie dan een vierkante of hoge crop.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als pagina-brede illustratie.
 
    <cleaned plain-text version of the recipe>
