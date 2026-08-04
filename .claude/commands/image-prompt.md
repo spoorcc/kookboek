@@ -38,33 +38,50 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    - Compositie: alleen het gerecht in zijn kom, pan of op zijn bord, verder niets — geen losse ingrediënten, geen rekwisieten. Bij een ovenschotel of ander gerecht waarvan de vulling al zichtbaar is (lasagne, moussaka, quiche, gevulde rollade), eventueel met een aangesneden punt of plak zodat de laagjes/vulling zichtbaar zijn.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht. De achtergrond loopt naadloos door tot alle vier de randen van de afbeelding: geen apart wit of gekleurd paneel/kaart/kader binnen de afbeelding dat afsteekt tegen een andere achtergrondkleur erbuiten.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als klein bijschrift-formaat plaatje in de marge.
 
    <cleaned plain-text version of the recipe>
+
+   Belangrijke herinnering: de tekst hierboven is alleen inspiratie voor wat je
+   tekent. Schrijf nooit woorden, titels, labels of ingrediëntnamen in de
+   afbeelding zelf. De achtergrond blijft van rand tot rand puur effen wit,
+   zonder zichtbaar papier, canvas, gescheurde/deckle rand, verfspatten of een
+   apart paneel/kader dat afsteekt tegen de rest van de achtergrond. Niets in
+   de tekening mag worden afgesneden door de rand van de afbeelding.
    ```
 
 6. **Two-page case: output two separate prompts**, each in its own fenced code block, clearly labeled so the user knows which is which.
 
    **6a. Ingredients prompt** (for the page-one `\marginimage`) — ask directly for a narrow, vertical, playfully-arranged composition so it drops into the margin column with no further rearranging needed. Unlike every other prompt this skill produces, **the recipe text appended here is a curated shortlist, not the full ingredients block** — the point is a handful of visually worthwhile items, not an inventory. Before writing the `Ingrediënten:` list for this prompt, drop:
    - **Smaakmakers/cooking basics**: aromatics and seasoning that don't make an interesting standalone illustration on their own — ui, knoflook, zout, peper, olijfolie, boter used just for frying, wijn used to deglaze, bouillon. (A genuinely distinctive spice or herb — saffraan, verse basilicum, dille — earns its place; it's the generic cooking-basics that go.)
-   - **Whatever the dish's own title already names** — *but only when there's still something meaningful left to draw once you drop it.* Usually there is (e.g. "Tomaten-pestorisotto" still leaves risottorijst, parmezaan, basilicum). But a minimal recipe can be named almost entirely after its own ingredient list — e.g. "Gnocchi met salie-roomboter" names gnocchi, salie, *and* roomboter, leaving only parmezaan if you drop all three. Don't apply the exclusion past the point of usefulness: when it would empty the list out, keep the title-named ingredients that are visually essential to the dish (here: gnocchi and salie) and only trim the ones that are genuinely secondary (roomboter, as a cooking fat rather than a distinct visual). The goal is a shortlist worth illustrating, not mechanical rule-following.
 
-   Aim for roughly 3–6 items after trimming. If trimming leaves almost nothing even after that judgment call (a very simple recipe), that's fine — a shorter column is still better than padding it with smaakmakers. Every other section of the recipe text (title/kicker/meta/intro/tip) still goes in untrimmed, only the `Ingrediënten:` list is curated.
+   Don't drop an ingredient just because the dish's title also names it — if anything, a title-named ingredient (*Tomaten-pestorisotto*, *Gnocchi met salie-roomboter*, *Pasta met venkelworst en kool*) is more likely to be visually central to the dish, not less, so it belongs in the shortlist rather than being excluded from it. The exact word used in the ingredient list doesn't have to match the title literally either — "venkelworst" in a title can be represented by "varkensworst" + "venkelzaad" in the ingredients if that's what the recipe actually calls for; the underlying ingredient is still worth drawing.
+
+   Aim for roughly 3–6 items after trimming the smaakmakers. If trimming leaves almost nothing (a very simple recipe with only one or two non-basic ingredients), that's fine — a shorter column is still better than padding it with smaakmakers. Every other section of the recipe text (title/kicker/meta/intro/tip) still goes in untrimmed, only the `Ingrediënten:` list is curated.
 
    ```
    Gebruik dit recept als inspiratie. Maak een verfijnde waterverfillustratie van alleen de losse, rauwe ingrediënten uit dit recept (geen bereid of opgediend gerecht), in dezelfde stijl als de andere illustraties in dit kookboek:
-   - Compositie: een smalle, verticale compositie (portretformaat, veel hoger dan breed) met de hoofdingrediënten los onder elkaar geplaatst, van boven naar beneden. Houd het speels en organisch in plaats van netjes gecentreerd: wissel linkse en rechtse uitlijning af tussen de items in plaats van alles op één lijn te zetten, en draai een aantal items een beetje scheef, alsof ze losjes neergelegd zijn. Uitzondering: als een ingrediënt in een kommetje, op een bordje of in een ander vaatwerk zit, houd dat vaatwerk dan wel recht/level — alleen losse ingrediënten zelf mogen schuin liggen, een scheef bord of kommetje oogt als een fout perspectief. Zorg voor duidelijke witruimte tussen elk item. Geen bord, kom, pan of ander kookgerei tenzij een ingrediënt dat nodig heeft (bijv. een sausje of dressing) — verder alleen de ingrediënten zelf.
+   - Compositie: een smalle, verticale compositie (portretformaat, veel hoger dan breed) met de hoofdingrediënten los onder elkaar geplaatst, van boven naar beneden. Houd het speels en organisch in plaats van netjes gecentreerd: wissel linkse en rechtse uitlijning af tussen de items in plaats van alles op één lijn te zetten, en draai een aantal items een beetje scheef, alsof ze losjes neergelegd zijn. Uitzondering: als een ingrediënt in een kommetje, op een bordje of in een ander vaatwerk zit, houd dat vaatwerk dan wel recht/level — alleen losse ingrediënten zelf mogen schuin liggen, een scheef bord of kommetje oogt als een fout perspectief. Zorg voor duidelijke witruimte tussen elk item, en houd genoeg marge aan de linker- en rechterkant zodat geen enkel ingrediënt (ook een breed item zoals een stapel aardappelen) de rand van de afbeelding raakt of erdoor wordt afgesneden. Geen bord, kom, pan of ander kookgerei tenzij een ingrediënt dat nodig heeft (bijv. een sausje of dressing) — verder alleen de ingrediënten zelf.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder elk ingrediënt.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder elk ingrediënt. De achtergrond loopt naadloos door tot alle vier de randen van de afbeelding: geen apart wit of gekleurd paneel/kaart/kader binnen de afbeelding dat afsteekt tegen een andere achtergrondkleur erbuiten.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als smalle illustratie in de marge naast de inleidende tekst.
 
    <cleaned plain-text version of the recipe, with the Ingrediënten: list replaced by the curated shortlist>
+
+   Belangrijke herinnering: de ingrediëntenlijst hierboven is alleen inspiratie
+   voor wat je tekent, niet een lijst om als tekst weer te geven. Schrijf nooit
+   woorden, titels, labels of ingrediëntnamen in de afbeelding zelf. De
+   achtergrond blijft van rand tot rand puur effen wit, zonder zichtbaar
+   papier, canvas, gescheurde/deckle rand, verfspatten of een apart
+   paneel/kader dat afsteekt tegen de rest van de achtergrond. Elk ingrediënt
+   moet volledig binnen beeld blijven, met marge tot de rand — niets mag
+   worden afgesneden.
    ```
 
    **6b. Hero prompt** (for the page-two `\heroimagefade`) — the finished dish alone, generously framed for a full-width shot:
@@ -75,12 +92,19 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    - Compositie: alleen het gerecht in zijn kom, pan of op zijn bord, verder niets — geen losse ingrediënten, geen rekwisieten, die staan al in een apart plaatje. Bij een ovenschotel of ander gerecht waarvan de vulling al zichtbaar is (lasagne, moussaka, quiche, gevulde rollade), eventueel met een aangesneden punt of plak zodat de laagjes/vulling zichtbaar zijn. Geef het gerecht ruim baan: een bredere, landschapsgerichte compositie past beter bij een pagina-brede illustratie dan een vierkante of hoge crop.
    - Kleuren: zachte, natuurlijke aquarelkleuren (crème, terracotta, zachtgroen, warme bruinen), geen felle of verzadigde kleuren.
    - Detailniveau: herkenbare texturen en vormen, maar los en schilderachtig aangezet, niet fotorealistisch.
-   - Achtergrond: puur wit, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht.
-   - Geen losse artistieke verfspatten of vlekken op de achtergrond.
-   - Geen tekst, geen rand.
+   - Achtergrond: puur effen wit, geen zichtbare papier- of canvastextuur, geen crème/beige ondergrond, geen tafel of ondergrond getekend, alleen een zachte, koelgrijze slagschaduw onder het gerecht. De achtergrond loopt naadloos door tot alle vier de randen van de afbeelding: geen apart wit of gekleurd paneel/kaart/kader binnen de afbeelding dat afsteekt tegen een andere achtergrondkleur erbuiten.
+   - Geen losse artistieke verfspatten, kleurwolken of inktvlekken op de achtergrond: de achtergrond blijft strak effen wit, nergens beschilderd of bespat, ook niet lichtjes.
+   - Geen tekst, geen rand, geen signatuur of monogram.
    Geschikt voor een professioneel kookboek, als pagina-brede illustratie.
 
    <cleaned plain-text version of the recipe>
+
+   Belangrijke herinnering: de tekst hierboven is alleen inspiratie voor wat je
+   tekent. Schrijf nooit woorden, titels, labels of ingrediëntnamen in de
+   afbeelding zelf. De achtergrond blijft van rand tot rand puur effen wit,
+   zonder zichtbaar papier, canvas, gescheurde/deckle rand, verfspatten of een
+   apart paneel/kader dat afsteekt tegen de rest van de achtergrond. Niets in
+   de tekening mag worden afgesneden door de rand van de afbeelding.
    ```
 
    Both style blocks were derived by reviewing the existing split illustrations in `images/` (e.g. `tortellini-al-forno-ingredienten.png`/`tortellini-al-forno-hero.png`); if the book's visual style shifts, re-derive them from a fresh sample rather than hand-tweaking them out of sync with the actual art.
