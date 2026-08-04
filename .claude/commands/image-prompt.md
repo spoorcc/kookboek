@@ -44,6 +44,11 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    Geschikt voor een professioneel kookboek, als klein bijschrift-formaat plaatje in de marge.
 
    <cleaned plain-text version of the recipe>
+
+   Belangrijke herinnering: de tekst hierboven is alleen inspiratie voor wat je
+   tekent. Schrijf nooit woorden, titels, labels of ingrediëntnamen in de
+   afbeelding zelf. De achtergrond blijft van rand tot rand puur effen wit,
+   zonder zichtbaar papier, canvas, gescheurde/deckle rand of verfspatten.
    ```
 
 6. **Two-page case: output two separate prompts**, each in its own fenced code block, clearly labeled so the user knows which is which.
@@ -66,6 +71,12 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    Geschikt voor een professioneel kookboek, als smalle illustratie in de marge naast de inleidende tekst.
 
    <cleaned plain-text version of the recipe, with the Ingrediënten: list replaced by the curated shortlist>
+
+   Belangrijke herinnering: de ingrediëntenlijst hierboven is alleen inspiratie
+   voor wat je tekent, niet een lijst om als tekst weer te geven. Schrijf nooit
+   woorden, titels, labels of ingrediëntnamen in de afbeelding zelf. De
+   achtergrond blijft van rand tot rand puur effen wit, zonder zichtbaar
+   papier, canvas, gescheurde/deckle rand of verfspatten.
    ```
 
    **6b. Hero prompt** (for the page-two `\heroimagefade`) — the finished dish alone, generously framed for a full-width shot:
@@ -82,6 +93,11 @@ Recipes in this book render as either one page or two. A one-page recipe only ha
    Geschikt voor een professioneel kookboek, als pagina-brede illustratie.
 
    <cleaned plain-text version of the recipe>
+
+   Belangrijke herinnering: de tekst hierboven is alleen inspiratie voor wat je
+   tekent. Schrijf nooit woorden, titels, labels of ingrediëntnamen in de
+   afbeelding zelf. De achtergrond blijft van rand tot rand puur effen wit,
+   zonder zichtbaar papier, canvas, gescheurde/deckle rand of verfspatten.
    ```
 
    Both style blocks were derived by reviewing the existing split illustrations in `images/` (e.g. `tortellini-al-forno-ingredienten.png`/`tortellini-al-forno-hero.png`); if the book's visual style shifts, re-derive them from a fresh sample rather than hand-tweaking them out of sync with the actual art.
