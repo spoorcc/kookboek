@@ -30,6 +30,7 @@ aubergineblokjes
 aubergineplakken
 b.v
 bakpapier-pakketjes
+bakrestjes
 balsamicocrema
 basilicumpesto
 basilicumtakjes
@@ -77,6 +78,7 @@ coeur
 coleslaw
 comfortfood
 cooking
+cotto
 croissantdeeg
 crudo
 crème-fraîchemengsel
@@ -132,6 +134,7 @@ hazans
 holy
 horiatiki
 ingeolied
+involtini
 italiaans-hollands
 italian
 jambon
@@ -171,6 +174,7 @@ leeggespoelde
 leifheit
 lichtgoudbruin
 lotharingse
+maiale
 mantecatura
 marzano
 mee-opwarmend
@@ -201,6 +205,7 @@ padano
 pancetta
 pangasiusfilet
 panini's
+pansaus
 parmezaan-knoflook-rozemarijn
 parmezaanse
 parmigiana
@@ -225,6 +230,7 @@ primavera
 prosciutto
 prosciuttokant
 provençaalse
+provolone
 pulled
 puffy
 quesadilla
@@ -251,6 +257,7 @@ rundsbouillonblokje
 salamoia
 salie-roomboter
 salieboter
+scamorza
 scarpariello
 schiacciata
 semi-zongedroogde
