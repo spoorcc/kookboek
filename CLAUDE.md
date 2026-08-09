@@ -143,9 +143,9 @@ Hardcover casewrap spine width isn't a continuous formula — per Lulu's Develop
 | `\begin{steps}` … `\end{steps}` | Numbered preparation steps |
 | `\tip{…}` | Margin note (*Tip van Ben*) in handwriting font |
 | `\heroplaceholder{caption}` | Dashed placeholder box for the hero illustration |
-| `\heroimage{file}{caption}` | Real hero illustration (swap in when art is ready) |
+| `\heroimagefade{file}` | Real hero illustration (swap in when art is ready) — full-width, borderless, uncaptioned photo spanning margin-to-margin |
 | `\ingredientsketch{label}` | Dashed margin sketch placeholder |
-| `\marginimage{file}` | Small real photo confined to the margin column, no caption or border (unlike `\heroimage`/`\heroimagefade`, costs no vertical space in the main text column — keeps a short recipe on one page) |
+| `\marginimage{file}` | Small real photo confined to the margin column, no caption or border (unlike `\heroimagefade`, costs no vertical space in the main text column — keeps a short recipe on one page) |
 | `\writelines{n}` | Ruled lines for recipes whose method hasn't been written yet |
 | `\lettrine{X}{rest}` | Terracotta drop cap opening a paragraph |
 
