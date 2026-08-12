@@ -25,9 +25,11 @@
 %  template for a 223-page interior (0.813in / 20.65mm), which matches the
 %  documented bucket value (223-250 pages -> 0.8125in / 20.6375mm) almost
 %  exactly — confirming the bucket table, not per-page variation, is what
-%  determines it. The interior is now 232 pages, still inside that same
-%  223-250 bucket, so \spinew is unchanged and correct, not just an
-%  estimate.
+%  determines it. The interior is now 252 pages, which moved it into the
+%  next bucket (251-278 pages -> 22mm per guide p14 / HARDCOVER_SPINE_TABLE);
+%  \spinew is set to that table value directly since no real Project
+%  Creation Tool template has been regenerated for a page count in this
+%  bucket yet — regenerate one before ordering a real proof.
 %
 %  BEFORE ORDERING A REAL PROOF:
 %   - Set \interiorpagecount below to the actual page count of the built
@@ -49,12 +51,13 @@
 \newlength\bleed  \setlength\bleed{15.87mm}   % Lulu wrap area: 0.625in (hardcover, not paperback bleed)
 \newlength\safety \setlength\safety{15.87mm}  % Lulu safety margin from wrap edge: 0.625in
 
-\newcommand{\interiorpagecount}{250} % <-- UPDATE to match the built interior PDF
+\newcommand{\interiorpagecount}{252} % <-- UPDATE to match the built interior PDF
 \newlength\spinew
-\setlength\spinew{20.65mm} % <-- 0.813in; Lulu guide p14 hardcover-spine bucket
-% value for 223-250 pages (0.8125in / 20.6375mm), confirmed against a real
-% Project Creation Tool template for a 223-page interior. The interior is
-% now 250 pages, still in this same bucket, so this value applies unchanged.
+\setlength\spinew{22mm} % <-- Lulu guide p14 hardcover-spine bucket value for
+% 251-278 pages (see scripts/lulu_lint.py's HARDCOVER_SPINE_TABLE). The
+% interior moved from 250 to 252 pages, crossing into this new bucket from
+% the previous 223-250 one. No real Project Creation Tool template has been
+% regenerated for this bucket yet — do that before ordering a real proof.
 % If the page count moves to a different bucket, update to that bucket's
 % value (see scripts/lulu_lint.py's HARDCOVER_SPINE_TABLE).
 
