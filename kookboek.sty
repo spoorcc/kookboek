@@ -441,7 +441,7 @@
 
 % Ingredients: two columns of "amount  name".
 \newenvironment{ingredients}
-  {\par\begin{multicols}{2}\setlength{\parindent}{0pt}\small}
+  {\par\begin{multicols}{2}\setlength{\parindent}{0pt}\small\raggedright}
   {\end{multicols}\vspace{0.4em}}
 \newcommand{\ing}[2]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
   \makebox[1.7cm][r]{\color{terracotta}#1}\hspace{0.5em}#2\par\vspace{0.35em}}
