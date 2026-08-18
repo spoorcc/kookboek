@@ -403,6 +403,7 @@
   \ifx\heroimgfadeside\heroimgfaderecto\else
     \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
   \fi
+  \makebox[0pt][l]{%
   \begin{tikzpicture}
     \node[inner sep=0, outer sep=0] (heroimgfade) {\usebox{\heroimgfadebox}};
     \fill[paper, path fading=fade-vanish-bottom]
@@ -413,7 +414,8 @@
       (heroimgfade.south west) rectangle ([xshift=\heroimgfadewidthval]heroimgfade.north west);
     \fill[paper, path fading=fade-vanish-left]
       ([xshift=-\heroimgfadewidthval]heroimgfade.south east) rectangle (heroimgfade.north east);
-  \end{tikzpicture}
+  \end{tikzpicture}%
+  }%
   \par\vspace{1.0em}}
 
 % A loose, hand-labelled ingredient sketch in the margin.
