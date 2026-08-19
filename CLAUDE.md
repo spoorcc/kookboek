@@ -219,6 +219,12 @@ This doesn't apply to oven-baking steps (the `°C` already tells you the heat) o
 
 Any vegetable or fruit that goes into the dish with its skin/peel still on must be washed before it's cut, and the step should say so explicitly rather than leaving it implied: `was & snij de tomaat`, not just `snij de tomaat`. This covers produce like tomaat, komkommer, courgette, aubergine, paprika, appel, peer, wortel (unpeeled), radijs, citroen/limoen, druiven, pruim, perzik, and unpeeled aardappel. It doesn't apply once the skin itself is removed and discarded (a peeled ui, knoflook, or geschilde aardappel/wortel), or to produce already covered by an earlier wash in the same recipe (don't repeat the instruction for every vegetable in a single wash-and-chop step — one `was` covering the group is enough).
 
+## Wassen, schillen en snijden horen in de bereiding
+
+`\ing{...}` regels noemen alleen het rauwe ingrediënt — vouw "gewassen", "geschild" of een snijvorm ("in stukjes", "gesnipperd", "in plakjes") niet in de ingrediëntomschrijving. Die voorbereiding hoort in `\begin{steps}`, meestal als een expliciete mise-en-place-stap vroeg in het recept (zie "Washing skin-on produce" hierboven voor wanneer een wasbeurt verplicht is) die zegt wat je wast, schilt en snijdt, en hoe. Houd de ingrediëntregel tot het kale ingrediënt (`\ing{1}{courgette}`, niet `\ing{1}{courgette, gewassen en gesnipperd}`); zie `lasagne-simpel.tex` en `moussaka.tex` voor het patroon.
+
+Dit geldt voor nieuwe of bewerkte recepten vanaf nu — het is geen opdracht om de ingrediëntenlijst van elk bestaand recept met terugwerkende kracht te herschrijven.
+
 ## Keukenapparatuur: check tegen basisapparatuur.tex, houd geen aparte lijst bij
 
 `frontmatter/basisapparatuur.tex` is the single source of truth for what's actually in this kitchen — pans, pots, bakvormen, small appliances, hand tools, measuring tools, all with sizes/capacities. Don't duplicate its contents into a separate equipment list here; it drifts out of sync the moment either one changes. Notably, this kitchen doesn't own a blender or a keukenmachine, only a staafmixer (no attachments — used directly in the pan or in a separate/loose kom) and a standmixer (KitchenAid Artisan) for kneading, so recipes should never call for a blender or keukenmachine.

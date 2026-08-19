@@ -403,6 +403,7 @@
   \ifx\heroimgfadeside\heroimgfaderecto\else
     \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
   \fi
+  \makebox[0pt][l]{%
   \begin{tikzpicture}
     \node[inner sep=0, outer sep=0] (heroimgfade) {\usebox{\heroimgfadebox}};
     \fill[paper, path fading=fade-vanish-bottom]
@@ -413,7 +414,8 @@
       (heroimgfade.south west) rectangle ([xshift=\heroimgfadewidthval]heroimgfade.north west);
     \fill[paper, path fading=fade-vanish-left]
       ([xshift=-\heroimgfadewidthval]heroimgfade.south east) rectangle (heroimgfade.north east);
-  \end{tikzpicture}
+  \end{tikzpicture}%
+  }%
   \par\vspace{1.0em}}
 
 % A loose, hand-labelled ingredient sketch in the margin.
@@ -439,7 +441,7 @@
 
 % Ingredients: two columns of "amount  name".
 \newenvironment{ingredients}
-  {\par\begin{multicols}{2}\setlength{\parindent}{0pt}\small}
+  {\par\begin{multicols}{2}\setlength{\parindent}{0pt}\small\raggedright}
   {\end{multicols}\vspace{0.4em}}
 \newcommand{\ing}[2]{\hangindent=\dimexpr1.7cm+0.5em\relax\hangafter=1
   \makebox[1.7cm][r]{\color{terracotta}#1}\hspace{0.5em}#2\par\vspace{0.35em}}
