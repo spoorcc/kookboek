@@ -315,6 +315,13 @@
 %   \heroimagefade[verso]{images/kalkoen-in-spek}    verso, default fade width
 %   \heroimagefade[verso, fadewidth=2.5cm]{images/x} verso, wider fade
 %   \heroimagefade[fadewidth=0.6cm]{images/y}        recto, thinner fade
+%   \heroimagefade[width=0.7\textwidth]{images/z}    smaller, non-bleeding hero
+%
+% width (default: full margin-to-margin bleed): overrides the rendered
+% width for the rare recipe that wants a deliberately smaller hero. This
+% switches off the recto/verso bleed-into-margin placement (that only makes
+% sense for a full-bleed image) — a narrower hero sits flush with the text
+% column instead, still with the same four-sided fade.
 %
 % side (recto/verso, default: auto-detected): since the tip column sits on
 % a different physical side on recto/verso pages (twoside geometry mirrors
@@ -340,12 +347,20 @@
 \newlength{\heroimgfaderemain}
 \newcount\heroimgfadepagenum
 \newif\ifheroimgfadefits
+\newif\ifheroimgfadefull
+% width (default: full bleed, margin-to-margin): overrides the image's
+% rendered width for the rare recipe that wants a deliberately smaller,
+% non-bleeding hero — e.g. \heroimagefade[width=0.7\textwidth]{...}. Setting
+% this switches off the recto/verso bleed-into-margin placement below (that
+% offset only makes sense for a full-bleed image) so a narrower hero simply
+% sits flush with the text column, still with the same four-sided fade.
 \pgfkeys{
   /heroimagefade/side/.store in=\heroimgfadeside,
   /heroimagefade/side/.default=recto,
   /heroimagefade/recto/.style={/heroimagefade/side=recto},
   /heroimagefade/verso/.style={/heroimagefade/side=verso},
   /heroimagefade/fadewidth/.store in=\heroimgfadewidthval,
+  /heroimagefade/width/.code={\def\heroimgfadeimgwidth{#1}\heroimgfadefullfalse},
 }
 % side (recto/verso, default: auto-detected): since the tip column sits on
 % a different physical side on recto/verso pages (twoside geometry mirrors
@@ -373,35 +388,41 @@
 \newcommand{\heroimagefade}[2][]{%
   \def\heroimgfadeside{auto}%
   \edef\heroimgfadewidthval{\the\heroimagefadewidth}%
+  \edef\heroimgfadeimgwidth{\the\dimexpr\textwidth+\marginparsep+\marginparwidth\relax}%
+  \heroimgfadefulltrue
   \pgfkeys{/heroimagefade/.cd, #1}%
-  \sbox{\heroimgfadebox}{\includegraphics[width=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax]{#2}}%
+  \sbox{\heroimgfadebox}{\includegraphics[width=\heroimgfadeimgwidth]{#2}}%
   \par
-  \ifx\heroimgfadeside\heroimgfadeauto
-    \heroimgfadeneed=\ht\heroimgfadebox
-    \advance\heroimgfadeneed by \dp\heroimgfadebox
-    \advance\heroimgfadeneed by \baselineskip % safety margin for interline glue
-    \ifdim\pagegoal=\maxdimen
-      \heroimgfadefitstrue % nothing contributed to this page yet: always fits
-    \else
-      \heroimgfaderemain=\pagegoal
-      \advance\heroimgfaderemain by -\pagetotal
-      \ifdim\heroimgfaderemain>\heroimgfadeneed
-        \heroimgfadefitstrue
+  \ifheroimgfadefull
+    \ifx\heroimgfadeside\heroimgfadeauto
+      \heroimgfadeneed=\ht\heroimgfadebox
+      \advance\heroimgfadeneed by \dp\heroimgfadebox
+      \advance\heroimgfadeneed by \baselineskip % safety margin for interline glue
+      \ifdim\pagegoal=\maxdimen
+        \heroimgfadefitstrue % nothing contributed to this page yet: always fits
       \else
-        \heroimgfadefitsfalse
+        \heroimgfaderemain=\pagegoal
+        \advance\heroimgfaderemain by -\pagetotal
+        \ifdim\heroimgfaderemain>\heroimgfadeneed
+          \heroimgfadefitstrue
+        \else
+          \heroimgfadefitsfalse
+        \fi
       \fi
-    \fi
-    \heroimgfadepagenum=\value{page}
-    \ifheroimgfadefits\else\advance\heroimgfadepagenum by 1\fi
-    \ifodd\heroimgfadepagenum
-      \def\heroimgfadeside{recto}%
-    \else
-      \def\heroimgfadeside{verso}%
+      \heroimgfadepagenum=\value{page}
+      \ifheroimgfadefits\else\advance\heroimgfadepagenum by 1\fi
+      \ifodd\heroimgfadepagenum
+        \def\heroimgfadeside{recto}%
+      \else
+        \def\heroimgfadeside{verso}%
+      \fi
     \fi
   \fi
   \noindent
-  \ifx\heroimgfadeside\heroimgfaderecto\else
-    \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
+  \ifheroimgfadefull
+    \ifx\heroimgfadeside\heroimgfaderecto\else
+      \hspace*{-\dimexpr\marginparsep+\marginparwidth\relax}%
+    \fi
   \fi
   \makebox[0pt][l]{%
   \begin{tikzpicture}
