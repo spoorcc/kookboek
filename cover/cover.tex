@@ -147,14 +147,15 @@
   % \heroimagefade target in recipes/*.tex, split alphabetically 40/36 so
   % each panel's grid (5x8 front, 6x6 back — see \drawmosaic below) uses
   % every one of them with no leftovers and no repeats. Each list entry is
-  % name/w/h: w and h are that image's own aspect ratio scaled up (via
-  % scripts, from each PNG/JPG's native pixel size) so it exactly *covers*
-  % its grid cell on the shorter axis — like CSS's object-fit: cover —
-  % with the longer axis overhanging to be clipped by \drawmosaic's scope,
-  % instead of \includegraphics's normal keepaspectratio letterboxing or a
-  % width=/height= stretch, either of which would distort or gap the tile.
-  \def\frontgrid{aardappel-groente-vlees/51.982mm/28.354mm,arretjescake/51.982mm/28.354mm,asperge-lasagne/52.720mm/28.354mm,blinis-vier-toppings/51.982mm/28.354mm,bloemkoolpasta-hero/50.164mm/28.354mm,bloemkoolquiche/50.800mm/28.354mm,bobotie/66.834mm/28.354mm,broccoli-uit-de-oven-hero/88.605mm/28.354mm,broccolipasta-witvis-olijven-rode-ui/50.800mm/28.354mm,brood/51.975mm/28.354mm,broodje-hamburger/51.982mm/28.354mm,broodje-knakworst/73.838mm/28.354mm,burritos/51.982mm/28.354mm,chili-con-carne/42.831mm/28.354mm,ciabatta/51.982mm/28.354mm,couscous/50.800mm/28.354mm,doner-kebab/45.227mm/28.354mm,fajitas/49.028mm/28.354mm,falafel/51.982mm/28.354mm,flammkuchen/51.982mm/28.354mm,focaccia/50.800mm/28.354mm,gegrilde-courgette/66.897mm/28.354mm,geroerbakte-spruitjes-hero/88.605mm/28.354mm,gevulde-paprika-hero/50.800mm/28.354mm,gnocchi/50.800mm/28.354mm,gnocchi-sorrentina/51.540mm/28.354mm,gnocchi-zongedroogde-tomaten-hero/48.688mm/28.354mm,groene-salade/69.104mm/28.354mm,hamburgerbolletjes/51.982mm/28.354mm,horiatiki/77.973mm/28.354mm,involtini-di-maiale-hero/50.800mm/28.354mm,jambalaya/50.759mm/28.354mm,kalkoen-in-spek/51.982mm/28.354mm,kipfilet-parmezaan-knoflook/43.927mm/28.354mm,kippensoep-simpel/85.061mm/28.354mm,kofta/51.982mm/28.354mm,kokos-vis/50.800mm/28.354mm,lasagne-simpel/51.982mm/28.354mm,mac-n-cheese/50.800mm/28.354mm,meringues/77.955mm/28.354mm}
-  \def\backgrid{nasi/67.734mm/37.805mm,paella-hero/67.734mm/37.805mm,parmigiana-melanzane/63.501mm/37.805mm,pasta-amatriciana/61.482mm/37.805mm,pasta-blauwe-kaas/67.734mm/37.805mm,pasta-bolognese/50.965mm/37.805mm,pasta-prei-hamblokjes-olijven/59.907mm/37.805mm,pasta-primavera/67.734mm/37.805mm,pasta-scarpariello/69.309mm/37.805mm,pastinaaksoep/67.734mm/37.805mm,pita/54.989mm/37.805mm,pretzels/69.309mm/37.805mm,quesadillas/69.309mm/37.805mm,quiche-chorizo-geitenkaas/69.309mm/37.805mm,quiche-groente-cirkel/69.309mm/37.805mm,quiche-groente-geitenkaas/69.309mm/37.805mm,quiche-ham-prei/69.309mm/37.805mm,quiche-lorraine/67.734mm/37.805mm,ravioli-rode-pesto-hero/67.734mm/37.805mm,roti/59.316mm/37.805mm,roze-koeken-hero/65.066mm/37.805mm,sajoer-boontjes-hero/118.141mm/37.805mm,salade-honing-mosterddressing-hero/157.521mm/37.805mm,saltimbocca/60.136mm/37.805mm,sauzijcenbroodjes/69.309mm/37.805mm,schiacciata-hero/67.734mm/37.805mm,semifreddo/61.778mm/37.805mm,shakshuka/69.309mm/37.805mm,spinazie-quiche/69.309mm/37.805mm,spruitenstamp-hero/67.734mm/37.805mm,tarte-tatin-witlof/69.309mm/37.805mm,tomaten-pestorisotto-hero/67.734mm/37.805mm,tompouce-geitenkaas-hero/43.960mm/37.805mm,tortellini-al-forno-hero/65.294mm/37.805mm,venkel-risotto-hero/65.043mm/37.805mm,worstjes-rode-rijst-salade/69.309mm/37.805mm}
+  % name/w/h: w and h are that image's own aspect ratio scaled down (via
+  % scripts, from each PNG/JPG's native pixel size) to fit *inside* its
+  % grid cell on the longer axis, like CSS's object-fit: contain — never
+  % cropped — with the shorter axis padded out to the cell in plain white
+  % by \drawmosaic below, instead of \includegraphics's own keepaspectratio
+  % (which shrinks to the node's text position, not a fixed padded box) or
+  % a width=/height= stretch, which would distort the photo.
+  \def\frontgrid{aardappel-groente-vlees/32.718mm/17.846mm,arretjescake/32.718mm/17.846mm,asperge-lasagne/32.718mm/17.596mm,blinis-vier-toppings/32.718mm/17.846mm,bloemkoolpasta-hero/32.718mm/18.493mm,bloemkoolquiche/32.718mm/18.261mm,bobotie/32.718mm/13.880mm,broccoli-uit-de-oven-hero/32.718mm/10.470mm,broccolipasta-witvis-olijven-rode-ui/32.718mm/18.261mm,brood/32.718mm/17.849mm,broodje-hamburger/32.718mm/17.846mm,broodje-knakworst/32.718mm/12.564mm,burritos/32.718mm/17.846mm,chili-con-carne/32.718mm/21.659mm,ciabatta/32.718mm/17.846mm,couscous/32.718mm/18.261mm,doner-kebab/32.718mm/20.511mm,fajitas/32.718mm/18.921mm,falafel/32.718mm/17.846mm,flammkuchen/32.718mm/17.846mm,focaccia/32.718mm/18.261mm,gegrilde-courgette/32.718mm/13.867mm,geroerbakte-spruitjes-hero/32.718mm/10.470mm,gevulde-paprika-hero/32.718mm/18.261mm,gnocchi/32.718mm/18.261mm,gnocchi-sorrentina/32.718mm/17.999mm,gnocchi-zongedroogde-tomaten-hero/32.718mm/19.053mm,groene-salade/32.718mm/13.424mm,hamburgerbolletjes/32.718mm/17.846mm,horiatiki/32.718mm/11.897mm,involtini-di-maiale-hero/32.718mm/18.261mm,jambalaya/32.718mm/18.276mm,kalkoen-in-spek/32.718mm/17.846mm,kipfilet-parmezaan-knoflook/32.718mm/21.119mm,kippensoep-simpel/32.718mm/10.906mm,kofta/32.718mm/17.846mm,kokos-vis/32.718mm/18.261mm,lasagne-simpel/32.718mm/17.846mm,mac-n-cheese/32.718mm/18.261mm,meringues/32.718mm/11.900mm}
+  \def\backgrid{nasi/27.265mm/15.218mm,paella-hero/27.265mm/15.218mm,parmigiana-melanzane/27.265mm/16.232mm,pasta-amatriciana/27.265mm/16.765mm,pasta-blauwe-kaas/27.265mm/15.218mm,pasta-bolognese/27.265mm/20.225mm,pasta-prei-hamblokjes-olijven/27.265mm/17.206mm,pasta-primavera/27.265mm/15.218mm,pasta-scarpariello/27.265mm/14.872mm,pastinaaksoep/27.265mm/15.218mm,pita/27.265mm/18.745mm,pretzels/27.265mm/14.872mm,quesadillas/27.265mm/14.872mm,quiche-chorizo-geitenkaas/27.265mm/14.872mm,quiche-groente-cirkel/27.265mm/14.872mm,quiche-groente-geitenkaas/27.265mm/14.872mm,quiche-ham-prei/27.265mm/14.872mm,quiche-lorraine/27.265mm/15.218mm,ravioli-rode-pesto-hero/27.265mm/15.218mm,roti/27.265mm/17.377mm,roze-koeken-hero/27.265mm/15.842mm,sajoer-boontjes-hero/27.265mm/8.725mm,salade-honing-mosterddressing-hero/27.265mm/6.544mm,saltimbocca/27.265mm/17.140mm,sauzijcenbroodjes/27.265mm/14.872mm,schiacciata-hero/27.265mm/15.218mm,semifreddo/27.265mm/16.685mm,shakshuka/27.265mm/14.872mm,spinazie-quiche/27.265mm/14.872mm,spruitenstamp-hero/27.265mm/15.218mm,tarte-tatin-witlof/27.265mm/14.872mm,tomaten-pestorisotto-hero/27.265mm/15.218mm,tompouce-geitenkaas-hero/27.265mm/23.447mm,tortellini-al-forno-hero/27.265mm/15.786mm,venkel-risotto-hero/27.265mm/15.847mm,worstjes-rode-rijst-salade/27.265mm/14.872mm}
 
   \newlength\frontcw \setlength\frontcw{\dimexpr\boxw/5\relax} % 5 columns
   \newlength\frontch \setlength\frontch{\dimexpr\boxh/8\relax} % 8 rows -> 40 tiles
@@ -163,23 +164,22 @@
 
   % \drawmosaic{name/w/h list}{columns}{cell width}{cell height}{panel box
   % left x}: tiles the list's images left-to-right, top-to-bottom into a
-  % #2-wide grid filling the \boxw x \boxh box at x-offset #5. Each image
-  % is drawn at its own pre-scaled, cell-covering \w x \h (see above),
-  % centered in its cell and clipped to it, so the crop stays centred on
-  % the photo instead of losing one edge to it.
+  % #2-wide grid filling the \boxw x \boxh box at x-offset #5. Each cell
+  % is first painted paper-white, then the image is drawn at its own
+  % pre-scaled, cell-fitting \w x \h (see above) centered in the cell, so
+  % the untouched photo sits on a white pad rather than losing any of its
+  % content to a crop.
   \newcommand{\drawmosaic}[5]{%
     \foreach \img/\w/\h [count=\gi from 0] in #1 {
       \pgfmathsetmacro{\gridrow}{floor(\gi/#2)}
       \pgfmathsetmacro{\gridcol}{\gi-#2*\gridrow}
       \pgfmathsetlengthmacro{\cellx}{#5+\gridcol*#3}
       \pgfmathsetlengthmacro{\celly}{\boxtop-\gridrow*#4-#4}
-      \begin{scope}
-        \clip ([shift={(\cellx,\celly)}]current page.south west) rectangle
-              ([shift={(\dimexpr\cellx+#3\relax,\dimexpr\celly+#4\relax)}]current page.south west);
-        \node[anchor=center, inner sep=0pt, outer sep=0pt] at
-            ([shift={(\dimexpr\cellx+0.5#3\relax,\dimexpr\celly+0.5#4\relax)}]current page.south west) {%
-          \includegraphics[width=\w, height=\h]{images/\img}};
-      \end{scope}
+      \fill[paper] ([shift={(\cellx,\celly)}]current page.south west) rectangle
+                   ([shift={(\dimexpr\cellx+#3\relax,\dimexpr\celly+#4\relax)}]current page.south west);
+      \node[anchor=center, inner sep=0pt, outer sep=0pt] at
+          ([shift={(\dimexpr\cellx+0.5#3\relax,\dimexpr\celly+0.5#4\relax)}]current page.south west) {%
+        \includegraphics[width=\w, height=\h]{images/\img}};
     }
   }
   \drawmosaic{\frontgrid}{5}{\frontcw}{\frontch}{\frontboxleft}
