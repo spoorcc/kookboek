@@ -195,16 +195,23 @@
 
   % Semi-opaque paper plates behind the title block and footer line so
   % they stay legible over the busy photo mosaic instead of sitting
-  % directly on top of it.
+  % directly on top of it. Snapped to whole grid-row boundaries (in units
+  % of \frontch down from \boxtop) rather than an arbitrary \spreadh
+  % fraction, so the plate edge always falls on a row seam — never through
+  % the middle of a row, which would leave a sliced-off strip of a photo
+  % peeking out above or below the text.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\frontboxleft+4mm\relax,0.555\spreadh)}]current page.south west) rectangle
-    ([shift={(\dimexpr\frontboxright-4mm\relax,0.775\spreadh)}]current page.south west);
+    ([shift={(\dimexpr\frontboxleft+4mm\relax,\dimexpr\boxtop-4\frontch\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\frontboxright-4mm\relax,\dimexpr\boxtop-1\frontch\relax)}]current page.south west);
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\frontboxleft+4mm\relax,\dimexpr\boxbottom+0.85cm\relax)}]current page.south west) rectangle
-    ([shift={(\dimexpr\frontboxright-4mm\relax,\dimexpr\boxbottom+1.9cm\relax)}]current page.south west);
+    ([shift={(\dimexpr\frontboxleft+4mm\relax,\boxbottom)}]current page.south west) rectangle
+    ([shift={(\dimexpr\frontboxright-4mm\relax,\dimexpr\boxtop-7\frontch\relax)}]current page.south west);
 
-  \node[anchor=south, align=center, text width=\boxw] at
-      ([shift={(\frontboxcenterx,0.595\spreadh)}]current page.south west) {%
+  % anchor=center (not south, as before the plates existed) so each text
+  % block sits centred on its own plate regardless of how many lines it
+  % has, instead of needing a hand-tuned y offset kept in sync by hand.
+  \node[anchor=center, align=center, text width=\boxw] at
+      ([shift={(\frontboxcenterx,\dimexpr\boxtop-2.5\frontch\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
     \vspace{2mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
@@ -212,8 +219,8 @@
     {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
     \vspace{1mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
-  \node[anchor=south, align=center] at
-      ([shift={(\frontboxcenterx,\dimexpr\boxbottom+1.05cm\relax)}]current page.south west) {%
+  \node[anchor=center, align=center] at
+      ([shift={(\frontboxcenterx,\dimexpr\boxtop-7.5\frontch\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 
   % ------------------------------------------------------------- SPINE -----
@@ -241,10 +248,13 @@
     ([shift={(\backboxright,\boxtop)}]current page.south west);
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
-  % quote and signature) so it reads clearly over the mosaic.
+  % quote and signature) so it reads clearly over the mosaic. Snapped to
+  % whole grid-row boundaries (in units of \backch down from \boxtop),
+  % same reasoning as the front panel's plates: a plate edge landing
+  % mid-row would leave a sliced-off strip of a photo showing through.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\backboxleft+4mm\relax,0.34\spreadh)}]current page.south west) rectangle
-    ([shift={(\dimexpr\backboxright-4mm\relax,0.685\spreadh)}]current page.south west);
+    ([shift={(\dimexpr\backboxleft+4mm\relax,\dimexpr\boxtop-5\backch\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\backboxright-4mm\relax,\dimexpr\boxtop-1\backch\relax)}]current page.south west);
 
   \node[anchor=south] at
       ([shift={(\backboxcenterx,0.64\spreadh)}]current page.south west) {%
