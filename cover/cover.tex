@@ -143,6 +143,14 @@
 
 \begin{document}
 \thispagestyle{empty}
+
+% Measured here in normal document flow (not inside the tikzpicture
+% below, where fontspec's \addfontfeatures — used by \labelcaps —
+% mysteriously resolves to nullfont) so the front cover's footer plate
+% can be sized to this text's actual width instead of a guess.
+\newlength\footertextw
+\settowidth{\footertextw}{\footnotesize\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}}
+
 \noindent
 \begin{tikzpicture}[remember picture, overlay]
   % Whole-spread background.
@@ -229,29 +237,37 @@
   % of \frontch down from \gridtop) rather than an arbitrary \spreadh
   % fraction, so the plate edge always falls on a row seam — never through
   % the middle of a row, which would leave a sliced-off strip of a photo
-  % peeking out above or below the text. Spans the grid's own width
-  % (\frontgridleft/\frontgridright), matching the mat framing it.
+  % peeking out above or below the text. Sized to 2 rows (title) and to
+  % the footer text's own measured width (below) rather than a full row,
+  % so the plates hide as few of the mosaic's photos as the text actually
+  % needs — a full extra row or the full row width was mostly wasted
+  % white space, not something the text needed.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\frontgridleft,\dimexpr\gridtop-4\frontch\relax)}]current page.south west) rectangle
+    ([shift={(\frontgridleft,\dimexpr\gridtop-3\frontch\relax)}]current page.south west) rectangle
     ([shift={(\frontgridright,\dimexpr\gridtop-1\frontch\relax)}]current page.south west);
-  \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\frontgridleft,\gridbottom)}]current page.south west) rectangle
-    ([shift={(\frontgridright,\dimexpr\gridtop-7\frontch\relax)}]current page.south west);
 
   % anchor=center (not south, as before the plates existed) so each text
   % block sits centred on its own plate regardless of how many lines it
   % has, instead of needing a hand-tuned y offset kept in sync by hand.
   \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\frontboxcenterx,\dimexpr\gridtop-2.5\frontch\relax)}]current page.south west) {%
+      ([shift={(\frontboxcenterx,\dimexpr\gridtop-2\frontch\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
-    \vspace{1mm}
+    \vspace{0.7mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par};
+
+  % Footer plate sized to the text's own measured width plus a small
+  % padding, not the full grid width — the earlier full-width plate hid
+  % 4-5 photos in that row for one short line of text; a fitted plate
+  % leaves most of them showing.
+  \fill[paper, opacity=0.9, rounded corners=2pt]
+    ([shift={(\dimexpr\frontboxcenterx-0.5\footertextw-6mm\relax,\gridbottom)}]current page.south west) rectangle
+    ([shift={(\dimexpr\frontboxcenterx+0.5\footertextw+6mm\relax,\dimexpr\gridtop-7\frontch\relax)}]current page.south west);
   \node[anchor=center, align=center] at
       ([shift={(\frontboxcenterx,\dimexpr\gridtop-7.5\frontch\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
@@ -283,29 +299,28 @@
   % whole grid-row boundaries (in units of \backch down from \gridtop),
   % same reasoning as the front panel's plates: a plate edge landing
   % mid-row would leave a sliced-off strip of a photo showing through.
-  % Spans the grid's own width, matching the mat framing it.
+  % Spans the grid's own width, matching the mat framing it. The block's
+  % five pieces used to be five independently-positioned nodes spread
+  % across a wide, loosely-spaced span (needing 4 of the panel's 6 rows,
+  % most of it wasted white space) — combined into one tightly-spaced
+  % node below, sized to fit 2 rows instead, so the plate hides far fewer
+  % of the mosaic's photos.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\backgridleft,\dimexpr\gridtop-5\backch\relax)}]current page.south west) rectangle
+    ([shift={(\backgridleft,\dimexpr\gridtop-3\backch\relax)}]current page.south west) rectangle
     ([shift={(\backgridright,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
 
-  \node[anchor=south] at
-      ([shift={(\backboxcenterx,0.64\spreadh)}]current page.south west) {%
-    \fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}};
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.625\spreadh)}]current page.south west) {%
-    \color{terracotta}\rule{2.4cm}{0.5pt}};
-
   \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\backboxcenterx,0.5\spreadh)}]current page.south west) {%
-    \itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
+      ([shift={(\backboxcenterx,\dimexpr\gridtop-2\backch\relax)}]current page.south west) {%
+    {\fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}}\par
+    \vspace{1.5mm}
+    {\color{terracotta}\rule{2.4cm}{0.5pt}}\par
+    \vspace{3mm}
+    {\itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
     eindelijk opgeschreven, hoeveelheden bij benadering.\\
-    Proef vooral mee, en pas gerust aan waar nodig.};
-
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.5\spreadh-2.4cm)}]current page.south west) {%
-    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}};
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.5\spreadh-3.0cm)}]current page.south west) {%
-    \handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor};
+    Proef vooral mee, en pas gerust aan waar nodig.}\par
+    \vspace{2.5mm}
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par
+    \vspace{1.5mm}
+    {\handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor}\par};
 \end{tikzpicture}
 \end{document}
