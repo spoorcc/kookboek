@@ -122,6 +122,7 @@ geitenkaasvariant
 genovese
 gevlinderde
 gezinsbucket
+gieser
 gnocchiplankje
 grana
 gratinsmaak
@@ -142,6 +143,7 @@ italian
 jambon
 kalfs-
 kalfsschnitzels
+kaneel-
 kaneelrolletjes
 keftedes
 kerst
@@ -267,6 +269,7 @@ semi-zongedroogde
 semifreddo
 semolina
 shakshuka
+shiraz
 slapitjes
 socarrat
 soezie
