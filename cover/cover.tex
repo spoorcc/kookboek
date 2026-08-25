@@ -93,6 +93,20 @@
 \newlength\backboxright \setlength\backboxright{\dimexpr\panelw-\safety\relax}
 \newlength\backboxcenterx \setlength\backboxcenterx{\dimexpr\backboxleft+0.5\boxw\relax}
 
+% The front/back cover mosaic (see FRONT below) sits inset from its
+% \boxw x \boxh safety-margin box by \gridmat on every side — a plain
+% white mat between the photo grid and the box's own frame line, like a
+% picture matted inside its border rather than bled flush to the edge.
+\newlength\gridmat \setlength\gridmat{5mm}
+\newlength\gridtop    \setlength\gridtop{\dimexpr\boxtop-\gridmat\relax}
+\newlength\gridbottom \setlength\gridbottom{\dimexpr\boxbottom+\gridmat\relax}
+\newlength\gridw \setlength\gridw{\dimexpr\boxw-2\gridmat\relax}
+\newlength\gridh \setlength\gridh{\dimexpr\boxh-2\gridmat\relax}
+\newlength\frontgridleft  \setlength\frontgridleft{\dimexpr\frontboxleft+\gridmat\relax}
+\newlength\frontgridright \setlength\frontgridright{\dimexpr\frontboxright-\gridmat\relax}
+\newlength\backgridleft  \setlength\backgridleft{\dimexpr\backboxleft+\gridmat\relax}
+\newlength\backgridright \setlength\backgridright{\dimexpr\backboxright-\gridmat\relax}
+
 \usepackage[paperwidth=\spreadw, paperheight=\spreadh, margin=0pt]{geometry}
 \pagestyle{empty}
 
@@ -161,25 +175,32 @@
   % by \drawmosaic below — so the tile is cropped only through the
   % background that was trimmed off already, never through the dish, and
   % never distorted by a width=/height= stretch either.
-  \def\frontgrid{aardappel-groente-vlees/32.718mm/20.985mm,arretjescake/32.718mm/21.733mm,asperge-lasagne/32.718mm/18.103mm,blinis-vier-toppings/32.718mm/17.391mm,bloemkoolpasta-hero/32.398mm/28.354mm,bloemkoolquiche/32.718mm/20.292mm,bobotie/32.718mm/15.106mm,broccoli-uit-de-oven-hero/32.718mm/20.445mm,broccolipasta-witvis-olijven-rode-ui/32.718mm/22.658mm,brood/32.718mm/17.707mm,broodje-hamburger/32.718mm/16.967mm,broodje-knakworst/32.718mm/19.319mm,burritos/32.718mm/18.654mm,chili-con-carne/32.718mm/24.710mm,ciabatta/32.718mm/21.845mm,couscous/32.718mm/25.108mm,doner-kebab/32.718mm/21.222mm,fajitas/30.888mm/28.354mm,falafel/32.718mm/18.390mm,flammkuchen/32.718mm/18.500mm,focaccia/32.718mm/19.042mm,gegrilde-courgette/32.718mm/25.905mm,geroerbakte-spruitjes-hero/32.718mm/24.894mm,gevulde-paprika-hero/32.718mm/21.975mm,gnocchi/32.718mm/18.338mm,gnocchi-sorrentina/32.718mm/18.151mm,gnocchi-zongedroogde-tomaten-hero/32.718mm/21.387mm,groene-salade/32.718mm/25.969mm,hamburgerbolletjes/32.718mm/20.488mm,horiatiki/30.789mm/28.354mm,involtini-di-maiale-hero/32.718mm/20.524mm,jambalaya/32.718mm/21.732mm,kalkoen-in-spek/32.718mm/19.924mm,kipfilet-parmezaan-knoflook/32.718mm/27.620mm,kippensoep-simpel/32.718mm/24.613mm,kofta/32.718mm/21.197mm,kokos-vis/32.718mm/24.852mm,lasagne-simpel/32.718mm/21.727mm,mac-n-cheese/32.718mm/21.499mm,meringues/32.718mm/22.255mm}
-  \def\backgrid{nasi/27.265mm/24.475mm,paella-hero/27.265mm/18.499mm,parmigiana-melanzane/27.265mm/16.967mm,pasta-amatriciana/27.265mm/22.104mm,pasta-blauwe-kaas/27.265mm/19.911mm,pasta-bolognese/27.265mm/25.996mm,pasta-prei-hamblokjes-olijven/27.265mm/21.596mm,pasta-primavera/27.265mm/18.486mm,pasta-scarpariello/27.265mm/19.263mm,pastinaaksoep/27.265mm/22.201mm,pita/27.265mm/22.576mm,pretzels/27.265mm/13.705mm,quesadillas/27.265mm/16.518mm,quiche-chorizo-geitenkaas/27.265mm/14.568mm,quiche-groente-cirkel/27.265mm/19.801mm,quiche-groente-geitenkaas/27.265mm/16.144mm,quiche-ham-prei/27.265mm/15.152mm,quiche-lorraine/27.265mm/17.618mm,ravioli-rode-pesto-hero/27.265mm/19.343mm,roti/27.265mm/20.152mm,roze-koeken-hero/27.265mm/16.183mm,sajoer-boontjes-hero/27.265mm/20.278mm,salade-honing-mosterddressing-hero/27.265mm/20.761mm,saltimbocca/27.265mm/16.053mm,sauzijcenbroodjes/27.265mm/17.952mm,schiacciata-hero/27.265mm/14.240mm,semifreddo/27.265mm/19.181mm,shakshuka/27.265mm/17.836mm,spinazie-quiche/27.265mm/15.848mm,spruitenstamp-hero/27.265mm/20.372mm,tarte-tatin-witlof/27.265mm/16.791mm,tomaten-pestorisotto-hero/27.265mm/18.033mm,tompouce-geitenkaas-hero/27.265mm/20.966mm,tortellini-al-forno-hero/27.265mm/17.540mm,venkel-risotto-hero/27.265mm/29.249mm,worstjes-rode-rijst-salade/27.265mm/18.704mm}
+  % Each name/w/h entry's w x h is sized to fit inside the cell *minus* a
+  % \gridgutter margin on every side (not the full cell — see \drawmosaic
+  % below), so a small guaranteed strip of white always separates one
+  % tile from the next, instead of two photos that both happen to fill
+  % their cell on the touching axis butting straight into each other.
+  \newlength\gridgutter \setlength\gridgutter{1.5mm}
+  \def\frontgrid{aardappel-groente-vlees/27.718mm/17.770mm,arretjescake/27.718mm/18.417mm,asperge-lasagne/27.718mm/15.337mm,blinis-vier-toppings/27.718mm/14.721mm,bloemkoolpasta-hero/27.542mm/24.104mm,bloemkoolquiche/27.718mm/17.185mm,bobotie/27.718mm/12.812mm,broccoli-uit-de-oven-hero/27.718mm/17.308mm,broccolipasta-witvis-olijven-rode-ui/27.718mm/19.187mm,brood/27.718mm/14.999mm,broodje-hamburger/27.718mm/14.383mm,broodje-knakworst/27.718mm/16.354mm,burritos/27.718mm/15.799mm,chili-con-carne/27.718mm/20.934mm,ciabatta/27.718mm/18.509mm,couscous/27.718mm/21.281mm,doner-kebab/27.718mm/17.979mm,fajitas/26.258mm/24.104mm,falafel/27.718mm/15.584mm,flammkuchen/27.718mm/15.676mm,focaccia/27.718mm/16.138mm,gegrilde-courgette/27.718mm/21.946mm,geroerbakte-spruitjes-hero/27.718mm/21.090mm,gevulde-paprika-hero/27.718mm/18.602mm,gnocchi/27.718mm/15.522mm,gnocchi-sorrentina/27.718mm/15.368mm,gnocchi-zongedroogde-tomaten-hero/27.718mm/18.119mm,groene-salade/27.718mm/22.000mm,hamburgerbolletjes/27.718mm/17.370mm,horiatiki/26.174mm/24.104mm,involtini-di-maiale-hero/27.718mm/17.401mm,jambalaya/27.718mm/18.411mm,kalkoen-in-spek/27.718mm/16.877mm,kipfilet-parmezaan-knoflook/27.718mm/23.399mm,kippensoep-simpel/27.718mm/20.851mm,kofta/27.718mm/17.955mm,kokos-vis/27.718mm/21.054mm,lasagne-simpel/27.718mm/18.417mm,mac-n-cheese/27.718mm/18.201mm,meringues/27.718mm/18.848mm}
+  \def\backgrid{nasi/22.598mm/20.286mm,paella-hero/22.598mm/15.342mm,parmigiana-melanzane/22.598mm/14.063mm,pasta-amatriciana/22.598mm/18.321mm,pasta-blauwe-kaas/22.598mm/16.503mm,pasta-bolognese/22.598mm/21.546mm,pasta-prei-hamblokjes-olijven/22.598mm/17.900mm,pasta-primavera/22.598mm/15.317mm,pasta-scarpariello/22.598mm/15.969mm,pastinaaksoep/22.598mm/18.401mm,pita/22.598mm/18.706mm,pretzels/22.598mm/11.349mm,quesadillas/22.598mm/13.685mm,quiche-chorizo-geitenkaas/22.598mm/12.078mm,quiche-groente-cirkel/22.598mm/16.421mm,quiche-groente-geitenkaas/22.598mm/13.383mm,quiche-ham-prei/22.598mm/12.555mm,quiche-lorraine/22.598mm/14.614mm,ravioli-rode-pesto-hero/22.598mm/16.045mm,roti/22.598mm/16.703mm,roze-koeken-hero/22.598mm/13.413mm,sajoer-boontjes-hero/22.598mm/16.808mm,salade-honing-mosterddressing-hero/22.598mm/17.208mm,saltimbocca/22.598mm/13.308mm,sauzijcenbroodjes/22.598mm/14.890mm,schiacciata-hero/22.598mm/11.801mm,semifreddo/22.598mm/15.898mm,shakshuka/22.598mm/14.789mm,spinazie-quiche/22.598mm/13.132mm,spruitenstamp-hero/22.598mm/16.885mm,tarte-tatin-witlof/22.598mm/13.911mm,tomaten-pestorisotto-hero/22.598mm/14.940mm,tompouce-geitenkaas-hero/22.598mm/17.376mm,tortellini-al-forno-hero/22.598mm/14.538mm,venkel-risotto-hero/22.598mm/24.243mm,worstjes-rode-rijst-salade/22.598mm/15.492mm}
 
-  \newlength\frontcw \setlength\frontcw{\dimexpr\boxw/5\relax} % 5 columns
-  \newlength\frontch \setlength\frontch{\dimexpr\boxh/8\relax} % 8 rows -> 40 tiles
-  \newlength\backcw  \setlength\backcw{\dimexpr\boxw/6\relax}  % 6 columns
-  \newlength\backch  \setlength\backch{\dimexpr\boxh/6\relax}  % 6 rows -> 36 tiles
+  \newlength\frontcw \setlength\frontcw{\dimexpr\gridw/5\relax} % 5 columns
+  \newlength\frontch \setlength\frontch{\dimexpr\gridh/8\relax} % 8 rows -> 40 tiles
+  \newlength\backcw  \setlength\backcw{\dimexpr\gridw/6\relax}  % 6 columns
+  \newlength\backch  \setlength\backch{\dimexpr\gridh/6\relax}  % 6 rows -> 36 tiles
 
-  % \drawmosaic{name/w/h list}{columns}{cell width}{cell height}{panel box
+  % \drawmosaic{name/w/h list}{columns}{cell width}{cell height}{grid box
   % left x}: tiles the list's images left-to-right, top-to-bottom into a
-  % #2-wide grid filling the \boxw x \boxh box at x-offset #5. Each cell
-  % is first painted paper-white, then the image is drawn at its own
-  % pre-scaled, cell-fitting \w x \h (see above) centered in the cell.
+  % #2-wide grid filling the \gridw x \gridh area (the \boxw x \boxh box
+  % minus its \gridmat) at x-offset #5, from \gridtop down. Each cell is
+  % first painted paper-white, then the image is drawn at its own
+  % pre-scaled, gutter-inset \w x \h (see above) centered in the cell.
   \newcommand{\drawmosaic}[5]{%
     \foreach \img/\w/\h [count=\gi from 0] in #1 {
       \pgfmathsetmacro{\gridrow}{floor(\gi/#2)}
       \pgfmathsetmacro{\gridcol}{\gi-#2*\gridrow}
       \pgfmathsetlengthmacro{\cellx}{#5+\gridcol*#3}
-      \pgfmathsetlengthmacro{\celly}{\boxtop-\gridrow*#4-#4}
+      \pgfmathsetlengthmacro{\celly}{\gridtop-\gridrow*#4-#4}
       \fill[paper] ([shift={(\cellx,\celly)}]current page.south west) rectangle
                    ([shift={(\dimexpr\cellx+#3\relax,\dimexpr\celly+#4\relax)}]current page.south west);
       \node[anchor=center, inner sep=0pt, outer sep=0pt] at
@@ -187,40 +208,52 @@
         \includegraphics[width=\w, height=\h]{cover/mosaic/\img}};
     }
   }
-  \drawmosaic{\frontgrid}{5}{\frontcw}{\frontch}{\frontboxleft}
+  \drawmosaic{\frontgrid}{5}{\frontcw}{\frontch}{\frontgridleft}
 
-  \draw[ink, line width=1.2pt]
-    ([shift={(\frontboxleft,\boxbottom)}]current page.south west) rectangle
-    ([shift={(\frontboxright,\boxtop)}]current page.south west);
+  % Double rule (a bold outer line plus a thin inner one, inset within
+  % the mat) instead of a single flat line — a classic framed-print
+  % treatment that reads less like a plain box round the edge.
+  \newcommand{\drawframe}[2]{%
+    \draw[ink, line width=1.3pt]
+      ([shift={(#1,\boxbottom)}]current page.south west) rectangle
+      ([shift={(#2,\boxtop)}]current page.south west);
+    \draw[ink, line width=0.5pt]
+      ([shift={(\dimexpr#1+2.5mm\relax,\dimexpr\boxbottom+2.5mm\relax)}]current page.south west) rectangle
+      ([shift={(\dimexpr#2-2.5mm\relax,\dimexpr\boxtop-2.5mm\relax)}]current page.south west);
+  }
+  \drawframe{\frontboxleft}{\frontboxright}
 
   % Semi-opaque paper plates behind the title block and footer line so
   % they stay legible over the busy photo mosaic instead of sitting
   % directly on top of it. Snapped to whole grid-row boundaries (in units
-  % of \frontch down from \boxtop) rather than an arbitrary \spreadh
+  % of \frontch down from \gridtop) rather than an arbitrary \spreadh
   % fraction, so the plate edge always falls on a row seam — never through
   % the middle of a row, which would leave a sliced-off strip of a photo
-  % peeking out above or below the text.
+  % peeking out above or below the text. Spans the grid's own width
+  % (\frontgridleft/\frontgridright), matching the mat framing it.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\frontboxleft+4mm\relax,\dimexpr\boxtop-4\frontch\relax)}]current page.south west) rectangle
-    ([shift={(\dimexpr\frontboxright-4mm\relax,\dimexpr\boxtop-1\frontch\relax)}]current page.south west);
+    ([shift={(\frontgridleft,\dimexpr\gridtop-4\frontch\relax)}]current page.south west) rectangle
+    ([shift={(\frontgridright,\dimexpr\gridtop-1\frontch\relax)}]current page.south west);
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\frontboxleft+4mm\relax,\boxbottom)}]current page.south west) rectangle
-    ([shift={(\dimexpr\frontboxright-4mm\relax,\dimexpr\boxtop-7\frontch\relax)}]current page.south west);
+    ([shift={(\frontgridleft,\gridbottom)}]current page.south west) rectangle
+    ([shift={(\frontgridright,\dimexpr\gridtop-7\frontch\relax)}]current page.south west);
 
   % anchor=center (not south, as before the plates existed) so each text
   % block sits centred on its own plate regardless of how many lines it
   % has, instead of needing a hand-tuned y offset kept in sync by hand.
   \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\frontboxcenterx,\dimexpr\boxtop-2.5\frontch\relax)}]current page.south west) {%
+      ([shift={(\frontboxcenterx,\dimexpr\gridtop-2.5\frontch\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
     \vspace{2mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
     \vspace{2mm}
     {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
     \vspace{1mm}
-    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
+    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
+    \vspace{2mm}
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par};
   \node[anchor=center, align=center] at
-      ([shift={(\frontboxcenterx,\dimexpr\boxtop-7.5\frontch\relax)}]current page.south west) {%
+      ([shift={(\frontboxcenterx,\dimexpr\gridtop-7.5\frontch\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 
   % ------------------------------------------------------------- SPINE -----
@@ -241,20 +274,19 @@
   % is bigger than the spine-edge (right) margin (see \marginsafety note).
   % Filled with the remaining 36 hero images (\backgrid, defined with
   % \frontgrid up in the FRONT block above) in the same tiled-mosaic style.
-  \drawmosaic{\backgrid}{6}{\backcw}{\backch}{\backboxleft}
+  \drawmosaic{\backgrid}{6}{\backcw}{\backch}{\backgridleft}
 
-  \draw[ink, line width=1.2pt]
-    ([shift={(\backboxleft,\boxbottom)}]current page.south west) rectangle
-    ([shift={(\backboxright,\boxtop)}]current page.south west);
+  \drawframe{\backboxleft}{\backboxright}
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
   % quote and signature) so it reads clearly over the mosaic. Snapped to
-  % whole grid-row boundaries (in units of \backch down from \boxtop),
+  % whole grid-row boundaries (in units of \backch down from \gridtop),
   % same reasoning as the front panel's plates: a plate edge landing
   % mid-row would leave a sliced-off strip of a photo showing through.
+  % Spans the grid's own width, matching the mat framing it.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\dimexpr\backboxleft+4mm\relax,\dimexpr\boxtop-5\backch\relax)}]current page.south west) rectangle
-    ([shift={(\dimexpr\backboxright-4mm\relax,\dimexpr\boxtop-1\backch\relax)}]current page.south west);
+    ([shift={(\backgridleft,\dimexpr\gridtop-5\backch\relax)}]current page.south west) rectangle
+    ([shift={(\backgridright,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
 
   \node[anchor=south] at
       ([shift={(\backboxcenterx,0.64\spreadh)}]current page.south west) {%
