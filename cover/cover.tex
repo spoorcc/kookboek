@@ -218,18 +218,33 @@
   }
   \drawmosaic{\frontgrid}{5}{\frontcw}{\frontch}{\frontgridleft}
 
-  % Double rule (a bold outer line plus a thin inner one, inset within
-  % the mat) instead of a single flat line — a classic framed-print
-  % treatment that reads less like a plain box round the edge.
-  \newcommand{\drawframe}[2]{%
-    \draw[ink, line width=1.3pt]
-      ([shift={(#1,\boxbottom)}]current page.south west) rectangle
-      ([shift={(#2,\boxtop)}]current page.south west);
-    \draw[ink, line width=0.5pt]
-      ([shift={(\dimexpr#1+2.5mm\relax,\dimexpr\boxbottom+2.5mm\relax)}]current page.south west) rectangle
-      ([shift={(\dimexpr#2-2.5mm\relax,\dimexpr\boxtop-2.5mm\relax)}]current page.south west);
+  % Corner ornaments instead of a full frame line: a short two-arm
+  % bracket plus the book's own ♦ motif (already used on the spine, the
+  % back cover and the front title above) at each of the box's 4 corners.
+  % Reads as a light, open frame — warmer than a bare rule, without
+  % boxing the panel in with a heavy continuous line.
+  \newlength\cornerarm \setlength\cornerarm{9mm}
+  % \cornerornament{corner x}{corner y}{arm-end x}{arm-end y}
+  \newcommand{\cornerornament}[4]{%
+    \draw[ink, line width=0.7pt]
+      ([shift={(#1,#2)}]current page.south west) --
+      ([shift={(#3,#2)}]current page.south west);
+    \draw[ink, line width=0.7pt]
+      ([shift={(#1,#2)}]current page.south west) --
+      ([shift={(#1,#4)}]current page.south west);
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,#2)}]current page.south west) {\scriptsize\color{terracotta}$\blacklozenge$};
   }
-  \drawframe{\frontboxleft}{\frontboxright}
+  % \drawcorners{box left}{box right}: one ornament at each of the 4
+  % corners of the \boxw x \boxh box, arms pointing inward along its
+  % edges.
+  \newcommand{\drawcorners}[2]{%
+    \cornerornament{#1}{\boxbottom}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#2}{\boxbottom}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#1}{\boxtop}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+    \cornerornament{#2}{\boxtop}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+  }
+  \drawcorners{\frontboxleft}{\frontboxright}
 
   % Semi-opaque paper plates behind the title block and footer line so
   % they stay legible over the busy photo mosaic instead of sitting
@@ -292,7 +307,7 @@
   % \frontgrid up in the FRONT block above) in the same tiled-mosaic style.
   \drawmosaic{\backgrid}{6}{\backcw}{\backch}{\backgridleft}
 
-  \drawframe{\backboxleft}{\backboxright}
+  \drawcorners{\backboxleft}{\backboxright}
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
   % quote and signature) so it reads clearly over the mosaic. Snapped to
