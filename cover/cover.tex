@@ -318,6 +318,16 @@
   % \frontgrid up in the FRONT block above) in the same tiled-mosaic style.
   \drawmosaic{\backgrid}{6}{\backcw}{\backch}{\backgridleft}
 
+  % Thin frame around the QR code tile (row 6, column 1 — see the
+  % kookboek-qr note in \backgrid above) so it reads as a deliberate
+  % code to scan, not just another dish in the grid. Sized to the
+  % tile's own 22.598mm square (the same value used for it in
+  % \backgrid), centered on that cell, with a hair of breathing room.
+  \newlength\qrframehalf \setlength\qrframehalf{12.3mm}
+  \draw[ink, line width=0.5pt]
+    ([shift={(\dimexpr\backgridleft+0.5\backcw-\qrframehalf\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\backgridleft+0.5\backcw+\qrframehalf\relax,\dimexpr\gridtop-5.5\backch+\qrframehalf\relax)}]current page.south west);
+
   \drawcorners{\backboxleft}{\backboxright}
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
