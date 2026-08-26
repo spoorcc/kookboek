@@ -317,25 +317,27 @@
   % whole grid-row boundaries (in units of \backch down from \gridtop),
   % same reasoning as the front panel's plates: a plate edge landing
   % mid-row would leave a sliced-off strip of a photo showing through.
-  % Spans the grid's own width, matching the mat framing it. The block's
-  % five pieces used to be five independently-positioned nodes spread
-  % across a wide, loosely-spaced span (needing 4 of the panel's 6 rows,
-  % most of it wasted white space) — combined into one tightly-spaced
-  % node below, sized to fit 2 rows instead, so the plate hides far fewer
-  % of the mosaic's photos.
+  % Spans the grid's own width, matching the mat framing it. Sized to 3
+  % rows: the quote below was expanded with a bit more of the voorwoord's
+  % own context (who it's for, that nothing here is invented, that this
+  % is the first time it's all been written down), so the tight 2-row
+  % plate from before no longer has room for it without crowding.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\backgridleft,\dimexpr\gridtop-3\backch\relax)}]current page.south west) rectangle
+    ([shift={(\backgridleft,\dimexpr\gridtop-4\backch\relax)}]current page.south west) rectangle
     ([shift={(\backgridright,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
 
   \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\backboxcenterx,\dimexpr\gridtop-2\backch\relax)}]current page.south west) {%
+      ([shift={(\backboxcenterx,\dimexpr\gridtop-2.5\backch\relax)}]current page.south west) {%
     {\fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}}\par
     \vspace{1.5mm}
     {\color{terracotta}\rule{2.4cm}{0.5pt}}\par
     \vspace{3mm}
-    {\itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
-    eindelijk opgeschreven, hoeveelheden bij benadering.\\
-    Proef vooral mee, en pas gerust aan waar nodig.}\par
+    {\footnotesize\itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte, eindelijk
+    opgeschreven. Voor ons gezin van vijf, doordeweeks en met kerst: niets
+    hier heb ik zelf bedacht, alles is onderweg een beetje veranderd tot
+    het bij ons paste. De hoeveelheden kloppen ongeveer, dit is de eerste
+    keer dat ik alles echt heb opgeschreven. Proef vooral mee, en pas
+    gerust aan waar nodig.}\par
     \vspace{2.5mm}
     \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par
     \vspace{1.5mm}
