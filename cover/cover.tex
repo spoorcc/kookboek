@@ -322,19 +322,22 @@
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
   % quote and signature) so it reads clearly over the mosaic. Snapped to
-  % whole grid-row boundaries (in units of \backch down from \gridtop),
-  % same reasoning as the front panel's plates: a plate edge landing
-  % mid-row would leave a sliced-off strip of a photo showing through.
-  % Spans the grid's own width, matching the mat framing it. Sized to 3
-  % rows: the quote was expanded with a bit more of the voorwoord's own
-  % context (who it's for, that nothing here is invented, that this is
-  % the first time it's all been written down), so the tight 2-row plate
-  % from before no longer had room for it without crowding.
+  % whole grid-row/column boundaries (in units of \backch/\backcw from
+  % \gridtop/\backgridleft), same reasoning as the front panel's plates:
+  % a plate edge landing mid-row or mid-column would leave a sliced-off
+  % strip of a photo showing through. Sized to 3 rows: the quote was
+  % expanded with a bit more of the voorwoord's own context (who it's
+  % for, that nothing here is invented, that this is the first time it's
+  % all been written down), so the tight 2-row plate from before no
+  % longer had room for it without crowding. Inset by 1 column on each
+  % side (rather than spanning the grid's full width) so a column of
+  % mosaic photos stays visible on both the left and right instead of
+  % being hidden under the plate.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\backgridleft,\dimexpr\gridtop-4\backch\relax)}]current page.south west) rectangle
-    ([shift={(\backgridright,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
+    ([shift={(\dimexpr\backgridleft+\backcw\relax,\dimexpr\gridtop-4\backch\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\backgridright-\backcw\relax,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
 
-  \node[anchor=center, align=center, text width=\boxw] at
+  \node[anchor=center, align=center, text width=\dimexpr\boxw-2\backcw\relax] at
       ([shift={(\backboxcenterx,\dimexpr\gridtop-2.5\backch\relax)}]current page.south west) {%
     {\fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}}\par
     \vspace{1.5mm}
