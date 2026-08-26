@@ -142,6 +142,7 @@
 \usepackage{amssymb}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{qrcode} % back-cover QR code linking to the online recipe site
 
 % The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see
 % kookboek.sty's Numbers=OldStyle/Lining comment for the same root cause),
@@ -313,21 +314,20 @@
   \drawcorners{\backboxleft}{\backboxright}
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
-  % quote and signature) so it reads clearly over the mosaic. Snapped to
-  % whole grid-row boundaries (in units of \backch down from \gridtop),
-  % same reasoning as the front panel's plates: a plate edge landing
-  % mid-row would leave a sliced-off strip of a photo showing through.
-  % Spans the grid's own width, matching the mat framing it. Sized to 3
-  % rows: the quote below was expanded with a bit more of the voorwoord's
-  % own context (who it's for, that nothing here is invented, that this
-  % is the first time it's all been written down), so the tight 2-row
-  % plate from before no longer has room for it without crowding.
+  % quote, signature and QR code) so it reads clearly over the mosaic.
+  % Snapped to whole grid-row boundaries (in units of \backch down from
+  % \gridtop), same reasoning as the front panel's plates: a plate edge
+  % landing mid-row would leave a sliced-off strip of a photo showing
+  % through. Spans the grid's own width, matching the mat framing it.
+  % Sized to 4 rows: 3 for the quote (expanded with a bit more of the
+  % voorwoord's own context) plus one more to fit the QR code linking to
+  % the online recipe site without crowding either.
   \fill[paper, opacity=0.9, rounded corners=2pt]
-    ([shift={(\backgridleft,\dimexpr\gridtop-4\backch\relax)}]current page.south west) rectangle
+    ([shift={(\backgridleft,\dimexpr\gridtop-5\backch\relax)}]current page.south west) rectangle
     ([shift={(\backgridright,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
 
   \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\backboxcenterx,\dimexpr\gridtop-2.5\backch\relax)}]current page.south west) {%
+      ([shift={(\backboxcenterx,\dimexpr\gridtop-3\backch\relax)}]current page.south west) {%
     {\fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}}\par
     \vspace{1.5mm}
     {\color{terracotta}\rule{2.4cm}{0.5pt}}\par
@@ -341,6 +341,17 @@
     \vspace{2.5mm}
     \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par
     \vspace{1.5mm}
-    {\handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor}\par};
+    {\handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor}\par
+    \vspace{3mm}
+    % qrcode's own "white" modules are drawn as zero-width (i.e.
+    % genuinely transparent) rules, not opaque white ones, so without
+    % its own backing the semi-transparent paper plate would let the
+    % mosaic bleed through even inside the code itself, right where a
+    % scanner needs clean contrast most. \colorbox{paper} gives it a
+    % fully opaque white tile of its own, quiet zone included.
+    \colorbox{paper}{\color{ink}\qrcode[height=1.9cm,padding]{https://spoorcc.github.io/kookboek}}\par
+    \vspace{1.5mm}
+    {\fontsize{6}{7.5}\selectfont\color{terracotta}\labelcaps{4.5}{Recepten online}}\par
+    {\fontsize{6}{7.5}\selectfont\color{inkfaint}spoorcc.github.io/kookboek}\par};
 \end{tikzpicture}
 \end{document}
