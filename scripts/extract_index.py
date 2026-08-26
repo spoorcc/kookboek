@@ -23,6 +23,7 @@ FRONTMATTER_EXTRAS = {
             "Hoe dit boek te lezen",
             "Seizoenskalender",
             "Basisvoorraad",
+            "Basisapparatuur",
             "Portiegrootte",
             "Kleine maten",
         )
