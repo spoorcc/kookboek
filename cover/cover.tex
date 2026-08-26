@@ -93,6 +93,28 @@
 \newlength\backboxright \setlength\backboxright{\dimexpr\panelw-\safety\relax}
 \newlength\backboxcenterx \setlength\backboxcenterx{\dimexpr\backboxleft+0.5\boxw\relax}
 
+% The front/back cover mosaic (see FRONT below) sits inset from its
+% \boxw x \boxh safety-margin box by \gridmat on every side — a plain
+% white mat between the photo grid and the box's own frame line, like a
+% picture matted inside its border rather than bled flush to the edge.
+\newlength\gridmat \setlength\gridmat{5mm}
+\newlength\gridtop    \setlength\gridtop{\dimexpr\boxtop-\gridmat\relax}
+\newlength\gridbottom \setlength\gridbottom{\dimexpr\boxbottom+\gridmat\relax}
+\newlength\gridw \setlength\gridw{\dimexpr\boxw-2\gridmat\relax}
+\newlength\gridh \setlength\gridh{\dimexpr\boxh-2\gridmat\relax}
+\newlength\frontgridleft  \setlength\frontgridleft{\dimexpr\frontboxleft+\gridmat\relax}
+\newlength\frontgridright \setlength\frontgridright{\dimexpr\frontboxright-\gridmat\relax}
+\newlength\backgridleft  \setlength\backgridleft{\dimexpr\backboxleft+\gridmat\relax}
+\newlength\backgridright \setlength\backgridright{\dimexpr\backboxright-\gridmat\relax}
+
+% The front panel's mosaic gets a taller bottom mat than the other 3
+% sides, so the "Bereid met liefde" footer line sits in that plain white
+% margin below the grid instead of on top of a photo row — no plate
+% needed there any more, since nothing is behind it.
+\newlength\frontgridmatbottom \setlength\frontgridmatbottom{16mm}
+\newlength\frontgridbottom \setlength\frontgridbottom{\dimexpr\boxbottom+\frontgridmatbottom\relax}
+\newlength\frontgridh \setlength\frontgridh{\dimexpr\gridtop-\frontgridbottom\relax}
+
 \usepackage[paperwidth=\spreadw, paperheight=\spreadh, margin=0pt]{geometry}
 \pagestyle{empty}
 
@@ -119,13 +141,7 @@
 
 \usepackage{amssymb}
 \usepackage{tikz}
-\usetikzlibrary{fadings}
 \usepackage{graphicx}
-
-% Fades the plain white margin above the front-cover photo into the
-% photo's own (very slightly off-white) background, so that boundary
-% reads as a soft edge instead of a sharp, visible seam.
-\tikzfading[name=fade-vanish-bottom, top color=transparent!0, bottom color=transparent!100]
 
 % The vendored EB Garamond .ttf exposes no smcp/c2sc GSUB feature (see
 % kookboek.sty's Numbers=OldStyle/Lining comment for the same root cause),
@@ -141,64 +157,160 @@
   \fill[paper] (current page.south west) rectangle (current page.north east);
 
   % ------------------------------------------------------------ FRONT ------
-  % Panel occupies x in [\frontx, \frontx+\panelw]. Photo and border are
-  % both sized to \boxw x \boxh — Lulu's actual safety-margin box for this
-  % panel (see the note by \marginsafety above) — instead of the panel's
-  % own (asymmetric wrap/spine) proportions. Inset like the interior title
-  % page (main.tex) — kept clear of every edge, including the spine —
-  % instead of stretching full-bleed to the panel's edges. The illustration's
-  % background is a hair off pure white, which used to read as a visible
-  % seam butted straight against the spine's flat white paper fill; insetting
-  % it the same way the title page does removes the seam entirely instead of
-  % papering over it with a fade.
-  % Bottom-aligned to the border instead of centered in the box — its
-  % bottom edge touches \boxbottom exactly, so there's no gap and no seam
-  % to hide there. All of keepaspectratio's letterboxing (images/pasta.jpg
-  % is narrower than \boxw:\boxh) goes to the top instead, where the seam
-  % fade below already handles it.
-  \node[anchor=south, inner sep=0, outer sep=0] at
-      ([shift={(\frontboxcenterx,\boxbottom)}]current page.south west) {%
-    \includegraphics[width=\boxw, height=\boxh, keepaspectratio]{images/pasta}};
+  % Panel occupies x in [\frontx, \frontx+\panelw]. Border is sized to
+  % \boxw x \boxh — Lulu's actual safety-margin box for this panel (see
+  % the note by \marginsafety above) — instead of the panel's own
+  % (asymmetric wrap/spine) proportions. Inset like the interior title
+  % page (main.tex) — kept clear of every edge, including the spine.
+  %
+  % Instead of one large hero photo, the box is filled with a mosaic of
+  % every recipe's hero/served-dish photo (the same images \heroimagefade
+  % puts on each recipe's own page) — \frontgrid/\backgrid list every
+  % \heroimagefade target in recipes/*.tex, split alphabetically 40/36 so
+  % each panel's grid (6x7 front, 6x6 back — see \drawmosaic below) uses
+  % every one of them with no leftovers and no repeats. Each tile is drawn
+  % from cover/mosaic/<name>.png, not images/<name> directly:
+  % scripts/generate_cover_mosaic_crops.py pre-crops a copy of each hero
+  % image down to the smallest bounding box that contains the whole dish
+  % (found the same border-connected-background flood fill
+  % scripts/normalize_background.py uses, so the crop can only ever remove
+  % background, never the dish itself) plus a small fixed margin — the
+  % source images/ files are untouched, since they're also used at full
+  % size by \heroimagefade in the interior book. Each list entry is
+  % name/w/h: w and h are that *cropped* copy's own aspect ratio scaled to
+  % fit inside its grid cell on the longer axis, like CSS's object-fit:
+  % contain, with the shorter axis padded out to the cell in plain white
+  % by \drawmosaic below — so the tile is cropped only through the
+  % background that was trimmed off already, never through the dish, and
+  % never distorted by a width=/height= stretch either.
+  % Each name/w/h entry's w x h is sized to fit inside the cell *minus* a
+  % \gridgutter margin on every side (not the full cell — see \drawmosaic
+  % below), so a small guaranteed strip of white always separates one
+  % tile from the next, instead of two photos that both happen to fill
+  % their cell on the touching axis butting straight into each other.
+  \newlength\gridgutter \setlength\gridgutter{1.5mm}
+  \def\frontgrid{aardappel-groente-vlees/22.598mm/14.488mm,arretjescake/22.598mm/15.015mm,asperge-lasagne/22.598mm/12.504mm,blinis-vier-toppings/22.598mm/12.002mm,bloemkoolpasta-hero/22.598mm/19.777mm,bloemkoolquiche/22.598mm/14.011mm,bobotie/22.598mm/10.445mm,broccoli-uit-de-oven-hero/22.598mm/14.111mm,broccolipasta-witvis-olijven-rode-ui/22.598mm/15.643mm,brood/22.598mm/12.228mm,broodje-hamburger/22.598mm/11.726mm,broodje-knakworst/22.598mm/13.333mm,burritos/22.598mm/12.881mm,chili-con-carne/22.598mm/17.067mm,ciabatta/22.598mm/15.091mm,couscous/22.598mm/17.351mm,doner-kebab/22.598mm/14.658mm,fajitas/22.598mm/20.744mm,falafel/22.598mm/12.705mm,flammkuchen/22.598mm/12.781mm,focaccia/22.598mm/13.157mm,gegrilde-courgette/22.598mm/17.893mm,geroerbakte-spruitjes-hero/22.598mm/17.194mm,gevulde-paprika-hero/22.598mm/15.166mm,gnocchi/22.598mm/12.655mm,gnocchi-sorrentina/22.598mm/12.530mm,gnocchi-zongedroogde-tomaten-hero/22.598mm/14.772mm,groene-salade/22.598mm/17.937mm,hamburgerbolletjes/22.598mm/14.162mm,horiatiki/22.598mm/16.023mm,involtini-di-maiale-hero/22.598mm/14.187mm,jambalaya/22.598mm/15.011mm,kalkoen-in-spek/22.598mm/13.760mm,kipfilet-parmezaan-knoflook/22.598mm/19.077mm,kippensoep-simpel/22.598mm/17.000mm,kofta/22.598mm/14.639mm,kokos-vis/22.598mm/17.165mm,lasagne-simpel/22.598mm/15.015mm,mac-n-cheese/22.598mm/14.840mm,meringues/22.598mm/15.367mm,pasta-primavera/22.598mm/15.317mm,pasta-scarpariello/22.598mm/15.970mm}
+  \def\backgrid{nasi/22.598mm/20.286mm,paella-hero/22.598mm/15.342mm,parmigiana-melanzane/22.598mm/14.063mm,pasta-amatriciana/22.598mm/18.321mm,pasta-blauwe-kaas/22.598mm/16.503mm,pasta-bolognese/22.598mm/21.546mm,pasta-prei-hamblokjes-olijven/22.598mm/17.900mm,pastinaaksoep/22.598mm/18.401mm,pita/22.598mm/18.706mm,pretzels/22.598mm/11.349mm,quesadillas/22.598mm/13.685mm,quiche-chorizo-geitenkaas/22.598mm/12.078mm,quiche-groente-cirkel/22.598mm/16.421mm,quiche-groente-geitenkaas/22.598mm/13.383mm,quiche-ham-prei/22.598mm/12.555mm,quiche-lorraine/22.598mm/14.614mm,ravioli-rode-pesto-hero/22.598mm/16.045mm,roti/22.598mm/16.703mm,roze-koeken-hero/22.598mm/13.413mm,sajoer-boontjes-hero/22.598mm/16.808mm,salade-honing-mosterddressing-hero/22.598mm/17.208mm,saltimbocca/22.598mm/13.308mm,sauzijcenbroodjes/22.598mm/14.890mm,schiacciata-hero/22.598mm/11.801mm,semifreddo/22.598mm/15.898mm,shakshuka/22.598mm/14.789mm,spinazie-quiche/22.598mm/13.132mm,spruitenstamp-hero/22.598mm/16.885mm,tomaten-pestorisotto-hero/22.598mm/14.940mm,tompouce-geitenkaas-hero/22.598mm/17.376mm,kookboek-qr/22.598mm/22.598mm,tortellini-al-forno-hero/22.598mm/14.538mm,venkel-risotto-hero/22.598mm/24.243mm,worstjes-rode-rijst-salade/22.598mm/15.492mm,pretzels/22.598mm/11.349mm,sauzijcenbroodjes/22.598mm/14.890mm}
+  % pasta-primavera and pasta-scarpariello moved to \frontgrid: they
+  % used to sit under the "Over dit boek" paper plate here (largely
+  % hidden at 0.9 opacity), so reusing them on the front — which just
+  % grew to a 6th column — puts them somewhere they're actually seen.
+  % Removing them left only 34 back tiles for 36 grid cells; rather
+  % than reshuffle everyone after them (which would also drag
+  % kookboek-qr off its bottom-left corner spot), the 2 tail entries
+  % that would otherwise land past index 30 (tomaten-pestorisotto-hero,
+  % tompouce-geitenkaas-hero) were pulled forward to keep the QR tile
+  % at row 6, column 1 exactly like before. Row 6's last 2 cells
+  % (columns 5-6) are filled back in with a repeat of pretzels and
+  % sauzijcenbroodjes — both already sitting, barely visible, under
+  % the "Over dit boek" plate a few rows up — rather than leave a
+  % conspicuous gap or introduce a third, wholly duplicated tile.
+  %
+  % kookboek-qr (cover/mosaic/kookboek-qr.png) replaces tarte-tatin-witlof
+  % at this position (row 6, column 1 — the grid's bottom-left cell) so
+  % the QR code linking to the online recipe site reads as one of the
+  % mosaic's own tiles, the way a real book's back cover sometimes folds
+  % its barcode into the cover art, instead of floating a separate label
+  % on top of the collage. tarte-tatin-witlof simply isn't tiled on the
+  % back cover anymore; its own \heroimagefade usage inside the book is
+  % untouched.
 
-  \newlength\photorenderedh \setlength\photorenderedh{\dimexpr\boxw*2000/1583\relax} % images/pasta.jpg is 1583x2000px
-  \newlength\photobottomy \setlength\photobottomy{\boxbottom}
-  \newlength\phototopy \setlength\phototopy{\dimexpr\photobottomy+\photorenderedh\relax}
-  % Title and footer text used to be positioned around a centered photo;
-  % now that the photo dropped to sit flush with \boxbottom, shift both
-  % down by the same amount its bottom edge moved, so the whole
-  % composition keeps its old relative spacing instead of leaving a
-  % widening gap above the photo.
-  \newlength\photoshift \setlength\photoshift{\dimexpr(\boxh-\photorenderedh)/2\relax}
+  \newlength\frontcw \setlength\frontcw{\dimexpr\gridw/6\relax} % 6 columns
+  \newlength\frontch \setlength\frontch{\dimexpr\frontgridh/7\relax} % 7 rows -> 42 tiles
+  \newlength\backcw  \setlength\backcw{\dimexpr\gridw/6\relax}  % 6 columns
+  \newlength\backch  \setlength\backch{\dimexpr\gridh/6\relax}  % 6 rows -> 36 tiles
 
-  % The photo's top edge (unlike its bottom, which ends in the plate's own
-  % shadow) butts a hard, visible line against the white margin above it —
-  % checked directly against the rendered PDF: a sharp jump from (255,255,255)
-  % to (248,248,248) right at this edge. A short fade softens just that seam.
-  \fill[paper, path fading=fade-vanish-bottom]
-    ([shift={(\frontboxleft,\dimexpr\phototopy-1.2cm\relax)}]current page.south west) rectangle
-    ([shift={(\frontboxright,\phototopy)}]current page.south west);
+  % \drawmosaic{name/w/h list}{columns}{cell width}{cell height}{grid box
+  % left x}: tiles the list's images left-to-right, top-to-bottom into a
+  % #2-wide grid filling the \gridw x \gridh area (the \boxw x \boxh box
+  % minus its \gridmat) at x-offset #5, from \gridtop down. Each cell is
+  % first painted paper-white, then the image is drawn at its own
+  % pre-scaled, gutter-inset \w x \h (see above) centered in the cell.
+  \newcommand{\drawmosaic}[5]{%
+    \foreach \img/\w/\h [count=\gi from 0] in #1 {
+      \pgfmathsetmacro{\gridrow}{floor(\gi/#2)}
+      \pgfmathsetmacro{\gridcol}{\gi-#2*\gridrow}
+      \pgfmathsetlengthmacro{\cellx}{#5+\gridcol*#3}
+      \pgfmathsetlengthmacro{\celly}{\gridtop-\gridrow*#4-#4}
+      \fill[paper] ([shift={(\cellx,\celly)}]current page.south west) rectangle
+                   ([shift={(\dimexpr\cellx+#3\relax,\dimexpr\celly+#4\relax)}]current page.south west);
+      \node[anchor=center, inner sep=0pt, outer sep=0pt] at
+          ([shift={(\dimexpr\cellx+0.5#3\relax,\dimexpr\celly+0.5#4\relax)}]current page.south west) {%
+        \includegraphics[width=\w, height=\h]{cover/mosaic/\img}};
+    }
+  }
+  \drawmosaic{\frontgrid}{6}{\frontcw}{\frontch}{\frontgridleft}
 
-  \draw[ink, line width=1.2pt]
-    ([shift={(\frontboxleft,\boxbottom)}]current page.south west) rectangle
-    ([shift={(\frontboxright,\boxtop)}]current page.south west);
+  % Corner ornaments instead of a full frame line: a small stepped
+  % cluster of the book's own ♦ motif (already used on the spine, the
+  % back cover and the front title above) at each of the box's 4
+  % corners — one full-size diamond at the corner itself, plus a
+  % smaller one stepped inward along each edge. No straight arms along
+  % the box edges at all (an earlier two-line bracket version read as
+  % printer's trim/crop marks), so this reads unambiguously as a
+  % decorative flourish instead.
+  \newlength\cornerarm \setlength\cornerarm{9mm}
+  % \cornerornament{corner x}{corner y}{arm-end x}{arm-end y}: the
+  % "arm-end" x/y only set the direction and reach of the two stepped
+  % diamonds (their midpoint between corner and arm-end), matching the
+  % bracket macro's old calling convention so \drawcorners didn't need
+  % to change.
+  \newcommand{\cornerornament}[4]{%
+    \pgfmathsetlengthmacro{\cornermidx}{(#1+#3)/2}
+    \pgfmathsetlengthmacro{\cornermidy}{(#2+#4)/2}
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,#2)}]current page.south west) {\scriptsize\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(\cornermidx,#2)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,\cornermidy)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+  }
+  % \drawcorners{box left}{box right}: one ornament at each of the 4
+  % corners of the \boxw x \boxh box, arms pointing inward along its
+  % edges.
+  \newcommand{\drawcorners}[2]{%
+    \cornerornament{#1}{\boxbottom}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#2}{\boxbottom}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#1}{\boxtop}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+    \cornerornament{#2}{\boxtop}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+  }
+  \drawcorners{\frontboxleft}{\frontboxright}
 
-  % Measured directly against the rendered PDFs (PyMuPDF: "Spoor"'s text
-  % bbox bottom vs. the photo's first non-white pixel scanning down from
-  % the title): the title page has a 6.57mm gap between "Spoor" and the
-  % plate; this block originally left a 26.00mm gap. Shifting down by the
-  % full 19.43mm difference read as too tight, so this splits the
-  % difference at 9.715mm instead.
-  \node[anchor=south, align=center, text width=\boxw] at
-      ([shift={(\frontboxcenterx,\dimexpr0.72\spreadh-\photoshift-9.715mm\relax)}]current page.south west) {%
+  % Semi-opaque paper plates behind the title block and footer line so
+  % they stay legible over the busy photo mosaic instead of sitting
+  % directly on top of it. Snapped to whole grid-row boundaries (in units
+  % of \frontch down from \gridtop) rather than an arbitrary \spreadh
+  % fraction, so the plate edge always falls on a row seam — never through
+  % the middle of a row, which would leave a sliced-off strip of a photo
+  % peeking out above or below the text. Sized to 2 rows (title) and to
+  % the footer text's own measured width (below) rather than a full row,
+  % so the plates hide as few of the mosaic's photos as the text actually
+  % needs — a full extra row or the full row width was mostly wasted
+  % white space, not something the text needed.
+  \fill[paper, opacity=0.9, rounded corners=2pt]
+    ([shift={(\frontgridleft,\dimexpr\gridtop-3\frontch\relax)}]current page.south west) rectangle
+    ([shift={(\frontgridright,\dimexpr\gridtop-1\frontch\relax)}]current page.south west);
+
+  % anchor=center (not south, as before the plates existed) so each text
+  % block sits centred on its own plate regardless of how many lines it
+  % has, instead of needing a hand-tuned y offset kept in sync by hand.
+  \node[anchor=center, align=center, text width=\boxw] at
+      ([shift={(\frontboxcenterx,\dimexpr\gridtop-2\frontch\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
-    \vspace{1mm}
-    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
-  \node[anchor=south, align=center] at
-      ([shift={(\frontboxcenterx,\dimexpr\boxbottom+1.3cm-\photoshift\relax)}]current page.south west) {%
+    \vspace{0.7mm}
+    {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
+    \vspace{1.5mm}
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par};
+
+  % The footer now sits in the front grid's own taller bottom mat
+  % (\frontgridmatbottom, below \frontgridbottom), on plain white — no
+  % plate needed, since there's no photo behind it any more.
+  \node[anchor=center, align=center] at
+      ([shift={(\frontboxcenterx,\dimexpr\boxbottom+0.5\frontgridmatbottom\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 
   % ------------------------------------------------------------- SPINE -----
@@ -207,9 +319,11 @@
   % book lies flat on a table: with rotate=90 it came out upside down.
   \node[rotate=-90, anchor=center, align=center] at
       ([shift={(\spinex+0.5\spinew,0.5\spreadh)}]current page.south west) {%
-    {\color{ink}\labelcaps{8.0}{Kookboek}}%
+    {\fontsize{16}{16}\selectfont\color{ink}\labelcaps{8.0}{Kookboek}}%
     \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
-    {\julianafont\color{ink}Spoor}};
+    {\julianafont\fontsize{20}{20}\selectfont\color{ink}Spoor}%
+    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
+    {\fontsize{7}{7}\selectfont\color{ink}\labelcaps{4.0}{Anno MMXXVI}}};
 
   % -------------------------------------------------------------- BACK -----
   % Panel occupies x in [0, \panelw]. Border is \boxw x \boxh again, same
@@ -217,27 +331,62 @@
   % centered at \backboxcenterx, not \frontboxcenterx: the box sits off
   % the panel's geometric center since the wrap-edge (left, here) margin
   % is bigger than the spine-edge (right) margin (see \marginsafety note).
-  \draw[ink, line width=1.2pt]
-    ([shift={(\backboxleft,\boxbottom)}]current page.south west) rectangle
-    ([shift={(\backboxright,\boxtop)}]current page.south west);
-  \node[anchor=south] at
-      ([shift={(\backboxcenterx,0.64\spreadh)}]current page.south west) {%
-    \fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}};
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.625\spreadh)}]current page.south west) {%
-    \color{terracotta}\rule{2.4cm}{0.5pt}};
+  % Filled with the remaining 36 hero images (\backgrid, defined with
+  % \frontgrid up in the FRONT block above) in the same tiled-mosaic style.
+  \drawmosaic{\backgrid}{6}{\backcw}{\backch}{\backgridleft}
 
-  \node[anchor=center, align=center, text width=\boxw] at
-      ([shift={(\backboxcenterx,0.5\spreadh)}]current page.south west) {%
-    \itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte,\\
-    eindelijk opgeschreven, hoeveelheden bij benadering.\\
-    Proef vooral mee, en pas gerust aan waar nodig.};
+  % Thin frame around the QR code tile (row 6, column 1 — see the
+  % kookboek-qr note in \backgrid above) so it reads as a deliberate
+  % code to scan, not just another dish in the grid. Sized to the
+  % tile's own 22.598mm square (the same value used for it in
+  % \backgrid), centered on that cell, with a hair of breathing room.
+  \newlength\qrframehalf \setlength\qrframehalf{12.3mm}
+  \draw[ink, line width=0.5pt]
+    ([shift={(\dimexpr\backgridleft+0.5\backcw-\qrframehalf\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\backgridleft+0.5\backcw+\qrframehalf\relax,\dimexpr\gridtop-5.5\backch+\qrframehalf\relax)}]current page.south west);
 
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.5\spreadh-2.4cm)}]current page.south west) {%
-    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}};
-  \node[anchor=north] at
-      ([shift={(\backboxcenterx,0.5\spreadh-3.0cm)}]current page.south west) {%
-    \handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor};
+  % URL caption just below the frame, in the same slack the tile
+  % already has within its cell (\backch's object-fit-contain box is
+  % 33.26mm tall, the framed code only 24.6mm of it) plus the grid's
+  % own \gridmat margin below the last row — doesn't intrude on the
+  % row above or the corner ornament, which sits further left.
+  \node[anchor=north, inner sep=0pt, font=\fontsize{5.5}{6.5}\selectfont, color=inkfaint] at
+      ([shift={(\dimexpr\backgridleft+0.5\backcw\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf-1mm\relax)}]current page.south west) {spoorcc.github.io/kookboek};
+
+  \drawcorners{\backboxleft}{\backboxright}
+
+  % One paper plate behind the whole "Over dit boek" block (label, rule,
+  % quote and signature) so it reads clearly over the mosaic. Snapped to
+  % whole grid-row/column boundaries (in units of \backch/\backcw from
+  % \gridtop/\backgridleft), same reasoning as the front panel's plates:
+  % a plate edge landing mid-row or mid-column would leave a sliced-off
+  % strip of a photo showing through. Sized to 3 rows: the quote was
+  % expanded with a bit more of the voorwoord's own context (who it's
+  % for, that nothing here is invented, that this is the first time it's
+  % all been written down), so the tight 2-row plate from before no
+  % longer had room for it without crowding. Inset by 1 column on each
+  % side (rather than spanning the grid's full width) so a column of
+  % mosaic photos stays visible on both the left and right instead of
+  % being hidden under the plate.
+  \fill[paper, opacity=0.9, rounded corners=2pt]
+    ([shift={(\dimexpr\backgridleft+\backcw\relax,\dimexpr\gridtop-4\backch\relax)}]current page.south west) rectangle
+    ([shift={(\dimexpr\backgridright-\backcw\relax,\dimexpr\gridtop-1\backch\relax)}]current page.south west);
+
+  \node[anchor=center, align=center, text width=\dimexpr\boxw-2\backcw\relax] at
+      ([shift={(\backboxcenterx,\dimexpr\gridtop-2.5\backch\relax)}]current page.south west) {%
+    {\fontsize{8}{10}\selectfont\color{terracotta}\labelcaps{6.0}{Over dit boek}}\par
+    \vspace{1.5mm}
+    {\color{terracotta}\rule{2.4cm}{0.5pt}}\par
+    \vspace{3mm}
+    {\footnotesize\itshape\color{inkfaint}Recepten die ik jarenlang uit mijn hoofd kookte, eindelijk
+    opgeschreven. Voor ons gezin van vijf, doordeweeks en met kerst: niets
+    hier heb ik zelf bedacht, alles is onderweg een beetje veranderd tot
+    het bij ons paste. De hoeveelheden kloppen ongeveer, dit is de eerste
+    keer dat ik alles echt heb opgeschreven. Proef vooral mee, en pas
+    gerust aan waar nodig.}\par
+    \vspace{2.5mm}
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par
+    \vspace{1.5mm}
+    {\handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor}\par};
 \end{tikzpicture}
 \end{document}

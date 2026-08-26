@@ -11,51 +11,117 @@
 \begin{document}
 
 % ---------------------------------------------------------------- COVER -------
+% Deliberately identical in design to the wraparound cover's front panel
+% (cover/cover.tex): the same mosaic of every recipe's hero photo behind
+% the same title block, the same diamond corner ornaments. Recomputed for
+% this page's own interior trim size (189x246mm, no bleed) rather than
+% reusing the cover's absolute mm values, since the two pages are
+% physically different sizes — but every macro/length name below is kept
+% identical to its cover/cover.tex counterpart on purpose, so the two can
+% be compared and kept in sync by eye. If the front cover's mosaic design
+% changes, mirror the change here too.
 \begin{titlepage}
 \thispagestyle{empty}
 \begin{tikzpicture}[remember picture, overlay]
-  % Inset image — kept clear of the trim edge (this page is interior trim
-  % size with no bleed; see the separate wraparound cover in cover/ for the
-  % printed cover, which does add bleed).
-  \node[inner sep=0, outer sep=0] at (current page.center) {%
-    \includegraphics[width=\dimexpr\paperwidth-3.2cm\relax, height=\dimexpr\paperheight-3.2cm\relax, keepaspectratio]{images/pasta}};
-  % Title block: a solid paper-coloured panel safely inside the plain
-  % background, softened into the image below by a fading band instead of
-  % a hard-edged cut (same technique as the wraparound cover in
-  % cover/cover.tex).
-  \fill[paper]
-    ([shift={(1.6cm,16.8cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,-1.6cm)}]current page.north east);
-  \fill[paper, path fading=fade-vanish-bottom]
-    ([shift={(1.6cm,15.5cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,16.8cm)}]current page.south east);
-  % Footer strip: same solid-plus-fade treatment behind the closing line.
-  \fill[paper]
-    ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,2.3cm)}]current page.south east);
-  \fill[paper, path fading=fade-vanish-top]
-    ([shift={(1.6cm,2.3cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,3.0cm)}]current page.south east);
-  \draw[ink, line width=1.2pt]
-    ([shift={(1.6cm,1.6cm)}]current page.south west) rectangle
-    ([shift={(-1.6cm,-1.6cm)}]current page.north east);
+  \fill[paper] (current page.south west) rectangle (current page.north east);
 
-  % Title and footer text are set as tikz nodes anchored to absolute page
-  % coordinates (matching cover/cover.tex's technique) rather than plain
-  % \centering paragraphs — the book's asymmetric inner/outer margins (for
-  % the \tip marginpar column) would otherwise pull \centering off-centre
-  % from the page's true middle, where the border above is drawn.
-  \node[anchor=south, align=center, text width=\dimexpr\paperwidth-5.0cm\relax] at
-      ([shift={(0.5\paperwidth,16.5cm)}]current page.south west) {%
+  % \boxw x \boxh: the same 1.6cm-inset border the old single-photo title
+  % page used, now doubling as this page's safety-margin box (comfortably
+  % past Lulu's 12.7mm interior minimum).
+  \newlength\boxleft \setlength\boxleft{1.6cm}
+  \newlength\boxright \setlength\boxright{\dimexpr\paperwidth-1.6cm\relax}
+  \newlength\boxbottom \setlength\boxbottom{1.6cm}
+  \newlength\boxtop \setlength\boxtop{\dimexpr\paperheight-1.6cm\relax}
+  \newlength\boxw \setlength\boxw{\dimexpr\boxright-\boxleft\relax}
+  \newlength\boxh \setlength\boxh{\dimexpr\boxtop-\boxbottom\relax}
+  \newlength\frontboxleft \setlength\frontboxleft{\boxleft}
+  \newlength\frontboxright \setlength\frontboxright{\boxright}
+  \newlength\frontboxcenterx \setlength\frontboxcenterx{\dimexpr\boxleft+0.5\boxw\relax}
+
+  % Mosaic grid, inset from the box by \gridmat, same as the cover.
+  \newlength\gridmat \setlength\gridmat{5mm}
+  \newlength\gridtop \setlength\gridtop{\dimexpr\boxtop-\gridmat\relax}
+  \newlength\gridw \setlength\gridw{\dimexpr\boxw-2\gridmat\relax}
+  \newlength\frontgridleft \setlength\frontgridleft{\dimexpr\boxleft+\gridmat\relax}
+  \newlength\frontgridright \setlength\frontgridright{\dimexpr\boxright-\gridmat\relax}
+
+  % Taller bottom mat so the footer sits on plain white below the grid,
+  % same as the cover's front panel.
+  \newlength\frontgridmatbottom \setlength\frontgridmatbottom{16mm}
+  \newlength\frontgridbottom \setlength\frontgridbottom{\dimexpr\boxbottom+\frontgridmatbottom\relax}
+  \newlength\frontgridh \setlength\frontgridh{\dimexpr\gridtop-\frontgridbottom\relax}
+
+  % Same 42 recipes, same 6x7 arrangement as \frontgrid in cover/cover.tex
+  % — recomputed w/h (object-fit: contain, like there) for this page's own,
+  % smaller cell size. Tiles come from cover/mosaic/<name>.png, the same
+  % pre-cropped copies the cover mosaic uses (see
+  % scripts/generate_cover_mosaic_crops.py), not images/<name> directly.
+  \newlength\gridgutter \setlength\gridgutter{1.5mm}
+  \def\frontgrid{aardappel-groente-vlees/21.500mm/13.784mm,arretjescake/21.500mm/14.286mm,asperge-lasagne/21.500mm/11.897mm,blinis-vier-toppings/21.500mm/11.419mm,bloemkoolpasta-hero/21.500mm/18.816mm,bloemkoolquiche/21.500mm/13.330mm,bobotie/21.500mm/9.938mm,broccoli-uit-de-oven-hero/21.500mm/13.426mm,broccolipasta-witvis-olijven-rode-ui/21.500mm/14.883mm,brood/21.500mm/11.634mm,broodje-hamburger/21.500mm/11.156mm,broodje-knakworst/21.500mm/12.685mm,burritos/21.500mm/12.255mm,chili-con-carne/21.500mm/16.238mm,ciabatta/21.500mm/14.357mm,couscous/21.500mm/16.507mm,doner-kebab/21.500mm/13.946mm,fajitas/21.500mm/19.736mm,falafel/21.500mm/12.088mm,flammkuchen/21.500mm/12.159mm,focaccia/21.500mm/12.518mm,gegrilde-courgette/21.500mm/17.023mm,geroerbakte-spruitjes-hero/21.500mm/16.359mm,gevulde-paprika-hero/21.500mm/14.429mm,gnocchi/21.500mm/12.040mm,gnocchi-sorrentina/21.500mm/11.921mm,gnocchi-zongedroogde-tomaten-hero/21.500mm/14.054mm,groene-salade/21.500mm/17.065mm,hamburgerbolletjes/21.500mm/13.473mm,horiatiki/21.500mm/15.244mm,involtini-di-maiale-hero/21.500mm/13.497mm,jambalaya/21.500mm/14.281mm,kalkoen-in-spek/21.500mm/13.091mm,kipfilet-parmezaan-knoflook/21.500mm/18.150mm,kippensoep-simpel/21.500mm/16.174mm,kofta/21.500mm/13.927mm,kokos-vis/21.500mm/16.331mm,lasagne-simpel/21.500mm/14.286mm,mac-n-cheese/21.500mm/14.118mm,meringues/21.500mm/14.620mm,pasta-primavera/21.500mm/14.572mm,pasta-scarpariello/21.500mm/15.193mm}
+
+  \newlength\frontcw \setlength\frontcw{\dimexpr\gridw/6\relax} % 6 columns
+  \newlength\frontch \setlength\frontch{\dimexpr\frontgridh/7\relax} % 7 rows -> 42 tiles
+
+  % \drawmosaic{name/w/h list}{columns}{cell width}{cell height}{grid box
+  % left x}: identical to cover/cover.tex's macro of the same name — tiles
+  % the list left-to-right, top-to-bottom, each cell painted paper-white
+  % then the image drawn at its own pre-scaled, gutter-inset size,
+  % centered in the cell.
+  \newcommand{\drawmosaic}[5]{%
+    \foreach \img/\w/\h [count=\gi from 0] in #1 {
+      \pgfmathsetmacro{\gridrow}{floor(\gi/#2)}
+      \pgfmathsetmacro{\gridcol}{\gi-#2*\gridrow}
+      \pgfmathsetlengthmacro{\cellx}{#5+\gridcol*#3}
+      \pgfmathsetlengthmacro{\celly}{\gridtop-\gridrow*#4-#4}
+      \fill[paper] ([shift={(\cellx,\celly)}]current page.south west) rectangle
+                   ([shift={(\dimexpr\cellx+#3\relax,\dimexpr\celly+#4\relax)}]current page.south west);
+      \node[anchor=center, inner sep=0pt, outer sep=0pt] at
+          ([shift={(\dimexpr\cellx+0.5#3\relax,\dimexpr\celly+0.5#4\relax)}]current page.south west) {%
+        \includegraphics[width=\w, height=\h]{cover/mosaic/\img}};
+    }
+  }
+  \drawmosaic{\frontgrid}{6}{\frontcw}{\frontch}{\frontgridleft}
+
+  % Diamond corner ornaments, identical to cover/cover.tex's
+  % \cornerornament/\drawcorners.
+  \newlength\cornerarm \setlength\cornerarm{9mm}
+  \newcommand{\cornerornament}[4]{%
+    \pgfmathsetlengthmacro{\cornermidx}{(#1+#3)/2}
+    \pgfmathsetlengthmacro{\cornermidy}{(#2+#4)/2}
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,#2)}]current page.south west) {\scriptsize\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(\cornermidx,#2)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,\cornermidy)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+  }
+  \newcommand{\drawcorners}[2]{%
+    \cornerornament{#1}{\boxbottom}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#2}{\boxbottom}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxbottom+\cornerarm\relax}
+    \cornerornament{#1}{\boxtop}{\dimexpr#1+\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+    \cornerornament{#2}{\boxtop}{\dimexpr#2-\cornerarm\relax}{\dimexpr\boxtop-\cornerarm\relax}
+  }
+  \drawcorners{\frontboxleft}{\frontboxright}
+
+  % Title block plate: 2 grid rows, same as the cover.
+  \fill[paper, opacity=0.9, rounded corners=2pt]
+    ([shift={(\frontgridleft,\dimexpr\gridtop-3\frontch\relax)}]current page.south west) rectangle
+    ([shift={(\frontgridright,\dimexpr\gridtop-1\frontch\relax)}]current page.south west);
+
+  \node[anchor=center, align=center, text width=\boxw] at
+      ([shift={(\frontboxcenterx,\dimexpr\gridtop-2\frontch\relax)}]current page.south west) {%
     {\footnotesize\color{terracotta}\labelcaps{6.0}{Familierecepten \textperiodcentered{} bijeengebracht met zorg}}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\fontsize{64}{64}\selectfont\addfontfeatures{LetterSpace=6.0}\color{ink}KOOKBOEK}\par
-    \vspace{2mm}
+    \vspace{1.5mm}
     {\footnotesize\color{inkfaint}\labelcaps{6.0}{Recepten van de familie}}\par
-    \vspace{1mm}
+    \vspace{0.7mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par};
-  \node[anchor=south, align=center] at
-      ([shift={(0.5\paperwidth,2.9cm)}]current page.south west) {%
+
+  % Footer sits in the taller bottom mat below the grid, on plain white —
+  % no plate needed, same as the cover.
+  \node[anchor=center, align=center] at
+      ([shift={(\frontboxcenterx,\dimexpr\boxbottom+0.5\frontgridmatbottom\relax)}]current page.south west) {%
     \footnotesize\color{ink}\labelcaps{6.0}{Bereid met liefde \textperiodcentered{} Anno MMXXVI}};
 \end{tikzpicture}
 \end{titlepage}
