@@ -328,6 +328,14 @@
     ([shift={(\dimexpr\backgridleft+0.5\backcw-\qrframehalf\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf\relax)}]current page.south west) rectangle
     ([shift={(\dimexpr\backgridleft+0.5\backcw+\qrframehalf\relax,\dimexpr\gridtop-5.5\backch+\qrframehalf\relax)}]current page.south west);
 
+  % URL caption just below the frame, in the same slack the tile
+  % already has within its cell (\backch's object-fit-contain box is
+  % 33.26mm tall, the framed code only 24.6mm of it) plus the grid's
+  % own \gridmat margin below the last row — doesn't intrude on the
+  % row above or the corner ornament, which sits further left.
+  \node[anchor=north, inner sep=0pt, font=\fontsize{5.5}{6.5}\selectfont, color=inkfaint] at
+      ([shift={(\dimexpr\backgridleft+0.5\backcw\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf-1mm\relax)}]current page.south west) {spoorcc.github.io/kookboek};
+
   \drawcorners{\backboxleft}{\backboxright}
 
   % One paper plate behind the whole "Over dit boek" block (label, rule,
