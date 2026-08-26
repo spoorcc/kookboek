@@ -218,22 +218,29 @@
   }
   \drawmosaic{\frontgrid}{5}{\frontcw}{\frontch}{\frontgridleft}
 
-  % Corner ornaments instead of a full frame line: a short two-arm
-  % bracket plus the book's own ♦ motif (already used on the spine, the
-  % back cover and the front title above) at each of the box's 4 corners.
-  % Reads as a light, open frame — warmer than a bare rule, without
-  % boxing the panel in with a heavy continuous line.
+  % Corner ornaments instead of a full frame line: a small stepped
+  % cluster of the book's own ♦ motif (already used on the spine, the
+  % back cover and the front title above) at each of the box's 4
+  % corners — one full-size diamond at the corner itself, plus a
+  % smaller one stepped inward along each edge. No straight arms along
+  % the box edges at all (an earlier two-line bracket version read as
+  % printer's trim/crop marks), so this reads unambiguously as a
+  % decorative flourish instead.
   \newlength\cornerarm \setlength\cornerarm{9mm}
-  % \cornerornament{corner x}{corner y}{arm-end x}{arm-end y}
+  % \cornerornament{corner x}{corner y}{arm-end x}{arm-end y}: the
+  % "arm-end" x/y only set the direction and reach of the two stepped
+  % diamonds (their midpoint between corner and arm-end), matching the
+  % bracket macro's old calling convention so \drawcorners didn't need
+  % to change.
   \newcommand{\cornerornament}[4]{%
-    \draw[ink, line width=0.7pt]
-      ([shift={(#1,#2)}]current page.south west) --
-      ([shift={(#3,#2)}]current page.south west);
-    \draw[ink, line width=0.7pt]
-      ([shift={(#1,#2)}]current page.south west) --
-      ([shift={(#1,#4)}]current page.south west);
+    \pgfmathsetlengthmacro{\cornermidx}{(#1+#3)/2}
+    \pgfmathsetlengthmacro{\cornermidy}{(#2+#4)/2}
     \node[anchor=center, inner sep=0pt] at
         ([shift={(#1,#2)}]current page.south west) {\scriptsize\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(\cornermidx,#2)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+    \node[anchor=center, inner sep=0pt] at
+        ([shift={(#1,\cornermidy)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
   }
   % \drawcorners{box left}{box right}: one ornament at each of the 4
   % corners of the \boxw x \boxh box, arms pointing inward along its
