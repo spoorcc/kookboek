@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Generate a very light gray mosaic-photo texture for the website background.
+"""Generate a faint mosaic-photo overlay texture for the website background.
 
 docs/index.html shows the built PDF as a page that "floats" over a plain
 grey field (the #canvas-area / main viewer background, --viewer-bg). This
 reuses the same tightly-cropped recipe photos that cover/cover.tex tiles
 into the physical book's hardcover mosaic (cover/mosaic/*.png, produced by
 scripts/generate_cover_mosaic_crops.py) to build a small tileable texture
-out of that same mosaic: a grid of the recipe photos, desaturated and
-blended almost entirely into white, so it reads as a faint paper-like
-texture behind the page rather than a busy photo collage. Writes
-docs/mosaic-texture.png, referenced by docs/index.html as a repeating
-background image.
+out of that same mosaic: a grid of the recipe photos, desaturated down to
+a single dark tone whose per-pixel alpha follows the photos' contrast, so
+compositing it over --viewer-bg in CSS darkens the field only slightly
+where a dish's outline falls and leaves it at its original grey everywhere
+else (mostly-transparent gutters between tiles). Writes
+docs/mosaic-texture.png, referenced by docs/index.html as a repeating,
+semi-transparent background image layered on top of --viewer-bg.
 
 Usage:
     python3 scripts/generate_web_mosaic_texture.py
@@ -20,7 +22,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MOSAIC_DIR = REPO_ROOT / "cover" / "mosaic"
@@ -30,14 +32,22 @@ COLUMNS = 6
 ROWS = 6
 CELL_W = 140
 CELL_H = 95
-GUTTER = 4  # white gap between tiles, px
+GUTTER = 4  # fully transparent gap between tiles, px
 
-# Blend weight toward white: 0 = original photo colours, 1 = solid white.
-# Tuned so the result's average lightness lands close to --viewer-bg
-# (#e8e8e8) in docs/index.html, so the tiled texture reads as the same
-# light-gray field with a faint photo texture rather than a separate,
-# lighter patch.
-WHITE_BLEND = 0.74
+# Overlay colour: darkens --viewer-bg where it's opaque. Kept dark and
+# neutral so it reads as "the grey got slightly deeper" rather than an
+# obvious colour tint.
+OVERLAY_RGB = (0, 0, 0)
+
+# Ceiling on the overlay's opacity (0-255), applied where a photo has the
+# most contrast/detail (e.g. a bowl's rim). Kept very low so the mosaic
+# reads as a slight darkening of the grey, not a legible photo grid.
+MAX_ALPHA = 16
+
+# Gaussian blur radius (px) applied before computing alpha, so fine photo
+# detail (individual bread-crumb-level texture) softens into broad shapes
+# instead of staying sharp enough to read as an actual photo.
+BLUR_RADIUS = 2.5
 
 # Not a recipe photo; skip it when picking mosaic tiles for the texture.
 EXCLUDE = {"kookboek-qr.png"}
@@ -71,31 +81,36 @@ def main() -> int:
 
     grid_w = COLUMNS * CELL_W + (COLUMNS + 1) * GUTTER
     grid_h = ROWS * CELL_H + (ROWS + 1) * GUTTER
-    canvas = Image.new("RGB", (grid_w, grid_h), "white")
+    # Alpha starts at 0 (fully transparent gutters); tiles get pasted with
+    # their per-pixel alpha derived from the photo below.
+    canvas_l = Image.new("L", (grid_w, grid_h), 255)  # grayscale, white = transparent later
 
     for i, path in enumerate(tiles):
         col, row = i % COLUMNS, i // COLUMNS
         with Image.open(path) as im:
             im = im.convert("RGB")
-            tile = center_crop_to_aspect(im, CELL_W, CELL_H)
+            tile = center_crop_to_aspect(im, CELL_W, CELL_H).convert("L")
         x = GUTTER + col * (CELL_W + GUTTER)
         y = GUTTER + row * (CELL_H + GUTTER)
-        canvas.paste(tile, (x, y))
+        canvas_l.paste(tile, (x, y))
 
-    gray = canvas.convert("L").convert("RGB")
-    arr = np.asarray(gray, dtype=np.float32)
-    white = np.full_like(arr, 255.0)
-    blended = arr * (1 - WHITE_BLEND) + white * WHITE_BLEND
-    result = Image.fromarray(np.clip(blended, 0, 255).astype(np.uint8), mode="RGB")
+    canvas_l = canvas_l.filter(ImageFilter.GaussianBlur(BLUR_RADIUS))
+    gray = np.asarray(canvas_l, dtype=np.float32)
+    # A near-white source pixel (the photo's own background) contributes
+    # ~0 alpha; a dark pixel (a dish's outline/shadow) contributes up to
+    # MAX_ALPHA, so the overlay only darkens --viewer-bg near actual
+    # photo detail.
+    alpha = np.clip((255.0 - gray) / 255.0, 0.0, 1.0) * MAX_ALPHA
 
-    # The blend-toward-white step collapses the image to a few dozen close
-    # gray levels, so a small adaptive palette keeps this crisp while
-    # cutting the file size dramatically for a texture that tiles on
-    # every page load.
-    quantized = result.quantize(colors=32, method=Image.MEDIANCUT, dither=Image.Dither.NONE)
+    rgba = np.zeros((grid_h, grid_w, 4), dtype=np.uint8)
+    rgba[..., 0] = OVERLAY_RGB[0]
+    rgba[..., 1] = OVERLAY_RGB[1]
+    rgba[..., 2] = OVERLAY_RGB[2]
+    rgba[..., 3] = alpha.astype(np.uint8)
+    result = Image.fromarray(rgba, mode="RGBA")
 
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    quantized.save(OUT_FILE, optimize=True)
+    result.save(OUT_FILE, optimize=True)
     print(f"wrote {OUT_FILE} ({result.size[0]}x{result.size[1]}, {OUT_FILE.stat().st_size} bytes)")
     return 0
 
