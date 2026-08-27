@@ -49,14 +49,15 @@ GUTTER = 4  # fully transparent gap between tiles, px
 OVERLAY_RGB = (0, 0, 0)
 
 # Ceiling on the overlay's opacity (0-255), applied where a photo has the
-# most contrast/detail (e.g. a bowl's rim). Kept very low so the mosaic
-# reads as a slight darkening of the grey, not a legible photo grid.
-MAX_ALPHA = 16
+# most contrast/detail (e.g. a bowl's rim). Still low enough that the
+# field reads as its original grey, but high enough that each dish's
+# outline is actually recognisable rather than a near-invisible haze.
+MAX_ALPHA = 55
 
 # Gaussian blur radius (px) applied before computing alpha, so fine photo
 # detail (individual bread-crumb-level texture) softens into broad shapes
 # instead of staying sharp enough to read as an actual photo.
-BLUR_RADIUS = 2.5
+BLUR_RADIUS = 1.2
 
 # Not a recipe photo (the cover tiles its QR code into the mosaic as one
 # of the tiles); skip it when picking mosaic tiles for the texture.
