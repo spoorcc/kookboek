@@ -34,9 +34,11 @@ BORDER_WIDTH = 2
 WHITEISH_MIN_CHANNEL = 220
 TOLERANCE = 22
 MARGIN_FRAC = 0.03  # small margin added around the dish's tight bbox
-MAX_DIM = 900  # cap the cropped copy's longer side (px); these only ever render at a
-# few cm in the cover mosaic, so the source images' full resolution is far more than
-# Lulu's 600 DPI ceiling needs and would just bloat the repo
+MAX_DIM = 480  # cap the cropped copy's longer side (px). Each tile renders at roughly
+# 21.5mm (interior title page) to 24.6mm (cover) on its longer displayed axis, so 480px
+# there works out to ~500-570 DPI - comfortably inside Lulu's 300-600 DPI band. A higher
+# cap (900px was tried before) renders at over 1000 DPI at these tile sizes, tripping
+# Lulu's print check.
 
 # Every \heroimagefade target across recipes/*.tex, the same set cover.tex
 # tiles into its front/back mosaic grids.

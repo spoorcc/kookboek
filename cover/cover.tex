@@ -255,15 +255,20 @@
   % diamonds (their midpoint between corner and arm-end), matching the
   % bracket macro's old calling convention so \drawcorners didn't need
   % to change.
+  % Lulu flags any embedded font under 8pt (guide print-check): \scriptsize
+  % (~7pt) and \tiny (~5pt) both fell under that floor for these decorative
+  % glyphs, so the corner accent uses \small (9pt) and the smaller stepped
+  % ones use \footnotesize (8pt) instead, keeping the same "big corner,
+  % smaller stepped" hierarchy just above the 8pt line.
   \newcommand{\cornerornament}[4]{%
     \pgfmathsetlengthmacro{\cornermidx}{(#1+#3)/2}
     \pgfmathsetlengthmacro{\cornermidy}{(#2+#4)/2}
     \node[anchor=center, inner sep=0pt] at
-        ([shift={(#1,#2)}]current page.south west) {\scriptsize\color{terracotta}$\blacklozenge$};
+        ([shift={(#1,#2)}]current page.south west) {\small\color{terracotta}$\blacklozenge$};
     \node[anchor=center, inner sep=0pt] at
-        ([shift={(\cornermidx,#2)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+        ([shift={(\cornermidx,#2)}]current page.south west) {\footnotesize\color{terracotta}$\blacklozenge$};
     \node[anchor=center, inner sep=0pt] at
-        ([shift={(#1,\cornermidy)}]current page.south west) {\tiny\color{terracotta}$\blacklozenge$};
+        ([shift={(#1,\cornermidy)}]current page.south west) {\footnotesize\color{terracotta}$\blacklozenge$};
   }
   % \drawcorners{box left}{box right}: one ornament at each of the 4
   % corners of the \boxw x \boxh box, arms pointing inward along its
@@ -304,7 +309,7 @@
     \vspace{0.7mm}
     {\julianafont\fontsize{40}{40}\selectfont\color{ink}Spoor}\par
     \vspace{1.5mm}
-    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par};
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\blacklozenge$}}\par};
 
   % The footer now sits in the front grid's own taller bottom mat
   % (\frontgridmatbottom, below \frontgridbottom), on plain white — no
@@ -320,10 +325,10 @@
   \node[rotate=-90, anchor=center, align=center] at
       ([shift={(\spinex+0.5\spinew,0.5\spreadh)}]current page.south west) {%
     {\fontsize{16}{16}\selectfont\color{ink}\labelcaps{8.0}{Kookboek}}%
-    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
+    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\blacklozenge$}}\hspace{1.5em}%
     {\julianafont\fontsize{20}{20}\selectfont\color{ink}Spoor}%
-    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\hspace{1.5em}%
-    {\fontsize{7}{7}\selectfont\color{ink}\labelcaps{4.0}{Anno MMXXVI}}};
+    \hspace{1.5em}\raisebox{0.1ex}{\textcolor{terracotta}{$\blacklozenge$}}\hspace{1.5em}%
+    {\fontsize{8}{8}\selectfont\color{ink}\labelcaps{4.0}{Anno MMXXVI}}};
 
   % -------------------------------------------------------------- BACK -----
   % Panel occupies x in [0, \panelw]. Border is \boxw x \boxh again, same
@@ -349,8 +354,10 @@
   % already has within its cell (\backch's object-fit-contain box is
   % 33.26mm tall, the framed code only 24.6mm of it) plus the grid's
   % own \gridmat margin below the last row — doesn't intrude on the
-  % row above or the corner ornament, which sits further left.
-  \node[anchor=north, inner sep=0pt, font=\fontsize{5.5}{6.5}\selectfont, color=inkfaint] at
+  % row above or the corner ornament, which sits further left. 8pt (up
+  % from an earlier 5.5pt, which Lulu's print check flags as under its
+  % 8pt minimum) still clears the row's bottom edge with room to spare.
+  \node[anchor=north, inner sep=0pt, font=\fontsize{8}{9}\selectfont, color=inkfaint] at
       ([shift={(\dimexpr\backgridleft+0.5\backcw\relax,\dimexpr\gridtop-5.5\backch-\qrframehalf-1mm\relax)}]current page.south west) {spoorcc.github.io/kookboek};
 
   \drawcorners{\backboxleft}{\backboxright}
@@ -385,7 +392,7 @@
     keer dat ik alles echt heb opgeschreven. Proef vooral mee, en pas
     gerust aan waar nodig.}\par
     \vspace{2.5mm}
-    \raisebox{0.1ex}{\textcolor{terracotta}{$\scriptstyle\blacklozenge$}}\par
+    \raisebox{0.1ex}{\textcolor{terracotta}{$\blacklozenge$}}\par
     \vspace{1.5mm}
     {\handfont\fontsize{22}{22}\selectfont\color{ink}Ben Spoor}\par};
 \end{tikzpicture}

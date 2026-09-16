@@ -2,25 +2,36 @@
 flatten_transparency.py (to fix it). Kept in one place so the two scripts
 can't drift out of sync on what counts as "transparent".
 
-Detects PDF soft masks (/SMask, e.g. TikZ `path fading`) and transparency
-groups (/Group << /S /Transparency >>) actually painted on each page.
+Detects PDF soft masks (/SMask, e.g. TikZ `path fading`), constant-alpha
+transparency (/ca or /CA below 1, e.g. TikZ `opacity=...`), and
+transparency groups (/Group << /S /Transparency >>) actually painted on
+each page.
 
 This has to work from each page's own content stream rather than just
-walking its /Resources dictionary: pgf/TikZ writes its named soft-mask
-ExtGStates (e.g. `pgfsmask20`) into the resources of every page that loads
-the pgf preamble, even pages that never paint with them — LaTeX/xelatex
-reuses that same resource object verbatim across the whole document. A
-resource-reachability scan would therefore flag nearly every page. Instead
-this parses each page's content stream for the operators that actually
-invoke a resource (`/Name gs` for an ExtGState, `/Name Do` for an
-XObject), and only follows those specific names.
+walking its /Resources dictionary: pgf/TikZ writes its named soft-mask/
+alpha ExtGStates (e.g. `pgfsmask20`, `pgf@ca0.9`) into the resources of
+every page that loads the pgf preamble, even pages that never paint with
+them — LaTeX/xelatex reuses that same resource object verbatim across the
+whole document. A resource-reachability scan would therefore flag nearly
+every page. Instead this parses each page's content stream for the
+operators that actually invoke a resource (`/Name gs` for an ExtGState,
+`/Name Do` for an XObject), and only follows those specific names.
+
+Resource names are matched against PDF's actual name-object syntax (any
+run of non-whitespace, non-delimiter bytes), not just `[A-Za-z0-9+_.-]`:
+pgf auto-generates names like `pgf@ca0.9` for `opacity=...` fills, and an
+`@` in the name previously broke the match, silently missing every
+constant-alpha fill (as opposed to `path fading` soft masks, which use
+plain `pgfsmaskNN` names with no special characters and did match).
 """
 
 import re
 
-_GS_OP_RE = re.compile(rb"/([A-Za-z0-9+_.\-]+)\s+gs\b")
-_DO_OP_RE = re.compile(rb"/([A-Za-z0-9+_.\-]+)\s+Do\b")
+_PDF_NAME_CHARS = rb"[^\s/()<>\[\]{}%]+"
+_GS_OP_RE = re.compile(rb"/(" + _PDF_NAME_CHARS + rb")\s+gs\b")
+_DO_OP_RE = re.compile(rb"/(" + _PDF_NAME_CHARS + rb")\s+Do\b")
 _SMASK_RE = re.compile(r"/SMask\s*(<<|\d+\s+0\s+R)")
+_ALPHA_RE = re.compile(r"/(?:ca|CA)\s+([0-9.]+)")
 _GROUP_RE = re.compile(r"/Group\s*<<[^>]*?/S\s*/Transparency", re.S)
 
 _MAX_DEPTH = 6
@@ -44,7 +55,7 @@ def _resolve_dict_xref(doc, container_xref, key):
     return None
 
 
-def _entry_has_smask(doc, extgstate_cat_xref, name):
+def _entry_has_transparency(doc, extgstate_cat_xref, name):
     kind, value = _lookup_key(doc, extgstate_cat_xref, name)
     if kind == "xref":
         raw = doc.xref_object(int(value.split()[0]), compressed=True)
@@ -52,7 +63,9 @@ def _entry_has_smask(doc, extgstate_cat_xref, name):
         raw = value
     else:
         return False
-    return bool(_SMASK_RE.search(raw))
+    if _SMASK_RE.search(raw):
+        return True
+    return any(float(m) < 0.999 for m in _ALPHA_RE.findall(raw))
 
 
 def _uses_transparency(doc, container_xref, content, seen_forms, depth=0):
@@ -65,7 +78,7 @@ def _uses_transparency(doc, container_xref, content, seen_forms, depth=0):
     extgstate_xref = _resolve_dict_xref(doc, res_xref, "ExtGState")
     if extgstate_xref is not None:
         for name in {m.decode("latin1") for m in _GS_OP_RE.findall(content)}:
-            if _entry_has_smask(doc, extgstate_xref, name):
+            if _entry_has_transparency(doc, extgstate_xref, name):
                 return True
 
     xobject_xref = _resolve_dict_xref(doc, res_xref, "XObject")
