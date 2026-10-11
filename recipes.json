@@ -952,52 +952,59 @@
     "endPage": 239
   },
   {
-    "title": "Stoofpeertjes",
+    "title": "Eiwitpannenkoekjes met banaan",
     "chapter": "Dessert",
     "subchapter": null,
     "page": 240,
     "endPage": 240
   },
   {
-    "title": "Appelbollen",
+    "title": "Stoofpeertjes",
     "chapter": "Dessert",
     "subchapter": null,
     "page": 241,
     "endPage": 241
   },
   {
-    "title": "Arretjescake",
+    "title": "Appelbollen",
     "chapter": "Dessert",
     "subchapter": null,
     "page": 242,
-    "endPage": 243
+    "endPage": 242
+  },
+  {
+    "title": "Arretjescake",
+    "chapter": "Dessert",
+    "subchapter": null,
+    "page": 243,
+    "endPage": 244
   },
   {
     "title": "Tiramisu met ricotta",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 244,
-    "endPage": 244
+    "page": 245,
+    "endPage": 245
   },
   {
     "title": "Semifreddo met aardbeien",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 245,
-    "endPage": 246
+    "page": 246,
+    "endPage": 247
   },
   {
     "title": "IJstaart met karamel en chocolade",
     "chapter": "Dessert",
     "subchapter": null,
-    "page": 247,
-    "endPage": 247
+    "page": 248,
+    "endPage": 248
   },
   {
     "title": "Bibliografie",
     "chapter": "Bijlagen",
     "subchapter": null,
-    "page": 259,
-    "endPage": 260
+    "page": 261,
+    "endPage": 262
   }
 ]
